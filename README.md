@@ -1,3 +1,3 @@
-# Iwak
+# Sipena Manpro
 
-Application for hacktoberfest 2021, online shop
+
