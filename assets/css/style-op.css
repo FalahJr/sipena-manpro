@@ -1,0 +1,352 @@
+.alamraya-no-padding {
+	padding: 0px;
+}
+
+.alamraya-navtab {
+	margin-bottom: -12px;
+}
+
+.alamraya-btn-add-row {
+	margin-bottom: 15px;
+}
+
+.alamraya-btn-add {
+	position: absolute;
+	bottom: 5px;
+	right: 0;
+}
+
+.alamraya-dwld-row {
+	padding: 0 0 0 15px;
+}
+
+.alamraya-span-addon {
+	height: 35px;
+	background: #e6ecf5;
+    color: #c9c8c8;
+    width: auto;
+    padding: 8px 14px;
+    border-color: #e6ecf5;
+    margin: 4px -5px 0px -5px;
+}
+
+.alamraya-label-padding {
+	padding-top: 5px;
+	padding-bottom: 8px;
+	padding-left: 0px;
+}
+
+.alamraya-datepick-row {
+	float: left;
+}
+
+.alamraya-opt-btn {
+	margin-top: 5px;
+}
+
+.alamraya-btn-aksi {
+	height: 25px;
+}
+
+.alamraya-btn-aksi:focus > label {
+	color: white;
+}
+
+.alamraya-input-group-addon > span {
+	color: #495057;
+}
+
+#alamraya-table-20 {
+	width: 20%;
+}
+
+@media (max-width: 767.98px) {
+	.alamraya-span-addon {
+		margin-left: 5px;
+		margin-top: 0px;
+	}
+
+	.alamraya-label-padding {
+		margin-top: 25px;
+	}
+
+	.alamraya-dwld-btn {
+		margin-bottom: 10px;
+	}
+}
+/*
+.alamraya-wizard-section {
+	padding-bottom: 2.5rem;
+}*/
+
+.alamraya-wizard-title {
+	position: absolute;
+	margin-top: -40px;
+	margin-left: -25px;
+	text-align: center;
+	visibility: hidden;
+}
+
+@media (min-width: 376px, max-width: 585px) {
+	.alamraya-wizard-title {
+		position: absolute;
+		margin-top: -35px;
+		margin-left: -35px;
+	}
+
+}
+
+@media (max-width: 375px) {
+	.alamraya-wizard-title {
+		display: none;
+	}
+
+}
+
+.alamraya-form-radio-group {
+	margin-top: 7px;
+	padding-left: 7px;
+}
+
+@media (max-width: 770px) {
+	.alamraya-form-radio-group {
+		padding-left: 0px;
+	}
+
+}
+
+.alamraya-small-text {
+	font-size: 12px;
+}
+
+a.alamraya-choosing-panel {
+	border: 0.55px solid #cecece;
+	border-radius: 4px;
+	padding: 3em;
+}
+
+
+/*
+ ALAMRAYA OVERRIDING STYLE STARTS
+ */
+.preview-image{
+    border:1px solid #e2e2e2;
+    padding: 15px;
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+}
+.preview-image:hover{
+    border:1px solid #50ADDC;
+    transition: .2s;
+    cursor: pointer;;
+}
+input[type="file"].form-control{
+    cursor: pointer;
+}
+.btn-scrolltop{
+    height: 45px;
+    width: 45px;
+    border:2px solid #c2c2c2;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    color: gray;
+    position: fixed;
+    bottom: 40px;
+    right: 80px;
+    z-index: 99;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -ms-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 2s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -ms-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.fadeInUp, .btn-scrolltop {
+    animation-name: fadeInUp;
+}
+.btn-scrolltop:hover{
+    color:black;
+    border:2px solid #999999FF;
+    background-color: #e2e2e255;
+    transition: .2s;
+}
+.btn-scrolltop i{
+    margin-top: 15px;
+}
+.btn-scrollbottom{
+    height: 45px;
+    width: 45px;
+    border:2px solid #c2c2c2;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    color: gray;
+    position: fixed;
+    bottom: 40px;
+    right: 130px;
+    z-index: 99;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -ms-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 3s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -ms-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.fadeInUp, .btn-scrollbottom {
+    animation-name: fadeInUp;
+}
+.btn-scrollbottom:hover{
+    color:black;
+    border:2px solid #999999FF;
+    background-color: #e2e2e255;
+    transition: .2s;
+}
+.btn-scrollbottom i{
+    margin-top: 15px;
+}
+@media (max-width: 992px){
+	.btn-scrolltop{
+		right: 30px;
+	}
+    .btn-scrollbottom{
+        right: 80px;
+    }
+}
+#settings-trigger{
+    box-shadow: none;
+}
+#settings-trigger{
+	cursor: pointer;
+}
+.text-right{
+	text-align: right;
+}
+.text-left{
+	text-align: left;
+}
+.text-center{
+	text-align: center;
+}
+textarea{
+	min-height: 35px;
+}
+
+.popover.clockpicker-popover{
+    z-index: 999999;
+}
+
+.modal-content {
+	background: #dff5f6 ;
+}
+.fieldset{
+    border: 1px solid #e2e2e2;
+    width: 100%;
+    padding: 13px;
+    margin: 13px;
+}
+.content-footer{
+    width: 100%;
+    text-align: right;
+    margin-top: 15px;
+}
+@media(max-width: 576px){
+    .input-daterange input.form-control{
+        -webkit-transition: /*min-width .3s ease, max-width .3s ease*/ width .3s ease-in-out;
+        transition: /*min-width .3s ease, max-width .3s ease*/ width .3s ease-in-out;
+    }
+    .input-daterange input.form-control:focus{
+        max-width: 100%;
+        min-width: 120px;
+        width: 100%;
+    }
+    .form-control.datepicker{
+        -webkit-transition: /*min-width .3s ease, max-width .3s ease*/ width .3s ease-in-out;
+        transition: /*min-width .3s ease, max-width .3s ease*/ width .3s ease-in-out;
+    }
+    .form-control.datepicker:focus{
+        max-width: 100%;
+        min-width: 120px;
+        width: 100%;
+    }
+}
+.btn i.fa {
+    min-width: 12px;
+}
+
+/* favorite button style */
+@keyframes bounce {
+	0%, 20%, 60%, 100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+
+	40% {
+		-webkit-transform: translateY(-10px);
+		transform: translateY(-10px);
+	}
+
+	80% {
+		-webkit-transform: translateY(-5px);
+		transform: translateY(-5px);
+	}
+}
+
+.bintang1:hover {
+    animation: bounce 1s;
+}
+.bintang2:hover {
+    animation: bounce 1s;
+}
+.bintang3:hover {
+    animation: bounce 1s;
+}
+.bintang4:hover {
+    animation: bounce 1s;
+}
+.bintang5:hover {
+    animation: bounce 1s;
+}
+.bintang6:hover {
+    animation: bounce 1s;
+}
+.bintang7:hover {
+    animation: bounce 1s;
+}
+.bintang8:hover {
+    animation: bounce 1s;
+}
+
+.closed:hover {
+    color:#eb4d4b !important;
+}
+
+.light:hover {
+    color:#fff200 !important;
+}
+/* end */
+
+.select2-container {
+    width: 100% !important;
+}
