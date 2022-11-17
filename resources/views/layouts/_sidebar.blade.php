@@ -167,8 +167,8 @@
           <div class="collapse {{( ( Request::is('admin/setting/*') || Request::is('admin/setting') )  ? 'show' : '') }}" id="setting">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/guru') || Request::is('admin/guru/*') ? 'active' : '' }}" href="{{url('admin/guru')}}">Data Guru<span class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Data Siswa<span class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Data Walimurid<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}" href="{{url('admin/siswa')}}">Data Siswa<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') ? 'active' : '' }}" href="{{url('admin/wali-murid')}}">Data Walimurid<span class="d-none">Setting</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/pegawai') || Request::is('admin/pegawai/*') ? 'active' : '' }}" href="{{url('admin/pegawai')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
             </ul>
           </div>
