@@ -103,6 +103,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/guru/update', 'GuruController@update');
         Route::get('/guru/edit/{id}', 'GuruController@edit');
 
+        //User
+        Route::get('/siswa', 'SiswaController@index');
+        Route::get('/siswa/hapus/{id}', 'SiswaController@hapus');
+        Route::get('/siswa/table', 'SiswaController@datatable');
+        Route::post('/siswa/update', 'SiswaController@update');
+        Route::get('/siswa/edit/{id}', 'SiswaController@edit');
+
         //Toko
         Route::get('/toko', 'TokoController@index');
         Route::get('/toko/table', 'TokoController@datatable');
