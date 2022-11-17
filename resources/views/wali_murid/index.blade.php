@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('siswa.tambah')
+@include('wali_murid.tambah')
 <style type="text/css">
 
 </style>
@@ -12,14 +12,14 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">siswa</li>
+          <li class="breadcrumb-item active" aria-current="page">Wali Murid</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Siswa</h4>
+                    <h4 class="card-title">Wali Murid</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
@@ -31,11 +31,12 @@
                               <tr>
                                 <th>No</th>
                                 {{-- <th>Foto Profile</th> --}}
-                                <th>Nama Lengkap</th>
+                                <th>Email</th>
+                                <th>Nama Ayah</th>
+                                <th>Nama Ibu</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Phone</th>
                                 <th>Alamat</th>
-                                <th>Agama</th>
                                 {{-- <th>Kartu Digital</th> --}}
                                 <th>Action</th>
                               </tr>
@@ -58,7 +59,7 @@
 @section('extra_script')
 <script>
 
-baseUrlChange += "/admin/siswa";
+baseUrlChange += "/admin/wali-murid";
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -72,7 +73,7 @@ var table = $('#table-data').DataTable({
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('admin/siswa/table') }}',
+            url:'{{ url('admin/wali-murid/table') }}',
         },
         columnDefs: [
 
@@ -108,19 +109,19 @@ var table = $('#table-data').DataTable({
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           // {data: 'image', name: 'image'},
-          {data: 'nama_lengkap', name: 'nama_lengkap'},
+          {data: 'email', name: 'email'},
+          {data: 'nama_ayah', name: 'nama_ayah'},
+          {data: 'nama_ibu', name: 'nama_ibu'},
           {data: 'tanggal_lahir', name: 'tanggal_lahir'},
-          {data: 'phone', name: 'phone'},
-          {data: 'alamat', name: 'alamat'},
-          {data: 'agama', name: 'agama'},
+          {data: 'no_telp', name: 'no_telp'},
+          {data: 'address', name: 'address'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
 
     $('#simpan').click(function(){
 
-    var formdata = new FormData();
-    formdata.append('image', $('.uploadGambar')[0].files[0]);
+    var formdata = $('.table_modal :input').serialize();
 
     $.ajax({
       type: "post",
@@ -173,9 +174,6 @@ var table = $('#table-data').DataTable({
 
     function showcreate() {
       $('.table_modal :input').val("");
-      $('.image-holder').empty();
-      $('.role').val('').change();
-      $('.gender').val('').change();
       table.ajax.reload();
 
       $('#tambah').modal('show');
@@ -193,35 +191,5 @@ var table = $('#table-data').DataTable({
       // table1.ajax.reload();
       table.ajax.reload();
     }
-
-    $(".uploadGambar").on('change', function () {
-            $('.save').attr('disabled', false);
-            // waitingDialog.show();
-          if (typeof (FileReader) != "undefined") {
-              var image_holder = $(".image-holder");
-              image_holder.empty();
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                  image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                  $('.save').attr('disabled', true);
-                  setTimeout(function(){
-                      image_holder.empty();
-                      $("<img />", {
-                          "src": e.target.result,
-                          "class": "thumb-image img-responsive",
-                          "style": "height: 100px; width:100px; border-radius: 0px;",
-                      }).appendTo(image_holder);
-                      $('.save').attr('disabled', false);
-                  }, 2000)
-              }
-              image_holder.show();
-              reader.readAsDataURL($(this)[0].files[0]);
-
-              // waitingDialog.hide();
-          } else {
-              // waitingDialog.hide();
-              alert("This browser does not support FileReader.");
-          }
-      });
   </script>
 @endsection

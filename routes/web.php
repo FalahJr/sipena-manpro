@@ -110,6 +110,14 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/siswa/update', 'SiswaController@update');
         Route::get('/siswa/edit/{id}', 'SiswaController@edit');
 
+        //User
+        Route::get('/wali-murid', 'WaliMuridController@index');
+        Route::post('/wali-murid/simpan', 'WaliMuridController@simpan');
+        Route::get('/wali-murid/hapus/{id}', 'WaliMuridController@hapus');
+        Route::get('/wali-murid/table', 'WaliMuridController@datatable');
+        Route::post('/wali-murid/update', 'WaliMuridController@update');
+        Route::get('/wali-murid/edit/{id}', 'WaliMuridController@edit');
+
         //Toko
         Route::get('/toko', 'TokoController@index');
         Route::get('/toko/table', 'TokoController@datatable');

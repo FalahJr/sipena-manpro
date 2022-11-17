@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Guru</h4>
+        <h4 class="modal-title">Form Wali Murid</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -14,10 +14,24 @@
             <div class="alert alert-warning" role="alert">
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
+            <tr>
+              <td>Email <span style="color:red;">*</span></td>
+              <td>
+                <input type="email" class="form-control form-control-sm inputtext email" name="email">
+                <input type="hidden" class="form-control form-control-sm id" name="id">
+              </td>
+            </tr>
           <tr>
-            <td>Nama Lengkap <span style="color:red;">*</span></td>
+            <td>Nama Ayah <span style="color:red;">*</span></td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext nama_lengkap" name="nama_lengkap">
+              <input type="text" class="form-control form-control-sm inputtext nama_ayah" name="nama_ayah">
+              <input type="hidden" class="form-control form-control-sm id" name="id">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Ibu <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext nama_ibu" name="nama_ibu">
               <input type="hidden" class="form-control form-control-sm id" name="id">
             </td>
           </tr>
@@ -34,18 +48,6 @@
             </td>
           </tr>
           <tr>
-            <td>Username <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext username" name="username">
-            </td>
-          </tr>
-          <tr>
-            <td>Password <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext password" name="password">
-            </td>
-          </tr>
-          <tr>
             <td>Alamat <span style="color:red;">*</span></td>
             <td>
               <textarea class="form-control form-control-sm alamat" name="alamat" rows="8" cols="80"></textarea>
@@ -54,31 +56,7 @@
               </div> -->
             </td>
           </tr>
-          <tr>
-            <td>Jenis Kelamin <span style="color:red;">*</span></td>
-            <td>
-              <select class="form-control jenis_kelamin" name="jenis_kelamin">
-                <option value="" selected>- Pilih -</option>
-                <option value="L"> Laki-Laki </option>
-                <option value="P"> Perempuan </option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
-            </td>
-          </tr>
-          <!-- <tr>
-            <td align="center" colspan="2">
-              <div class="col-md-8 col-sm-6 col-xs-12 image-holder" id="image-holder">
-
-                {{-- <img src="#" class="thumb-image img-responsive" height="100px" alt="image" style="display: none"> --}}
-
-            </div>
-            </td>
-          </tr> -->
+          
           </table>
         </div>
         <div class="modal-footer">
