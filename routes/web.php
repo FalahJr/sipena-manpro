@@ -98,10 +98,10 @@ Route::group(['middleware' => 'admin'], function () {
 
         //User
         Route::get('/guru', 'GuruController@index');
+        Route::get('/guru/hapus/{id}', 'GuruController@hapus');
         Route::get('/guru/table', 'GuruController@datatable');
-        Route::post('/guru/simpan', 'GuruController@simpan');
-        Route::get('/guru/edit', 'GuruController@edit');
-        Route::get('/guru/hapus', 'GuruController@hapus');
+        Route::post('/guru/update', 'GuruController@update');
+        Route::get('/guru/edit/{id}', 'GuruController@edit');
 
         //Toko
         Route::get('/toko', 'TokoController@index');

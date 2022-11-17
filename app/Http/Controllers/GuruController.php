@@ -45,10 +45,10 @@ class GuruController extends Controller
     //   })
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
-          '<button type="button" onclick="edit(' . $data->id . ')" class="btn btn-info btn-lg" title="edit">' .
-          '<label class="fa fa-pencil-alt"></label></button>' .
-          '<button type="button" onclick="hapus(' . $data->id . ')" class="btn btn-danger btn-lg" title="hapus">' .
-          '<label class="fa fa-trash"></label></button>' .
+          '<a href="guru/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+          '<label class="fa fa-pencil-alt"></label></a>' .
+          '<a href="/admin/guru/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })
       ->rawColumns(['aksi', 'image'])
@@ -246,37 +246,45 @@ class GuruController extends Controller
     }
   }
 
-  public function hapus(Request $req)
+  public function hapus($id)
   {
-    DB::beginTransaction();
-    try {
+    $user_id = DB::table("guru")
+    ->where('id',$id)
+    ->first();
 
-      $tes = DB::table("user")
-        ->where("id", $req->id)
+    DB::table("guru")
+        ->where('id',$id)
         ->delete();
 
-        if($tes){
-          DB::table("guru")
-          ->where("user_id", $req->id)
-          ->delete();
-        }
-      $dir = 'image/uploads/User/' . $req->id;
+    DB::table("user")
+        ->where('id',$user_id->user_id)
+        ->delete();
 
-      $this->deleteDir($dir);
-
-      DB::commit();
-      return response()->json(["status" => 3]);
-    } catch (\Exception $e) {
-      DB::rollback();
-      return response()->json(["status" => 4]);
-    }
+      return back()->with(['success' => 'Data berhasil dihapus']);
   }
 
-  public function edit(Request $req)
+  public function edit($id)
   {
-    $data = DB::table("guru")->where("id", $req->id)->first();
+    $data = DB::table("guru")->where("id", $id)->first();
     // dd($data);
-    return response()->json($data);
+    return view("guru.edit", compact('data'));
+    
+  }
+
+  public function update(Request $request)
+  {
+    $this->validate($request,[
+      'nama_lengkap' => 'required|max:100',
+      'phone' => 'required|max:14',
+      'alamat' => 'required|max:100',
+      'tanggal_lahir' => 'required|max:100',
+      'jk' => 'required|max:2',
+    ]);
+    $newData = request()->except(['_token','image']);
+    $data = DB::table("guru")->where('id',$request->id)->update($newData);
+
+    // dd($data);
+    return back()->with(['success' => 'Data berhasil diupdate']);
 
     
   }

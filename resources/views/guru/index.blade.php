@@ -113,40 +113,6 @@ var table = $('#table-data').DataTable({
         ]
   });
 
-
-    function edit(id) {
-      // body...
-      $.ajax({
-        url:baseUrlChange + '/edit',
-        data:{id},
-        dataType:'json',
-        success:function(data){
-          console.log("tes", data)
-          $('.id').val(data.id);
-          $('.nama_lengkap').val(data.nama_lengkap);
-          $('.tgl_lahir').val(data.tanggal_lahir);
-          $('.no_hp').val(data.phone);
-          // $('.username').val(data.username);
-          // $('.password').val(data.password);
-          $('.alamat').val(data.alamat);
-          $('.jk').val(data.jk).change();
-          // $('.nomor_rekening').val(data.nomor_rekening);
-          // $('.bank').val(data.bank);
-
-          var image_holder = $(".image-holder");
-          image_holder.empty();
-          $("<img />", {
-              "src": baseUrl + data.profile_picture,
-              "class": "thumb-image img-responsive",
-              "style": "height: 100px; width:100px; border-radius: 0px;",
-          }).appendTo(image_holder);
-
-          $('#tambah').modal('show');
-        }
-      });
-
-    }
-
     $('#simpan').click(function(){
 
     var formdata = new FormData();
@@ -193,47 +159,13 @@ var table = $('#table-data').DataTable({
     });
   })
 
-
-    function hapus(id) {
-      iziToast.question({
-        closeOnClick: true,
-        timeout: false,
-    		overlay: true,
-    		displayMode: 'once',
-    		title: 'Delete Data',
-    		message: 'Are you sure?, the store data associated with the account will be lost',
-    		position: 'center',
-    		buttons: [
-    			['<button><b>Ya</b></button>', function (instance, toast) {
-            $.ajax({
-              url:baseUrlChange + '/hapus',
-              data:{id},
-              dataType:'json',
-              success:function(data){
-
-                if (data.status == 3) {
-                  iziToast.success({
-                      icon: 'fa fa-trash',
-                      message: 'Data Deleted Successfully!',
-                  });
-
-                  reloadall();
-                }else if(data.status == 4){
-                  iziToast.warning({
-                      icon: 'fa fa-info',
-                      message: 'Data Failed to Delete!',
-                  });
-                }
-
-              }
-            });
-    			}, true],
-    			['<button>Tidak</button>', function (instance, toast) {
-    				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-    			}],
-    		]
-    	});
-    }
+  //show pop up jika data berhasil di hapus
+  if("{{Session::has('success')}}"){
+    iziToast.success({
+  icon: 'fa fa-trash',
+  message: "{{Session::get('success')}}",
+  });
+  }
 
     function showcreate() {
       $('.table_modal :input').val("");
