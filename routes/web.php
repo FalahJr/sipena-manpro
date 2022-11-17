@@ -96,7 +96,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/user/edit', 'UserController@edit');
         Route::get('/user/hapus', 'UserController@hapus');
 
-        //User
+        //Guru
         Route::get('/guru', 'GuruController@index');
         Route::get('/guru/hapus/{id}', 'GuruController@hapus');
         Route::get('/guru/table', 'GuruController@datatable');
@@ -119,12 +119,12 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/wali-murid/edit/{id}', 'WaliMuridController@edit');
 
         //Toko
-        Route::get('/toko', 'TokoController@index');
-        Route::get('/toko/table', 'TokoController@datatable');
-        Route::get('/toko/edit', 'TokoController@edit');
-        Route::get('/toko/aktif', 'TokoController@aktif');
-        Route::get('/toko/nonaktif', 'TokoController@nonaktif');
-        Route::get('/toko/autocompleteuser', 'TokoController@autocomplete');
+        Route::get('/pegawai', 'PegawaiController@index');
+        Route::post('/pegawai/simpan', 'PegawaiController@simpan');
+        Route::get('/pegawai/hapus/{id}', 'PegawaiController@hapus');
+        Route::get('/pegawai/table', 'PegawaiController@datatable');
+        Route::post('/pegawai/update', 'PegawaiController@update');
+        Route::get('/pegawai/edit/{id}', 'PegawaiController@edit');
 
         //Feedback
         Route::get('/feed', 'FeedController@index');
