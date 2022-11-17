@@ -169,7 +169,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/guru') || Request::is('admin/guru/*') ? 'active' : '' }}" href="{{url('admin/guru')}}">Data Guru<span class="d-none">Setting</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Data Siswa<span class="d-none">Setting</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Data Walimurid<span class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/social') || Request::is('admin/setting/social/*') ? 'active' : '' }}" href="{{url('admin/setting/social')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/pegawai') || Request::is('admin/pegawai/*') ? 'active' : '' }}" href="{{url('admin/pegawai')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
             </ul>
           </div>
         </li> 
