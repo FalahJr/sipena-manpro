@@ -137,6 +137,21 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/mata-pelajaran/update', 'MataPelajaranController@update');
         Route::get('/mata-pelajaran/edit/{id}', 'MataPelajaranController@edit');
 
+        //Berita Sekolah
+        Route::get('/berita-sekolah', 'BeritaSekolahController@index');
+        Route::post('/berita-sekolah/simpan', 'BeritaSekolahController@simpan');
+        Route::get('/berita-sekolah/hapus/{id}', 'BeritaSekolahController@hapus');
+        Route::get('/berita-sekolah/table', 'BeritaSekolahController@datatable');
+        Route::post('/berita-sekolah/update', 'BeritaSekolahController@update');
+        Route::get('/berita-sekolah/edit/{id}', 'BeritaSekolahController@edit');
+
+        //Berita Kelas
+        Route::get('/berita-kelas', 'BeritaKelasController@index');
+        Route::post('/berita-kelas/simpan', 'BeritaKelasController@simpan');
+        Route::get('/berita-kelas/hapus/{id}', 'BeritaKelasController@hapus');
+        Route::get('/berita-kelas/table', 'BeritaKelasController@datatable');
+        Route::post('/berita-kelas/update', 'BeritaKelasController@update');
+        Route::get('/berita-kelas/edit/{id}', 'BeritaKelasController@edit');
         //Feedback
         Route::get('/feed', 'FeedController@index');
         Route::get('/feed/table', 'FeedController@datatable');
