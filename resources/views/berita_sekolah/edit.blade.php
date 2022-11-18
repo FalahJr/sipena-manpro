@@ -1,12 +1,11 @@
 @extends('main')
 @section('content')
-
 <div class="content-wrapper">
   <div class="row">
     <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
-          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/guru')}}">guru</a></li>
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/berita-sekolah')}}">Berita Sekolah</a></li>
           <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
         </ol>
       </nav>
@@ -15,7 +14,7 @@
         <div class="card">
           <div class="card-body">
             
-           <h4 class="card-title">Edit Data Guru</h4>
+           <h4 class="card-title">Edit Berita Sekolah</h4>
            
                     <!-- Modal -->
     <!-- Modal content-->
@@ -38,53 +37,30 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/guru/update')}}" method="POST">
+          <form action="{{url('admin/berita-sekolah/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
-            <td>Nama Lengkap <span style="color:red;">*</span></td>
+            <td>Judul <span style="color:red;">*</span></td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_lengkap')) is-invalid @endif" value="{{$data->nama_lengkap}}" name="nama_lengkap">
-              <input type="hidden" class="form-control form-control-sm" value="{{$data->id}}" name="id">
+              <input type="text" class="form-control form-control-sm inputtext judul @if($errors->has('judul')) is-invalid @endif" value="{{$data->judul}}" name="judul">
+              <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
             </td>
           </tr>
           <tr>
-            <td>Tanggal Lahir</td>
+            <td>Deskripsi <span style="color:red;">*</span></td>
             <td>
-              <input type="date" class="form-control form-control-sm inputtext @if($errors->has('tanggal_lahir')) is-invalid @endif" value="{{$data->tanggal_lahir}}" name="tanggal_lahir">
-            </td>
-          </tr>
-          <tr>
-            <td>No Hp</td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('phone')) is-invalid @endif" value="{{$data->phone}}" name="phone">
-
-            </td>
-          </tr>
-          <tr>
-            <td>Alamat <span style="color:red;">*</span></td>
-            <td>
-              <textarea class="form-control form-control-sm @if($errors->has('alamat')) is-invalid @endif" name="alamat" rows="8" cols="80">{!! htmlspecialchars($data->alamat) !!}</textarea>
+              <textarea class="form-control form-control-sm deskripsi @if($errors->has('deskripsi')) is-invalid @endif" value="{{$data->deskripsi}}" name="deskripsi" rows="8" cols="80">{!! htmlspecialchars($data->deskripsi) !!}</textarea>
               <!-- <div class="alert alert-warning" role="alert">
               This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
               </div> -->
- 
-            </td>
-          </tr>
-          <tr>
-            <td>Jenis Kelamin <span style="color:red;">*</span></td>
-            <td>
-              <select class="form-control @if($errors->has('jk')) is-invalid @endif" name="jk">
-                <option value="" selected>- Pilih -</option>
-                <option value="L" @if($data->jk == "L") selected @endif> Laki-Laki </option>
-                <option value="P" @if($data->jk == "P") selected @endif> Perempuan </option>
-    
-              </select>
             </td>
           </tr>
           <tr>
             <td>Image</td>
+            <br>
+            <img src="{{asset($data->foto)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
             <td>
-              <input type="file" class="form-control form-control-sm profil_picture" name="image" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
             </td>
           </tr>
           {{-- <tr>

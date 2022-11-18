@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('siswa.tambah')
+@include('berita_sekolah.tambah')
 <style type="text/css">
 
 </style>
@@ -12,14 +12,14 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">siswa</li>
+          <li class="breadcrumb-item active" aria-current="page">Berita Sekolah</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Siswa</h4>
+                    <h4 class="card-title">Berita Sekolah</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
@@ -30,13 +30,10 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                {{-- <th>Foto Profile</th> --}}
-                                <th>Nama Lengkap</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Phone</th>
-                                <th>Alamat</th>
-                                <th>Agama</th>
-                                {{-- <th>Kartu Digital</th> --}}
+                                <th>Foto</th>
+                                <th>Judul</th>
+                                <th>Deskripsi</th>
+                                <th>Total Dilihat</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -58,7 +55,7 @@
 @section('extra_script')
 <script>
 
-baseUrlChange += "/admin/siswa";
+baseUrlChange += "/admin/berita-sekolah";
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -72,7 +69,7 @@ var table = $('#table-data').DataTable({
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('admin/siswa/table') }}',
+            url:'{{ url('admin/berita-sekolah/table') }}',
         },
         columnDefs: [
 
@@ -100,68 +97,66 @@ var table = $('#table-data').DataTable({
                  targets: 5,
                  className: 'center'
               },
-              {
-                 targets: 6,
-                 className: 'center'
-              },
+              // {
+              //    targets: 6,
+              //    className: 'center'
+              // },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           // {data: 'image', name: 'image'},
-          {data: 'nama_lengkap', name: 'nama_lengkap'},
-          {data: 'tanggal_lahir', name: 'tanggal_lahir'},
-          {data: 'phone', name: 'phone'},
-          {data: 'alamat', name: 'alamat'},
-          {data: 'agama', name: 'agama'},
+          {data: 'foto', name: 'foto'},
+          {data: 'judul', name: 'judul'},
+          {data: 'deskripsi', name: 'deskripsi'},
+          {data: 'total_views', name: 'total_views'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
 
-  $('#simpan').click(function(){
+    $('#simpan').click(function(){
 
-  var formdata = new FormData();
-  formdata.append('image', $('.uploadGambar')[0].files[0]);
-  console.log(formdata);
-  $.ajax({
-    type: "post",
-    url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
-    data: formdata,
-    processData: false, //important
-    contentType: false,
-    cache: false,
-    success:function(data){
-      if (data.status == 1) {
-        iziToast.success({
-            icon: 'fa fa-save',
-            message: 'Data Saved Successfully!',
-        });
-        reloadall();
-      }else if(data.status == 2){
-        iziToast.warning({
-            icon: 'fa fa-info',
-            message: 'Data failed to save!, Check your data and connection!',
-        });
-        console.log(data.message);
-      }else if (data.status == 3){
-        iziToast.success({
-            icon: 'fa fa-save',
-            message: 'Data Modified Successfully!',
-        });
-        reloadall();
-      }else if (data.status == 4){
-        iziToast.warning({
-            icon: 'fa fa-info',
-            message: 'Data Failed to Change!',
-        });
-      } else if (data.status == 7) {
-        iziToast.warning({
-            icon: 'fa fa-info',
-            message: data.message,
-        });
+    var formdata = new FormData();
+    formdata.append('image', $('.uploadGambar')[0].files[0]);
+
+    $.ajax({
+      type: "post",
+      url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
+      data: formdata,
+      processData: false, //important
+      contentType: false,
+      cache: false,
+      success:function(data){
+        if (data.status == 1) {
+          iziToast.success({
+              icon: 'fa fa-save',
+              message: 'Data Saved Successfully!',
+          });
+          reloadall();
+        }else if(data.status == 2){
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Data failed to save!, Check your data and connection!',
+          });
+        }else if (data.status == 3){
+          iziToast.success({
+              icon: 'fa fa-save',
+              message: 'Data Modified Successfully!',
+          });
+          reloadall();
+        }else if (data.status == 4){
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Data Failed to Change!',
+          });
+        } else if (data.status == 7) {
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: data.message,
+          });
+        }
+
       }
-
-    }
-  });
+    });
   })
 
   //show pop up jika data berhasil di hapus

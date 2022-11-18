@@ -56,7 +56,7 @@ class SiswaController extends Controller
       ->make(true);
   }
 
-  public function simpan(Request $req)
+public function simpan(Request $req)
   {
     // dd(;
 
@@ -73,7 +73,7 @@ class SiswaController extends Controller
       try {
 
         $max = DB::table("user")->max('id') + 1;
-        $maxsiswa = DB::table("siswa")->max('id') + 1;
+        $maxGuru = DB::table("guru")->max('id') + 1;
 
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
@@ -114,14 +114,14 @@ class SiswaController extends Controller
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
           if($tes){
-          DB::table("siswa")->insert([
-            "id"=>$maxsiswa,
+          DB::table("guru")->insert([
+            "id"=>$maxGuru,
             "user_id" => $max,
             "nama_lengkap" => $req->nama_lengkap,
             "tanggal_lahir" => $req->tgl_lahir,
             "phone" => $req->no_hp,
             "alamat" => $req->alamat,
-            "jenis_kelamin" => $req->jenis_kelamin,
+            "jk" => $req->jk,
             "is_walikelas" => 'N',
             "is_ekstrakulikuler" => 'N',
             "is_mapel" => 'N',
@@ -191,14 +191,14 @@ class SiswaController extends Controller
             "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
             if($tes){
-              DB::table("siswa")->insert([
-                // "id"=>$maxsiswa,
+              DB::table("guru")->insert([
+                // "id"=>$maxGuru,
                 // "user_id" => $max,
                 "nama_lengkap" => $req->nama_lengkap,
                 "tanggal_lahir" => $req->tgl_lahir,
                 "phone" => $req->no_hp,
                 "alamat" => $req->alamat,
-                "jenis_kelamin" => $req->jenis_kelamin,
+                "jk" => $req->jk,
                 "is_walikelas" => 'N',
                 "is_ekstrakulikuler" => 'N',
                 "is_mapel" => 'N',
@@ -218,14 +218,14 @@ class SiswaController extends Controller
             "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
             if($tes){
-              DB::table("siswa")->insert([
-                "id"=>$maxsiswa,
+              DB::table("guru")->insert([
+                "id"=>$maxGuru,
                 "user_id" => $max,
                 "nama_lengkap" => $req->nama_lengkap,
                 "tanggal_lahir" => $req->tgl_lahir,
                 "phone" => $req->no_hp,
                 "alamat" => $req->alamat,
-                "jenis_kelamin" => $req->jenis_kelamin,
+                "jk" => $req->jk,
                 "is_walikelas" => 'N',
                 "is_ekstrakulikuler" => 'N',
                 "is_mapel" => 'N',

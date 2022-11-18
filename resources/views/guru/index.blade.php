@@ -72,7 +72,6 @@ var table = $('#table-data').DataTable({
             url:'{{ url('admin/guru/table') }}',
         },
         columnDefs: [
-
               {
                  targets: 0 ,
                  className: 'center id'

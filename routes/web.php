@@ -98,6 +98,7 @@ Route::group(['middleware' => 'admin'], function () {
 
         //Guru
         Route::get('/guru', 'GuruController@index');
+        Route::post('/guru/simpan', 'GuruController@simpan');
         Route::get('/guru/hapus/{id}', 'GuruController@hapus');
         Route::get('/guru/table', 'GuruController@datatable');
         Route::post('/guru/update', 'GuruController@update');
@@ -105,6 +106,7 @@ Route::group(['middleware' => 'admin'], function () {
 
         //siswa
         Route::get('/siswa', 'SiswaController@index');
+        Route::post('/siswa/simpan', 'SiswaController@simpan');
         Route::get('/siswa/hapus/{id}', 'SiswaController@hapus');
         Route::get('/siswa/table', 'SiswaController@datatable');
         Route::post('/siswa/update', 'SiswaController@update');
@@ -125,6 +127,22 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/pegawai/table', 'PegawaiController@datatable');
         Route::post('/pegawai/update', 'PegawaiController@update');
         Route::get('/pegawai/edit/{id}', 'PegawaiController@edit');
+
+        //Berita Sekolah
+        Route::get('/berita-sekolah', 'BeritaSekolahController@index');
+        Route::post('/berita-sekolah/simpan', 'BeritaSekolahController@simpan');
+        Route::get('/berita-sekolah/hapus/{id}', 'BeritaSekolahController@hapus');
+        Route::get('/berita-sekolah/table', 'BeritaSekolahController@datatable');
+        Route::post('/berita-sekolah/update', 'BeritaSekolahController@update');
+        Route::get('/berita-sekolah/edit/{id}', 'BeritaSekolahController@edit');
+
+        //Berita Sekolah
+        Route::get('/berita-kelas', 'BeritaKelasController@index');
+        Route::post('/berita-kelas/simpan', 'BeritaKelasController@simpan');
+        Route::get('/berita-kelas/hapus/{id}', 'BeritaKelasController@hapus');
+        Route::get('/berita-kelas/table', 'BeritaKelasController@datatable');
+        Route::post('/berita-kelas/update', 'BeritaKelasController@update');
+        Route::get('/berita-kelas/edit/{id}', 'BeritaKelasController@edit');
 
         //Feedback
         Route::get('/feed', 'FeedController@index');

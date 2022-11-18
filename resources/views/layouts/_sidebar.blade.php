@@ -154,17 +154,13 @@
           </a>
         </li>
 
-        <li class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
-          <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
+        <li class="nav-item {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'active' : '') }}">
+          <a class="nav-link" data-toggle="collapse" href="#dataMaster" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Data Master</span>
-            <span class="d-none">
-              Edit Info
-              Manage Info
-            </span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
-          <div class="collapse {{( ( Request::is('admin/setting/*') || Request::is('admin/setting') )  ? 'show' : '') }}" id="setting">
+          <div class="collapse {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'show' : '') }}" id="dataMaster">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/guru') || Request::is('admin/guru/*') ? 'active' : '' }}" href="{{url('admin/guru')}}">Data Guru<span class="d-none">Setting</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}" href="{{url('admin/siswa')}}">Data Siswa<span class="d-none">Setting</span></a></li>
@@ -174,13 +170,19 @@
           </div>
         </li> 
 
-        <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/user')}}">
+        <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#berita" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Berita</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-newspaper menu-icon"></i>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
           </a>
-        </li>
+          <div class="collapse {{( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') ? 'active' : '' }}" href="{{url('admin/berita-kelas')}}">Berita Kelas<span class="d-none">Berita Kelas</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ? 'active' : '' }}" href="{{url('admin/berita-sekolah')}}">Berita Sekolah<span class="d-none">Berita Sekolah</span></a></li>
+            </ul>
+          </div>
+        </li> 
 
         <li class="nav-item {{Request::is('admin/toko') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/toko')}}">
