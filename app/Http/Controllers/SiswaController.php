@@ -59,7 +59,8 @@ class SiswaController extends Controller
   public function simpan(Request $req)
   {
     // dd(;
-
+    $max = DB::table("user")->max('id') + 1;
+    $maxsiswa = DB::table("siswa")->max('id') + 1;
     if ($req->id == null) {
       if (!$this->cekemail($req->username)) {
         return response()->json(["status" => 7, "message" => "Data username sudah digunakan, tidak dapat disimpan!"]);
@@ -72,8 +73,7 @@ class SiswaController extends Controller
     // DB::table('posts')->delete();
       try {
 
-        $max = DB::table("user")->max('id') + 1;
-        $maxsiswa = DB::table("siswa")->max('id') + 1;
+       
 
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
@@ -199,7 +199,7 @@ class SiswaController extends Controller
                 "phone" => $req->no_hp,
                 "alamat" => $req->alamat,
                 "jenis_kelamin" => $req->jenis_kelamin,
-                "is_walikelas" => 'N',
+                "agama" => 'Islam',
                 "is_ekstrakulikuler" => 'N',
                 "is_mapel" => 'N',
                 "created_at" => Carbon::now('Asia/Jakarta'),

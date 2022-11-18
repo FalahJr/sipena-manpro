@@ -129,6 +129,14 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/kelas/update', 'KelasController@update');
         Route::get('/kelas/edit/{id}', 'KelasController@edit');
 
+        //mata pelajaran
+        Route::get('/mata-pelajaran', 'MataPelajaranController@index');
+        Route::post('/mata-pelajaran/simpan', 'MataPelajaranController@simpan');
+        Route::get('/mata-pelajaran/hapus/{id}', 'MataPelajaranController@hapus');
+        Route::get('/mata-pelajaran/table', 'MataPelajaranController@datatable');
+        Route::post('/mata-pelajaran/update', 'MataPelajaranController@update');
+        Route::get('/mata-pelajaran/edit/{id}', 'MataPelajaranController@edit');
+
         //Feedback
         Route::get('/feed', 'FeedController@index');
         Route::get('/feed/table', 'FeedController@datatable');

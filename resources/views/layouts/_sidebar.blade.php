@@ -167,7 +167,12 @@
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/kelas') || Request::is('admin/kelas/*') ? 'active' : '' }}"
-                  href="{{url('admin/kelas')}}">Data Kelas<span class="d-none">Setting</span></a></li>
+                  href="{{url('admin/kelas')}}">Data Kelas<span class="d-none">Setting</span></a>
+                </li>
+                <li class="nav-item"> <a
+                  class="nav-link {{Request::is('admin/mata-pelajaran') || Request::is('admin/mata-pelajaran/*') ? 'active' : '' }}"
+                  href="{{url('admin/mata-pelajaran')}}">Data Mata Pelajaran<span class="d-none">Setting</span></a>
+                </li>
               <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}"
                   href="{{url('admin/siswa')}}">Jadwal Kelas<span class="d-none">Setting</span></a></li>

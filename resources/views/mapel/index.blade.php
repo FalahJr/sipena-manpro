@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('kelas.tambah')
+@include('mapel.tambah')
 <style type="text/css">
 
 </style>
@@ -12,7 +12,7 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Kelas</li>
+          <li class="breadcrumb-item active" aria-current="page">Mata Pelajaran</li>
         </ol>
       </nav>
     </div>
@@ -32,7 +32,7 @@
                 <tr>
                   <th>No</th>
                   <th>Nama</th>
-                  <th>Walikelas</th>
+                  <th>Guru</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -54,7 +54,7 @@
 @section('extra_script')
 <script>
 
-  baseUrlChange += "/admin/kelas";
+  baseUrlChange += "/admin/mata-pelajaran";
 
   var table = $('#table-data').DataTable({
     processing: true,
@@ -68,7 +68,7 @@
       // 'copy', 'csv', 'excel', 'pdf', 'print'
     ],
     ajax: {
-      url: '{{ url('admin/kelas/table') }}',
+      url: '{{ url('admin/mata-pelajaran/table') }}',
   },
     columnDefs: [
 
