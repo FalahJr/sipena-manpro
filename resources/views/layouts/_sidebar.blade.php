@@ -110,26 +110,14 @@
             <i class="mdi mdi-home menu-icon"></i>
           </a>
         </li>
-
-<<<<<<< HEAD
         <li class="nav-item {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'active' : '') }}">
           <a class="nav-link" data-toggle="collapse" href="#dataMaster" aria-expanded="false" aria-controls="ui-basic">
-=======
-        <li
-          class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
-          <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
->>>>>>> 4bce8060d610857f723bcc3fac76d347a0250b04
             <span class="menu-title">Data Master</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
-<<<<<<< HEAD
+
           <div class="collapse {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'show' : '') }}" id="dataMaster">
-=======
-          <div
-            class="collapse {{( ( Request::is('admin/setting/*') || Request::is('admin/setting') )  ? 'show' : '') }}"
-            id="setting">
->>>>>>> 4bce8060d610857f723bcc3fac76d347a0250b04
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/guru') || Request::is('admin/guru/*') ? 'active' : '' }}"
