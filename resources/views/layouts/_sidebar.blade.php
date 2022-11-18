@@ -2,11 +2,11 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
     <a class="navbar-brand brand-logo" href="{{url('/admin/home')}}">
-       <img src="{{asset('assets/sipenahorz.png')}}" alt="logo" style="margin-left: auto;">
+      <img src="{{asset('assets/sipenahorz.png')}}" alt="logo" style="margin-left: auto;">
       <!-- <h1 style="margin:auto; ">iWak</h1> -->
     </a>
     <a class="navbar-brand brand-logo-mini" href="{{url('/admin/home')}}">
-      {{-- <img src="{{asset('assets/atonergi-mini.png')}}" alt="logo"/> --}}
+      {{-- <img src="{{asset('assets/atonergi-mini.png')}}" alt="logo" /> --}}
       <h1 style="margin:auto; ">{{getsingkatan("iWak")}}</h1>
     </a>
   </div>
@@ -19,7 +19,8 @@
         <div class="input-group">
           <input id="filterInput" type="text" class="form-control bg-transparent border-0" placeholder="Search Menu">
           <div class="input-group-btn">
-            <button id="btn-reset" type="button" class="btn bg-transparent px-0 d-none" style="cursor: pointer;"><i class="fa fa-times"></i></button>
+            <button id="btn-reset" type="button" class="btn bg-transparent px-0 d-none" style="cursor: pointer;"><i
+                class="fa fa-times"></i></button>
             <!-- <button type="button" class="btn bg-transparent dropdown-toggle px-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="mdi mdi-earth"></i>
                 </button>
@@ -45,57 +46,12 @@
           <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
         </a>
       </li>
-      <!--  <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <i class="mdi mdi-email-outline"></i>
-              <span class="count"></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-              <h6 class="p-3 mb-0">Messages</h6>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="{{asset('assets/images/faces/face4.jpg')}}" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
-                  <p class="text-gray mb-0">
-                    1 Minutes ago
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="{{asset('assets/images/faces/face2.jpg')}}" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
-                  <p class="text-gray mb-0">
-                    15 Minutes ago
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="{{asset('assets/images/faces/face3.jpg')}}" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
-                  <p class="text-gray mb-0">
-                    18 Minutes ago
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <h6 class="p-3 mb-0 text-center">4 new messages</h6>
-            </div>
-          </li> -->
+
 
       @if(Auth::user()->role != 'admin')
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown"
+          aria-expanded="false">
           {{-- <img src="{{asset('assets/image/faces1.jpg')}}" alt="image"> --}}
           <span class="d-lg-inline">{{Auth::user()->fullname}}</span>
         </a>
@@ -103,8 +59,8 @@
 
 
           {{-- <a class="dropdown-item" href="{{ url('admin/logout') }}">
-          <i class="mdi mdi-logout mr-2 text-primary"></i>
-          Signout
+            <i class="mdi mdi-logout mr-2 text-primary"></i>
+            Signout
           </a> --}}
           {{-- @else --}}
           <a class="dropdown-item" href="{{ url('/') }}">
@@ -132,7 +88,8 @@
         {{ csrf_field() }}
       </form>
     </ul>
-    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+      data-toggle="offcanvas">
       <span class="mdi mdi-menu"></span>
     </button>
   </div>
@@ -154,7 +111,8 @@
           </a>
         </li>
 
-        <li class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
+        <li
+          class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Data Master</span>
             <span class="d-none">
@@ -164,15 +122,25 @@
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
-          <div class="collapse {{( ( Request::is('admin/setting/*') || Request::is('admin/setting') )  ? 'show' : '') }}" id="setting">
+          <div
+            class="collapse {{( ( Request::is('admin/setting/*') || Request::is('admin/setting') )  ? 'show' : '') }}"
+            id="setting">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/guru') || Request::is('admin/guru/*') ? 'active' : '' }}" href="{{url('admin/guru')}}">Data Guru<span class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}" href="{{url('admin/siswa')}}">Data Siswa<span class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') ? 'active' : '' }}" href="{{url('admin/wali-murid')}}">Data Walimurid<span class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/pegawai') || Request::is('admin/pegawai/*') ? 'active' : '' }}" href="{{url('admin/pegawai')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('admin/guru') || Request::is('admin/guru/*') ? 'active' : '' }}"
+                  href="{{url('admin/guru')}}">Data Guru<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}"
+                  href="{{url('admin/siswa')}}">Data Siswa<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') ? 'active' : '' }}"
+                  href="{{url('admin/wali-murid')}}">Data Walimurid<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('admin/pegawai') || Request::is('admin/pegawai/*') ? 'active' : '' }}"
+                  href="{{url('admin/pegawai')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
 
         <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/user')}}">
@@ -180,6 +148,32 @@
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-newspaper menu-icon"></i>
           </a>
+        </li>
+
+        <li
+          class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#kelas" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Kelas</span>
+            <span class="d-none">
+              Edit Info
+              Manage Info
+            </span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
+          </a>
+          <div
+            class="collapse {{( ( Request::is('admin/setting/*') || Request::is('admin/setting') )  ? 'show' : '') }}"
+            id="kelas">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('admin/kelas') || Request::is('admin/kelas/*') ? 'active' : '' }}"
+                  href="{{url('admin/kelas')}}">Data Kelas<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}"
+                  href="{{url('admin/siswa')}}">Jadwal Kelas<span class="d-none">Setting</span></a></li>
+
+            </ul>
+          </div>
         </li>
 
         <li class="nav-item {{Request::is('admin/toko') ? 'active' : ''}}">
@@ -263,16 +257,9 @@
           </a>
         </li>
 
-        <!-- <li class="nav-item {{Request::is('admin/category') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/category')}}">
-            <span class="menu-title">Manage Category Product</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-book-open-variant menu-icon"></i>
-          </a>
-        </li>
-        -->
 
-        
+
+
         @else
         <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('penjual/home')}}">
@@ -326,13 +313,14 @@
 
 
         {{-- <li class="nav-item {{Request::is('mutasi') ? 'active' : ''}}">
-        <a class="nav-link" href="{{url('/mutasi')}}">
-          <span class="menu-title">Mutation Check</span> --}}
-          {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-          {{-- <i class="fa fa-history"></i>
-              </a>
-            </li> --}}
-          {{-- <li class="nav-item {{Request::is('setting') ? 'active' : '' || Request::is('setting/*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{url('/mutasi')}}">
+            <span class="menu-title">Mutation Check</span> --}}
+            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+            {{-- <i class="fa fa-history"></i>
+          </a>
+        </li> --}}
+        {{-- <li
+          class="nav-item {{Request::is('setting') ? 'active' : '' || Request::is('setting/*') ? 'active' : '' }}">
           <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Setup</span>
             <span class="d-none">
@@ -344,14 +332,21 @@
             <i class="menu-arrow"></i>
             <i class="mdi mdi-settings menu-icon mdi-spin"></i>
           </a>
-          <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}" id="setting">
+          <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}"
+            id="setting">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('setting/modul/keuangan/setting/klasifikasi-akun') ? 'active' : '' || Request::is('setting/modul/keuangan/setting/klasifikasi-akun/*') ? 'active' : '' }}" href="{{url('setting/modul/keuangan/setting/klasifikasi-akun')}}">Klasifikasi Akun<span class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('setting/modul/keuangan/setting/klasifikasi-akun') ? 'active' : '' || Request::is('setting/modul/keuangan/setting/klasifikasi-akun/*') ? 'active' : '' }}" href="{{url('setting/modul/keuangan/setting/klasifikasi-akun')}}">Klasifikasi Akun<span class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('setting/modul/keuangan/setting/klasifikasi-akun') ? 'active' : '' || Request::is('setting/modul/keuangan/setting/klasifikasi-akun/*') ? 'active' : '' }}"
+                  href="{{url('setting/modul/keuangan/setting/klasifikasi-akun')}}">Klasifikasi Akun<span
+                    class="d-none">Setting</span></a></li>
+              <li class="nav-item"> <a
+                  class="nav-link {{Request::is('setting/modul/keuangan/setting/klasifikasi-akun') ? 'active' : '' || Request::is('setting/modul/keuangan/setting/klasifikasi-akun/*') ? 'active' : '' }}"
+                  href="{{url('setting/modul/keuangan/setting/klasifikasi-akun')}}">Klasifikasi Akun<span
+                    class="d-none">Setting</span></a></li>
 
             </ul>
           </div>
-          </li> --}}
+        </li> --}}
 
       </ul>
 

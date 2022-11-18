@@ -74,7 +74,8 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/', function () {
         return view('auth.login');
-    })->name('adminlogin');
+    }
+    )->name('adminlogin');
 
     Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
 });
@@ -98,6 +99,7 @@ Route::group(['middleware' => 'admin'], function () {
 
         //Guru
         Route::get('/guru', 'GuruController@index');
+        Route::post('/guru/simpan', 'GuruController@simpan');
         Route::get('/guru/hapus/{id}', 'GuruController@hapus');
         Route::get('/guru/table', 'GuruController@datatable');
         Route::post('/guru/update', 'GuruController@update');
@@ -105,6 +107,7 @@ Route::group(['middleware' => 'admin'], function () {
 
         //siswa
         Route::get('/siswa', 'SiswaController@index');
+        Route::post('/siswa/simpan', 'SiswaController@simpan');
         Route::get('/siswa/hapus/{id}', 'SiswaController@hapus');
         Route::get('/siswa/table', 'SiswaController@datatable');
         Route::post('/siswa/update', 'SiswaController@update');
@@ -118,13 +121,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/wali-murid/update', 'WaliMuridController@update');
         Route::get('/wali-murid/edit/{id}', 'WaliMuridController@edit');
 
-        //Toko
-        Route::get('/pegawai', 'PegawaiController@index');
-        Route::post('/pegawai/simpan', 'PegawaiController@simpan');
-        Route::get('/pegawai/hapus/{id}', 'PegawaiController@hapus');
-        Route::get('/pegawai/table', 'PegawaiController@datatable');
-        Route::post('/pegawai/update', 'PegawaiController@update');
-        Route::get('/pegawai/edit/{id}', 'PegawaiController@edit');
+        //kelas
+        Route::get('/kelas', 'KelasController@index');
+        Route::post('/kelas/simpan', 'KelasController@simpan');
+        Route::get('/kelas/hapus/{id}', 'KelasController@hapus');
+        Route::get('/kelas/table', 'KelasController@datatable');
+        Route::post('/kelas/update', 'KelasController@update');
+        Route::get('/kelas/edit/{id}', 'KelasController@edit');
 
         //Feedback
         Route::get('/feed', 'FeedController@index');
@@ -152,7 +155,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/setting/social/edit', 'SocialController@doeditcategory');
         Route::get('/setting/social/update', 'SocialController@doupdatecategory');
         Route::get('/setting/social/hapus', 'SocialController@dodeletecategory');
-    });
+    }
+    );
 });
 
 //Route untuk user pembeli / penjual
@@ -205,5 +209,6 @@ Route::group(['middleware' => 'penjual'], function () {
         Route::get('/listorder/showpayment/{id}', 'PenjualListpesananController@showpayment');
         Route::get('/listorder/approve', 'PenjualListpesananController@approve');
         Route::get('/listorder/pesanannotif', 'PenjualListpesananController@pesanannotif');
-    });
+    }
+    );
 });
