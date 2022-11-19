@@ -113,6 +113,14 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/siswa/update', 'SiswaController@update');
         Route::get('/siswa/edit/{id}', 'SiswaController@edit');
 
+        //Pegawai
+        Route::get('/pegawai', 'PegawaiController@index');
+        Route::post('/pegawai/simpan', 'PegawaiController@simpan');
+        Route::get('/pegawai/hapus/{id}', 'PegawaiController@hapus');
+        Route::get('/pegawai/table', 'PegawaiController@datatable');
+        Route::post('/pegawai/update', 'PegawaiController@update');
+        Route::get('/pegawai/edit/{id}', 'PegawaiController@edit');
+
         //wali murid
         Route::get('/wali-murid', 'WaliMuridController@index');
         Route::post('/wali-murid/simpan', 'WaliMuridController@simpan');
@@ -145,13 +153,30 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/berita-sekolah/update', 'BeritaSekolahController@update');
         Route::get('/berita-sekolah/edit/{id}', 'BeritaSekolahController@edit');
 
-        //Berita Sekolah
+        //Berita Kelas
         Route::get('/berita-kelas', 'BeritaKelasController@index');
         Route::post('/berita-kelas/simpan', 'BeritaKelasController@simpan');
         Route::get('/berita-kelas/hapus/{id}', 'BeritaKelasController@hapus');
         Route::get('/berita-kelas/table', 'BeritaKelasController@datatable');
         Route::post('/berita-kelas/update', 'BeritaKelasController@update');
         Route::get('/berita-kelas/edit/{id}', 'BeritaKelasController@edit');
+
+        //Bayar QRCode
+        Route::get('/bayar-kantin', 'BayarKantinController@index');
+        Route::get('/bayar-kantin/table', 'BayarKantinController@datatable');
+        Route::get('/bayar-kantin/{id}', 'BayarKantinController@toBayar');
+        Route::post('/bayar-kantin/bayar', 'BayarKantinController@bayar');
+        Route::post('/bayar-kantin/simpan', 'BayarKantinController@simpan');
+        Route::get('/bayar-kantin/hapus/{id}', 'BayarKantinController@hapus');
+        Route::post('/bayar-kantin/update', 'BayarKantinController@update');
+        Route::get('/bayar-kantin/edit/{id}', 'BayarKantinController@edit');
+
+        //Transaksi Kantin
+        Route::get('/transaksi-kantin', 'TransaksiKantinController@index');
+        Route::get('/transaksi-kantin/hapus/{id}', 'TransaksiKantinController@hapus');
+        Route::get('/transaksi-kantin/table', 'TransaksiKantinController@datatable');
+        Route::post('/transaksi-kantin/update', 'TransaksiKantinController@update');
+        Route::get('/transaksi-kantin/edit/{id}', 'TransaksiKantinController@edit');
 
         //Feedback
         Route::get('/feed', 'FeedController@index');

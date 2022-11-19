@@ -121,7 +121,7 @@
         } else if (data.status == 2) {
           iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Data failed to save!, Check your data and connection!',
+            message: data.message,
           });
         } else if (data.status == 3) {
           iziToast.success({

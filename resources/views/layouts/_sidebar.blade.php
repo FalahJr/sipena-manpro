@@ -150,7 +150,7 @@
         </li> 
 
         <li
-          class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
+          class="nav-item {{ ( ( Request::is('admin/kelas/*') || Request::is('admin/kelas') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#kelas" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Kelas</span>
             <span class="d-none">
@@ -161,7 +161,7 @@
             <i class="mdi mdi-database menu-icon"></i>
           </a>
           <div
-            class="collapse {{( ( Request::is('admin/setting/*') || Request::is('admin/setting') )  ? 'show' : '') }}"
+            class="collapse {{(( Request::is('admin/kelas/*') || Request::is('admin/kelas') || Request::is('admin/mata-pelajaran/*') || Request::is('admin/mata-pelajaran') )  ? 'show' : '') }}"
             id="kelas">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a
@@ -246,13 +246,19 @@
             <i class="mdi mdi-library-books menu-icon"></i>
           </a>
         </li>
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{ ( ( Request::is('admin/kantin/*') || Request::is('admin/kantin') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#kantin" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Pembayaran Kantin</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-shopping menu-icon"></i>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
           </a>
-        </li>
+          <div class="collapse {{( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' show' : '' ) }}" id="kantin">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ? 'active' : '' }}" href="{{url('admin/bayar-kantin')}}">Bayar QRCode<span class="d-none">Bayar QRCode</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ? 'active' : '' }}" href="{{url('admin/transaksi-kantin')}}">Transaksi Kantin<span class="d-none">Transaksi Kantin</span></a></li>
+            </ul>
+          </div>
+        </li> 
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Jadwal Kelas</span>
