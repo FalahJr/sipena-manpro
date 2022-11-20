@@ -155,7 +155,6 @@ var table = $('#table-data').DataTable({
         $('#tambah').modal('show');
 
         const gallery = document.querySelectorAll("img")
-        console.log(gallery);
         gallery.forEach(image => {
            let src = image.getAttribute('src')
            image.addEventListener('click', function () {

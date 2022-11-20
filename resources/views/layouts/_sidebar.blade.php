@@ -270,10 +270,6 @@
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1f21c857637359e30985129941d39e3dbb392b0d
         @else
         <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('penjual/home')}}">
