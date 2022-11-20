@@ -68,7 +68,7 @@ class SiswaController extends Controller
 //       DB::transaction(function()
 // {
     // DB::table('users')->update(['votes' => 1]);
- 
+
     // DB::table('posts')->delete();
       try {
 
@@ -130,7 +130,7 @@ class SiswaController extends Controller
         }
           DB::commit();
 
-        
+
 
         // }
         return response()->json(["status" => 1]);
@@ -142,7 +142,7 @@ class SiswaController extends Controller
 
 
     }
-     else 
+     else
      {
       if (!$this->cekemail($req->username, $req->id)) {
         return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
@@ -235,9 +235,9 @@ class SiswaController extends Controller
         }
 
         // $tes = DB::commit();
-        
+
           DB::commit();
-        
+
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
         DB::rollback();
@@ -268,7 +268,7 @@ class SiswaController extends Controller
     $data = DB::table("siswa")->where("id", $id)->first();
     // dd($data);
     return view("siswa.edit", compact('data'));
-    
+
   }
 
   public function update(Request $request)
@@ -287,7 +287,7 @@ class SiswaController extends Controller
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-    
+
   }
 
   public function deleteDir($dirPath)

@@ -152,6 +152,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/setting/social/edit', 'SocialController@doeditcategory');
         Route::get('/setting/social/update', 'SocialController@doupdatecategory');
         Route::get('/setting/social/hapus', 'SocialController@dodeletecategory');
+
+        //Mutasi Siswa
+        Route::get('/mutasisiswa', 'MutasiSiswaController@index');
+        Route::get('/mutasisiswatable', 'MutasiSiswaController@datatable');
+        Route::post('/simpanmutasisiswa', 'MutasiSiswaController@simpan');
+        Route::get('/editmutasisiswa', 'MutasiSiswaController@edit');
+        Route::get('/hapusmutasisiswa', 'MutasiSiswaController@hapus');
     });
 });
 

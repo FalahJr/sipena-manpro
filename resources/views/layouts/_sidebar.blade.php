@@ -172,7 +172,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/pegawai') || Request::is('admin/pegawai/*') ? 'active' : '' }}" href="{{url('admin/pegawai')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
 
         <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/user')}}">
@@ -182,8 +182,8 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/toko') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/toko')}}">
+        <li class="nav-item {{Request::is('admin/mutasisiswa') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/mutasisiswa')}}">
             <span class="menu-title">Mutasi Siswa</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-account-outline menu-icon"></i>
@@ -272,7 +272,7 @@
         </li>
         -->
 
-        
+
         @else
         <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('penjual/home')}}">
