@@ -106,7 +106,7 @@ Route::middleware('api')->group(function () {
     Route::get('/category', 'CategoryController@apicategory');
 
     //Mutasi Siswa
-    Route::get('/iistmutasisiswa', 'MutasiSiswaController@datatable');
+    Route::get('/iistmutasisiswa', 'MutasiSiswaController@getMutasiSiswaJson');
     Route::post('/simpanmutasisiswa', 'MutasiSiswaController@simpan');
     Route::get('/editmutasisiswa', 'MutasiSiswaController@edit');
     Route::get('/hapusmutasisiswa', 'MutasiSiswaController@hapus');
