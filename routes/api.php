@@ -105,4 +105,10 @@ Route::middleware('api')->group(function () {
     //List Category
     Route::get('/category', 'CategoryController@apicategory');
 
+    //Mutasi Siswa
+    Route::get('/iistmutasisiswa', 'MutasiSiswaController@datatable');
+    Route::post('/simpanmutasisiswa', 'MutasiSiswaController@simpan');
+    Route::get('/editmutasisiswa', 'MutasiSiswaController@edit');
+    Route::get('/hapusmutasisiswa', 'MutasiSiswaController@hapus');
+
 });
