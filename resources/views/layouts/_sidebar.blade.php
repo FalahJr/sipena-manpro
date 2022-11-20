@@ -268,8 +268,6 @@
           </a>
         </li>
 
-
-
         @else
         <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('penjual/home')}}">
