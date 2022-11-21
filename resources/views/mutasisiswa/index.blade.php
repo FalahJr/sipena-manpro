@@ -101,7 +101,7 @@ var table = $('#table-data').DataTable({
         $("<img />", {
             "src": baseUrl + data.surat_keterangan_pindah_sekolah_asal,
             "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px;",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
         }).appendTo(image_holder);
 
         var image_holder = $(".image-holder1");
@@ -109,7 +109,7 @@ var table = $('#table-data').DataTable({
         $("<img />", {
             "src": baseUrl + data.tanda_bukti_mutasi_dispen_provinsi,
             "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px;",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
         }).appendTo(image_holder);
 
         var image_holder = $(".image-holder2");
@@ -117,7 +117,7 @@ var table = $('#table-data').DataTable({
         $("<img />", {
             "src":  baseUrl + data.surat_rekom_penyaluran_dari_deriktorat_jendral_dikdasmen,
             "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px;",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
         }).appendTo(image_holder);
 
         var image_holder = $(".image-holder3");
@@ -125,7 +125,7 @@ var table = $('#table-data').DataTable({
         $("<img />", {
             "src":  baseUrl + data.raport_asal,
             "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px;",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
         }).appendTo(image_holder);
 
         var image_holder = $(".image-holder4");
@@ -133,7 +133,7 @@ var table = $('#table-data').DataTable({
         $("<img />", {
             "src":  baseUrl + data.fotocoy_raport,
             "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px;",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
         }).appendTo(image_holder);
 
         var image_holder = $(".image-holder5");
@@ -141,7 +141,7 @@ var table = $('#table-data').DataTable({
         $("<img />", {
             "src":  baseUrl + data.fotocopy_sertifikat,
             "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px;",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
         }).appendTo(image_holder);
 
         var image_holder = $(".image-holder6");
@@ -149,7 +149,7 @@ var table = $('#table-data').DataTable({
         $("<img />", {
             "src":  baseUrl + data.surat_rekomendasi_penerimaan,
             "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px;",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
         }).appendTo(image_holder);
 
         $('#tambah').modal('show');
@@ -161,6 +161,7 @@ var table = $('#table-data').DataTable({
                window.open(src)
            });
         });
+
       }
     });
 
@@ -249,9 +250,20 @@ var table = $('#table-data').DataTable({
   	});
   }
 
+  $('#tambah').on('hidden.bs.modal', function (e) {
+    reloadall()
+  })
+
   function reloadall() {
     $('.table_modal :input').val("");
+    $("#siswa_id").val("").change();
     $('.image-holder').empty();
+    $('.image-holder1').empty();
+    $('.image-holder2').empty();
+    $('.image-holder3').empty();
+    $('.image-holder4').empty();
+    $('.image-holder5').empty();
+    $('.image-holder6').empty();
     $('#tambah').modal('hide');
     table.ajax.reload();
   }
@@ -271,7 +283,7 @@ var table = $('#table-data').DataTable({
                     $("<img />", {
                         "src": e.target.result,
                         "class": "thumb-image img-responsive",
-                        "style": "height: 100px; width:100px; border-radius: 0px;",
+                        "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
                     }).appendTo(image_holder);
                     $('.save').attr('disabled', false);
                 }, 2000)
@@ -279,6 +291,13 @@ var table = $('#table-data').DataTable({
             image_holder.show();
             reader.readAsDataURL($(this)[0].files[0]);
 
+            const gallery = document.querySelectorAll("img")
+            gallery.forEach(image => {
+               let src = image.getAttribute('src')
+               image.addEventListener('click', function () {
+                   window.open(src)
+               });
+            });
             // waitingDialog.hide();
         } else {
             // waitingDialog.hide();
@@ -301,7 +320,7 @@ var table = $('#table-data').DataTable({
                       $("<img />", {
                           "src": e.target.result,
                           "class": "thumb-image img-responsive",
-                          "style": "height: 100px; width:100px; border-radius: 0px;",
+                          "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
                       }).appendTo(image_holder);
                       $('.save').attr('disabled', false);
                   }, 2000)
@@ -309,6 +328,13 @@ var table = $('#table-data').DataTable({
               image_holder.show();
               reader.readAsDataURL($(this)[0].files[0]);
 
+              const gallery = document.querySelectorAll("img")
+              gallery.forEach(image => {
+                 let src = image.getAttribute('src')
+                 image.addEventListener('click', function () {
+                     window.open(src)
+                 });
+              });
               // waitingDialog.hide();
           } else {
               // waitingDialog.hide();
@@ -331,7 +357,7 @@ var table = $('#table-data').DataTable({
                         $("<img />", {
                             "src": e.target.result,
                             "class": "thumb-image img-responsive",
-                            "style": "height: 100px; width:100px; border-radius: 0px;",
+                            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
                         }).appendTo(image_holder);
                         $('.save').attr('disabled', false);
                     }, 2000)
@@ -339,6 +365,13 @@ var table = $('#table-data').DataTable({
                 image_holder.show();
                 reader.readAsDataURL($(this)[0].files[0]);
 
+                const gallery = document.querySelectorAll("img")
+                gallery.forEach(image => {
+                   let src = image.getAttribute('src')
+                   image.addEventListener('click', function () {
+                       window.open(src)
+                   });
+                });
                 // waitingDialog.hide();
             } else {
                 // waitingDialog.hide();
@@ -361,7 +394,7 @@ var table = $('#table-data').DataTable({
                           $("<img />", {
                               "src": e.target.result,
                               "class": "thumb-image img-responsive",
-                              "style": "height: 100px; width:100px; border-radius: 0px;",
+                              "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
                           }).appendTo(image_holder);
                           $('.save').attr('disabled', false);
                       }, 2000)
@@ -369,6 +402,13 @@ var table = $('#table-data').DataTable({
                   image_holder.show();
                   reader.readAsDataURL($(this)[0].files[0]);
 
+                  const gallery = document.querySelectorAll("img")
+                  gallery.forEach(image => {
+                     let src = image.getAttribute('src')
+                     image.addEventListener('click', function () {
+                         window.open(src)
+                     });
+                  });
                   // waitingDialog.hide();
               } else {
                   // waitingDialog.hide();
@@ -391,7 +431,7 @@ var table = $('#table-data').DataTable({
                             $("<img />", {
                                 "src": e.target.result,
                                 "class": "thumb-image img-responsive",
-                                "style": "height: 100px; width:100px; border-radius: 0px;",
+                                "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
                             }).appendTo(image_holder);
                             $('.save').attr('disabled', false);
                         }, 2000)
@@ -399,6 +439,13 @@ var table = $('#table-data').DataTable({
                     image_holder.show();
                     reader.readAsDataURL($(this)[0].files[0]);
 
+                    const gallery = document.querySelectorAll("img")
+                    gallery.forEach(image => {
+                       let src = image.getAttribute('src')
+                       image.addEventListener('click', function () {
+                           window.open(src)
+                       });
+                    });
                     // waitingDialog.hide();
                 } else {
                     // waitingDialog.hide();
@@ -421,7 +468,7 @@ var table = $('#table-data').DataTable({
                               $("<img />", {
                                   "src": e.target.result,
                                   "class": "thumb-image img-responsive",
-                                  "style": "height: 100px; width:100px; border-radius: 0px;",
+                                  "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
                               }).appendTo(image_holder);
                               $('.save').attr('disabled', false);
                           }, 2000)
@@ -429,6 +476,13 @@ var table = $('#table-data').DataTable({
                       image_holder.show();
                       reader.readAsDataURL($(this)[0].files[0]);
 
+                      const gallery = document.querySelectorAll("img")
+                      gallery.forEach(image => {
+                         let src = image.getAttribute('src')
+                         image.addEventListener('click', function () {
+                             window.open(src)
+                         });
+                      });
                       // waitingDialog.hide();
                   } else {
                       // waitingDialog.hide();
@@ -451,7 +505,7 @@ var table = $('#table-data').DataTable({
                                 $("<img />", {
                                     "src": e.target.result,
                                     "class": "thumb-image img-responsive",
-                                    "style": "height: 100px; width:100px; border-radius: 0px;",
+                                    "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
                                 }).appendTo(image_holder);
                                 $('.save').attr('disabled', false);
                             }, 2000)
@@ -459,6 +513,13 @@ var table = $('#table-data').DataTable({
                         image_holder.show();
                         reader.readAsDataURL($(this)[0].files[0]);
 
+                        const gallery = document.querySelectorAll("img")
+                        gallery.forEach(image => {
+                           let src = image.getAttribute('src')
+                           image.addEventListener('click', function () {
+                               window.open(src)
+                           });
+                        });
                         // waitingDialog.hide();
                     } else {
                         // waitingDialog.hide();
