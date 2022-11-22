@@ -180,8 +180,8 @@
                   href="{{url('admin/mata-pelajaran')}}">Data Mata Pelajaran<span class="d-none">Setting</span></a>
                 </li>
               <li class="nav-item"> <a
-                  class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}"
-                  href="{{url('admin/siswa')}}">Jadwal Kelas<span class="d-none">Setting</span></a></li>
+                  class="nav-link {{Request::is('admin/jadwal-pembelajaran') || Request::is('admin/jadwal-pembelajaran/*') ? 'active' : '' }}"
+                  href="{{url('admin/jadwal-pembelajaran')}}">Jadwal Kelas<span class="d-none">Setting</span></a></li>
 
             </ul>
           </div>

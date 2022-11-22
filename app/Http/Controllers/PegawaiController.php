@@ -102,7 +102,22 @@ class PegawaiController extends Controller
             return 'already exist';
           }
         }
-
+        $kantin = "N";
+        $koperasi = "N";
+        $perpus = "N";
+        $tu = "N";
+        $pengawas = "N";
+        if($req->jabatan === "kantin"){
+          $kantin = "Y";
+        }else if($req->jabatan === "koperasi"){
+          $koperasi = "Y";
+        }else if($req->jabatan === "perpustakaan"){
+          $perpus = "Y";
+        }else if($req->jabatan === "tata_usaha"){
+          $tu = "Y";
+        }else if($req->jabatan === "pengawas_sekolah"){
+          $pengawas = "Y";
+        }else{};
       $tes=DB::table("user")
           ->insert([
             "id" => $max,
@@ -122,10 +137,11 @@ class PegawaiController extends Controller
             "phone" => $req->no_hp,
             "address" => $req->alamat,
             "gender" => $req->jk,
-            "is_kantin" => 'N',
-            "is_koperasi" => 'N',
-            "is_perpus" => 'N',
-            "is_pengawas_sekolah" => 'N',
+            "is_kantin" => $kantin,
+            "is_koperasi" => $koperasi,
+            "is_perpus" => $perpus,
+            "is_tata_usaha" => $tu,
+            "is_pengawas_sekolah" => $pengawas,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
         }
@@ -279,9 +295,9 @@ class PegawaiController extends Controller
     $this->validate($request,[
       'nama_lengkap' => 'required|max:100',
       'phone' => 'required|max:14',
-      'alamat' => 'required|max:100',
+      'address' => 'required|max:100',
       'tanggal_lahir' => 'required|max:100',
-      'jk' => 'required|max:2',
+      'gender' => 'required|max:2',
     ]);
     $newData = request()->except(['_token','image']);
     $data = DB::table("pegawai")->where('id',$request->id)->update($newData);

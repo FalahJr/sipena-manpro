@@ -120,7 +120,7 @@ var table = $('#table-data').DataTable({
 
     $.ajax({
       type: "post",
-      url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
+      url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal .inputtext').serialize(),
       data: formdata,
       processData: false, //important
       contentType: false,
