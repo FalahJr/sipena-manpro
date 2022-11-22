@@ -79,9 +79,9 @@ class AbsensiSiswaController extends Controller
             $date2 = Carbon::parse($data->jadwal)->format('d m Y');
 
             if($date1 === $date2) {
-              return '<span class="badge badge-success"> Valid </span>';
+              return '<span class="badge badge-success"> Ya </span>';
             } else {
-              return '<span class="badge badge-danger"> Tidak Valid </span>';
+              return '<span class="badge badge-danger"> Tidak </span>';
             }
           })
           ->addColumn('jadwal', function ($data) {
