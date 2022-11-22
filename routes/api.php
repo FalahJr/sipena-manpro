@@ -111,4 +111,7 @@ Route::middleware('api')->group(function () {
     Route::get('/editmutasisiswa', 'MutasiSiswaController@edit');
     Route::get('/hapusmutasisiswa', 'MutasiSiswaController@hapus');
 
+    //Absensi Siswa
+    Route::get('/listabsensisiswa', 'AbsensiSiswaController@getMutasiSiswaJson');
+    Route::post('/simpanabsensisiswa', 'AbsensiSiswaController@simpan');
 });

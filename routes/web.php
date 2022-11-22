@@ -185,6 +185,10 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/simpanmutasisiswa', 'MutasiSiswaController@simpan');
         Route::get('/editmutasisiswa', 'MutasiSiswaController@edit');
         Route::get('/hapusmutasisiswa', 'MutasiSiswaController@hapus');
+
+        //Absensi Siswa
+        Route::get('/absensisiswa', 'AbsensiSiswaController@index');
+        Route::get('/absensisiswatable', 'AbsensiSiswaController@datatable');
     });
 });
 

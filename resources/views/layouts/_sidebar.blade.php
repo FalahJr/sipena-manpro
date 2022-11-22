@@ -203,8 +203,8 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{Request::is('admin/absensisiswa') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/absensisiswa')}}">
             <span class="menu-title">Absensi Siswa</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-note menu-icon"></i>
