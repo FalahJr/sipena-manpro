@@ -178,6 +178,50 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/transaksi-kantin/update', 'TransaksiKantinController@update');
         Route::get('/transaksi-kantin/edit/{id}', 'TransaksiKantinController@edit');
 
+        //Perpustakaan
+        Route::get('/katalog-buku', 'Perpustakaan\KatalogBukuController@index');
+        Route::get('/katalog-buku/table', 'Perpustakaan\KatalogBukuController@datatable');
+        Route::post('/katalog-buku/simpan', 'Perpustakaan\KatalogBukuController@simpan');
+        Route::get('/katalog-buku/hapus/{id}', 'Perpustakaan\KatalogBukuController@hapus');
+        Route::post('/katalog-buku/update', 'Perpustakaan\KatalogBukuController@update');
+        Route::get('/katalog-buku/edit/{id}', 'Perpustakaan\KatalogBukuController@edit');
+
+        Route::get('/pinjam-buku', 'Perpustakaan\PinjamBukuController@index');
+        Route::get('/pinjam-buku/table', 'Perpustakaan\PinjamBukuController@datatable');
+        Route::post('/pinjam-buku/update', 'Perpustakaan\PinjamBukuController@update');
+        Route::get('/pinjam-buku/show/{id}', 'Perpustakaan\PinjamBukuController@show');
+        // Route::post('/pinjam-buku/simpan', 'Perpustakaan\PinjamBukuController@simpan');
+        Route::get('/pinjam-buku/hapus/{id}', 'Perpustakaan\PinjamBukuController@hapus');
+        Route::get('/pinjam-buku/edit/{id}', 'Perpustakaan\PinjamBukuController@edit');
+
+        Route::get('/kembali-buku', 'Perpustakaan\KembaliBukuController@index');
+        Route::get('/kembali-buku/table', 'Perpustakaan\KembaliBukuController@datatable');
+        Route::post('/kembali-buku/update', 'Perpustakaan\KembaliBukuController@update');
+        Route::get('/kembali-buku/show/{id}', 'Perpustakaan\KembaliBukuController@show');
+        // Route::post('/kembali-buku/simpan', 'Perpustakaan\KembaliBukuController@simpan');
+        Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
+        Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
+        
+
+        Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@index');
+        Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
+        Route::post('/sumbang-buku/update', 'Perpustakaan\SumbangBukuController@update');
+        Route::get('/sumbang-buku/show/{id}', 'Perpustakaan\SumbangBukuController@show');
+        // Route::post('/sumbang-buku/simpan', 'Perpustakaan\SumbangBukuController@simpan');
+        Route::get('/sumbang-buku/hapus/{id}', 'Perpustakaan\SumbangBukuController@hapus');
+        Route::get('/sumbang-buku/edit/{id}', 'Perpustakaan\SumbangBukuController@edit');
+
+        Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@index');
+        Route::get('/kehilangan-buku/table', 'Perpustakaan\KehilanganBukuController@datatable');
+        Route::post('/kehilangan-buku/update', 'Perpustakaan\KehilanganBukuController@update');
+        Route::get('/kehilangan-buku/show/{id}', 'Perpustakaan\KehilanganBukuController@show');
+        // Route::post('/kehilangan-buku/simpan', 'Perpustakaan\KehilanganBukuController@simpan');
+        Route::get('/kehilangan-buku/hapus/{id}', 'Perpustakaan\KehilanganBukuController@hapus');
+        Route::get('/kehilangan-buku/edit/{id}', 'Perpustakaan\KehilanganBukuController@edit');
+        
+
+        
+
         //Feedback
         Route::get('/feed', 'FeedController@index');
         Route::get('/feed/table', 'FeedController@datatable');
