@@ -48,7 +48,7 @@
           <tr>
             <td>Alamat <span style="color:red;">*</span></td>
             <td>
-              <textarea class="form-control form-control-sm alamat" name="alamat" rows="8" cols="80"></textarea>
+              <textarea class="form-control form-control-sm alamat inputtext" name="alamat" rows="8" cols="80"></textarea>
               <!-- <div class="alert alert-warning" role="alert">
               This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
               </div> -->
@@ -57,10 +57,24 @@
           <tr>
             <td>Jenis Kelamin <span style="color:red;">*</span></td>
             <td>
-              <select class="form-control jk" name="jk">
+              <select class="form-control jk inputtext" name="jk">
                 <option value="" selected>- Pilih -</option>
                 <option value="L"> Laki-Laki </option>
                 <option value="P"> Perempuan </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Jabatan <span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control jabatan inputtext" name="jabatan">
+                <option value="" selected>- Pilih Jabatan-</option>
+                <option value="kantin">Pegawai Kantin </option>
+                <option value="koperasi">Pegawai Koperasi </option>
+                <option value="perpustakaan">Pegawai Perpustakaan </option>
+                <option value="tata_usaha">Pegawai Tata Usaha </option>
+                <option value="pengawas_sekolah">Pegawai Pengawas Sekolah </option>
+
               </select>
             </td>
           </tr>

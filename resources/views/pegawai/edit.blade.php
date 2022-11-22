@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('guru.tambah')
+@include('pegawai.tambah')
 <style type="text/css">
 
 </style>
@@ -12,7 +12,7 @@
     <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
-          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/guru')}}">guru</a></li>
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/pegawai')}}">Pegawai</a></li>
           <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
         </ol>
       </nav>
@@ -21,8 +21,17 @@
         <div class="card">
           <div class="card-body">
             
-           <h4 class="card-title">Edit Data Guru</h4>
-           
+          <?php if($data->is_kantin === "Y"){ ?>
+           <h4 class="card-title">Edit Data Pegawai Kantin</h4>
+           <?php }else if($data->is_koperasi === "Y"){ ?>
+           <h4 class="card-title">Edit Data Pegawai Koperasi</h4>
+           <?php }else if($data->is_perpus === "Y"){ ?>
+           <h4 class="card-title">Edit Data Pegawai Perpustakaan</h4>
+           <?php } else if($data->is_tata_usaha === "Y"){ ?>
+           <h4 class="card-title">Edit Data Pegawai Tata Usaha</h4>
+           <?php } else if($data->is_pengawas_sekolah === "Y"){ ?>
+           <h4 class="card-title">Edit Data Pegawai Pengawas Sekolah</h4>
+           <?php } ?>
                     <!-- Modal -->
     <!-- Modal content-->
     <div class="row">
@@ -44,7 +53,7 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/guru/update')}}" method="POST">
+          <form action="{{url('admin/jadwal-pembelajaran/update')}}" method="POST">
             {{ csrf_field() }}
           <tr>
             <td>Nama Lengkap <span style="color:red;">*</span></td>
@@ -69,7 +78,7 @@
           <tr>
             <td>Alamat <span style="color:red;">*</span></td>
             <td>
-              <textarea class="form-control form-control-sm @if($errors->has('alamat')) is-invalid @endif" name="alamat" rows="8" cols="80">{!! htmlspecialchars($data->alamat) !!}</textarea>
+              <textarea class="form-control form-control-sm @if($errors->has('address')) is-invalid @endif" name="address" rows="8" cols="80">{!! htmlspecialchars($data->address) !!}</textarea>
               <!-- <div class="alert alert-warning" role="alert">
               This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
               </div> -->
@@ -79,10 +88,10 @@
           <tr>
             <td>Jenis Kelamin <span style="color:red;">*</span></td>
             <td>
-              <select class="form-control @if($errors->has('jk')) is-invalid @endif" name="jk">
+              <select class="form-control @if($errors->has('gender')) is-invalid @endif" name="gender">
                 <option value="" selected>- Pilih -</option>
-                <option value="L" @if($data->jk == "L") selected @endif> Laki-Laki </option>
-                <option value="P" @if($data->jk == "P") selected @endif> Perempuan </option>
+                <option value="L" @if($data->gender == "L") selected @endif> Laki-Laki </option>
+                <option value="P" @if($data->gender == "P") selected @endif> Perempuan </option>
     
               </select>
             </td>
