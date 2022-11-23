@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('katalog_buku.tambah')
+@include('kategori_buku.tambah')
 <style>
   .dataTables_filter label {
       margin-bottom: 1.4rem !important;
@@ -14,7 +14,8 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Katalog Buku</li>
+          <li class="breadcrumb-item active" aria-current="page"><a href="{{url('/admin/katalog-buku')}}">Katalog Buku</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Kategori</li>
         </ol>
       </nav>
     </div>
@@ -23,12 +24,11 @@
                   <div class="card-body">
                     <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
                       <div class="col-12 col-md-2">
-                        <h4 class="card-title">Katalog Buku</h4>
+                        <h4 class="card-title">Kategori Buku</h4>
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
-                        <a href="{{url('/admin/kategori-buku')}}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kategori Buku</a>
-                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Katalog</button>
+                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kategori</button>
                       </div>
                       {{-- @endif --}}
                     </div>
@@ -37,11 +37,9 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                <th>Foto</th>
-                                <th>Judul</th>
-                                <th>Author</th>
-                                <th>Bahasa</th>
-                                <th>Total Halaman</th>
+                                <th>Nama Kategori</th>
+                                <th>Jumlah Buku</th>
+                                <th>Dibuat Tanggal</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Action</th>
                               </tr>
@@ -64,7 +62,7 @@
 @section('extra_script')
 <script>
 
-baseUrlChange += "/admin/katalog-buku";
+baseUrlChange += "/admin/kategori-buku";
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -78,7 +76,7 @@ var table = $('#table-data').DataTable({
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('admin/katalog-buku/table') }}',
+            url:'{{ url('admin/kategori-buku/table') }}',
         },
         columnDefs: [
 
@@ -106,22 +104,13 @@ var table = $('#table-data').DataTable({
                  targets: 5,
                  className: 'center'
               },
-              {
-                 targets: 6,
-                 className: 'center'
-              },{
-                 targets: 7,
-                 className: 'center'
-              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           // {data: 'image', name: 'image'},
-          {data: 'foto', name: 'foto'},
-          {data: 'judul', name: 'judul'},
-          {data: 'author', name: 'author'},
-          {data: 'bahasa', name: 'bahasa'},
-          {data: 'total_halaman', name: 'total_halaman'},
+          {data: 'nama', name: 'nama'},
+          {data: 'jumlah_buku', name: 'jumlah_buku'},
+          {data: 'created_at', name: 'created_at'},
           {data: 'created_by', name: 'created_by'},
           {data: 'aksi', name: 'aksi'},
         ]
@@ -130,7 +119,7 @@ var table = $('#table-data').DataTable({
     $('#simpan').click(function(){
 
     var formdata = new FormData();
-    formdata.append('image', $('.uploadGambar')[0].files[0]);
+    // formdata.append('image', $('.uploadGambar')[0].files[0]);
 
     $.ajax({
       type: "post",

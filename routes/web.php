@@ -186,6 +186,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/katalog-buku/update', 'Perpustakaan\KatalogBukuController@update');
         Route::get('/katalog-buku/edit/{id}', 'Perpustakaan\KatalogBukuController@edit');
 
+        Route::get('/kategori-buku', 'Perpustakaan\KategoriBukuController@index');
+        Route::get('/kategori-buku/table', 'Perpustakaan\KategoriBukuController@datatable');
+        Route::post('/kategori-buku/simpan', 'Perpustakaan\KategoriBukuController@simpan');
+        Route::get('/kategori-buku/hapus/{id}', 'Perpustakaan\KategoriBukuController@hapus');
+        Route::post('/kategori-buku/update', 'Perpustakaan\KategoriBukuController@update');
+        Route::get('/kategori-buku/edit/{id}', 'Perpustakaan\KategoriBukuController@edit');
+
         Route::get('/pinjam-buku', 'Perpustakaan\PinjamBukuController@index');
         Route::get('/pinjam-buku/table', 'Perpustakaan\PinjamBukuController@datatable');
         Route::post('/pinjam-buku/update', 'Perpustakaan\PinjamBukuController@update');

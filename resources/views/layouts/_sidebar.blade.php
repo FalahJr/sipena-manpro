@@ -212,15 +212,15 @@
           </a>
         </li>
 
-        <li class="nav-item {{ ( ( Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') || Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') || Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') || Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku')) ? ' active' : '' ) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') || Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') || Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') || Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') || Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku')) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#perpustakaan" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Perpustakaan</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-library menu-icon"></i>
           </a>
-          <div class="collapse {{( ( Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') || Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') || Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') || Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku')) ? ' show' : '' ) }}" id="perpustakaan">
+          <div class="collapse {{( ( Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') || Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') || Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') || Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') || Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku')) ? ' show' : '' ) }}" id="perpustakaan">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') ? 'active' : '' }}" href="{{url('admin/katalog-buku')}}">Katalog Buku<span class="d-none">Katalog Buku</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') ? 'active' : '' }}" href="{{url('admin/katalog-buku')}}">Katalog Buku<span class="d-none">Katalog Buku</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') ? 'active' : '' }}" href="{{url('admin/pinjam-buku')}}">Pinjam Buku<span class="d-none">Pinjam Buku</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') ? 'active' : '' }}" href="{{url('admin/sumbang-buku')}}">Sumbang Buku<span class="d-none">Sumbang Buku</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') ? 'active' : '' }}" href="{{url('admin/kembali-buku')}}">Kembalikan Buku<span class="d-none">Kembalikan Buku</span></a></li>
