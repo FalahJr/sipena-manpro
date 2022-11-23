@@ -135,19 +135,31 @@
           </div>
         </li>
 
+<<<<<<< HEAD
         <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+=======
+        <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+>>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
           <a class="nav-link" data-toggle="collapse" href="#berita" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Berita</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
+<<<<<<< HEAD
           <div class="collapse {{( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
+=======
+          <div class="collapse {{( ( Request::is('admin/berita-kelas/') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
+>>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') ? 'active' : '' }}" href="{{url('admin/berita-kelas')}}">Berita Kelas<span class="d-none">Berita Kelas</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ? 'active' : '' }}" href="{{url('admin/berita-sekolah')}}">Berita Sekolah<span class="d-none">Berita Sekolah</span></a></li>
             </ul>
           </div>
+<<<<<<< HEAD
         </li> 
+=======
+        </li>
+>>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
 
         <li
           class="nav-item {{ ( ( Request::is('admin/kelas/*') || Request::is('admin/kelas') ) ? ' active' : '' ) }}">
@@ -173,15 +185,15 @@
                   href="{{url('admin/mata-pelajaran')}}">Data Mata Pelajaran<span class="d-none">Setting</span></a>
                 </li>
               <li class="nav-item"> <a
-                  class="nav-link {{Request::is('admin/siswa') || Request::is('admin/siswa/*') ? 'active' : '' }}"
-                  href="{{url('admin/siswa')}}">Jadwal Kelas<span class="d-none">Setting</span></a></li>
+                  class="nav-link {{Request::is('admin/jadwal-pembelajaran') || Request::is('admin/jadwal-pembelajaran/*') ? 'active' : '' }}"
+                  href="{{url('admin/jadwal-pembelajaran')}}">Jadwal Kelas<span class="d-none">Setting</span></a></li>
 
             </ul>
           </div>
         </li>
 
-        <li class="nav-item {{Request::is('admin/toko') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/toko')}}">
+        <li class="nav-item {{Request::is('admin/mutasisiswa') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/mutasisiswa')}}">
             <span class="menu-title">Mutasi Siswa</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-account-outline menu-icon"></i>
@@ -196,8 +208,8 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{Request::is('admin/absensisiswa') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/absensisiswa')}}">
             <span class="menu-title">Absensi Siswa</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-note menu-icon"></i>
@@ -276,9 +288,6 @@
             <i class="mdi mdi-calendar menu-icon"></i>
           </a>
         </li>
-
-
-
 
         @else
         <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">

@@ -69,7 +69,7 @@ public function simpan(Request $req)
 //       DB::transaction(function()
 // {
     // DB::table('users')->update(['votes' => 1]);
- 
+
     // DB::table('posts')->delete();
       try {
         $max = DB::table("user")->max('id') + 1;
@@ -129,7 +129,7 @@ public function simpan(Request $req)
         }
           DB::commit();
 
-        
+
 
         // }
         return response()->json(["status" => 1]);
@@ -141,7 +141,7 @@ public function simpan(Request $req)
 
 
     }
-     else 
+     else
      {
       if (!$this->cekemail($req->username, $req->id)) {
         return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
@@ -235,9 +235,9 @@ public function simpan(Request $req)
         }
 
         // $tes = DB::commit();
-        
+
           DB::commit();
-        
+
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
         DB::rollback();
@@ -268,7 +268,7 @@ public function simpan(Request $req)
     $data = DB::table("siswa")->where("id", $id)->first();
     // dd($data);
     return view("siswa.edit", compact('data'));
-    
+
   }
 
   public function update(Request $request)
@@ -287,7 +287,7 @@ public function simpan(Request $req)
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-    
+
   }
 
   public function deleteDir($dirPath)

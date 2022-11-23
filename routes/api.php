@@ -105,4 +105,13 @@ Route::middleware('api')->group(function () {
     //List Category
     Route::get('/category', 'CategoryController@apicategory');
 
+    //Mutasi Siswa
+    Route::get('/iistmutasisiswa', 'MutasiSiswaController@getMutasiSiswaJson');
+    Route::post('/simpanmutasisiswa', 'MutasiSiswaController@simpan');
+    Route::get('/editmutasisiswa', 'MutasiSiswaController@edit');
+    Route::get('/hapusmutasisiswa', 'MutasiSiswaController@hapus');
+
+    //Absensi Siswa
+    Route::get('/listabsensisiswa', 'AbsensiSiswaController@getMutasiSiswaJson');
+    Route::post('/simpanabsensisiswa', 'AbsensiSiswaController@simpan');
 });

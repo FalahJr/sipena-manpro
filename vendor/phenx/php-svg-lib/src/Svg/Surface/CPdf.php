@@ -198,7 +198,7 @@ class CPdf
     /**
      * @var array Store the information about the relationship between font families
      * this used so that the code knows which font is the bold version of another font, etc.
-     * the value of this array is initialised in the constructor function.
+     * the value of this array is initialised in the constuctor function.
      */
     public $fontFamilies = array();
 
@@ -352,7 +352,7 @@ class CPdf
     {
         $this->isUnicode = $isUnicode;
         $this->fontcache = $fontcache;
-        $this->tmp = ($tmp === '') ? sys_get_temp_dir() : $tmp;
+        $this->tmp = $tmp;
         $this->newDocument($pageSize);
 
         $this->compressionReady = function_exists('gzcompress');
@@ -2837,14 +2837,10 @@ EOT;
             $mode = "Normal";
         }
 
-        if (is_null($this->currentLineTransparency)) {
-            $this->currentLineTransparency = [];
-        }
-
-        if ($mode === (key_exists('mode', $this->currentLineTransparency) ?
-            $this->currentLineTransparency['mode'] : '') &&
-            $opacity === (key_exists('opacity', $this->currentLineTransparency) ?
-            $this->currentLineTransparency["opacity"] : '')) {
+        // Only create a new graphics state if required
+        if ($mode === $this->currentLineTransparency["mode"] &&
+            $opacity == $this->currentLineTransparency["opacity"]
+        ) {
             return;
         }
 
@@ -2892,14 +2888,9 @@ EOT;
             $mode = "Normal";
         }
 
-        if (is_null($this->currentFillTransparency)) {
-            $this->currentFillTransparency = [];
-        }
-
-        if ($mode === (key_exists('mode', $this->currentFillTransparency) ?
-            $this->currentFillTransparency['mode'] : '') &&
-            $opacity === (key_exists('opacity', $this->currentFillTransparency) ?
-            $this->currentFillTransparency["opacity"] : '')) {
+        if ($mode === $this->currentFillTransparency["mode"] &&
+            $opacity == $this->currentFillTransparency["opacity"]
+        ) {
             return;
         }
 

@@ -40,14 +40,14 @@ class GuruController extends Controller
     // return $xyzab;
     // return $xyzab->i_price;
     return Datatables::of($data)
-        //   ->addColumn("image", function ($data) {
-        //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
-        //   })
+    //   ->addColumn("image", function ($data) {
+    //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
+    //   })
       ->addColumn('aksi', function ($data) {
-        return '<div class="btn-group">' .
-          '<a href="guru/edit/' . $data->id . '" class="btn btn-info btn-lg">' .
+        return  '<div class="btn-group">' .
+          '<a href="guru/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="guru/hapus/' . $data->id . '" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="/admin/guru/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })
@@ -65,11 +65,11 @@ class GuruController extends Controller
         return response()->json(["status" => 7, "message" => "Data username sudah digunakan, tidak dapat disimpan!"]);
       }
       DB::beginTransaction();
-      //       DB::transaction(function()
+//       DB::transaction(function()
 // {
-      // DB::table('users')->update(['votes' => 1]);
-
-      // DB::table('posts')->delete();
+    // DB::table('users')->update(['votes' => 1]);
+ 
+    // DB::table('posts')->delete();
       try {
 
         $max = DB::table("user")->max('id') + 1;
@@ -103,7 +103,7 @@ class GuruController extends Controller
           }
         }
 
-        $tes = DB::table("user")
+      $tes=DB::table("user")
           ->insert([
             "id" => $max,
             "username" => $req->username,
@@ -113,9 +113,9 @@ class GuruController extends Controller
             "saldo" => 0,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
-        if ($tes) {
+          if($tes){
           DB::table("guru")->insert([
-            "id" => $maxGuru,
+            "id"=>$maxGuru,
             "user_id" => $max,
             "nama_lengkap" => $req->nama_lengkap,
             "tanggal_lahir" => $req->tgl_lahir,
@@ -128,9 +128,9 @@ class GuruController extends Controller
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
         }
-        DB::commit();
+          DB::commit();
 
-
+        
 
         // }
         return response()->json(["status" => 1]);
@@ -138,10 +138,12 @@ class GuruController extends Controller
         DB::rollback();
         return response()->json(["status" => 2]);
       }
-      // });
+// });
 
 
-    } else {
+    }
+     else 
+     {
       if (!$this->cekemail($req->username, $req->id)) {
         return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
       }
@@ -177,65 +179,65 @@ class GuruController extends Controller
         }
 
         if ($imgPath == null) {
-          $tes = DB::table("user")
+          $tes= DB::table("user")
             ->where('user', $req->id)
             ->update([
               // "id" => $max,
-              "username" => $req->username,
-              "password" => $req->password,
-              "role_id" => 4,
-              "is_active" => 'Y',
-              "saldo" => 0,
-              "created_at" => Carbon::now('Asia/Jakarta'),
+            "username" => $req->username,
+            "password" => $req->password,
+            "role_id" => 4,
+            "is_active" => 'Y',
+            "saldo" => 0,
+            "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
-          if ($tes) {
-            DB::table("guru")->insert([
-              // "id"=>$maxGuru,
-              // "user_id" => $max,
-              "nama_lengkap" => $req->nama_lengkap,
-              "tanggal_lahir" => $req->tgl_lahir,
-              "phone" => $req->no_hp,
-              "alamat" => $req->alamat,
-              "jk" => $req->jk,
-              "is_walikelas" => 'N',
-              "is_ekstrakulikuler" => 'N',
-              "is_mapel" => 'N',
-              "created_at" => Carbon::now('Asia/Jakarta'),
-            ]);
-          }
+            if($tes){
+              DB::table("guru")->insert([
+                // "id"=>$maxGuru,
+                // "user_id" => $max,
+                "nama_lengkap" => $req->nama_lengkap,
+                "tanggal_lahir" => $req->tgl_lahir,
+                "phone" => $req->no_hp,
+                "alamat" => $req->alamat,
+                "jk" => $req->jk,
+                "is_walikelas" => 'N',
+                "is_ekstrakulikuler" => 'N',
+                "is_mapel" => 'N',
+                "created_at" => Carbon::now('Asia/Jakarta'),
+              ]);
+            }
         } else {
-          $tes = DB::table("user")
+          $tes=  DB::table("user")
             ->where('user', $req->id)
             ->update([
               "id" => $max,
-              "username" => $req->username,
-              "password" => $req->password,
-              "role_id" => 4,
-              "is_active" => 'Y',
-              "saldo" => 0,
-              "created_at" => Carbon::now('Asia/Jakarta'),
+            "username" => $req->username,
+            "password" => $req->password,
+            "role_id" => 4,
+            "is_active" => 'Y',
+            "saldo" => 0,
+            "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
-          if ($tes) {
-            DB::table("guru")->insert([
-              "id" => $maxGuru,
-              "user_id" => $max,
-              "nama_lengkap" => $req->nama_lengkap,
-              "tanggal_lahir" => $req->tgl_lahir,
-              "phone" => $req->no_hp,
-              "alamat" => $req->alamat,
-              "jk" => $req->jk,
-              "is_walikelas" => 'N',
-              "is_ekstrakulikuler" => 'N',
-              "is_mapel" => 'N',
-              "created_at" => Carbon::now('Asia/Jakarta'),
-            ]);
-          }
+            if($tes){
+              DB::table("guru")->insert([
+                "id"=>$maxGuru,
+                "user_id" => $max,
+                "nama_lengkap" => $req->nama_lengkap,
+                "tanggal_lahir" => $req->tgl_lahir,
+                "phone" => $req->no_hp,
+                "alamat" => $req->alamat,
+                "jk" => $req->jk,
+                "is_walikelas" => 'N',
+                "is_ekstrakulikuler" => 'N',
+                "is_mapel" => 'N',
+                "created_at" => Carbon::now('Asia/Jakarta'),
+              ]);
+            }
         }
 
         // $tes = DB::commit();
-
-        DB::commit();
-
+        
+          DB::commit();
+        
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
         DB::rollback();
@@ -247,18 +249,18 @@ class GuruController extends Controller
   public function hapus($id)
   {
     $user_id = DB::table("guru")
-      ->where('id', $id)
-      ->first();
+    ->where('id',$id)
+    ->first();
 
     DB::table("guru")
-      ->where('id', $id)
-      ->delete();
+        ->where('id',$id)
+        ->delete();
 
     DB::table("user")
-      ->where('id', $user_id->user_id)
-      ->delete();
+        ->where('id',$user_id->user_id)
+        ->delete();
 
-    return back()->with(['success' => 'Data berhasil dihapus']);
+      return back()->with(['success' => 'Data berhasil dihapus']);
   }
 
   public function edit($id)
@@ -266,25 +268,25 @@ class GuruController extends Controller
     $data = DB::table("guru")->where("id", $id)->first();
     // dd($data);
     return view("guru.edit", compact('data'));
-
+    
   }
 
   public function update(Request $request)
   {
-    $this->validate($request, [
+    $this->validate($request,[
       'nama_lengkap' => 'required|max:100',
       'phone' => 'required|max:14',
       'alamat' => 'required|max:100',
       'tanggal_lahir' => 'required|max:100',
       'jk' => 'required|max:2',
     ]);
-    $newData = request()->except(['_token', 'image']);
-    $data = DB::table("guru")->where('id', $request->id)->update($newData);
+    $newData = request()->except(['_token','image']);
+    $data = DB::table("guru")->where('id',$request->id)->update($newData);
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-
+    
   }
 
   public static function cekemail($username, $id = null)

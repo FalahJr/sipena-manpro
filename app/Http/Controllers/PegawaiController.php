@@ -40,14 +40,14 @@ class PegawaiController extends Controller
     // return $xyzab;
     // return $xyzab->i_price;
     return Datatables::of($data)
-        //   ->addColumn("image", function ($data) {
-        //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
-        //   })
+    //   ->addColumn("image", function ($data) {
+    //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
+    //   })
       ->addColumn('aksi', function ($data) {
-        return '<div class="btn-group">' .
-          '<a href="pegawai/edit/' . $data->id . '" class="btn btn-info btn-lg">' .
+        return  '<div class="btn-group">' .
+          '<a href="pegawai/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="pegawai/hapus/' . $data->id . '" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="pegawai/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })
@@ -66,14 +66,14 @@ class PegawaiController extends Controller
         return response()->json(["status" => 7, "message" => "Data username sudah digunakan, tidak dapat disimpan!"]);
       }
       DB::beginTransaction();
-      //       DB::transaction(function()
+//       DB::transaction(function()
 // {
-      // DB::table('users')->update(['votes' => 1]);
-
-      // DB::table('posts')->delete();
+    // DB::table('users')->update(['votes' => 1]);
+ 
+    // DB::table('posts')->delete();
       try {
 
-
+        
 
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
@@ -102,8 +102,23 @@ class PegawaiController extends Controller
             return 'already exist';
           }
         }
-
-        $tes = DB::table("user")
+        $kantin = "N";
+        $koperasi = "N";
+        $perpus = "N";
+        $tu = "N";
+        $pengawas = "N";
+        if($req->jabatan === "kantin"){
+          $kantin = "Y";
+        }else if($req->jabatan === "koperasi"){
+          $koperasi = "Y";
+        }else if($req->jabatan === "perpustakaan"){
+          $perpus = "Y";
+        }else if($req->jabatan === "tata_usaha"){
+          $tu = "Y";
+        }else if($req->jabatan === "pengawas_sekolah"){
+          $pengawas = "Y";
+        }else{};
+      $tes=DB::table("user")
           ->insert([
             "id" => $max,
             "username" => $req->username,
@@ -113,25 +128,26 @@ class PegawaiController extends Controller
             "saldo" => 0,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
-        if ($tes) {
+          if($tes){
           DB::table("pegawai")->insert([
-            "id" => $maxpegawai,
+            "id"=>$maxpegawai,
             "user_id" => $max,
             "nama_lengkap" => $req->nama_lengkap,
             "tanggal_lahir" => $req->tgl_lahir,
             "phone" => $req->no_hp,
             "address" => $req->alamat,
             "gender" => $req->jk,
-            "is_kantin" => 'N',
-            "is_koperasi" => 'N',
-            "is_perpus" => 'N',
-            "is_pengawas_sekolah" => 'N',
+            "is_kantin" => $kantin,
+            "is_koperasi" => $koperasi,
+            "is_perpus" => $perpus,
+            "is_tata_usaha" => $tu,
+            "is_pengawas_sekolah" => $pengawas,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
         }
-        DB::commit();
+          DB::commit();
 
-
+        
 
         // }
         return response()->json(["status" => 1]);
@@ -139,10 +155,12 @@ class PegawaiController extends Controller
         DB::rollback();
         return response()->json(["status" => 2]);
       }
-      // });
+// });
 
 
-    } else {
+    }
+     else 
+     {
       if (!$this->cekemail($req->username, $req->id)) {
         return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
       }
@@ -178,67 +196,67 @@ class PegawaiController extends Controller
         }
 
         if ($imgPath == null) {
-          $tes = DB::table("user")
+          $tes= DB::table("user")
             ->where('user', $req->id)
             ->update([
               // "id" => $max,
-              "username" => $req->username,
-              "password" => $req->password,
-              "role_id" => 4,
-              "is_active" => 'Y',
-              "saldo" => 0,
-              "created_at" => Carbon::now('Asia/Jakarta'),
+            "username" => $req->username,
+            "password" => $req->password,
+            "role_id" => 4,
+            "is_active" => 'Y',
+            "saldo" => 0,
+            "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
-          if ($tes) {
-            DB::table("pegawai")->insert([
-              // "id"=>$maxpegawai,
-              // "user_id" => $max,
-              "nama_lengkap" => $req->nama_lengkap,
-              "tanggal_lahir" => $req->tgl_lahir,
-              "phone" => $req->no_hp,
-              "address" => $req->alamat,
-              "gender" => $req->jk,
-              "is_kantin" => 'N',
-              "is_koperasi" => 'N',
-              "is_perpus" => 'N',
-              "is_pengawas_sekolah" => 'N',
-              "created_at" => Carbon::now('Asia/Jakarta'),
-            ]);
-          }
+            if($tes){
+              DB::table("pegawai")->insert([
+                // "id"=>$maxpegawai,
+                // "user_id" => $max,
+                "nama_lengkap" => $req->nama_lengkap,
+            "tanggal_lahir" => $req->tgl_lahir,
+            "phone" => $req->no_hp,
+            "address" => $req->alamat,
+            "gender" => $req->jk,
+            "is_kantin" => 'N',
+            "is_koperasi" => 'N',
+            "is_perpus" => 'N',
+            "is_pengawas_sekolah" => 'N',
+                "created_at" => Carbon::now('Asia/Jakarta'),
+              ]);
+            }
         } else {
-          $tes = DB::table("user")
+          $tes=  DB::table("user")
             ->where('user', $req->id)
             ->update([
               "id" => $max,
-              "username" => $req->username,
-              "password" => $req->password,
-              "role_id" => 4,
-              "is_active" => 'Y',
-              "saldo" => 0,
-              "created_at" => Carbon::now('Asia/Jakarta'),
+            "username" => $req->username,
+            "password" => $req->password,
+            "role_id" => 4,
+            "is_active" => 'Y',
+            "saldo" => 0,
+            "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
-          if ($tes) {
-            DB::table("pegawai")->insert([
-              "id" => $maxpegawai,
-              "user_id" => $max,
-              "nama_lengkap" => $req->nama_lengkap,
-              "tanggal_lahir" => $req->tgl_lahir,
-              "phone" => $req->no_hp,
-              "address" => $req->alamat,
-              "gender" => $req->jk,
-              "is_kantin" => 'N',
-              "is_koperasi" => 'N',
-              "is_perpus" => 'N',
-              "is_pengawas_sekolah" => 'N',
-              "created_at" => Carbon::now('Asia/Jakarta'),
-            ]);
-          }
+            if($tes){
+              DB::table("pegawai")->insert([
+                "id"=>$maxpegawai,
+                "user_id" => $max,
+                "nama_lengkap" => $req->nama_lengkap,
+            "tanggal_lahir" => $req->tgl_lahir,
+            "phone" => $req->no_hp,
+            "address" => $req->alamat,
+            "gender" => $req->jk,
+            "is_kantin" => 'N',
+            "is_koperasi" => 'N',
+            "is_perpus" => 'N',
+            "is_pengawas_sekolah" => 'N',
+                "created_at" => Carbon::now('Asia/Jakarta'),
+              ]);
+            }
         }
 
         // $tes = DB::commit();
-
-        DB::commit();
-
+        
+          DB::commit();
+        
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
         DB::rollback();
@@ -250,18 +268,18 @@ class PegawaiController extends Controller
   public function hapus($id)
   {
     $user_id = DB::table("pegawai")
-      ->where('id', $id)
-      ->first();
+    ->where('id',$id)
+    ->first();
 
     DB::table("pegawai")
-      ->where('id', $id)
-      ->delete();
+        ->where('id',$id)
+        ->delete();
 
     DB::table("user")
-      ->where('id', $user_id->user_id)
-      ->delete();
+        ->where('id',$user_id->user_id)
+        ->delete();
 
-    return back()->with(['success' => 'Data berhasil dihapus']);
+      return back()->with(['success' => 'Data berhasil dihapus']);
   }
 
   public function edit($id)
@@ -269,25 +287,25 @@ class PegawaiController extends Controller
     $data = DB::table("pegawai")->where("id", $id)->first();
     // dd($data);
     return view("pegawai.edit", compact('data'));
-
+    
   }
 
   public function update(Request $request)
   {
-    $this->validate($request, [
+    $this->validate($request,[
       'nama_lengkap' => 'required|max:100',
       'phone' => 'required|max:14',
-      'alamat' => 'required|max:100',
+      'address' => 'required|max:100',
       'tanggal_lahir' => 'required|max:100',
-      'jk' => 'required|max:2',
+      'gender' => 'required|max:2',
     ]);
-    $newData = request()->except(['_token', 'image']);
-    $data = DB::table("pegawai")->where('id', $request->id)->update($newData);
+    $newData = request()->except(['_token','image']);
+    $data = DB::table("pegawai")->where('id',$request->id)->update($newData);
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-
+    
   }
 
   public static function cekemail($username, $id = null)
