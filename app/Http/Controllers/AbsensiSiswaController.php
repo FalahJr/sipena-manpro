@@ -61,11 +61,12 @@ class AbsensiSiswaController extends Controller
                   '</div>';
           })
           ->addColumn('terlambat', function ($data) {
-            $date1 = Carbon::parse($data->created_at)->format('d m Y');
-            $date2 = Carbon::parse($data->jadwal)->format('d m Y');
+            $date2 = convertNameDayIdn(Carbon::parse($data->created_at)->format('l'));
 
-            if($date1 === $date2) {
-              if($data->created_at > $data->jadwal) {
+            $created_at = Carbon::parse($data->created_at)->format('H:i:s');
+
+            if($data->jadwal_hari === $date2) {
+              if($created_at > $data->jadwal_waktu) {
                 return '<span class="fa fa-check"> </span>';
               } else {
                 return '<span class="fa fa-close"> </span>';
@@ -75,20 +76,19 @@ class AbsensiSiswaController extends Controller
             }
           })
           ->addColumn('valid', function ($data) {
-            $date1 = Carbon::parse($data->created_at)->format('d m Y');
-            $date2 = Carbon::parse($data->jadwal)->format('d m Y');
+            $date2 = convertNameDayIdn(Carbon::parse($data->created_at)->format('l'));
 
-            if($date1 === $date2) {
+            if($data->jadwal_hari === $date2) {
               return '<span class="badge badge-success"> Ya </span>';
             } else {
               return '<span class="badge badge-danger"> Tidak </span>';
             }
           })
           ->addColumn('jadwal', function ($data) {
-            return Carbon::parse($data->jadwal)->format('l, d M Y H:i:s');
+            return $data->jadwal_hari . ", " . $data->jadwal_waktu;
           })
           ->addColumn('created_at', function ($data) {
-            return Carbon::parse($data->created_at)->format('l, d M Y H:i:s');
+            return convertNameDayIdn(Carbon::parse($data->created_at)->format('l, d M Y H:i:s'));
           })
           ->rawColumns(['aksi', 'terlambat', 'image', 'valid'])
           ->addIndexColumn()

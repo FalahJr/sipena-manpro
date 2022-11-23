@@ -61,3 +61,15 @@ function compressImage($type,$source, $destination, $quality) {
  function unique_id($l = 3) {
      return substr(md5(uniqid(mt_rand(), true)), 0, $l);
  }
+
+ function convertNameDayIdn($date) {
+   $date = str_replace("Monday","Senin",$date);
+   $date = str_replace("Tuesday","Selasa",$date);
+   $date = str_replace("Wednesday","Rabu",$date);
+   $date = str_replace("Thursday","Kamis",$date);
+   $date = str_replace("Friday","Jumat",$date);
+   $date = str_replace("Saturday","Sabtu",$date);
+   $date = str_replace("Sunday","Minggu",$date);
+
+   return $date;
+ }
