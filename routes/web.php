@@ -145,8 +145,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/mata-pelajaran/update', 'MataPelajaranController@update');
         Route::get('/mata-pelajaran/edit/{id}', 'MataPelajaranController@edit');
 
-<<<<<<< HEAD
-=======
         //Jadwal Kelas
         Route::get('/jadwal-pembelajaran', 'JadwalPembelajaranController@index');
         Route::post('/jadwal-pembelajaran/simpan', 'JadwalPembelajaranController@simpan');
@@ -155,7 +153,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/jadwal-pembelajaran/update', 'JadwalPembelajaranController@update');
         Route::get('/jadwal-pembelajaran/edit/{id}', 'JadwalPembelajaranController@edit');
 
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
         //Berita Sekolah
         Route::get('/berita-sekolah', 'BeritaSekolahController@index');
         Route::post('/berita-sekolah/simpan', 'BeritaSekolahController@simpan');
@@ -171,7 +168,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/berita-kelas/table', 'BeritaKelasController@datatable');
         Route::post('/berita-kelas/update', 'BeritaKelasController@update');
         Route::get('/berita-kelas/edit/{id}', 'BeritaKelasController@edit');
-<<<<<<< HEAD
 
         //Bayar QRCode
         Route::get('/bayar-kantin', 'BayarKantinController@index');
@@ -241,8 +237,6 @@ Route::group(['middleware' => 'admin'], function () {
 
         
 
-=======
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
         //Feedback
         Route::get('/feed', 'FeedController@index');
         Route::get('/feed/table', 'FeedController@datatable');

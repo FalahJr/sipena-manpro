@@ -2,10 +2,6 @@
     'root' => array(
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-<<<<<<< HEAD
-        'reference' => 'bf8db3e0e696ede3f318dbfbaac9e3f238b1f2f7',
-=======
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -362,10 +358,6 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-<<<<<<< HEAD
-            'reference' => 'bf8db3e0e696ede3f318dbfbaac9e3f238b1f2f7',
-=======
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -820,10 +812,6 @@
         'symfony/css-selector' => array(
             'pretty_version' => 'v5.4.11',
             'version' => '5.4.11.0',
-<<<<<<< HEAD
-            'reference' => 'c1681789f059ab756001052164726ae88512ae3d',
-=======
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/css-selector',
             'aliases' => array(),

@@ -135,31 +135,13 @@
           </div>
         </li>
 
-<<<<<<< HEAD
-        <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
-=======
-        <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
-          <a class="nav-link" data-toggle="collapse" href="#berita" aria-expanded="false" aria-controls="ui-basic">
+        <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/user')}}">
             <span class="menu-title">Berita</span>
-            <i class="menu-arrow"></i>
-            <i class="mdi mdi-database menu-icon"></i>
+            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+            <i class="mdi mdi-newspaper menu-icon"></i>
           </a>
-<<<<<<< HEAD
-          <div class="collapse {{( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
-=======
-          <div class="collapse {{( ( Request::is('admin/berita-kelas/') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') ? 'active' : '' }}" href="{{url('admin/berita-kelas')}}">Berita Kelas<span class="d-none">Berita Kelas</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ? 'active' : '' }}" href="{{url('admin/berita-sekolah')}}">Berita Sekolah<span class="d-none">Berita Sekolah</span></a></li>
-            </ul>
-          </div>
-<<<<<<< HEAD
-        </li> 
-=======
         </li>
->>>>>>> b58dcac46ed9b537b11f5fc62e07c7fec78e3f6d
 
         <li
           class="nav-item {{ ( ( Request::is('admin/kelas/*') || Request::is('admin/kelas') ) ? ' active' : '' ) }}">
