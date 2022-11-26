@@ -28,6 +28,19 @@
             </td>
           </tr>
           <tr>
+            <td>Kategori Buku<span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="perpus_kategori_id">
+                <option >Pilih</option>
+                @foreach($categories as $category)
+                  <option value="<?= $category->id ?>">
+                    <?= $category->nama ?>
+                  </option>
+                  @endforeach
+                </select>
+            </td>
+          </tr>
+          <tr>
             <td>Bahasa <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext bahasa" name="bahasa">
@@ -40,7 +53,7 @@
             </td>
           </tr>    
           <tr>
-            <td>Image</td>
+            <td>Foto</td>
             <td>
               <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
             </td>

@@ -26,7 +26,8 @@ class KatalogBukuController extends Controller
 {
   public function index()
   {
-    return view('katalog_buku.index');
+    $categories = DB::table("perpus_kategori")->get();
+    return view('katalog_buku.index',compact('categories'));
   }
 
   public function datatable()
@@ -53,7 +54,11 @@ class KatalogBukuController extends Controller
         $url= asset($data->foto);
         return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
       })
-      ->rawColumns(['aksi', 'foto'])
+      ->addColumn('perpus_kategori_id', function ($data) {
+        $category= DB::table("perpus_kategori")->where("id",$data->perpus_kategori_id)->first();
+        return $category->nama;
+      })
+      ->rawColumns(['aksi', 'foto','perpus_kategori_id'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -93,6 +98,7 @@ class KatalogBukuController extends Controller
             "foto" => $imgPath,
             "judul" => $req->judul,
             "author" => $req->author,
+            "perpus_kategori_id" => $req->perpus_kategori_id,
             "bahasa" => $req->bahasa,
             "total_halaman" => $req->total_halaman,
             "created_by" => $created_by,
@@ -118,8 +124,10 @@ class KatalogBukuController extends Controller
   public function edit($id)
   {
     $data = DB::table("perpus_katalog")->where("id", $id)->first();
+    $categories = DB::table("perpus_kategori")->get();
+    $category_id = DB::table("perpus_kategori")->where('id',$data->perpus_kategori_id)->first()->id;
     // dd($data);
-    return view("katalog_buku.edit", compact('data'));
+    return view("katalog_buku.edit", compact('data','category_id','categories'));
     
   }
 
@@ -128,6 +136,7 @@ class KatalogBukuController extends Controller
     $this->validate($req,[
       'judul' => 'required|max:255',
       'author' => 'required|max:255',
+      'perpus_kategori_id' => 'required|max:255',
       'bahasa' => 'required|max:255',
       'total_halaman' => 'required|max:255',
     ]);
@@ -145,9 +154,9 @@ class KatalogBukuController extends Controller
       $name = $folder . '.' . $file->getClientOriginalExtension();
       $file->move($path, $name);
       $imgPath = $childPath . $name;
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'foto'=>$imgPath]);
+      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id,'foto'=>$imgPath]);
     } else {
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman]);
+      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id]);
     }
 
     // dd($data);

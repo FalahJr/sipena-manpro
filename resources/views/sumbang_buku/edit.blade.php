@@ -39,6 +39,20 @@
           
           <form action="{{url('admin/sumbang-buku/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <tr>
+              <td>User<span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext" name="user_id">
+                  <option >Pilih</option>
+                  @foreach($users as $user)
+                    <option value="<?= $user->id ?>" @if($user->id == $user_id) selected @endif>
+                      <?= $user->username ?>
+                    </option>
+                    @endforeach
+  
+                  </select>
+              </td>
+            </tr>
           <tr>
             <td>Judul <span style="color:red;">*</span></td>
             <td>
@@ -52,7 +66,19 @@
               <input type="text" class="form-control form-control-sm inputtext author @if($errors->has('author')) is-invalid @endif" value="{{$data->author}}" name="author">
             </td>
           </tr>
-         
+          <tr>
+            <td>Kategori Buku<span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="perpus_kategori_id">
+                <option >Pilih</option>
+                @foreach($categories as $category)
+                  <option value="<?= $category->id ?>" @if($category->id == $category_id) selected @endif>
+                    <?= $category->nama ?>
+                  </option>
+                  @endforeach
+                </select>
+            </td>
+          </tr>
           <tr>
             <td>Bahasa <span style="color:red;">*</span></td>
             <td>
@@ -66,7 +92,19 @@
               <input type="text" class="form-control form-control-sm inputtext total_halaman @if($errors->has('total_halaman')) is-invalid @endif" value="{{$data->total_halaman}}" name="total_halaman">
             </td>
           </tr>
-
+          <tr>
+            <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                <option>Pilih</option>
+                @foreach($employees as $employee)
+                  <option value="<?= $employee->id ?>" @if($employee->id == $employee_id) selected @endif>
+                    <?= $employee->nama_lengkap ?>
+                  </option>
+                  @endforeach
+                </select>
+            </td>
+          </tr>
           <tr>
             <td>Foto</td>
             <br>
@@ -75,21 +113,7 @@
               <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
             </td>
           </tr>
-          {{-- <tr>
-            <td>Image</td>
-            <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="profile_picture" accept="image/*">
-            </td>
-          </tr> --}}
-          <!-- <tr>
-            <td align="center" colspan="2">
-              <div class="col-md-8 col-sm-6 col-xs-12 image-holder" id="image-holder">
-
-                {{-- <img src="#" class="thumb-image img-responsive" height="100px" alt="image" style="display: none"> --}}
-
-            </div>
-            </td>
-          </tr> -->
+          
           <button class="btn btn-success mt-3" id="simpan" type="submit">Simpan Data</button>
         </form>
         </div>

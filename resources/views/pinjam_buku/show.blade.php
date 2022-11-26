@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <table class="table table_modal">
+            <table class="table table_modal_1">
             <tr>
               <td>Judul</td>
               <td>

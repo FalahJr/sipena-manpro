@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Katalog Buku</h4>
+        <h4 class="modal-title">Form Kembalikan Buku</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -14,37 +14,50 @@
             <div class="alert alert-warning" role="alert">
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
-          <tr>
-            <td>Buku <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext judul" name="judul">
-              <input type="hidden" class="form-control form-control-sm id" value="{{Auth::user()->id}}" name="user_id">
-            </td>
-          </tr>
-          <tr>
-            <td>Author <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext author" name="author">
-            </td>
-          </tr>
-          <tr>
-            <td>Bahasa <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext bahasa" name="bahasa">
-            </td>
-          </tr>
-          <tr>
-            <td>Total Halaman <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext total_halaman" name="total_halaman">
-            </td>
-          </tr>    
-          <tr>
-            <td>Image</td>
-            <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
-            </td>
-          </tr>
+            <tr>
+              <td>Peminjam<span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext" name="user_id">
+                  <option >Pilih</option>
+                  @foreach($users as $user)
+                    <option value="<?= $user->id ?>">
+                      <?= $user->username ?>
+                    </option>
+                    @endforeach
+  
+                  </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                  <option>Pilih</option>
+                  @foreach($employees as $employee)
+                    <option value="<?= $employee->id ?>">
+                      <?= $employee->nama_lengkap ?>
+                    </option>
+                    @endforeach
+                  </select>
+              </td>
+            </tr>
+          
+{{--   
+            <tr>
+              <td>Tanggal Peminjaman <span style="color:red;">*</span></td>
+              <td>
+                <input type="date" class="form-control form-control-sm inputtext tanggal_peminjaman" name="tanggal_peminjaman">
+              </td>
+            </tr>
+  
+            <tr>
+              <td>Tanggal Pengembalian <span style="color:red;">*</span></td>
+              <td>
+                <input type="date" class="form-control form-control-sm inputtext tanggal_pengembalian" name="tanggal_pengembalian">
+              </td>
+            </tr>
+  
+           --}}
           </table>
         </div>
         <div class="modal-footer">

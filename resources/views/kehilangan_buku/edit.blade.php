@@ -39,14 +39,29 @@
           <form action="{{url('admin/kehilangan-buku/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
-          <tr>
-            <td>Buku<span style="color:red;">*</span></td>
+            <tr>
+              <td>User<span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext" name="user_id">
+                  <option >Pilih</option>
+                  @foreach($users as $user)
+                    <option value="<?= $user->id ?>" @if($user->id == $user_id) selected @endif>
+                      <?= $user->username ?>
+                    </option>
+                    @endforeach
+  
+                  </select>
+              </td>
+            </tr>
+          
+            <tr>
+            <td>Kehilangan Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="perpus_katalog_id">
-                <option >Pilih</option>
-                @foreach($items as $item)
-                  <option value="<?= $item->id ?>" @if($item->id == $book_id) selected @endif>
-                    <?= $item->judul ?>
+              <option >Pilih</option>
+                @foreach($books as $book)
+                  <option value="<?= $book->id ?>" @if($book->id == $book_id) selected @endif>
+                    <?= $book->judul ?>
                   </option>
                   @endforeach
                 </select>
@@ -56,7 +71,7 @@
           <tr>
             <td>Nominal <span style="color:red;">*</span></td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext nominal" value="{{$data->nominal}}" name="nominal" disabled>
+              <input type="text" class="form-control form-control-sm inputtext" value="{{$data->nominal}}" name="nominal" disabled>
             </td>
           </tr>
 

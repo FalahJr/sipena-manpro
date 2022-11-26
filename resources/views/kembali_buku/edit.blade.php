@@ -39,7 +39,21 @@
           <form action="{{url('admin/kembali-buku/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
-          <tr>
+            <tr>
+              <td>Peminjam<span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext" name="user_id">
+                  <option>Pilih</option>
+                  @foreach($users as $user)
+                    <option value="<?= $user->id ?>" @if($user->id == $user_id) selected @endif>
+                      <?= $user->username ?>
+                    </option>
+                    @endforeach
+  
+                  </select>
+              </td>
+            </tr>
+            <tr>
             <td>Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="perpus_katalog_id[]" multiple="multiple">
@@ -71,7 +85,20 @@
           <tr>
             <td>Total Denda <span style="color:red;">*</span></td>
             <td>
-              <input type="date" class="form-control form-control-sm inputtext tanggal_pengembalian" value="{{$data->tanggal_pengembalian}}" name="tanggal_pengembalian" disabled>
+              <input type="text" class="form-control form-control-sm inputtext tanggal_pengembalian" value="{{$data->total_denda}}" name="tanggal_pengembalian" disabled>
+            </td>
+          </tr>
+          <tr>
+            <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                <option>Pilih</option>
+                @foreach($employees as $employee)
+                  <option value="<?= $employee->id ?>" @if($employee->id == $employee_id) selected @endif>
+                    <?= $employee->nama_lengkap ?>
+                  </option>
+                  @endforeach
+                </select>
             </td>
           </tr>
 

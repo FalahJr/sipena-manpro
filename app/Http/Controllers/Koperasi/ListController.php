@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Perpustakaan;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
 use App\Account;
@@ -9,6 +9,10 @@ use App\Account;
 use App\Authentication;
 
 use Auth;
+
+
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 use Carbon\Carbon;
 
@@ -22,20 +26,18 @@ use Yajra\Datatables\Datatables;
 
 use Response;
 
-class SumbangBukuController extends Controller
+class ListController extends Controller
 {
   public function index()
   {
-    $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
-    $users = DB::table("user")->get();
-    $categories = DB::table("perpus_kategori")->get();
-    return view('sumbang_buku.index',compact('employees','users','categories'));
+    $items = DB::table('pegawai')->where('is_kantin','Y')->get();
+    return view('kantin.index',compact('items'));
   }
 
   public function datatable()
   {
-    $data = DB::table('perpus_sumbang')
-      ->get();
+    $data = DB::table('kantin')->get();
+
 
     // return $data;
     // $xyzab = collect($data);
@@ -47,28 +49,53 @@ class SumbangBukuController extends Controller
     //   })
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
-          '<a href="sumbang-buku/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+          '<a href="bayar-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/sumbang-buku/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="/admin/bayar-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
+          '<a href="/admin/bayar-kantin/'.$data->id.'" class="btn btn-success btn-lg" title="toBayar">Bayar Kantin</a>' .
           '</div>';
       })->addColumn('foto', function ($data) {
         $url= asset($data->foto);
         return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
-      })->addColumn('user', function ($data) {
-        $user = DB::table('user')->where('id',$data->user_id)->first();
-        return $user->username;
-      })->addColumn('kategori', function ($data) {
-        $kategori = DB::table('perpus_kategori')->where('id',$data->perpus_kategori_id)->first();
-        return $kategori->nama;
       })
       ->addColumn('pegawai', function ($data) {
         $pegawai = DB::table('pegawai')->where('id',$data->pegawai_id)->first();
         return $pegawai->nama_lengkap;
       })
-      ->rawColumns(['aksi', 'foto','user','kategori','pegawai'])
+      ->addColumn('qr_code',function($data){
+        $generateQRCode = QrCode::size(100)->generate($data->qr_code);
+        return $generateQRCode;
+      })
+      ->rawColumns(['aksi','foto','pegawai','qr_code'])
       ->addIndexColumn()
       ->make(true);
+  }
+
+  public function toBayar($id){
+    $data = DB::table('kantin')->where("id",$id)->first();
+    return view('kantin.pembayaran',compact("data"));
+  }
+
+  public function bayar(Request $req)
+  {
+        $this->validate($req,[
+          'nama_pembeli' => 'required|max:255',
+          'keterangan' => 'required|max:255',
+          'total_harga' => 'required|max:255',
+        ]);
+        $tgl = Carbon::now('Asia/Jakarta');
+        DB::table("kantin_penjualan")
+          ->insert([
+            "kantin_id" => $req->kantin_id,
+            "user_id" => $req->user_id,
+            "nama_pembeli" => $req->nama_pembeli,
+            "keterangan" => $req->keterangan,
+            "harga_total" => $req->total_harga,
+            "created_at" => $tgl,
+          ]);
+        
+          return back()->with(['success' => 'Data berhasil diupdate']);
   }
 
   public function simpan(Request $req)
@@ -77,10 +104,10 @@ class SumbangBukuController extends Controller
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
         $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $childPath ='image/uploads/buku/';
+        $childPath ='image/uploads/kantin/';
         $path = $childPath;
 
-        $file = $req->file('image');
+        $file = $req->file('foto');
         $name = null;
         if ($file != null) {
           $name = $folder . '.' . $file->getClientOriginalExtension();
@@ -89,30 +116,35 @@ class SumbangBukuController extends Controller
         } else {
             return 'already exist';
         }
-        
-        DB::table("perpus_sumbang")
-          ->insert([
-            "user_id" => $req->user_id,
-            "pegawai_id" => $req->pegawai_id,
-            "perpus_kategori_id" => $req->perpus_kategori_id,
-            "foto" => $imgPath,
-            "judul" => $req->judul,
-            "author" => $req->author,
-            "bahasa" => $req->bahasa,
-            "total_halaman" => $req->total_halaman,
-          ]);
+
+        $max = DB::table("kantin")->max('id') + 1;
+        $linkCode = url('/kantin?id='.$max);
+        DB::table("kantin")
+        ->insert([
+          "id" => $max,
+          "foto"=>$imgPath,
+          "nama" => $req->nama,
+          "pegawai_id" => $req->pegawai_id,
+          "qr_code" => $linkCode
+        ]);
+          
+
           DB::commit();
 
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => "error".$e]);
+        return response()->json(["status" => 7, "message" => $e]);
       }
   }
 
   public function hapus($id)
   {
-    DB::table("perpus_sumbang")
+    DB::table("kantin_penjualan")
+    ->where('kantin_id',$id)
+    ->delete();
+    
+    DB::table("kantin")
         ->where('id',$id)
         ->delete();
 
@@ -121,45 +153,35 @@ class SumbangBukuController extends Controller
 
   public function edit($id)
   {
-    $data = DB::table("perpus_sumbang")->where("id", $id)->first();
-    $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
-    $employee_id = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->id;
-    $users = DB::table("user")->get();
-    $user_id = DB::table("user")->where("id",$data->user_id)->first()->id;
-    $categories = DB::table("perpus_kategori")->get();
-    $category_id = DB::table("perpus_kategori")->where("id",$data->perpus_kategori_id)->first()->id;
-    // dd($data);
-    return view("sumbang_buku.edit", compact('data','employees','employee_id','users','user_id','categories','category_id'));
-    
+    $data = DB::table("kantin")->where("id", $id)->first();
+    $items = DB::table('pegawai')->get();
+    $pegawai_id = DB::table('pegawai')->where("id",$data->pegawai_id)->first();
+    return view("kantin.edit", compact('data','items','pegawai_id'));
   }
 
   public function update(Request $req)
   {
     $this->validate($req,[
-      'judul' => 'required|max:255',
-      'author' => 'required|max:255',
-      'bahasa' => 'required|max:255',
-      'total_halaman' => 'required|max:255',
+      'nama' => 'required|max:255',
+      'pegawai_id' => 'required|max:255',
     ]);
-
     $imgPath = null;
     $tgl = Carbon::now('Asia/Jakarta');
     $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-    $childPath ='image/uploads/buku/';
+    $childPath ='image/uploads/kantin/';
     $path = $childPath;
 
     $file = $req->file('foto');
     $name = null;
-    $data = DB::table("perpus_sumbang")->where('id',$req->id);
+    $data = DB::table("kantin")->where('id',$req->id);
     if ($file != null) {
       $name = $folder . '.' . $file->getClientOriginalExtension();
       $file->move($path, $name);
       $imgPath = $childPath . $name;
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'foto'=>$imgPath]);
+      $data->update(['nama'=>$req->nama,'pegawai_id'=>$req->pegawai_id,'foto'=>$imgPath]);
     } else {
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman]);
+      $data->update(['nama'=>$req->nama,'pegawai_id'=>$req->pegawai_id]);
     }
-
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 

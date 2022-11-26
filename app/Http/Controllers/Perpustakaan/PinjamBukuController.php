@@ -26,7 +26,10 @@ class PinjamBukuController extends Controller
 {
   public function index()
   {
-    return view('pinjam_buku.index');
+    $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
+    $items = DB::table("perpus_katalog")->get();
+    $users = DB::table("user")->get();
+    return view('pinjam_buku.index',compact('items','employees','users'));
   }
 
   public function datatable()
@@ -64,7 +67,11 @@ class PinjamBukuController extends Controller
         $pegawai = DB::table("pegawai")->where("id", $data->pegawai_id)->first();
         return $pegawai->nama_lengkap;
       })
-      ->rawColumns(['aksi', 'buku','pegawai_id'])
+      ->addColumn('user', function ($data) {
+        $pegawai = DB::table("user")->where("id", $data->user_id)->first();
+        return $pegawai->username;
+      })
+      ->rawColumns(['aksi', 'buku','pegawai_id','user'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -76,43 +83,23 @@ class PinjamBukuController extends Controller
 
   public function simpan(Request $req)
   {
-      try {
-        $imgPath = null;
-        $tgl = Carbon::now('Asia/Jakarta');
-        $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $childPath ='image/uploads/buku/';
-        $path = $childPath;
-
-        $file = $req->file('image');
-        $name = null;
-        if ($file != null) {
-          $name = $folder . '.' . $file->getClientOriginalExtension();
-          $file->move($path, $name);
-          $imgPath = $childPath . $name;
-        } else {
-            return 'already exist';
-        }
-
-        $pegawai = DB::table('pegawai')->where('user_id',$req->user_id)->get();
-        
-        if(!empty($pegawai->id)){
-            $created_by = $pegawai->nama_lengkap;
-            $pegawai = $pegawai->id;
-        }else{
-            $created_by = "admin";
-            $pegawai = null;
-        }
-        
+      try {   
+        $max = DB::table("perpus_peminjaman")->max('id') + 1;
         DB::table("perpus_peminjaman")
           ->insert([
-            "pegawai_id" => $pegawai,
-            "foto" => $imgPath,
-            "judul" => $req->judul,
-            "author" => $req->author,
-            "bahasa" => $req->bahasa,
-            "total_halaman" => $req->total_halaman,
-            "created_by" => $created_by,
+            "id" => $max,
+            "user_id" => $req->user_id,
+            "pegawai_id" => $req->pegawai_id,
+            "tanggal_peminjaman" => $req->tanggal_peminjaman,
+            "tanggal_pengembalian" => $req->tanggal_pengembalian,
           ]);
+          foreach($req->perpus_katalog_id as  $perpus_katalog_id){
+            DB::table("perpus_peminjaman_katalog")
+            ->insert([
+              "perpus_peminjaman_id" => $max,
+              "perpus_katalog_id" => $perpus_katalog_id,
+            ]);
+          }
           DB::commit();
 
         return response()->json(["status" => 1]);
@@ -147,14 +134,20 @@ class PinjamBukuController extends Controller
     }
     
     $items = DB::table("perpus_katalog")->get();
+    $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
+    $employee_id = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->id;
+    $users = DB::table("user")->get();
+    $user_id = DB::table("user")->where("id",$data->user_id)->first()->id;
     // dd($data);
-    return view("pinjam_buku.edit", compact('data','books','items'));
+    return view("pinjam_buku.edit", compact('data','books','items','employees','users','user_id','employee_id'));
     
   }
 
   public function update(Request $req)
   {
     $this->validate($req,[
+      'user_id' => 'required|max:11',
+      'pegawai_id' => 'required|max:11',
       'perpus_katalog_id' => 'required|max:3',
       'tanggal_peminjaman' => 'required|max:255',
       'tanggal_pengembalian' => 'required|max:255',
@@ -167,7 +160,7 @@ class PinjamBukuController extends Controller
       ]);
     }
 
-    DB::table("perpus_peminjaman")->where("id",$req->id)->update(['tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian]);
+    DB::table("perpus_peminjaman")->where("id",$req->id)->update(['user_id'=>$req->user_id,'pegawai_id'=>$req->pegawai_id,'tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian]);
     
     return back()->with(['success' => 'Data berhasil diupdate']);
 

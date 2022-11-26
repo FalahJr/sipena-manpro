@@ -4,11 +4,11 @@
 @include('kembali_buku.tambah')
 @include('kembali_buku.show')
 <style type="text/css">
-  .table-responsive {
-    margin-top: -80px !important;
-  }
   .dataTables_filter label {
-      margin-bottom: 1.5rem !important;
+      margin-bottom: 1.4rem !important;
+  }
+.dataTables_filter label {
+      margin-bottom: 1.4rem !important;
   }
   </style>
 <!-- partial -->
@@ -25,10 +25,14 @@
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Kembali Buku</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
+                      <div class="col-12 col-md-3">
+                        <h4 class="card-title">Data Kembalikan Buku</h4>
+                      </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      {{-- <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button> --}}
+                      <div class="col-12 col-md-5 p-0 text-right">
+                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button>
+                      </div>
                       {{-- @endif --}}
                     </div>
                     <div class="table-responsive">
@@ -41,7 +45,7 @@
                                 <th>Tanggal Peminjaman</th>
                                 <th>Tanggal Pengembalian</th>
                                 <th>Total Denda</th>
-                                <th>Dipinjamkan Oleh</th>
+                                <th>Dikonfirmasi Pegawai</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -129,7 +133,7 @@ var table = $('#table-data').DataTable({
     $('#simpan').click(function(){
 
     var formdata = new FormData();
-    formdata.append('image', $('.uploadGambar')[0].files[0]);
+    // formdata.append('image', $('.uploadGambar')[0].files[0]);
 
     $.ajax({
       type: "post",

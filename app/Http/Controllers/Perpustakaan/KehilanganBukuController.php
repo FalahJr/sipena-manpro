@@ -24,9 +24,12 @@ use Response;
 
 class KehilanganBukuController extends Controller
 {
+
   public function index()
   {
-    return view('kehilangan_buku.index');
+    $users = DB::table("user")->get();
+    $books = DB::table("perpus_katalog")->get();
+    return view('kehilangan_buku.index',compact('users','books'));
   }
 
   public function datatable()
@@ -72,11 +75,11 @@ class KehilanganBukuController extends Controller
   public function simpan(Request $req)
   {
       try {
-
         DB::table("perpus_kehilangan")
           ->insert([
+            "user_id" => $req->user_id,
             "perpus_katalog_id" => $req->perpus_katalog_id,
-            "nominal" => $req->nominal,
+            "nominal" => $this->convert_to_number($req->nominal),
             "tanggal_pembayaran" => $req->tanggal_pembayaran,
           ]);
           DB::commit();
@@ -84,7 +87,7 @@ class KehilanganBukuController extends Controller
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => "aman"]);
+        return response()->json(["status" => 7, "message" => "error ".$e]);
       }
   }
 
@@ -101,20 +104,23 @@ class KehilanganBukuController extends Controller
   {
     $data = DB::table("perpus_kehilangan")->where("id", $id)->first();
     
-    $items = DB::table("perpus_katalog")->get();
+    $users = DB::table("user")->get();
+    $user_id = DB::table("user")->where("id",$data->user_id)->first()->id;
+    $books = DB::table("perpus_katalog")->get();
     $book_id = DB::table("perpus_katalog")->where("id",$data->perpus_katalog_id)->first()->id;
     // dd($data);
-    return view("kehilangan_buku.edit", compact('data','book_id','items'));
+    return view("kehilangan_buku.edit", compact('data','book_id','books','user_id','users'));
     
   }
 
   public function update(Request $req)
   {
     $this->validate($req,[
+      'user_id' => 'required|max:255',
       'perpus_katalog_id' => 'required|max:255',
       'tanggal_pembayaran' => 'required|max:255',
     ]);
-    DB::table("perpus_kehilangan")->where("id",$req->id)->update(['perpus_katalog_id'=>$req->perpus_katalog_id,'tanggal_pembayaran'=>$req->tanggal_pembayaran]);
+    DB::table("perpus_kehilangan")->where("id",$req->id)->update(['user_id'=>$req->user_id,'perpus_katalog_id'=>$req->perpus_katalog_id,'tanggal_pembayaran'=>$req->tanggal_pembayaran]);
     
     return back()->with(['success' => 'Data berhasil diupdate']);
 

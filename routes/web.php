@@ -205,7 +205,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/pinjam-buku/table', 'Perpustakaan\PinjamBukuController@datatable');
         Route::post('/pinjam-buku/update', 'Perpustakaan\PinjamBukuController@update');
         Route::get('/pinjam-buku/show/{id}', 'Perpustakaan\PinjamBukuController@show');
-        // Route::post('/pinjam-buku/simpan', 'Perpustakaan\PinjamBukuController@simpan');
+        Route::post('/pinjam-buku/simpan', 'Perpustakaan\PinjamBukuController@simpan');
         Route::get('/pinjam-buku/hapus/{id}', 'Perpustakaan\PinjamBukuController@hapus');
         Route::get('/pinjam-buku/edit/{id}', 'Perpustakaan\PinjamBukuController@edit');
 
@@ -213,7 +213,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kembali-buku/table', 'Perpustakaan\KembaliBukuController@datatable');
         Route::post('/kembali-buku/update', 'Perpustakaan\KembaliBukuController@update');
         Route::get('/kembali-buku/show/{id}', 'Perpustakaan\KembaliBukuController@show');
-        // Route::post('/kembali-buku/simpan', 'Perpustakaan\KembaliBukuController@simpan');
+        Route::post('/kembali-buku/simpan', 'Perpustakaan\KembaliBukuController@simpan');
         Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
         Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
         
@@ -222,7 +222,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
         Route::post('/sumbang-buku/update', 'Perpustakaan\SumbangBukuController@update');
         Route::get('/sumbang-buku/show/{id}', 'Perpustakaan\SumbangBukuController@show');
-        // Route::post('/sumbang-buku/simpan', 'Perpustakaan\SumbangBukuController@simpan');
+        Route::post('/sumbang-buku/simpan', 'Perpustakaan\SumbangBukuController@simpan');
         Route::get('/sumbang-buku/hapus/{id}', 'Perpustakaan\SumbangBukuController@hapus');
         Route::get('/sumbang-buku/edit/{id}', 'Perpustakaan\SumbangBukuController@edit');
 
@@ -230,9 +230,18 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kehilangan-buku/table', 'Perpustakaan\KehilanganBukuController@datatable');
         Route::post('/kehilangan-buku/update', 'Perpustakaan\KehilanganBukuController@update');
         Route::get('/kehilangan-buku/show/{id}', 'Perpustakaan\KehilanganBukuController@show');
-        // Route::post('/kehilangan-buku/simpan', 'Perpustakaan\KehilanganBukuController@simpan');
+        Route::post('/kehilangan-buku/simpan', 'Perpustakaan\KehilanganBukuController@simpan');
         Route::get('/kehilangan-buku/hapus/{id}', 'Perpustakaan\KehilanganBukuController@hapus');
         Route::get('/kehilangan-buku/edit/{id}', 'Perpustakaan\KehilanganBukuController@edit');
+
+        //Koperasi
+        Route::get('/list-koperasi', 'Koperasi\ListKoperasiController@index');
+        Route::get('/list-koperasi/table', 'Koperasi\ListKoperasiController@datatable');
+        Route::post('/list-koperasi/update', 'Koperasi\ListKoperasiController@update');
+        Route::get('/list-koperasi/show/{id}', 'Koperasi\ListKoperasiController@show');
+        Route::post('/list-koperasi/simpan', 'Koperasi\ListKoperasiController@simpan');
+        Route::get('/list-koperasi/hapus/{id}', 'Koperasi\ListKoperasiController@hapus');
+        Route::get('/list-koperasi/edit/{id}', 'Koperasi\ListKoperasiController@edit');
         
 
         

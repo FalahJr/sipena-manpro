@@ -258,11 +258,23 @@
           </a>
           <div class="collapse {{( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' show' : '' ) }}" id="kantin">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ? 'active' : '' }}" href="{{url('admin/bayar-kantin')}}">Bayar QRCode<span class="d-none">Bayar QRCode</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ? 'active' : '' }}" href="{{url('admin/bayar-kantin')}}">Kantin QRCode<span class="d-none">Kantin QRCode</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ? 'active' : '' }}" href="{{url('admin/transaksi-kantin')}}">Transaksi Kantin<span class="d-none">Transaksi Kantin</span></a></li>
             </ul>
           </div>
         </li> 
+        <li class="nav-item {{ ( ( Request::is('admin/koperasi/*') || Request::is('admin/koperasi') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#koperasi" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Pembayaran Koperasi</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
+          </a>
+          <div class="collapse {{( ( Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi')) ? ' show' : '' ) }}" id="koperasi">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') ? 'active' : '' }}" href="{{url('admin/list-koperasi')}}">List Koperasi<span class="d-none">List Koperasi</span></a></li>
+            </ul>
+          </div>
+        </li>
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Jadwal Kelas</span>

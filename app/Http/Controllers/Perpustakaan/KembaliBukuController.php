@@ -25,8 +25,14 @@ use Response;
 class KembaliBukuController extends Controller
 {
   public function index()
-  {
-    return view('kembali_buku.index');
+  { 
+    // ambil user yang meminjam buku
+    $users = DB::table("perpus_peminjaman")
+    ->join('user', 'perpus_peminjaman.user_id', '=', 'user.id')
+    ->select('user.username','user.id')
+    ->get();
+    $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
+    return view('kembali_buku.index', compact('users','employees'));
   }
 
   public function datatable()
@@ -79,42 +85,7 @@ class KembaliBukuController extends Controller
   public function simpan(Request $req)
   {
       try {
-        $imgPath = null;
-        $tgl = Carbon::now('Asia/Jakarta');
-        $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $childPath ='image/uploads/buku/';
-        $path = $childPath;
-
-        $file = $req->file('image');
-        $name = null;
-        if ($file != null) {
-          $name = $folder . '.' . $file->getClientOriginalExtension();
-          $file->move($path, $name);
-          $imgPath = $childPath . $name;
-        } else {
-            return 'already exist';
-        }
-
-        $pegawai = DB::table('pegawai')->where('user_id',$req->user_id)->get();
-        
-        if(!empty($pegawai->id)){
-            $created_by = $pegawai->nama_lengkap;
-            $pegawai = $pegawai->id;
-        }else{
-            $created_by = "admin";
-            $pegawai = null;
-        }
-        
-        DB::table("perpus_peminjaman")
-          ->insert([
-            "pegawai_id" => $pegawai,
-            "foto" => $imgPath,
-            "judul" => $req->judul,
-            "author" => $req->author,
-            "bahasa" => $req->bahasa,
-            "total_halaman" => $req->total_halaman,
-            "created_by" => $created_by,
-          ]);
+        DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->update(['is_lunas'=>'Y','is_kembali'=>'Y','pegawai_id'=>$req->pegawai_id]);
           DB::commit();
 
         return response()->json(["status" => 1]);
@@ -147,10 +118,13 @@ class KembaliBukuController extends Controller
       $books[$i] = DB::table("perpus_katalog")->where("id", $katalogs->perpus_katalog_id)->first()->id;
       $i++;
     }
-    
+    $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
+    $employee_id = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->id;
+    $users = DB::table("user")->get();
+    $user_id = DB::table("user")->where("id",$data->user_id)->first()->id;
     $items = DB::table("perpus_katalog")->get();
     // dd($data);
-    return view("kembali_buku.edit", compact('data','books','items'));
+    return view("kembali_buku.edit", compact('data','books','items','employees','employee_id','users','user_id'));
     
   }
 

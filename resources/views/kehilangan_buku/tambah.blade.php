@@ -14,37 +14,46 @@
             <div class="alert alert-warning" role="alert">
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
+            <tr>
+              <td>User<span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext" name="user_id">
+                  <option >Pilih</option>
+                  @foreach($users as $user)
+                    <option value="<?= $user->id ?>">
+                      <?= $user->username ?>
+                    </option>
+                    @endforeach
+  
+                  </select>
+              </td>
+            </tr>
           <tr>
-            <td>Buku <span style="color:red;">*</span></td>
+            <td>Kehilangan Buku<span style="color:red;">*</span></td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext judul" name="judul">
-              <input type="hidden" class="form-control form-control-sm id" value="{{Auth::user()->id}}" name="user_id">
+              <select class="form-control multiselect-ui form-control-sm inputtext"  name="perpus_katalog_id">
+                <option>Pilih</option>
+                @foreach($books as $book)
+                  <option value="<?= $book->id ?>">
+                    <?= $book->judul ?>
+                  </option>
+                  @endforeach
+
+                </select>
             </td>
           </tr>
           <tr>
-            <td>Author <span style="color:red;">*</span></td>
+            <td>Nominal <span style="color:red;">*</span></td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext author" name="author">
-            </td>
-          </tr>
-          <tr>
-            <td>Bahasa <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext bahasa" name="bahasa">
-            </td>
-          </tr>
-          <tr>
-            <td>Total Halaman <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext total_halaman" name="total_halaman">
+              <input type="text" class="form-control form-control-sm inputtext" name="nominal">
             </td>
           </tr>    
           <tr>
-            <td>Image</td>
+            <td>Tanggal Pembayaran <span style="color:red;">*</span></td>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
+              <input type="date" class="form-control form-control-sm inputtext tanggal_pembayaran" name="tanggal_pembayaran">
             </td>
-          </tr>
+          </tr> 
           </table>
         </div>
         <div class="modal-footer">

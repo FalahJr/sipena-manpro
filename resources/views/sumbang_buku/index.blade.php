@@ -3,11 +3,11 @@
 
 @include('sumbang_buku.tambah')
 <style type="text/css">
-  .table-responsive {
-    margin-top: -80px !important;
-  }
   .dataTables_filter label {
-      margin-bottom: 1.5rem !important;
+      margin-bottom: 1.4rem !important;
+  }
+.dataTables_filter label {
+      margin-bottom: 1.4rem !important;
   }
   </style>
 <!-- partial -->
@@ -24,23 +24,28 @@
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Sumbang Buku</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
+                      <div class="col-12 col-md-3">
+                        <h4 class="card-title">Data Sumbang Buku</h4>
+                      </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      {{-- <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button> --}}
-                      {{-- @endif --}}
-                    </div>
+                      <div class="col-12 col-md-5 p-0 text-right">
+                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Sumbang Buku</button>
+                      </div>
+                      </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                <th>User</th>
                                 <th>Foto</th>
+                                <th>User</th>
                                 <th>Judul</th>
                                 <th>Author</th>
+                                <th>Kategori</th>
                                 <th>Bahasa</th>
                                 <th>Total Halaman</th>
+                                <th>Dikonfirmasi Pegawai</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -114,12 +119,14 @@ var table = $('#table-data').DataTable({
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          {data: 'user', name: 'user'},
           {data: 'foto', name: 'foto'},
+          {data: 'user', name: 'user'},
           {data: 'judul', name: 'judul'},
           {data: 'author', name: 'author'},
+          {data: 'kategori', name: 'kategori'},
           {data: 'bahasa', name: 'bahasa'},
           {data: 'total_halaman', name: 'total_halaman'},
+          {data: 'pegawai', name: 'pegawai'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
@@ -185,7 +192,6 @@ var table = $('#table-data').DataTable({
       $('.role').val('').change();
       $('.gender').val('').change();
       table.ajax.reload();
-
       $('#tambah').modal('show');
     }
 

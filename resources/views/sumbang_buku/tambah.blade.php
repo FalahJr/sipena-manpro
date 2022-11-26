@@ -14,17 +14,43 @@
             <div class="alert alert-warning" role="alert">
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
+            <tr>
+              <td>User<span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext" name="user_id">
+                  <option >Pilih</option>
+                  @foreach($users as $user)
+                    <option value="<?= $user->id ?>">
+                      <?= $user->username ?>
+                    </option>
+                    @endforeach
+  
+                  </select>
+              </td>
+            </tr>
           <tr>
             <td>Judul <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext judul" name="judul">
-              <input type="hidden" class="form-control form-control-sm id" value="{{Auth::user()->id}}" name="user_id">
             </td>
           </tr>
           <tr>
             <td>Author <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext author" name="author">
+            </td>
+          </tr>
+          <tr>
+            <td>Kategori Buku<span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="perpus_kategori_id">
+                <option >Pilih</option>
+                @foreach($categories as $category)
+                  <option value="<?= $category->id ?>">
+                    <?= $category->nama ?>
+                  </option>
+                  @endforeach
+                </select>
             </td>
           </tr>
           <tr>
@@ -40,11 +66,25 @@
             </td>
           </tr>    
           <tr>
-            <td>Image</td>
+            <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                <option>Pilih</option>
+                @foreach($employees as $employee)
+                  <option value="<?= $employee->id ?>">
+                    <?= $employee->nama_lengkap ?>
+                  </option>
+                  @endforeach
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Foto</td>
             <td>
               <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
             </td>
           </tr>
+
           </table>
         </div>
         <div class="modal-footer">

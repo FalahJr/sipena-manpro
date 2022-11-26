@@ -40,6 +40,7 @@
                                 <th>Foto</th>
                                 <th>Judul</th>
                                 <th>Author</th>
+                                <th>Kategori</th>
                                 <th>Bahasa</th>
                                 <th>Total Halaman</th>
                                 <th>Dibuat Oleh</th>
@@ -112,14 +113,17 @@ var table = $('#table-data').DataTable({
               },{
                  targets: 7,
                  className: 'center'
+              },{
+                 targets: 8,
+                 className: 'center'
               },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          // {data: 'image', name: 'image'},
           {data: 'foto', name: 'foto'},
           {data: 'judul', name: 'judul'},
           {data: 'author', name: 'author'},
+          {data: 'perpus_kategori_id', name: 'perpus_kategori_id'},
           {data: 'bahasa', name: 'bahasa'},
           {data: 'total_halaman', name: 'total_halaman'},
           {data: 'created_by', name: 'created_by'},
