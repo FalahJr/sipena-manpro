@@ -92,14 +92,6 @@ var table = $('#table-data').DataTable({
                  targets: 4,
                  className: 'center'
               },
-              // {
-              //    targets: 5,
-              //    className: 'center'
-              // },
-              // {
-              //    targets: 6,
-              //    className: 'center'
-              // },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
