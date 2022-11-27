@@ -134,6 +134,7 @@ class KembaliBukuController extends Controller
       'perpus_katalog_id' => 'required|max:3',
       'tanggal_peminjaman' => 'required|max:255',
       'tanggal_pengembalian' => 'required|max:255',
+      'pegawai_id' => 'required|max:255',
     ]);
     DB::table("perpus_peminjaman_katalog")->where('perpus_peminjaman_id',$req->id)->delete();
     foreach($req->perpus_katalog_id as $idKatalog){
@@ -143,7 +144,8 @@ class KembaliBukuController extends Controller
       ]);
     }
 
-    DB::table("perpus_peminjaman")->where("id",$req->id)->update(['tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian]);
+    DB::table("perpus_peminjaman")->where("id",$req->id)->update(['tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian,
+    'pegawai_id'=>$req->pegawai_id]);
     
     return back()->with(['success' => 'Data berhasil diupdate']);
 

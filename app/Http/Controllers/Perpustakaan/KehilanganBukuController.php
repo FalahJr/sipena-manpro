@@ -56,7 +56,7 @@ class KehilanganBukuController extends Controller
       })->addColumn('buku', function ($data) {
         $katalog = DB::table("perpus_katalog")->where("id", $data->perpus_katalog_id)->first();
         $urlBook = '<a href="javascript:void(0)" data-id="'.$katalog->id.'" class="showBook" title="show">' . $katalog->judul .'</a><br>';
-        return $urlBook;
+        return  $urlBook;
       })
       ->addColumn('user', function ($data) {
         $user = DB::table("user")->where("id", $data->user_id)->first();
@@ -79,7 +79,7 @@ class KehilanganBukuController extends Controller
           ->insert([
             "user_id" => $req->user_id,
             "perpus_katalog_id" => $req->perpus_katalog_id,
-            "nominal" => $this->convert_to_number($req->nominal),
+            "nominal" => $req->nominal,
             "tanggal_pembayaran" => $req->tanggal_pembayaran,
           ]);
           DB::commit();

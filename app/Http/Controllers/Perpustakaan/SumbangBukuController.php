@@ -101,6 +101,19 @@ class SumbangBukuController extends Controller
             "bahasa" => $req->bahasa,
             "total_halaman" => $req->total_halaman,
           ]);
+          $pegawai = DB::table('pegawai')->where('id',$req->pegawai_id)->first();
+          DB::table("perpus_katalog")
+          ->insert([
+            "pegawai_id" => $req->pegawai_id,
+            "perpus_kategori_id" => $req->perpus_kategori_id,
+            "foto" => $imgPath,
+            "judul" => $req->judul,
+            "author" => $req->author,
+            "bahasa" => $req->bahasa,
+            "total_halaman" => $req->total_halaman,
+            "created_by" => $pegawai->nama_lengkap,
+          ]);
+
           DB::commit();
 
         return response()->json(["status" => 1]);

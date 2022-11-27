@@ -114,6 +114,10 @@ class KatalogBukuController extends Controller
 
   public function hapus($id)
   {
+    DB::table("perpus_peminjaman_katalog")
+    ->where('perpus_katalog_id',$id)
+    ->delete();
+
     DB::table("perpus_katalog")
         ->where('id',$id)
         ->delete();

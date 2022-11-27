@@ -42,7 +42,7 @@
             <tr>
               <td>Peminjam<span style="color:red;">*</span></td>
               <td>
-                <select class="form-control form-control-sm inputtext" name="user_id">
+                <select class="form-control form-control-sm inputtext" name="user_id" disabled>
                   <option>Pilih</option>
                   @foreach($users as $user)
                     <option value="<?= $user->id ?>" @if($user->id == $user_id) selected @endif>
