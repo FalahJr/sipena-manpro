@@ -194,6 +194,11 @@ var table = $('#table-data').DataTable({
           $('.select2').select2();
       }); 
 
+      $(document).on('click', '.btn_remove', function(){    
+           var button_id = $(this).attr("id");     
+           $('#row'+button_id+'').remove();    
+      });    
+
     }
 
     function reloadall() {

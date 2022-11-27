@@ -50,9 +50,9 @@ class TransaksiController extends Controller
     //   })
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
-          '<a href="bayar-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+          '<a href="transaksi-koperasi/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/bayar-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="/admin/transaksi-koperasi/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })->addColumn('penjualan', function ($data) {
         $items = DB::table("koperasi_penjualan")->where('koperasi_transaksi_id',$data->id)
@@ -170,35 +170,20 @@ class TransaksiController extends Controller
 
   public function edit($id)
   {
-    $data = DB::table("koperasi_list")->where("id", $id)->first();
-    $items = DB::table('pegawai')->where("is_koperasi","Y")->get();
-    $pegawai_id = DB::table('pegawai')->where("id",$data->pegawai_id)->first();
-    return view("kantin.edit", compact('data','items','pegawai_id'));
+    $data = DB::table("koperasi_transaksi")->where("id", $id)->first();
+    $employees = DB::table("pegawai")->where("is_koperasi","Y")->get();
+    return view("transaksi_koperasi.edit", compact('data','employees'));
   }
 
   public function update(Request $req)
   {
     $this->validate($req,[
-      'nama' => 'required|max:255',
+      'is_lunas' => 'required|max:255',
       'pegawai_id' => 'required|max:255',
     ]);
-    $imgPath = null;
-    $tgl = Carbon::now('Asia/Jakarta');
-    $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-    $childPath ='image/uploads/kantin/';
-    $path = $childPath;
+    $data = DB::table("koperasi_transaksi")->where('id',$req->id);
+    $data->update(['is_lunas'=>$req->is_lunas,'pegawai_id'=>$req->pegawai_id]);
 
-    $file = $req->file('foto');
-    $name = null;
-    $data = DB::table("koperasi_list")->where('id',$req->id);
-    if ($file != null) {
-      $name = $folder . '.' . $file->getClientOriginalExtension();
-      $file->move($path, $name);
-      $imgPath = $childPath . $name;
-      $data->update(['nama'=>$req->nama,'pegawai_id'=>$req->pegawai_id,'foto'=>$imgPath]);
-    } else {
-      $data->update(['nama'=>$req->nama,'pegawai_id'=>$req->pegawai_id]);
-    }
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 

@@ -248,7 +248,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/transaksi-koperasi/show/{id}', 'Koperasi\TransaksiController@show');
         Route::post('/transaksi-koperasi/simpan', 'Koperasi\TransaksiController@simpan');
         Route::get('/transaksi-koperasi/hapus/{id}', 'Koperasi\TransaksiController@hapus');
-        Route::get('/transaksi-koperasi/edit/{id}', 'Koperasi\ListController@edit');
+        Route::get('/transaksi-koperasi/edit/{id}', 'Koperasi\TransaksiController@edit');
         
 
         

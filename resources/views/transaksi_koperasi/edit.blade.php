@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
-          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/transaksi-kantin')}}">Berita Sekolah</a></li>
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/transaksi-koperasi')}}">Transaksi Koperasi</a></li>
           <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
         </ol>
       </nav>
@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-body">
             
-           <h4 class="card-title">Edit Berita Sekolah</h4>
+           <h4 class="card-title">Edit Transaksi Koperasi</h4>
            
                     <!-- Modal -->
     <!-- Modal content-->
@@ -37,40 +37,43 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/transaksi-kantin/update')}}" method="POST" enctype="multipart/form-data">
+          <form action="{{url('admin/transaksi-koperasi/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
+        
             <tr>
-              <td>Nama Kantin<span style="color:red;">*</span></td>
+              <td>Total Pembayaran<span style="color:red;">*</span></td>
               <td>
                 <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
-                <select class="form-control form-control-sm inputtext walikelas" name="kantin_id">
-                  <option >Pilih</option>
-                    <?php foreach($items as $item){ ?>
-                    <option value="<?= $item->id ?>" @if($item->id == $kantin_id->id) selected @endif>
-                      <?= $item->nama ?>
-                    </option>
-                    <?php }?>
-                  </select>
+                <input type="text" class="form-control form-control-sm inputtext totalPembayaran" value="{{$data->total_pembayaran}}" name="total_pembayaran" disabled>
               </td>
             </tr>
-          <tr>
-            <td>Nama Pembeli</td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext namaPembeli" value="{{$data->nama_pembeli}}" name="nama_pembeli" disabled>
-            </td>
-          </tr>
-          <tr>
-            <td>Keterangan <span style="color:red;">*</span></td>
-            <td>
-              <textarea class="form-control form-control-sm deskripsi @if($errors->has('keterangan')) is-invalid @endif" value="{{$data->keterangan}}" name="keterangan" rows="8" cols="80">{!! htmlspecialchars($data->keterangan) !!}</textarea>
-            </td>
-          <tr>
             <tr>
-              <td>Total Harga</td>
-              <td>
-                <input type="text" class="form-control form-control-sm inputtext totalHarga" value="{{$data->harga_total}}" name="total_harga" disabled>
-              </td>
-            </tr>
+              <tr>
+                <td>Status Pembayaran<span style="color:red;">*</span></td>
+                <td>
+                  <select class="form-control form-control-sm inputtext walikelas" name="is_lunas">
+                      <option value="N" @if($data->is_lunas == "N") selected @endif>
+                      PENDING
+                      </option>
+                      <option value="Y" @if($data->is_lunas == "Y") selected @endif>
+                        SUCCESS
+                      </option>
+                    </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Pegawai <span style="color:red;">*</span></td>
+                <td>
+                  <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                    <option>Pilih</option>
+                    @foreach($employees as $employee)
+                      <option value="<?= $employee->id ?>" @if($employee->id == $data->pegawai_id) selected @endif>
+                        <?= $employee->nama_lengkap ?>
+                      </option>
+                      @endforeach
+                    </select>
+                </td>
+              </tr>
           <button class="btn btn-success mt-3" id="simpan" type="submit">Simpan Data</button>
         </form>
         </div>
