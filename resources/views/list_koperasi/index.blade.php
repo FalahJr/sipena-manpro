@@ -1,33 +1,38 @@
 @extends('main')
 @section('content')
 
+@include('list_koperasi.tambah')
+<style type="text/css">
+
+</style>
+<!-- partial -->
 <div class="content-wrapper">
   <div class="row">
     <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Transaksi Kantin</li>
+          <li class="breadcrumb-item active" aria-current="page">Koperasi Sekolah</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Transaksi Kantin</h4>
+                    <h4 class="card-title">List Koperasi Sekolah</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                      {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
+                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kantin</button>
+                      {{-- @endif --}}
                     </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                {{-- <th>Foto</th> --}}
-                                <th>Nama Kantin</th>
-                                <th>Nama Pembeli</th>
-                                <th>Keterangan</th>
-                                <th>Total Harga</th>
-                                <th>Tanggal Pembelian</th>
+                                <th>Nama</th>
+                                <th>Harga</th>
+                                <th>Dibuat Oleh</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -49,7 +54,7 @@
 @section('extra_script')
 <script>
 
-baseUrlChange += "/admin/transaksi-kantin";
+baseUrlChange += "/admin/list-koperasi";
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -63,7 +68,7 @@ var table = $('#table-data').DataTable({
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('admin/transaksi-kantin/table') }}',
+            url:'{{ url('admin/list-koperasi/table') }}',
         },
         columnDefs: [
 
@@ -87,23 +92,20 @@ var table = $('#table-data').DataTable({
                  targets: 4,
                  className: 'center'
               },
-              {
-                 targets: 5,
-                 className: 'center'
-              },
-              {
-                 targets: 6,
-                 className: 'center'
-              },
+              // {
+              //    targets: 5,
+              //    className: 'center'
+              // },
+              // {
+              //    targets: 6,
+              //    className: 'center'
+              // },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          // {data: 'image', name: 'image'},
-          {data: 'kantin', name: 'kantin'},
-          {data: 'nama_pembeli', name: 'nama_pembeli'},
-          {data: 'keterangan', name: 'keterangan'},
-          {data: 'harga_total', name: 'harga_total'},
-          {data: 'created_at', name: 'created_at'},
+          {data: 'nama', name: 'nama'},
+          {data: 'harga', name: 'harga'},
+          {data: 'pegawai_id', name: 'pegawai_id'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
@@ -111,7 +113,7 @@ var table = $('#table-data').DataTable({
     $('#simpan').click(function(){
 
     var formdata = new FormData();
-    // formdata.append('image', $('.uploadGambar')[0].files[0]);
+    // formdata.append('foto', $('.uploadGambar')[0].files[0]);
     // console.log(formdata);
     $.ajax({
       type: "post",

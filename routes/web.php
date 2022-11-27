@@ -217,7 +217,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
         Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
         
-
         Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@index');
         Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
         Route::post('/sumbang-buku/update', 'Perpustakaan\SumbangBukuController@update');
@@ -235,13 +234,21 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kehilangan-buku/edit/{id}', 'Perpustakaan\KehilanganBukuController@edit');
 
         //Koperasi
-        Route::get('/list-koperasi', 'Koperasi\ListKoperasiController@index');
-        Route::get('/list-koperasi/table', 'Koperasi\ListKoperasiController@datatable');
-        Route::post('/list-koperasi/update', 'Koperasi\ListKoperasiController@update');
-        Route::get('/list-koperasi/show/{id}', 'Koperasi\ListKoperasiController@show');
-        Route::post('/list-koperasi/simpan', 'Koperasi\ListKoperasiController@simpan');
-        Route::get('/list-koperasi/hapus/{id}', 'Koperasi\ListKoperasiController@hapus');
-        Route::get('/list-koperasi/edit/{id}', 'Koperasi\ListKoperasiController@edit');
+        Route::get('/list-koperasi', 'Koperasi\ListController@index');
+        Route::get('/list-koperasi/table', 'Koperasi\ListController@datatable');
+        Route::post('/list-koperasi/update', 'Koperasi\ListController@update');
+        Route::get('/list-koperasi/show/{id}', 'Koperasi\ListController@show');
+        Route::post('/list-koperasi/simpan', 'Koperasi\ListController@simpan');
+        Route::get('/list-koperasi/hapus/{id}', 'Koperasi\ListController@hapus');
+        Route::get('/list-koperasi/edit/{id}', 'Koperasi\ListController@edit');
+
+        Route::get('/transaksi-koperasi', 'Koperasi\TransaksiController@index');
+        Route::get('/transaksi-koperasi/table', 'Koperasi\TransaksiController@datatable');
+        Route::post('/transaksi-koperasi/update', 'Koperasi\TransaksiController@update');
+        Route::get('/transaksi-koperasi/show/{id}', 'Koperasi\TransaksiController@show');
+        Route::post('/transaksi-koperasi/simpan', 'Koperasi\TransaksiController@simpan');
+        Route::get('/transaksi-koperasi/hapus/{id}', 'Koperasi\TransaksiController@hapus');
+        Route::get('/transaksi-koperasi/edit/{id}', 'Koperasi\ListController@edit');
         
 
         
