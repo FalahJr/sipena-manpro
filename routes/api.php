@@ -114,4 +114,12 @@ Route::middleware('api')->group(function () {
     //Absensi Siswa
     Route::get('/listabsensisiswa', 'AbsensiSiswaController@getMutasiSiswaJson');
     Route::post('/simpanabsensisiswa', 'AbsensiSiswaController@simpan');
+
+    //Absensi Pegawai
+    Route::get('/listabsensipegawai', 'AbsensiPegawaiController@getMutasiPegawaiJson');
+    Route::post('/simpanabsensipegawai', 'AbsensiPegawaiController@simpan');
+
+    //Absensi Pegawai
+    Route::get('/listabsensiguru', 'AbsensiGuruController@getMutasiPegawaiJson');
+    Route::post('/simpanabsensiguru', 'AbsensiGuruController@simpan');
 });

@@ -216,7 +216,7 @@ Route::group(['middleware' => 'admin'], function () {
         // Route::post('/kembali-buku/simpan', 'Perpustakaan\KembaliBukuController@simpan');
         Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
         Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
-        
+
 
         Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@index');
         Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
@@ -233,9 +233,9 @@ Route::group(['middleware' => 'admin'], function () {
         // Route::post('/kehilangan-buku/simpan', 'Perpustakaan\KehilanganBukuController@simpan');
         Route::get('/kehilangan-buku/hapus/{id}', 'Perpustakaan\KehilanganBukuController@hapus');
         Route::get('/kehilangan-buku/edit/{id}', 'Perpustakaan\KehilanganBukuController@edit');
-        
 
-        
+
+
 
         //Feedback
         Route::get('/feed', 'FeedController@index');
@@ -274,6 +274,14 @@ Route::group(['middleware' => 'admin'], function () {
         //Absensi Siswa
         Route::get('/absensisiswa', 'AbsensiSiswaController@index');
         Route::get('/absensisiswatable', 'AbsensiSiswaController@datatable');
+
+        //Absensi Pegawai
+        Route::get('/absensipegawai', 'AbsensiPegawaiController@index');
+        Route::get('/absensipegawaitable', 'AbsensiPegawaiController@datatable');
+
+        //Absensi Guru
+        Route::get('/absensiguru', 'AbsensiGuruController@index');
+        Route::get('/absensigurutable', 'AbsensiGuruController@datatable');
     });
 });
 

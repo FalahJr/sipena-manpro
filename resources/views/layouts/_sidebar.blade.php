@@ -198,9 +198,17 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{Request::is('admin/absensipegawai') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/absensipegawai')}}">
             <span class="menu-title">Absensi Pegawai</span>
+            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+            <i class="mdi mdi-note menu-icon"></i>
+          </a>
+        </li>
+
+        <li class="nav-item {{Request::is('admin/absensiguru') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/absensiguru')}}">
+            <span class="menu-title">Absensi Guru</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-note menu-icon"></i>
           </a>
@@ -221,7 +229,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku') ? 'active' : '' }}" href="{{url('admin/kehilangan-buku')}}">Kehilangan Buku<span class="d-none">Kehilangan Buku</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Kegiatan OSIS</span>
@@ -262,7 +270,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ? 'active' : '' }}" href="{{url('admin/transaksi-kantin')}}">Transaksi Kantin<span class="d-none">Transaksi Kantin</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Jadwal Kelas</span>

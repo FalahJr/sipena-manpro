@@ -20,67 +20,47 @@ use File;
 
 use Yajra\Datatables\Datatables;
 
-class AbsensiSiswaController extends Controller
+class AbsensiGuruController extends Controller
 {
-    public static function getAbsensiSiswa()
+    public static function getAbsensiGuru()
     {
-        $data = DB::table("siswa_absensi")
-            ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-            ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-            ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-            ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-            ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
+        $data = DB::table("guru_absensi")
+            ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
+            ->select("guru.*", "guru_absensi.*")
             ->get()->toArray();
 
         return $data;
     }
 
-    public static function getMutasiSiswaJson() {
-      $data = AbsensiSiswaController::getAbsensiSiswa();
+    public static function getMutasiGuruJson() {
+      $data = AbsensiGuruController::getAbsensiGuru();
 
       return response()->json($data);
     }
 
     public function index() {
-      return view('absensisiswa.index');
+      return view('absenguru.index');
     }
 
     public function datatable() {
-      $data = AbsensiSiswaController::getAbsensiSiswa();
+      $data = AbsensiGuruController::getAbsensiGuru();
 
         return Datatables::of($data)
           ->addColumn("image", function($data) {
             return '<div> <img src="'.url('/') . '/' . $data->foto.'" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
           })
           ->addColumn('terlambat', function ($data) {
-            $date2 = convertNameDayIdn(Carbon::parse($data->created_at)->format('l'));
+            $waktu = Carbon::parse($data->waktu)->format('H:i:s');
+            $batas = "06:00:00";
 
-            $created_at = Carbon::parse($data->created_at)->format('H:i:s');
-
-            if($data->jadwal_hari === $date2) {
-              if($created_at > $data->jadwal_waktu) {
-                return '<span class="fa fa-check"> </span>';
-              } else {
-                return '<span class="fa fa-close"> </span>';
-              }
+            if($waktu > Carbon::parse($batas)->format('H:i:s')) {
+              return '<span class="badge badge-danger"> Ya </span>';
             } else {
-              return '<span class="fa fa-close"> </span>';
+              return '<span class="badge badge-success"> Tidak </span>';
             }
           })
-          ->addColumn('valid', function ($data) {
-            $date2 = convertNameDayIdn(Carbon::parse($data->created_at)->format('l'));
-
-            if($data->jadwal_hari === $date2) {
-              return '<span class="badge badge-success"> Ya </span>';
-            } else {
-              return '<span class="badge badge-danger"> Tidak </span>';
-            }
-          })
-          ->addColumn('jadwal', function ($data) {
-            return $data->jadwal_hari . ", " . $data->jadwal_waktu;
-          })
-          ->addColumn('created_at', function ($data) {
-            return convertNameDayIdn(Carbon::parse($data->created_at)->format('l, d M Y H:i:s'));
+          ->addColumn('waktu', function ($data) {
+            return convertNameDayIdn(Carbon::parse($data->waktu)->format('l, d M Y H:i:s'));
           })
           ->rawColumns(['terlambat', 'image', 'valid'])
           ->addIndexColumn()
@@ -88,33 +68,29 @@ class AbsensiSiswaController extends Controller
     }
 
     public function simpan(Request $req) {
-      $cek = DB::table("jadwal_pembelajaran")
-                ->where("id", $req->jadwal_pembelajaran_id)
-                ->first();
-
-      $cekabsen = DB::table("siswa_absensi")
-                ->where("siswa_id", $req->siswa_id)
-                ->where('created_at', 'like', '%'.Carbon::now()->format('Y-m-d').'%')
-                ->first();
-
       $now = convertNameDayIdn(Carbon::now()->format('l'));
 
-      if($cek->jadwal_hari != $now) {
-        return response()->json(["status" => 7, "message" => "Ketika absen harus sama dengan jadwal pembelajaran!"]);
+      $cekabsen = DB::table("guru_absensi")
+                ->where("guru_id", $req->pegawai_id)
+                ->where('waktu', 'like', '%'.Carbon::now()->format('Y-m-d').'%')
+                ->first();
+
+      if($now == "Sabtu" || $now == "Minggu") {
+        return response()->json(["status" => 7, "message" => "Sabtu & Minggu Libur!"]);
       } else if($cekabsen != null) {
-        return response()->json(["status" => 7, "message" => "Siswa sudah absen hari ini!"]);
+        return response()->json(["status" => 7, "message" => "Guru sudah absen hari ini!"]);
       }
 
       if ($req->id == null) {
         DB::beginTransaction();
         try {
 
-          $max = DB::table("siswa_absensi")->max('id') + 1;
+          $max = DB::table("guru_absensi")->max('id') + 1;
 
           $imgPath = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_absensi/' . $max;
+          $dir = 'image/uploads/guru_absensi/' . $max;
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -135,13 +111,12 @@ class AbsensiSiswaController extends Controller
               }
           }
 
-          DB::table("siswa_absensi")
+          DB::table("guru_absensi")
               ->insert([
               "id" => $max,
-              "jadwal_pembelajaran_id" => $req->jadwal_pembelajaran_id,
-              "siswa_id" => $req->siswa_id,
+              "guru_id" => $req->guru_id,
               "foto" => $imgPath,
-              "created_at" => Carbon::now('Asia/Jakarta'),
+              "waktu" => Carbon::now('Asia/Jakarta'),
             ]);
 
           DB::commit();
@@ -157,7 +132,7 @@ class AbsensiSiswaController extends Controller
           $imgPath = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_absensi/' . $req->id;
+          $dir = 'image/uploads/guru_absensi/' . $req->id;
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -178,13 +153,12 @@ class AbsensiSiswaController extends Controller
               }
           }
 
-          DB::table("siswa_absensi")
+          DB::table("guru_absensi")
               ->where('id', $req->id)
               ->update([
-              "jadwal_pembelajaran_id" => $req->jadwal_pembelajaran_id,
-              "siswa_id" => $req->siswa_id,
-              "foto" => $imgPath,
-              "created_at" => Carbon::now('Asia/Jakarta'),
+                "guru_id" => $req->pegawai_id,
+                "foto" => $imgPath,
+                "waktu" => Carbon::now('Asia/Jakarta'),
             ]);
 
           DB::commit();
