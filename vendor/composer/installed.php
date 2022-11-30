@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f1d33aca8cf8f466a2d8f1fd3cd46a911701833a',
+        'reference' => '551ae9af15c75336ddab07deefafbd7789059700',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -13,10 +13,10 @@
         'bacon/bacon-qr-code' => array(
             'pretty_version' => '2.0.7',
             'version' => '2.0.7.0',
-            'reference' => 'd70c840f68657ce49094b8d91f9ee0cc07fbf66c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../bacon/bacon-qr-code',
             'aliases' => array(),
+            'reference' => 'd70c840f68657ce49094b8d91f9ee0cc07fbf66c',
             'dev_requirement' => false,
         ),
         'barryvdh/laravel-dompdf' => array(
@@ -28,6 +28,15 @@
             'reference' => '7dcdecfa125c174d0abe723603633dc2756ea3af',
             'dev_requirement' => false,
         ),
+        'binarytorch/larecipe' => array(
+            'pretty_version' => 'v2.5.0',
+            'version' => '2.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../binarytorch/larecipe',
+            'aliases' => array(),
+            'reference' => 'c5bfcc3c2fe9f3ce9c6f67368ee754699363f5ce',
+            'dev_requirement' => false,
+        ),
         'cordoval/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -37,10 +46,10 @@
         'dasprid/enum' => array(
             'pretty_version' => '1.0.3',
             'version' => '1.0.3.0',
-            'reference' => '5abf82f213618696dda8e3bf6f64dd042d8542b2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dasprid/enum',
             'aliases' => array(),
+            'reference' => '5abf82f213618696dda8e3bf6f64dd042d8542b2',
             'dev_requirement' => false,
         ),
         'davedevelopment/hamcrest-php' => array(
@@ -92,6 +101,15 @@
             'install_path' => __DIR__ . '/../erusev/parsedown',
             'aliases' => array(),
             'reference' => 'cb17b6477dfff935958ba01325f2e8a2bfa6dab3',
+            'dev_requirement' => false,
+        ),
+        'erusev/parsedown-extra' => array(
+            'pretty_version' => '0.8.1',
+            'version' => '0.8.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../erusev/parsedown-extra',
+            'aliases' => array(),
+            'reference' => '91ac3ff98f0cea243bdccc688df43810f044dcef',
             'dev_requirement' => false,
         ),
         'fzaninotto/faker' => array(
@@ -361,7 +379,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f1d33aca8cf8f466a2d8f1fd3cd46a911701833a',
+            'reference' => '551ae9af15c75336ddab07deefafbd7789059700',
             'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
@@ -785,10 +803,10 @@
         'simplesoftwareio/simple-qrcode' => array(
             'pretty_version' => '4.2.0',
             'version' => '4.2.0.0',
-            'reference' => '916db7948ca6772d54bb617259c768c9cdc8d537',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplesoftwareio/simple-qrcode',
             'aliases' => array(),
+            'reference' => '916db7948ca6772d54bb617259c768c9cdc8d537',
             'dev_requirement' => false,
         ),
         'swiftmailer/swiftmailer' => array(
@@ -825,6 +843,24 @@
             'install_path' => __DIR__ . '/../symfony/debug',
             'aliases' => array(),
             'reference' => 'ab42889de57fdfcfcc0759ab102e2fd4ea72dcae',
+            'dev_requirement' => false,
+        ),
+        'symfony/deprecation-contracts' => array(
+            'pretty_version' => 'v2.5.2',
+            'version' => '2.5.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
+            'aliases' => array(),
+            'reference' => 'e8b495ea28c1d97b5e0c121748d6f9b53d075c66',
+            'dev_requirement' => false,
+        ),
+        'symfony/dom-crawler' => array(
+            'pretty_version' => 'v5.4.15',
+            'version' => '5.4.15.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/dom-crawler',
+            'aliases' => array(),
+            'reference' => 'b8fd0ff9a0f00d944f1534f6d21e84f92eda7258',
             'dev_requirement' => false,
         ),
         'symfony/event-dispatcher' => array(

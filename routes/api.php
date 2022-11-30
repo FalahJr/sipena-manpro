@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('api')->group(function () {
-    Route::get('login', 'loginController@loginApi');
+    Route::any('login', 'loginController@loginApi');
 
     //Mutasi Siswa
     Route::get('/iistmutasisiswa', 'MutasiSiswaController@getMutasiSiswaJson');
