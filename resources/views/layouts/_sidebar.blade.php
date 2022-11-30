@@ -48,45 +48,25 @@
       </li>
 
 
-      @if(Auth::user()->role != 'admin')
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown"
           aria-expanded="false">
-          {{-- <img src="{{asset('assets/image/faces1.jpg')}}" alt="image"> --}}
           <span class="d-lg-inline">{{Auth::user()->fullname}}</span>
         </a>
         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 
-
-          {{-- <a class="dropdown-item" href="{{ url('admin/logout') }}">
+          <a class="dropdown-item" href="{{ url('admin/logout') }}">
             <i class="mdi mdi-logout mr-2 text-primary"></i>
-            Signout
-          </a> --}}
-          {{-- @else --}}
-          <a class="dropdown-item" href="{{ url('/') }}">
-            <i class="mdi mdi-logout mr-2 text-primary"></i>
-            Home
+            Sign Out
           </a>
 
         </div>
       </li>
-      @endif
-      @if(Auth::user()->role == 'admin')
       <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
         <a class="nav-link" href="{{ url('admin/logout') }}">
           <i class="mdi mdi-power"></i>
         </a>
       </li>
-      @else
-      <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
-        <a class="nav-link" href="{{ url('/') }}">
-          <i class="mdi mdi-power"></i>
-        </a>
-      </li>
-      @endif
-      <form id="logout-form" action="{{ url('admin/logout') }}" method="post" style="display: none;">
-        {{ csrf_field() }}
-      </form>
     </ul>
     <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
       data-toggle="offcanvas">

@@ -59,17 +59,7 @@ class HomeController extends Controller
 
     public function logout(){
         Session::flush();
-        // mMember::where('users_id', Auth::user()->id_account)->update([
-        //      'users_lastlogout' => Carbon::now('Asia/Jakarta'),
-        //      "users_accesstoken" => md5(uniqid(Auth::user()->users_username, true)),
-        // ]);
 
-        Account::where('id_account', Auth::user()->id_account)->update([
-             'last_online' => Carbon::now(),
-             'islogin' => "N",
-        ]);
-
-        // logController::inputlog('Logout', 'Logout', Auth::user()->m_username);
         Auth::logout();
 
         Session::forget('key');
@@ -94,20 +84,5 @@ class HomeController extends Controller
       } else {
         return Redirect('/admin/login');
       }
-    }
-
-    public function notif() {
-      $data = DB::table("lelang")
-                ->join('lelangbid', 'lelangbid.id_lelang', '=', 'lelang.id_lelang')
-                ->where("lelang.id_account", Auth::user()->id_account)
-                ->whereDate('lelangbid.created_at', Carbon::today())
-                ->get();
-
-      $data1 = DB::table("transaction")
-                ->where("id_penjual", Auth::user()->id_account)
-                ->whereDate('created_at', Carbon::today())
-                ->get();
-
-      return response()->json(count($data) + count($data1));
     }
 }
