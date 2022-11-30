@@ -12,16 +12,14 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
-        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
-        '9be1c2bab389f876c8b9376199151a90' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Helpers/helpers.php',
         '1f9e54d362959b6a1a8e882d41880168' => __DIR__ . '/../..' . '/app/Helper/helpers.php',
     );
 
@@ -63,7 +61,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\EventDispatcher\\' => 34,
-            'Symfony\\Component\\DomCrawler\\' => 29,
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
@@ -130,7 +127,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         ),
         'B' => 
         array (
-            'BinaryTorch\\LaRecipe\\' => 21,
             'Barryvdh\\DomPDF\\' => 16,
             'BaconQrCode\\' => 12,
         ),
@@ -222,10 +218,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
-        ),
-        'Symfony\\Component\\DomCrawler\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/dom-crawler',
         ),
         'Symfony\\Component\\Debug\\' => 
         array (
@@ -360,10 +352,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
         ),
-        'BinaryTorch\\LaRecipe\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/binarytorch/larecipe/src',
-        ),
         'Barryvdh\\DomPDF\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
@@ -392,10 +380,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         ),
         'P' => 
         array (
-            'ParsedownExtra' => 
-            array (
-                0 => __DIR__ . '/..' . '/erusev/parsedown-extra',
-            ),
             'Parsedown' => 
             array (
                 0 => __DIR__ . '/..' . '/erusev/parsedown',
@@ -534,28 +518,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         'Barryvdh\\DomPDF\\Facade' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
         'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
-        'BinaryTorch\\LaRecipe\\Cache' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Cache.php',
-        'BinaryTorch\\LaRecipe\\Commands\\AssetCommand' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Commands/AssetCommand.php',
-        'BinaryTorch\\LaRecipe\\Commands\\GenerateDocumentationCommand' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Commands/GenerateDocumentationCommand.php',
-        'BinaryTorch\\LaRecipe\\Commands\\InstallCommand' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Commands/InstallCommand.php',
-        'BinaryTorch\\LaRecipe\\Commands\\ThemeCommand' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Commands/ThemeCommand.php',
-        'BinaryTorch\\LaRecipe\\Contracts\\MarkdownParser' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Contracts/MarkdownParser.php',
-        'BinaryTorch\\LaRecipe\\DocumentationRepository' => __DIR__ . '/..' . '/binarytorch/larecipe/src/DocumentationRepository.php',
-        'BinaryTorch\\LaRecipe\\Facades\\LaRecipe' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Facades/LaRecipe.php',
-        'BinaryTorch\\LaRecipe\\Http\\Controllers\\Controller' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Http/Controllers/Controller.php',
-        'BinaryTorch\\LaRecipe\\Http\\Controllers\\DocumentationController' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Http/Controllers/DocumentationController.php',
-        'BinaryTorch\\LaRecipe\\Http\\Controllers\\ScriptController' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Http/Controllers/ScriptController.php',
-        'BinaryTorch\\LaRecipe\\Http\\Controllers\\SearchController' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Http/Controllers/SearchController.php',
-        'BinaryTorch\\LaRecipe\\Http\\Controllers\\StyleController' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Http/Controllers/StyleController.php',
-        'BinaryTorch\\LaRecipe\\LaRecipe' => __DIR__ . '/..' . '/binarytorch/larecipe/src/LaRecipe.php',
-        'BinaryTorch\\LaRecipe\\LaRecipeServiceProvider' => __DIR__ . '/..' . '/binarytorch/larecipe/src/LaRecipeServiceProvider.php',
-        'BinaryTorch\\LaRecipe\\Models\\Documentation' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Models/Documentation.php',
-        'BinaryTorch\\LaRecipe\\Services\\ParseDownMarkdownParser' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Services/ParseDownMarkdownParser.php',
-        'BinaryTorch\\LaRecipe\\Traits\\HasBladeParser' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Traits/HasBladeParser.php',
-        'BinaryTorch\\LaRecipe\\Traits\\HasDocumentationAttributes' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Traits/HasDocumentationAttributes.php',
-        'BinaryTorch\\LaRecipe\\Traits\\HasMarkdownParser' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Traits/HasMarkdownParser.php',
-        'BinaryTorch\\LaRecipe\\Traits\\Indexable' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Traits/Indexable.php',
-        'BinaryTorch\\LaRecipe\\Traits\\RunProcess' => __DIR__ . '/..' . '/binarytorch/larecipe/src/Traits/RunProcess.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\CarbonPeriod' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonPeriod.php',
@@ -3034,7 +2996,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
-        'ParsedownExtra' => __DIR__ . '/..' . '/erusev/parsedown-extra/ParsedownExtra.php',
         'PhpParser\\Builder' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder.php',
         'PhpParser\\BuilderFactory' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/BuilderFactory.php',
         'PhpParser\\BuilderHelpers' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/BuilderHelpers.php',
@@ -3898,22 +3859,6 @@ class ComposerStaticInit7b56784fe76c823ff0010a16126d7254
         'Symfony\\Component\\Debug\\FatalErrorHandler\\FatalErrorHandlerInterface' => __DIR__ . '/..' . '/symfony/debug/FatalErrorHandler/FatalErrorHandlerInterface.php',
         'Symfony\\Component\\Debug\\FatalErrorHandler\\UndefinedFunctionFatalErrorHandler' => __DIR__ . '/..' . '/symfony/debug/FatalErrorHandler/UndefinedFunctionFatalErrorHandler.php',
         'Symfony\\Component\\Debug\\FatalErrorHandler\\UndefinedMethodFatalErrorHandler' => __DIR__ . '/..' . '/symfony/debug/FatalErrorHandler/UndefinedMethodFatalErrorHandler.php',
-        'Symfony\\Component\\DomCrawler\\AbstractUriElement' => __DIR__ . '/..' . '/symfony/dom-crawler/AbstractUriElement.php',
-        'Symfony\\Component\\DomCrawler\\Crawler' => __DIR__ . '/..' . '/symfony/dom-crawler/Crawler.php',
-        'Symfony\\Component\\DomCrawler\\Field\\ChoiceFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/ChoiceFormField.php',
-        'Symfony\\Component\\DomCrawler\\Field\\FileFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/FileFormField.php',
-        'Symfony\\Component\\DomCrawler\\Field\\FormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/FormField.php',
-        'Symfony\\Component\\DomCrawler\\Field\\InputFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/InputFormField.php',
-        'Symfony\\Component\\DomCrawler\\Field\\TextareaFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/TextareaFormField.php',
-        'Symfony\\Component\\DomCrawler\\Form' => __DIR__ . '/..' . '/symfony/dom-crawler/Form.php',
-        'Symfony\\Component\\DomCrawler\\FormFieldRegistry' => __DIR__ . '/..' . '/symfony/dom-crawler/FormFieldRegistry.php',
-        'Symfony\\Component\\DomCrawler\\Image' => __DIR__ . '/..' . '/symfony/dom-crawler/Image.php',
-        'Symfony\\Component\\DomCrawler\\Link' => __DIR__ . '/..' . '/symfony/dom-crawler/Link.php',
-        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorAttributeValueSame' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorAttributeValueSame.php',
-        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorExists' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorExists.php',
-        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorTextContains' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorTextContains.php',
-        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorTextSame' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorTextSame.php',
-        'Symfony\\Component\\DomCrawler\\UriResolver' => __DIR__ . '/..' . '/symfony/dom-crawler/UriResolver.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcher.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcherInterface.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\WrappedListener' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/WrappedListener.php',
