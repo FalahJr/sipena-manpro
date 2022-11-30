@@ -1,84 +1,18 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', 'HomepageController@index');
-// Route::get('/getinfo', 'HomepageController@getinfo');
-// Route::get('/admin', 'HomeController@checklogin');
-// Route::get('/product', 'ProductController@index');
-// Route::get('/product/detail/{url_segment}', 'ProductController@show')->name('detailproduct');
-// Route::get('/lelang', 'LelangController@index');
-// Route::get('/lelang/detail/{url_segment}', 'LelangController@show')->name('detaillelang');
-// Route::get('/contact', 'KontakController@index');
-// Route::get('loginmember', 'MemberController@login')->name('loginmember');
-// Route::get('/forgot', 'MemberController@forgot');
-// Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
-// Route::post('/registermember', 'MemberController@register')->name('registermember');
-// Route::post('/editmember', 'MemberController@edit')->name('editmember');
-// Route::get('/logoutmemberjson', 'MemberController@logoutjson');
-
-// Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
-// Route::get('/pembeli/history', 'HistoryController@index')->name('historymember');
-// Route::post('/pembeli/pay', 'HistoryController@pay');
-
-// Route::get('/lelangupdate', 'LelangController@lelangupdate');
-
-// // Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
-// Route::get('/lelangupdate', 'LelangController@lelangupdate');
-// Route::get('/countcart', 'CartController@countcart');
-// Route::get('/addcart', 'CartController@addcart');
-// Route::get('/opencart', 'CartController@opencart');
-// Route::get('/deletecart', 'CartController@deletecart');
-// Route::post('/admin/toko/simpan', 'TokoController@simpan');
-
-// Route::get('/viewcart', 'CartController@viewcart');
-// Route::get('/changetoko', 'CartController@changetoko');
-// Route::post('/checkout', 'CartController@checkout');
-
-// Route::get('/chat', 'ChatController@index');
-// Route::get('/listroom', 'ChatController@listroom');
-// Route::get('/countchat', 'ChatController@countchat');
-// Route::get('/listchat', 'ChatController@listchat');
-// Route::get('/sendchat', 'ChatController@sendchat');
-// Route::get('/newchat', 'ChatController@newchat');
-// Route::post('/sendimgchat', 'ChatController@sendimgchat');
-
-// Route::post('pembeli/inputulasan', 'HistoryController@inputulasan');
-
-// Route::get('/toko/{id}', 'ProfileTokoController@index')->name('profilToko');
-
-// Route::get('/updateprice', 'LelangController@updateprice');
-
-// Route::get('/addbid', 'LelangController@addbid');
-
-// Route::post('/checkoutlelang', 'LelangController@checkoutlelang');
-
-// Route::get('/notif', 'HomeController@notif');
-
-// Route::get('/feed/detail', 'FeedController@detailfeed');
-
-//Route untuk umum
-
-// use Illuminate\Routing\Route;
-
-Route::group(['middleware' => 'guest'], function () {
-
-    Route::get('/', function () {
-        return view('auth.login');
+Route::get('/', function () {
+    $user = \Auth::user();
+    if($user == null) {
+      return view('auth.login');
+    } else {
+      if($user->role_id == 1) {
+        return redirect()->route('homeadmin');
+      }
     }
-    )->name('adminlogin');
+}
+);
 
-    Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
-});
+Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
 
 //Route untuk user admin
 Route::group(['middleware' => 'admin'], function () {
@@ -216,7 +150,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/kembali-buku/simpan', 'Perpustakaan\KembaliBukuController@simpan');
         Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
         Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
-        
+
+
         Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@index');
         Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
         Route::post('/sumbang-buku/update', 'Perpustakaan\SumbangBukuController@update');
@@ -251,7 +186,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/transaksi-koperasi/edit/{id}', 'Koperasi\TransaksiController@edit');
         
 
-        
+
+
 
         //Feedback
         Route::get('/feed', 'FeedController@index');
@@ -290,6 +226,14 @@ Route::group(['middleware' => 'admin'], function () {
         //Absensi Siswa
         Route::get('/absensisiswa', 'AbsensiSiswaController@index');
         Route::get('/absensisiswatable', 'AbsensiSiswaController@datatable');
+
+        //Absensi Pegawai
+        Route::get('/absensipegawai', 'AbsensiPegawaiController@index');
+        Route::get('/absensipegawaitable', 'AbsensiPegawaiController@datatable');
+
+        //Absensi Guru
+        Route::get('/absensiguru', 'AbsensiGuruController@index');
+        Route::get('/absensigurutable', 'AbsensiGuruController@datatable');
     });
 });
 

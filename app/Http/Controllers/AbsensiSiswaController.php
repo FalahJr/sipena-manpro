@@ -52,14 +52,6 @@ class AbsensiSiswaController extends Controller
           ->addColumn("image", function($data) {
             return '<div> <img src="'.url('/') . '/' . $data->foto.'" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
           })
-          ->addColumn('aksi', function ($data) {
-            return  '<div class="btn-group">'.
-                     '<button type="button" onclick="edit('.$data->id.')" class="btn btn-info btn-lg" title="edit">'.
-                     '<label class="fa fa-pencil-alt"></label></button>'.
-                     '<button type="button" onclick="hapus('.$data->id.')" class="btn btn-danger btn-lg" title="hapus">'.
-                     '<label class="fa fa-trash"></label></button>'.
-                  '</div>';
-          })
           ->addColumn('terlambat', function ($data) {
             $date2 = convertNameDayIdn(Carbon::parse($data->created_at)->format('l'));
 
@@ -90,12 +82,29 @@ class AbsensiSiswaController extends Controller
           ->addColumn('created_at', function ($data) {
             return convertNameDayIdn(Carbon::parse($data->created_at)->format('l, d M Y H:i:s'));
           })
-          ->rawColumns(['aksi', 'terlambat', 'image', 'valid'])
+          ->rawColumns(['terlambat', 'image', 'valid'])
           ->addIndexColumn()
           ->make(true);
     }
 
     public function simpan(Request $req) {
+      $cek = DB::table("jadwal_pembelajaran")
+                ->where("id", $req->jadwal_pembelajaran_id)
+                ->first();
+
+      $cekabsen = DB::table("siswa_absensi")
+                ->where("siswa_id", $req->siswa_id)
+                ->where('created_at', 'like', '%'.Carbon::now()->format('Y-m-d').'%')
+                ->first();
+
+      $now = convertNameDayIdn(Carbon::now()->format('l'));
+
+      if($cek->jadwal_hari != $now) {
+        return response()->json(["status" => 7, "message" => "Ketika absen harus sama dengan jadwal pembelajaran!"]);
+      } else if($cekabsen != null) {
+        return response()->json(["status" => 7, "message" => "Siswa sudah absen hari ini!"]);
+      }
+
       if ($req->id == null) {
         DB::beginTransaction();
         try {
