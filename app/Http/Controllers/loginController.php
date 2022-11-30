@@ -58,7 +58,7 @@ class loginController extends Controller
             // $pass_benar=$password;
             // $username = str_replace('\'', '', $username);
 
-            $user = Account::where("username", $username)->where("role_id", 1)->first();
+            $user = Account::where("username", $username)->first();
 
             $user_valid = [];
             // dd($req->all());
