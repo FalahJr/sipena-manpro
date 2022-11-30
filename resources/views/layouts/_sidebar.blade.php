@@ -228,15 +228,15 @@
             </ul>
           </div>
         </li> 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{Request::is('admin/kegiatan-osis') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/kegiatan-osis')}}">
             <span class="menu-title">Kegiatan OSIS</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-worker menu-icon"></i>
           </a>
         </li>
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{Request::is('admin/ekstrakulikuler') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/ekstrakulikuler')}}">
             <span class="menu-title">Ekstrakulikuler</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-swim menu-icon"></i>

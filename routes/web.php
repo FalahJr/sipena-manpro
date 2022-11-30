@@ -184,6 +184,22 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/transaksi-koperasi/simpan', 'Koperasi\TransaksiController@simpan');
         Route::get('/transaksi-koperasi/hapus/{id}', 'Koperasi\TransaksiController@hapus');
         Route::get('/transaksi-koperasi/edit/{id}', 'Koperasi\TransaksiController@edit');
+
+        //Kegiatan OSIS
+        Route::get('/kegiatan-osis', 'KegiatanOsisController@index');
+        Route::get('/kegiatan-osis/table', 'KegiatanOsisController@datatable');
+        Route::post('/kegiatan-osis/update', 'KegiatanOsisController@update');
+        Route::post('/kegiatan-osis/simpan', 'KegiatanOsisController@simpan');
+        Route::get('/kegiatan-osis/hapus/{id}', 'KegiatanOsisController@hapus');
+        Route::get('/kegiatan-osis/edit/{id}', 'KegiatanOsisController@edit');
+
+        //Ekstrakulikuler
+        Route::get('/ekstrakulikuler', 'EkstrakulikulerController@index');
+        Route::get('/ekstrakulikuler/table', 'EkstrakulikulerController@datatable');
+        Route::post('/ekstrakulikuler/update', 'EkstrakulikulerController@update');
+        Route::post('/ekstrakulikuler/simpan', 'EkstrakulikulerController@simpan');
+        Route::get('/ekstrakulikuler/hapus/{id}', 'EkstrakulikulerController@hapus');
+        Route::get('/ekstrakulikuler/edit/{id}', 'EkstrakulikulerController@edit');
         
 
 
