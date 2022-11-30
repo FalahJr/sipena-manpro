@@ -19,7 +19,7 @@ class Penjual
         /*'fBaCZemyXbk6uUButDcfLhw1Z21B56Yd4sS4MR3'*/
         /*dd(Auth::user()->m_token.'!='.Session::get('m_token'));*/
         if (Auth::check()) {
-          if(Auth::user()->role != "member"){
+          if(Auth::user()->role_id != "member"){
             return Redirect('/');
           }
         } else {

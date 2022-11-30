@@ -472,17 +472,6 @@ $('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
     })
   });
 
-  // var lockscreen = '{{Session::get('lockscreen')}}';
-  // if (lockscreen == 'yes') {
-  //   window.location.href = "{{url('/lockscreen')}}?url={{encrypt(url()->full())}}"
-  // } else {
-  //   var timeout;
-  //   document.onmousemove = function(){
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(function(){ window.location.href = "{{url('/lockscreen')}}?url={{encrypt(url()->full())}}" }, 6000000);
-  //   }
-  // }
-
   function get_currency(v) {
 	if( /^\d([0-9\.]+)$/.test(v) ) {
 
@@ -515,58 +504,17 @@ $('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 </script>
 
 <script type="text/javascript">
-
-$.ajax({
-  url: "{{url('/')}}" + "/penjual/lelang/lelangnotif",
-  success: function(data) {
-
-    $('#lelangnotif').text("( "+data+" new )");
-  }
-});
-
-setInterval(function(){
-
-  $.ajax({
-    url: "{{url('/')}}" + "/penjual/lelang/lelangnotif",
-    success: function(data) {
-
-      $('#lelangnotif').text("( "+data+" new )");
+  $(document).ajaxStart(function(){
+    if (allowloading == true) {
+      waitingDialog.show();
     }
-  });
+  })
 
-}, 3000);
-
-$.ajax({
-  url: "{{url('/')}}" + "/penjual/listorder/pesanannotif",
-  success: function(data) {
-
-    $('#pesanannotif').text("( "+data+" new )");
-  }
-});
-
-setInterval(function(){
-
-  $.ajax({
-    url: "{{url('/')}}" + "/penjual/listorder/pesanannotif",
-    success: function(data) {
-
-      $('#pesanannotif').text("( "+data+" new )");
+  $(document).ajaxComplete(function(){
+    if (allowloading == true) {
+      setTimeout(function () {
+          waitingDialog.hide();
+      }, 500);
     }
-  });
-
-}, 3000);
-
-  // $(document).ajaxStart(function(){
-  //   if (allowloading == true) {
-  //     waitingDialog.show();
-  //   }
-  // })
-  //
-  // $(document).ajaxComplete(function(){
-  //   if (allowloading == true) {
-  //     setTimeout(function () {
-  //         waitingDialog.hide();
-  //     }, 500);
-  //   }
-  // })
+  })
 </script>
