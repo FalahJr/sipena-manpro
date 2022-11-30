@@ -30,7 +30,7 @@ Route::middleware('api')->group(function () {
     Route::get('/listabsensipegawai', 'AbsensiPegawaiController@getMutasiPegawaiJson');
     Route::post('/simpanabsensipegawai', 'AbsensiPegawaiController@simpan');
 
-    //Absensi Pegawai
+    //Absensi Guru
     Route::get('/listabsensiguru', 'AbsensiGuruController@getMutasiGuruJson');
     Route::post('/simpanabsensiguru', 'AbsensiGuruController@simpan');
 });
