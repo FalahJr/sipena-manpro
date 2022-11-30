@@ -55,7 +55,7 @@
         </a>
         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 
-          <a class="dropdown-item" href="{{ url('admin/logout') }}">
+          <a class="dropdown-item" href="{{ url('logout') }}">
             <i class="mdi mdi-logout mr-2 text-primary"></i>
             Sign Out
           </a>
@@ -63,7 +63,7 @@
         </div>
       </li>
       <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
-        <a class="nav-link" href="{{ url('admin/logout') }}">
+        <a class="nav-link" href="{{ url('logout') }}">
           <i class="mdi mdi-power"></i>
         </a>
       </li>
