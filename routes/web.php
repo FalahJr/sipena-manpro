@@ -5,7 +5,7 @@ Route::get('/', function () {
     if($user == null) {
       return view('auth.login');
     } else {
-      if($user->role_id != 1) {
+      if($user->role_id == 1) {
         return redirect()->route('homeadmin');
       }
     }
@@ -13,6 +13,7 @@ Route::get('/', function () {
 );
 
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
+
 //Route untuk user admin
 Route::group(['middleware' => 'admin'], function () {
 
