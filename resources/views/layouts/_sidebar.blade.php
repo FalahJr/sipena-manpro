@@ -48,25 +48,45 @@
       </li>
 
 
+      @if(Auth::user()->role != 'admin')
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown"
           aria-expanded="false">
+          {{-- <img src="{{asset('assets/image/faces1.jpg')}}" alt="image"> --}}
           <span class="d-lg-inline">{{Auth::user()->fullname}}</span>
         </a>
         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 
-          <a class="dropdown-item" href="{{ url('admin/logout') }}">
+
+          {{-- <a class="dropdown-item" href="{{ url('admin/logout') }}">
             <i class="mdi mdi-logout mr-2 text-primary"></i>
-            Sign Out
+            Signout
+          </a> --}}
+          {{-- @else --}}
+          <a class="dropdown-item" href="{{ url('/') }}">
+            <i class="mdi mdi-logout mr-2 text-primary"></i>
+            Home
           </a>
 
         </div>
       </li>
+      @endif
+      @if(Auth::user()->role == 'admin')
       <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
         <a class="nav-link" href="{{ url('admin/logout') }}">
           <i class="mdi mdi-power"></i>
         </a>
       </li>
+      @else
+      <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
+        <a class="nav-link" href="{{ url('/') }}">
+          <i class="mdi mdi-power"></i>
+        </a>
+      </li>
+      @endif
+      <form id="logout-form" action="{{ url('admin/logout') }}" method="post" style="display: none;">
+        {{ csrf_field() }}
+      </form>
     </ul>
     <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
       data-toggle="offcanvas">
@@ -115,13 +135,19 @@
           </div>
         </li>
 
-        <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/user')}}">
+        <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#berita" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Berita</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-newspaper menu-icon"></i>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
           </a>
-        </li>
+          <div class="collapse {{( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') ? 'active' : '' }}" href="{{url('admin/berita-kelas')}}">Berita Kelas<span class="d-none">Berita Kelas</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ? 'active' : '' }}" href="{{url('admin/berita-sekolah')}}">Berita Sekolah<span class="d-none">Berita Sekolah</span></a></li>
+            </ul>
+          </div>
+        </li> 
 
         <li
           class="nav-item {{ ( ( Request::is('admin/kelas/*') || Request::is('admin/kelas') ) ? ' active' : '' ) }}">
@@ -178,17 +204,9 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/absensipegawai') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/absensipegawai')}}">
+        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Absensi Pegawai</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-note menu-icon"></i>
-          </a>
-        </li>
-
-        <li class="nav-item {{Request::is('admin/absensiguru') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/absensiguru')}}">
-            <span class="menu-title">Absensi Guru</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-note menu-icon"></i>
           </a>
@@ -209,7 +227,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku') ? 'active' : '' }}" href="{{url('admin/kehilangan-buku')}}">Kehilangan Buku<span class="d-none">Kehilangan Buku</span></a></li>
             </ul>
           </div>
-        </li>
+        </li> 
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Kegiatan OSIS</span>
@@ -238,7 +256,7 @@
             <i class="mdi mdi-library-books menu-icon"></i>
           </a>
         </li>
-        <li class="nav-item {{ ( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' active' : '' ) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/kantin/*') || Request::is('admin/kantin') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#kantin" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Pembayaran Kantin</span>
             <i class="menu-arrow"></i>
@@ -246,23 +264,16 @@
           </a>
           <div class="collapse {{( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' show' : '' ) }}" id="kantin">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ? 'active' : '' }}" href="{{url('admin/bayar-kantin')}}">Kantin QRCode<span class="d-none">Kantin QRCode</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ? 'active' : '' }}" href="{{url('admin/bayar-kantin')}}">Bayar QRCode<span class="d-none">Bayar QRCode</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ? 'active' : '' }}" href="{{url('admin/transaksi-kantin')}}">Transaksi Kantin<span class="d-none">Transaksi Kantin</span></a></li>
             </ul>
           </div>
-        <li class="nav-item {{ ( ( Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') || Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ) ? ' active' : '' ) }}">
-          <a class="nav-link" data-toggle="collapse" href="#koperasi" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">Pembayaran Koperasi</span>
-            <i class="menu-arrow"></i>
-            <i class="mdi mdi-database menu-icon"></i>
-          </a>
-          <div class="collapse {{( ( Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') || Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi')) ? ' show' : '' ) }}" id="koperasi">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') ? 'active' : '' }}" href="{{url('admin/list-koperasi')}}">List Koperasi<span class="d-none">List Koperasi</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/list-koperasi/*') || Request::is('admin/transaksi-koperasi') ? 'active' : '' }}" href="{{url('admin/transaksi-koperasi')}}">Transaksi Koperasi<span class="d-none">Transaksi Koperasi</span></a></li>
-            </ul>
-          </div>
-        </li>
+        </li> 
+        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/feed')}}">
+            <span class="menu-title">Jadwal Kelas</span>
+            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+            <i class="mdi mdi-calendar menu-icon"></i>
           </a>
         </li>
 
