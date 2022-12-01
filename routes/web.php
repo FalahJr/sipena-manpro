@@ -13,6 +13,7 @@ Route::get('/', function () {
 );
 
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
+Route::get('logout', 'HomeController@logout')->name('logoutadmin');
 
 //Route untuk user admin
 Route::group(['middleware' => 'admin'], function () {
@@ -21,8 +22,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::prefix('admin')->group(function () {
 
         Route::get('/home', 'HomeController@index')->name('homeadmin');
-
-        Route::get('/logout', 'HomeController@logout')->name('logoutadmin');
 
         //User
         Route::get('/user', 'UserController@index');
@@ -267,58 +266,4 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/absensiguru', 'AbsensiGuruController@index');
         Route::get('/absensigurutable', 'AbsensiGuruController@datatable');
     });
-});
-
-//Route untuk user pembeli / penjual
-Route::group(['middleware' => 'penjual'], function () {
-
-    //Admin Module
-    Route::prefix('penjual')->group(function () {
-        Route::get('/home', 'PenjualHomeController@index');
-
-        //Edit info toko
-        Route::get('/toko', 'EdittokoController@index');
-        Route::post('/toko/save', 'EdittokoController@simpan');
-
-        //List Feedback / Review
-        Route::get('/listfeed', 'FeedController@penjualindex');
-        Route::get('/listfeed/table', 'FeedController@datatablewtoko');
-
-        //Manage Produk
-        Route::get('/produk', 'PenjualProdukController@index');
-        Route::get('/produk/tambahproductcontent', 'PenjualProdukController@tambah');
-        Route::get('/produk/productcontenttable', 'PenjualProdukController@datatable');
-        Route::post('/produk/simpanproductcontent', 'PenjualProdukController@simpan');
-        Route::get('/produk/editproductcontent/{id}', 'PenjualProdukController@edit');
-        Route::get('/produk/doeditproductcontent', 'PenjualProdukController@doedit');
-        Route::get('/produk/removeimageproductcontent', 'PenjualProdukController@removeimage');
-        Route::get('/produk/hapusproductcontent', 'PenjualProdukController@hapus');
-
-        //Manage Lelang
-        Route::get('/lelang', 'PenjualLelangController@index');
-        Route::get('/lelang/table', 'PenjualLelangController@datatable');
-        Route::get('/lelang/listbid/{id}', 'PenjualLelangController@listbid');
-        Route::get('/lelang/hapus', 'PenjualLelangController@hapus');
-        Route::get('/lelang/aktif', 'PenjualLelangController@aktif');
-        Route::get('/lelang/nonaktif', 'PenjualLelangController@nonaktif');
-        Route::get('/lelang/edit', 'PenjualLelangController@edit');
-        Route::post('/lelang/simpan', 'PenjualLelangController@simpan');
-        Route::post('/lelang/update', 'PenjualLelangController@update');
-        Route::get('/lelang/pemenang', 'PenjualLelangController@pemenang');
-        Route::get('/lelang/won', 'PenjualLelangController@won');
-        Route::get('/lelang/lelangnotif', 'PenjualLelangController@lelangnotif');
-
-        //List Pesanan
-        Route::get('/listorder', 'PenjualListpesananController@index');
-        Route::get('/listorder/table', 'PenjualListpesananController@dataTable');
-        Route::get('/listorder/cancel', 'PenjualListpesananController@cancel');
-        Route::get('/listorder/hapus', 'PenjualListpesananController@hapus');
-        Route::get('/listorder/detail', 'PenjualListpesananController@detail');
-        Route::get('/listorder/deliver', 'PenjualListpesananController@deliver');
-        Route::get('/listorder/deliverdone', 'PenjualListpesananController@deliverdone');
-        Route::get('/listorder/showpayment/{id}', 'PenjualListpesananController@showpayment');
-        Route::get('/listorder/approve', 'PenjualListpesananController@approve');
-        Route::get('/listorder/pesanannotif', 'PenjualListpesananController@pesanannotif');
-    }
-    );
 });

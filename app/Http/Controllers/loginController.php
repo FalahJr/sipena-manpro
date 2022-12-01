@@ -20,17 +20,18 @@ class loginController extends Controller
         $this->middleware('guest');
     }
 
-    public function login(Request $req) {
+    public function loginApi(Request $req) {
         $username = $req->username;
         $password = $req->password;
-        $user = Account::where("email", $username)->where("role", "admin")->first();
-        if ($user && $user->m_passwd == $req->pascocsword) {
+        $user = DB::table("user")->select("user.*", "role.*", "role.nama as rolenama")->where("username", $username)->join("role", "role.id", '=', "user.role_id")->first();
+        if ($user && $user->password == $password) {
             return response()->json([
-                        'success' => 'succes',
+                "status" => 1,
+                "data" => $user
             ]);
         } else {
             return response()->json([
-                        'success' => 'gagal',
+                'success' => 1,
             ]);
         }
     }
@@ -57,7 +58,7 @@ class loginController extends Controller
             // $pass_benar=$password;
             // $username = str_replace('\'', '', $username);
 
-            $user = Account::where("username", $username)->where("role_id", 1)->first();
+            $user = Account::where("username", $username)->first();
 
             $user_valid = [];
             // dd($req->all());
