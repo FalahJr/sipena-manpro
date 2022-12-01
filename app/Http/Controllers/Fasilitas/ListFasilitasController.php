@@ -53,7 +53,10 @@ class ListFasilitasController extends Controller
           '<a href="/admin/list-fasilitas/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })
-      ->rawColumns(['aksi'])
+       ->addColumn('created_at', function ($data) {
+        return Carbon::CreateFromFormat('Y-m-d',$data->created_at)->format('d M Y');
+      })
+      ->rawColumns(['aksi','created_at'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -65,6 +68,7 @@ class ListFasilitasController extends Controller
         DB::table("peminjaman_fasilitas")
         ->insert([
           "nama" => $req->nama,
+          "created_at" => Carbon::now('Asia/Jakarta'),
         ]);
 
           DB::commit();

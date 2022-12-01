@@ -26,7 +26,7 @@
                   <div class="card-body">
                     <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
                       <div class="col-12 col-md-3">
-                        <h4 class="card-title">Data Peminjaman Fasilitas</h4>
+                        <h4 class="card-title">Data Jadwal Peminjaman Fasilitas</h4>
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
