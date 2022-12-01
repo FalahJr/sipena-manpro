@@ -242,13 +242,19 @@
             <i class="mdi mdi-swim menu-icon"></i>
           </a>
         </li>
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{ ( ( Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#pinjam-fasilitas" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Peminjaman Fasilitas</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-home-modern menu-icon"></i>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
           </a>
-        </li>
+          <div class="collapse {{( ( Request::is('admin/list-fasilitas/*') || Request::is('admin/list-fasilitas') || Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') ) ? ' show' : '' ) }}" id="pinjam-fasilitas">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/list-fasilitas/*') || Request::is('admin/list-fasilitas') ? 'active' : '' }}" href="{{url('admin/list-fasilitas')}}">List Fasilitas<span class="d-none">List Fasilitas</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') ? 'active' : '' }}" href="{{url('admin/pinjam-fasilitas')}}">Pinjam Fasilitas<span class="d-none">Pinjam Fasilitas</span></a></li>
+            </ul>
+          </div>
+        </li> 
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Pembelajaran Siswa</span>
@@ -256,7 +262,7 @@
             <i class="mdi mdi-library-books menu-icon"></i>
           </a>
         </li>
-        <li class="nav-item {{ ( ( Request::is('admin/kantin/*') || Request::is('admin/kantin') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#kantin" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Pembayaran Kantin</span>
             <i class="menu-arrow"></i>

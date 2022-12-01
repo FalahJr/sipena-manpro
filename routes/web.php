@@ -200,6 +200,22 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/ekstrakulikuler/simpan', 'EkstrakulikulerController@simpan');
         Route::get('/ekstrakulikuler/hapus/{id}', 'EkstrakulikulerController@hapus');
         Route::get('/ekstrakulikuler/edit/{id}', 'EkstrakulikulerController@edit');
+
+
+        //Peminjaman Fasilitas
+        Route::get('/list-fasilitas', 'Fasilitas\ListFasilitasController@index');
+        Route::get('/list-fasilitas/table', 'Fasilitas\ListFasilitasController@datatable');
+        Route::post('/list-fasilitas/update', 'Fasilitas\ListFasilitasController@update');
+        Route::post('/list-fasilitas/simpan', 'Fasilitas\ListFasilitasController@simpan');
+        Route::get('/list-fasilitas/hapus/{id}', 'Fasilitas\ListFasilitasController@hapus');
+        Route::get('/list-fasilitas/edit/{id}', 'Fasilitas\ListFasilitasController@edit');
+
+        Route::get('/pinjam-fasilitas', 'Fasilitas\PinjamFasilitasController@index');
+        Route::get('/pinjam-fasilitas/table', 'Fasilitas\PinjamFasilitasController@datatable');
+        Route::post('/pinjam-fasilitas/update', 'Fasilitas\PinjamFasilitasController@update');
+        Route::post('/pinjam-fasilitas/simpan', 'Fasilitas\PinjamFasilitasController@simpan');
+        Route::get('/pinjam-fasilitas/hapus/{id}', 'Fasilitas\PinjamFasilitasController@hapus');
+        Route::get('/pinjam-fasilitas/edit/{id}', 'Fasilitas\PinjamFasilitasController@edit');
         
 
 
