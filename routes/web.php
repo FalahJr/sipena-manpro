@@ -167,35 +167,15 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kehilangan-buku/hapus/{id}', 'Perpustakaan\KehilanganBukuController@hapus');
         Route::get('/kehilangan-buku/edit/{id}', 'Perpustakaan\KehilanganBukuController@edit');
 
+        // Kategori Keuangan
+        Route::get('/kategori-keuangan', 'KategoriKeuanganController@index');
+        Route::get('/kategori-keuangan-table', 'KategoriKeuanganController@datatable');
+        Route::post('/simpan-kategori-keuangan', 'KategoriKeuanganController@simpan');
+        Route::get('/edit-kategori-keuangan', 'KategoriKeuanganController@edit');
+        Route::get('/hapus-kategori-keuangan', 'KategoriKeuanganController@hapus');
 
 
-
-        //Feedback
-        Route::get('/feed', 'FeedController@index');
-        Route::get('/feed/table', 'FeedController@datatable');
-        Route::get('/feed/hapus', 'FeedController@hapus');
-
-        //Category
-        Route::get('/category', 'CategoryController@index');
-        Route::get('/category/simpan', 'CategoryController@dosavecategory');
-        Route::get('/category/edit', 'CategoryController@doeditcategory');
-        Route::get('/category/update', 'CategoryController@doupdatecategory');
-        Route::get('/category/hapus', 'CategoryController@dodeletecategory');
-
-        //Setting backgroundheader
-        Route::get('/setting/backgroundheader', 'BackgroundheaderController@index');
-        Route::post('/setting/backgroundheader/save', 'BackgroundheaderController@save');
-
-        //Setting edit info
-        Route::get('/setting/editinfo', 'EditinfoController@index');
-        Route::get('/setting/editinfo/save', 'EditinfoController@save');
-
-        //Social
-        Route::get('/setting/social', 'SocialController@index');
-        Route::get('/setting/social/simpan', 'SocialController@dosavecategory');
-        Route::get('/setting/social/edit', 'SocialController@doeditcategory');
-        Route::get('/setting/social/update', 'SocialController@doupdatecategory');
-        Route::get('/setting/social/hapus', 'SocialController@dodeletecategory');
+        
 
         //Mutasi Siswa
         Route::get('/mutasisiswa', 'MutasiSiswaController@index');
