@@ -53,13 +53,22 @@ class KegiatanOsisController extends Controller
           '<a href="/admin/kegiatan-osis/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })
+      ->addColumn('status', function ($data) {
+        if($data->is_acc == "Y"){
+          return '<p class="btn btn-success btn-lg" title="acc">' .
+          '<label class="fa fa-check">ACC</label></p>';
+        }else{
+          return '<a href="/admin/kegiatan-osis/set-acc/'.$data->id.'" class="btn btn-warning btn-lg" title="acc">' .
+          '<label class="fa">ACC Sekarang</label></a>';
+        }
+      })
       ->addColumn('waktu', function ($data) {
         return $data->jam_mulai ." - ".$data->jam_selesai;
       })
       ->addColumn('tanggal', function ($data) {
         return Carbon::CreateFromFormat('Y-m-d',$data->tanggal)->format('d M Y');
       })
-      ->rawColumns(['aksi','waktu','tanggal'])
+      ->rawColumns(['aksi','status','waktu','tanggal'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -91,6 +100,15 @@ class KegiatanOsisController extends Controller
         ->delete();
 
       return back()->with(['success' => 'Data berhasil dihapus']);
+  }
+
+  public function acc($id)
+  {
+    DB::table("kegiatan_osis")
+        ->where('id',$id)
+        ->update(["is_acc"=>"Y"]);
+
+      return back()->with(['success' => 'Data berhasil diupdate']);
   }
 
   public function edit($id)

@@ -190,7 +190,9 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/kegiatan-osis/update', 'KegiatanOsisController@update');
         Route::post('/kegiatan-osis/simpan', 'KegiatanOsisController@simpan');
         Route::get('/kegiatan-osis/hapus/{id}', 'KegiatanOsisController@hapus');
+        Route::get('/kegiatan-osis/set-acc/{id}', 'KegiatanOsisController@acc');
         Route::get('/kegiatan-osis/edit/{id}', 'KegiatanOsisController@edit');
+       
 
         //Ekstrakulikuler
         Route::get('/ekstrakulikuler', 'EkstrakulikulerController@index');
@@ -215,6 +217,19 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/pinjam-fasilitas/simpan', 'Fasilitas\PinjamFasilitasController@simpan');
         Route::get('/pinjam-fasilitas/hapus/{id}', 'Fasilitas\PinjamFasilitasController@hapus');
         Route::get('/pinjam-fasilitas/edit/{id}', 'Fasilitas\PinjamFasilitasController@edit');
+
+        //Pembelajaran Siswa
+        Route::get('/nilai-pembelajaran', 'NilaiPembelajaranController@index');
+        Route::get('/nilai-pembelajaran/table', 'NilaiPembelajaranController@datatable');
+        Route::post('/nilai-pembelajaran/update', 'NilaiPembelajaranController@update');
+        Route::post('/nilai-pembelajaran/simpan', 'NilaiPembelajaranController@simpan');
+        Route::get('/nilai-pembelajaran/hapus/{id}', 'NilaiPembelajaranController@hapus');
+        Route::get('/nilai-pembelajaran/edit/{id}', 'NilaiPembelajaranController@edit');
+
+        //Kartu Figital
+        Route::get('/kartu-digital/cetak-kartu',function(){
+          return view('kartu_digital.cetakKartu');
+        });
         
 
 

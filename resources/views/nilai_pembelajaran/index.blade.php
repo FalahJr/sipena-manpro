@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('kegiatan_osis.tambah')
+@include('nilai_pembelajaran.tambah')
 <style type="text/css">
   .dataTables_filter label {
       margin-bottom: 1.4rem !important;
@@ -17,7 +17,7 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           {{-- <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li> --}}
-          <li class="breadcrumb-item active" aria-current="page">Kegiatan Osis</li>
+          <li class="breadcrumb-item active" aria-current="page">Pembelajaran Siswa</li>
         </ol>
       </nav>
     </div>
@@ -25,8 +25,8 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
-                      <div class="col-12 col-md-3">
-                        <h4 class="card-title">Data Kegiatan Osis</h4>
+                      <div class="col-12 col-md-4">
+                        <h4 class="card-title">Data Nilai Pembelajaran Siswa</h4>
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
@@ -39,12 +39,16 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                <th>Kegiatan</th>
-                                <th>Waktu</th>
-                                <th>Tanggal</th>
-                                <th>Pelaksana</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>Nama</th>
+                                <th>Kelas</th>
+                                <th>Mapel</th>
+                                <th>Semester</th>
+                                <th>U.Harian</th>
+                                <th>N.Tugas</th>
+                                <th>N.UTS</th>
+                                <th>N.UAS</th>
+                                <th>Rata-rata</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 
@@ -65,7 +69,7 @@
 @section('extra_script')
 <script>
 
-baseUrlChange += "/admin/kegiatan-osis";
+baseUrlChange += "/admin/nilai-pembelajaran";
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -79,7 +83,7 @@ var table = $('#table-data').DataTable({
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('admin/kegiatan-osis/table') }}',
+            url:'{{ url('admin/nilai-pembelajaran/table') }}',
         },
         columnDefs: [
 
@@ -107,14 +111,34 @@ var table = $('#table-data').DataTable({
                  targets: 5,
                  className: 'center'
               },
+              {
+                 targets: 6,
+                 className: 'center'
+              },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
+              {
+                 targets: 8,
+                 className: 'center'
+              },
+              {
+                 targets: 9,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          {data: 'kegiatan', name: 'kegiatan'},
-          {data: 'waktu', name: 'waktu'},
-          {data: 'tanggal', name: 'tanggal'},
-          {data: 'status', name: 'status'},
-          {data: 'pelaksana', name: 'pelaksana'},
+          {data: 'nama_siswa', name: 'nama_siswa'},
+          {data: 'nama_kelas', name: 'nama_kelas'},
+          {data: 'nama_mapel', name: 'nama_mapel'},
+          {data: 'semester', name: 'semester'},
+          {data: 'ulangan_harian', name: 'siswa'},
+          {data: 'nilai_tugas', name: 'nilai_tugas'},
+          {data: 'nilai_uts', name: 'nilai_uts'},
+          {data: 'nilai_uas', name: 'nilai_uas'},
+          {data: 'nilai_rata', name: 'nilai_rata'},
           {data: 'aksi', name: 'aksi'},
         ]
   });

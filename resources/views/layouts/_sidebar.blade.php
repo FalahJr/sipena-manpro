@@ -190,6 +190,14 @@
           </a>
         </li>
 
+         <li class="nav-item {{Request::is('admin/kartu-digital/cetak-kartu') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/kartu-digital/cetak-kartu')}}">
+            <span class="menu-title">Kartu Digital</span>
+            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+            <i class="mdi mdi-wallet menu-icon"></i>
+          </a>
+        </li>
+
         <li class="nav-item {{Request::is('admin/absensisiswa') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/absensisiswa')}}">
             <span class="menu-title">Absensi Siswa</span>
@@ -249,8 +257,8 @@
             </ul>
           </div>
         </li> 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{Request::is('admin/nilai-pembelajaran') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/nilai-pembelajaran')}}">
             <span class="menu-title">Pembelajaran Siswa</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-library-books menu-icon"></i>
@@ -269,6 +277,13 @@
             </ul>
           </div>
         </li> 
+        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/feed')}}">
+            <span class="menu-title">Jadwal Kelas</span>
+            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+            <i class="mdi mdi-calendar menu-icon"></i>
+          </a>
+        </li>
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
             <span class="menu-title">Jadwal Kelas</span>

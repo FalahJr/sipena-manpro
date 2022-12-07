@@ -123,7 +123,7 @@ class AbsensiPegawaiController extends Controller
           return response()->json(["status" => 1]);
         } catch (\Exception $e) {
           DB::rollback();
-          return response()->json(["status" => 2]);
+          return response()->json(["status" => 2, "message" => $e->getMessage()]);
         }
       } else {
         DB::beginTransaction();
@@ -165,7 +165,7 @@ class AbsensiPegawaiController extends Controller
           return response()->json(["status" => 3]);
         } catch (\Exception $e) {
           DB::rollback();
-          return response()->json(["status" => 4]);
+          return response()->json(["status" => 4, "message" => $e->getMessage()]);
         }
       }
 
