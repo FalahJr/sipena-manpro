@@ -61,6 +61,10 @@ class KehilanganBukuController extends Controller
       ->addColumn('user', function ($data) {
         $user = DB::table("user")->where("id", $data->user_id)->first();
         return $user->username;
+
+        // $user = DB::table("pegawai")->where("id", $data->user_id)->first()->nama_lengkap;
+        // $user =+ DB::table("siswa")->where("id", $data->user_id)->first()->nama_lengkap;
+
       })
       ->rawColumns(['aksi', 'buku','user'])
       ->addIndexColumn()
