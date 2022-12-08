@@ -15,6 +15,8 @@ Route::get('/', function () {
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
 Route::get('logout', 'HomeController@logout')->name('logoutadmin');
 
+Route::get('/generatekartudigital', 'KartuDigitalController@generate');
+
 //Route untuk user admin
 Route::group(['middleware' => 'admin'], function () {
 
@@ -150,7 +152,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
         Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
 
-
         Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@index');
         Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
         Route::post('/sumbang-buku/update', 'Perpustakaan\SumbangBukuController@update');
@@ -202,7 +203,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/ekstrakulikuler/hapus/{id}', 'EkstrakulikulerController@hapus');
         Route::get('/ekstrakulikuler/edit/{id}', 'EkstrakulikulerController@edit');
 
-
         //Peminjaman Fasilitas
         Route::get('/list-fasilitas', 'Fasilitas\ListFasilitasController@index');
         Route::get('/list-fasilitas/table', 'Fasilitas\ListFasilitasController@datatable');
@@ -229,7 +229,6 @@ Route::group(['middleware' => 'admin'], function () {
         //Kartu Figital
         Route::get('/kartudigital', 'KartuDigitalController@index');
         Route::get('/kartudigitaltable', 'KartuDigitalController@datatable');
-        Route::get('/generatekartudigital', 'KartuDigitalController@generate');
 
         // Kategori Keuangan
         Route::get('/kategori-keuangan', 'KategoriKeuanganController@index');

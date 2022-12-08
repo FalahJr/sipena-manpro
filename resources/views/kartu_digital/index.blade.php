@@ -87,7 +87,7 @@ var table = $('#table-data').DataTable({
   });
 
   function lihatkartu(id) {
-    window.location.href = "{{url('/admin/generatekartudigital?id=')}}" + id
+    window.open("{{url('/generatekartudigital?id=')}}" + id, "_blank");
   }
 
 </script>

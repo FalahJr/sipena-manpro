@@ -33,4 +33,8 @@ Route::middleware('api')->group(function () {
     //Absensi Guru
     Route::get('/listabsensiguru', 'AbsensiGuruController@getMutasiGuruJson');
     Route::post('/simpanabsensiguru', 'AbsensiGuruController@simpan');
+
+    //Kartu Digital
+    Route::get('/kartudigital', 'KartuDigitalController@getKartuDigitalJson');
+    Route::get('/kartudigitalById', 'KartuDigitalController@generateJson');
 });

@@ -21,6 +21,18 @@
     font-weight: bold;
     font-size: 24px;
   }
+
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+
  </style>
 </head>
 <body>
@@ -62,7 +74,7 @@
  </table>
  <br>
 
- <center> <button type="button" name="button" onclick="cetakKartu()"> Cetak Kartu </button> </center>
+ <center> <button type="button" class="button" name="button" onclick="cetakKartu()"> Cetak Kartu </button> </center>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
