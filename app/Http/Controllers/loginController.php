@@ -23,8 +23,38 @@ class loginController extends Controller
     public function loginApi(Request $req) {
         $username = $req->username;
         $password = $req->password;
-        $user = DB::table("user")->select("user.*", "role.*", "role.nama as rolenama")->where("username", $username)->join("role", "role.id", '=', "user.role_id")->first();
+        $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid" "role.nama as rolenama" "user.created_at as data", "user.created_at as role")->where("username", $username)->join("role", "role.id", '=', "user.role_id")->first();
+
         if ($user && $user->password == $password) {
+
+            if($user->roleid == 1) {
+                $user->data = null;
+            } else if($user->roleid == 2) {
+                $cekdata = DB::table("siswa")->where('id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 3) {
+                $cekdata = DB::table("wali_murid")->where('id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 4) {
+                $cekdata = DB::table("guru")->where('id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 5) {
+                $cekdata = DB::table("pegawai")->where('id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 6) {
+                $cekdata = DB::table("kepala_sekolah")->where('id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 7) {
+                $cekdata = DB::table("dinas_pendidikan")->where('id', $user->id)->first();
+
+                $user->data = $cekdata;
+            }
+
             return response()->json([
                 "status" => 1,
                 "data" => $user
