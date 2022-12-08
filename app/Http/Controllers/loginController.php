@@ -30,27 +30,27 @@ class loginController extends Controller
             if($user->roleid == 1) {
                 $user->data = null;
             } else if($user->roleid == 2) {
-                $cekdata = DB::table("siswa")->where('id', $user->id)->first();
+                $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
 
                 $user->data = $cekdata;
             } else if($user->roleid == 3) {
-                $cekdata = DB::table("wali_murid")->where('id', $user->id)->first();
+                $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
 
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
-                $cekdata = DB::table("guru")->where('id', $user->id)->first();
+                $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
 
                 $user->data = $cekdata;
             } else if($user->roleid == 5) {
-                $cekdata = DB::table("pegawai")->where('id', $user->id)->first();
+                $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
 
                 $user->data = $cekdata;
             } else if($user->roleid == 6) {
-                $cekdata = DB::table("kepala_sekolah")->where('id', $user->id)->first();
+                $cekdata = DB::table("kepala_sekolah")->where('user_id', $user->id)->first();
 
                 $user->data = $cekdata;
             } else if($user->roleid == 7) {
-                $cekdata = DB::table("dinas_pendidikan")->where('id', $user->id)->first();
+                $cekdata = DB::table("dinas_pendidikan")->where('user_id', $user->id)->first();
 
                 $user->data = $cekdata;
             }
