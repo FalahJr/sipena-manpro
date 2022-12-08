@@ -1,4 +1,7 @@
 <?php
+function isFIle($filePath) {
+  return is_file($filePath) && file_exists($filePath);
+}
 
 function FormatRupiah($angka) {
   $number = "Rp " . number_format($angka,2,',','.');
