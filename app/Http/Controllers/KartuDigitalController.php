@@ -78,7 +78,7 @@ class KartuDigitalController extends Controller
               ->select("siswa.*", "kelas.*", "siswa.id as id", "kelas.id as kelasid", "siswa.tanggal_daftar as linkGenerate")
               ->first();
 
-      $data->linkGenerate = url('/generatekartudigital?id=') . $value->id;
+      $data->linkGenerate = url('/generatekartudigital?id=') . $data->id;
 
       return response()->json($data);
     }
