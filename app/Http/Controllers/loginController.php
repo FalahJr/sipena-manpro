@@ -61,7 +61,7 @@ class loginController extends Controller
             ]);
         } else {
             return response()->json([
-                'success' => 1,
+                'success' => 2,
             ]);
         }
     }

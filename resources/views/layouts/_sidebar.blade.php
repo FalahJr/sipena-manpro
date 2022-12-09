@@ -182,8 +182,8 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{Request::is('admin/dompetdigital') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/dompetdigital')}}">
             <span class="menu-title">Dompet Digital</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-wallet menu-icon"></i>

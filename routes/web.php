@@ -255,5 +255,10 @@ Route::group(['middleware' => 'admin'], function () {
         //Absensi Guru
         Route::get('/absensiguru', 'AbsensiGuruController@index');
         Route::get('/absensigurutable', 'AbsensiGuruController@datatable');
+
+        //Dompet Digital
+        Route::get('/dompetdigital', 'DompetDigitalController@index');
+        Route::get('/dompetdigitaltable', 'DompetDigitalController@datatable');
+        Route::post('/topupdompetdigital', 'DompetDigitalController@topup');
     });
 });
