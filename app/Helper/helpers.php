@@ -10,7 +10,7 @@ function FormatRupiah($angka) {
 }
 
 function FormatRupiahFront($angka) {
-  $number = "Rp" . number_format($angka,0,',','.');
+  $number = "Rp " . number_format($angka,0,',','.');
 
   return $number;
 }

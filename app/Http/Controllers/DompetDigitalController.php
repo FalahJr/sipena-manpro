@@ -66,7 +66,7 @@ class DompetDigitalController extends Controller
         return $data;
     }
 
-    public static function getMutasiSiswaJson() {
+    public static function getDompetDigitalJson() {
       $data = DompetDigitalController::getDompetDigital();
 
       return response()->json($data);

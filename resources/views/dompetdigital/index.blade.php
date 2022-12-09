@@ -197,7 +197,6 @@ var table = $('#table-data').DataTable({
 
     function reloadall() {
       $('.table_modal :input').val("");
-      $('.table_modal :textarea').val("");
       $('.image-holder').empty();
       $('#tambah').modal('hide');
       table.ajax.reload();

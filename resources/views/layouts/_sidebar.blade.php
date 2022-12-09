@@ -182,12 +182,18 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/dompetdigital') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/dompetdigital')}}">
+        <li class="nav-item {{ ( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#pinjam-fasilitas" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Dompet Digital</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-wallet menu-icon"></i>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
           </a>
+          <div class="collapse {{( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' show' : '' ) }}" id="pinjam-fasilitas">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') ? 'active' : '' }}" href="{{url('admin/dompetdigital')}}">List Dompet Digital<span class="d-none">List Dompet Digitl</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? 'active' : '' }}" href="{{url('admin/approvedompetdigital')}}">Permintaan Top Up<span class="d-none">Permintaan Top Up</span></a></li>
+            </ul>
+          </div>
         </li>
 
          <li class="nav-item {{Request::is('admin/kartudigital') ? 'active' : ''}}">

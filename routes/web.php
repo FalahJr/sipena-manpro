@@ -260,5 +260,10 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/dompetdigital', 'DompetDigitalController@index');
         Route::get('/dompetdigitaltable', 'DompetDigitalController@datatable');
         Route::post('/topupdompetdigital', 'DompetDigitalController@topup');
+
+        //Approve Dompet Digital
+        Route::get('/approvedompetdigital', 'ApproveDompetDigitalController@index');
+        Route::get('/approvedompetdigitaltable', 'ApproveDompetDigitalController@datatable');
+        Route::get('/actionapprovedompetdigital', 'ApproveDompetDigitalController@action');
     });
 });

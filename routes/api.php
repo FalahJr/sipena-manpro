@@ -37,4 +37,12 @@ Route::middleware('api')->group(function () {
     //Kartu Digital
     Route::get('/kartudigital', 'KartuDigitalController@getKartuDigitalJson');
     Route::get('/kartudigitalById', 'KartuDigitalController@generateJson');
+
+    //Dompet Digital
+    Route::get('/dompetdigital', 'DompetDigitalController@getDompetDigitalJson');
+    Route::post('/topupdompetdigital', 'DompetDigitalController@topup');
+
+    //Approve Dompet Digital
+    Route::get('/approvedompetdigital', 'ApproveDompetDigitalController@getApproveDompetDigitalJson');
+    Route::get('/actionapprovedompetdigital', 'ApproveDompetDigitalController@action');
 });
