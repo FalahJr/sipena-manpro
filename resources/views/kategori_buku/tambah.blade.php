@@ -18,6 +18,19 @@
               <input type="hidden" class="form-control form-control-sm id" value="{{Auth::user()->id}}" name="user_id">
             </td>
           </tr> 
+          <tr>
+            <td>Dikonfirmasi Oleh<span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                <option disabled selected value>Pilih</option>
+                @foreach($employees as $employee)
+                  <option value="<?= $employee->id ?>">
+                    <?= $employee->nama_lengkap ?>
+                  </option>
+                  @endforeach
+                </select>
+            </td>
+          </tr>
           </table>
         </div>
         <div class="modal-footer">

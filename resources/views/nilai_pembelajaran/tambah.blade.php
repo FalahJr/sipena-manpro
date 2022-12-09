@@ -18,7 +18,7 @@
               <td>Siswa <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="siswa_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($students as $student)
                     <option value="<?= $student->id ?>">
                       <?= $student->nama_lengkap ?>
@@ -32,7 +32,7 @@
               <td>Kelas <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="kelas_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($classes as $class)
                     <option value="<?= $class->id ?>">
                       <?= $class->nama ?>
@@ -46,7 +46,7 @@
               <td>Mata Pelajaran <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="mapel_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($lessons as $lesson)
                     <option value="<?= $lesson->id ?>">
                       <?= $lesson->nama ?>

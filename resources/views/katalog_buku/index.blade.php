@@ -38,6 +38,7 @@
                               <tr>
                                 <th>No</th>
                                 <th>Foto</th>
+                                <th>Stok Buku</th>
                                 <th>Judul</th>
                                 <th>Author</th>
                                 <th>Kategori</th>
@@ -121,6 +122,7 @@ var table = $('#table-data').DataTable({
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'foto', name: 'foto'},
+          {data: 'stok_buku', name: 'stok_buku'},
           {data: 'judul', name: 'judul'},
           {data: 'author', name: 'author'},
           {data: 'perpus_kategori_id', name: 'perpus_kategori_id'},

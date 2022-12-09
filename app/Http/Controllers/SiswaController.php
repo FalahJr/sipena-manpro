@@ -73,35 +73,22 @@ public function simpan(Request $req)
     // DB::table('posts')->delete();
       try {
         $max = DB::table("user")->max('id') + 1;
-        $maxGuru = DB::table("guru")->max('id') + 1;
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
         $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $dir = 'image/uploads/User/' . $max;
-        $childPath = $dir . '/';
+        $childPath ='image/uploads/user-siswa/';
         $path = $childPath;
 
         $file = $req->file('image');
         $name = null;
         if ($file != null) {
-          $this->deleteDir($dir);
           $name = $folder . '.' . $file->getClientOriginalExtension();
-          if (!File::exists($path)) {
-            if (File::makeDirectory($path, 0777, true)) {
-              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
-              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
-              } else {
-                compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
-              }
-              $file->move($path, $name);
-              $imgPath = $childPath . $name;
-            } else
-              $imgPath = null;
-          } else {
+          $file->move($path, $name);
+          $imgPath = $childPath . $name;
+        } else {
             return 'already exist';
-          }
         }
-
+      $linkCode = url('/generatekartudigital?id='.$max);
       $tes=DB::table("user")
           ->insert([
             "id" => $max,
@@ -109,24 +96,12 @@ public function simpan(Request $req)
             "password" => $req->password,
             "role_id" => 4,
             "is_active" => 'Y',
+            "kartu_digital" => $linkCode,
+            "kartu_digital" => $linkCode,
             "saldo" => 0,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
-          if($tes){
-          DB::table("guru")->insert([
-            "id"=>$maxGuru,
-            "user_id" => $max,
-            "nama_lengkap" => $req->nama_lengkap,
-            "tanggal_lahir" => $req->tgl_lahir,
-            "phone" => $req->no_hp,
-            "alamat" => $req->alamat,
-            "jk" => $req->jk,
-            "is_walikelas" => 'N',
-            "is_ekstrakulikuler" => 'N',
-            "is_mapel" => 'N',
-            "created_at" => Carbon::now('Asia/Jakarta'),
-          ]);
-        }
+        
           DB::commit();
 
 

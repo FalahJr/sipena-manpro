@@ -57,7 +57,6 @@
             <td>Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="perpus_katalog_id[]" multiple="multiple">
-                <option >Pilih</option>
                 @foreach($items as $item)
                   <option value="<?= $item->id ?>" @if($item->id == $books[0] || $item->id == $books[1] || $item->id == $books[2]) selected @endif>
                     <?= $item->judul ?>
@@ -86,7 +85,7 @@
             <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="pegawai_id">
-                <option>Pilih</option>
+                <option disabled selected value>Pilih</option>
                 @foreach($employees as $employee)
                   <option value="<?= $employee->id ?>" @if($employee->id == $employee_id) selected @endif>
                     <?= $employee->nama_lengkap ?>

@@ -40,10 +40,16 @@
           <form action="{{url('admin/katalog-buku/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
+            <td>Stok Buku <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext judul @if($errors->has('stok_buku')) is-invalid @endif" value="{{$data->stok_buku}}" name="stok_buku">
+              <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
+            </td>
+          </tr>
+          <tr>
             <td>Judul <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext judul @if($errors->has('judul')) is-invalid @endif" value="{{$data->judul}}" name="judul">
-              <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
             </td>
           </tr>
           <tr>
@@ -57,7 +63,7 @@
             <td>Kategori Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="perpus_kategori_id">
-                <option >Pilih</option>
+                <option disabled selected value>Pilih</option>
                 @foreach($categories as $category)
                   <option value="<?= $category->id ?>" @if($category->id == $category_id) selected @endif>
                     <?= $category->nama ?>

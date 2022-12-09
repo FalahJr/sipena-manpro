@@ -26,7 +26,8 @@ class KategoriBukuController extends Controller
 {
   public function index()
   {
-    return view('kategori_buku.index');
+    $employees = DB::table("pegawai")->where('is_perpus','Y')->get();  
+    return view('kategori_buku.index',compact('employees'));
   }
 
   public function datatable()
@@ -53,7 +54,11 @@ class KategoriBukuController extends Controller
         $jumlahBuku = DB::table("perpus_katalog")->where("perpus_kategori_id", $data->id)->count();
         return $jumlahBuku;
       })
-      ->rawColumns(['aksi', 'jumlah_buku'])
+      ->addColumn('created_by', function ($data) {
+        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first();
+        return $employee->nama_lengkap;
+      })
+      ->rawColumns(['aksi', 'jumlah_buku','created_by'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -61,30 +66,17 @@ class KategoriBukuController extends Controller
   public function simpan(Request $req)
   {
       try {
-        
-
-        $pegawai = DB::table('perpus_kategori')->where('id',$req->id)->get();
-        
-        if(!empty($pegawai->id)){
-            $created_by = $pegawai->nama_lengkap;
-            $pegawai = $pegawai->id;
-        }else{
-            $created_by = "admin";
-            $pegawai = null;
-        }
-        
         DB::table("perpus_kategori")
           ->insert([
-            "pegawai_id" => $pegawai,
+            "pegawai_id" => $req->pegawai_id,
             "nama" => $req->nama,
-            "created_by" => $created_by,
           ]);
           DB::commit();
 
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => "aman"]);
+        return response()->json(["status" => 7, "message" => "error"+$e]);
       }
   }
 

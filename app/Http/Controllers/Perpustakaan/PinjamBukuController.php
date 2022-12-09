@@ -27,7 +27,7 @@ class PinjamBukuController extends Controller
   public function index()
   {
     $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
-    $items = DB::table("perpus_katalog")->get();
+    $items = DB::table("perpus_katalog")->where('stok_buku','>=','1')->get();
     $users = DB::table("user")->get();
     return view('pinjam_buku.index',compact('items','employees','users'));
   }
@@ -58,7 +58,7 @@ class PinjamBukuController extends Controller
         $urlBook = null;
         foreach($items as $item){
           $katalog = DB::table("perpus_katalog")->where("id", $item->perpus_katalog_id)->first();
-          $urlBook .= '<a href="javascript:void(0)" data-id="'.$katalog->id.'" class="showBook" title="show">' . $katalog->judul .'</a><br>';
+          $urlBook .= '<a href="javascript:void(0)" data-id="'.$katalog->id.'" class="showBook bg-secondary" title="show">' . $katalog->judul .'</a><br><br>';
         }
 
         return $urlBook;
@@ -84,6 +84,9 @@ class PinjamBukuController extends Controller
   public function simpan(Request $req)
   {
       try {   
+        $this->validate($req,[
+          'perpus_katalog_id' => 'required|max:3',
+        ]);
         $max = DB::table("perpus_peminjaman")->max('id') + 1;
         DB::table("perpus_peminjaman")
           ->insert([
@@ -99,23 +102,32 @@ class PinjamBukuController extends Controller
               "perpus_peminjaman_id" => $max,
               "perpus_katalog_id" => $perpus_katalog_id,
             ]);
+            DB::table("perpus_katalog")->where('id',$perpus_katalog_id)->decrement('stok_buku');
           }
           DB::commit();
 
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => "aman"]);
+        return response()->json(["status" => 7, "message" => "error"+$e]);
       }
   }
 
   public function hapus($id)
   {
-    DB::table("perpus_peminjaman_katalog")
-    ->where('perpus_peminjaman_id',$id)
-    ->delete();
 
-    DB::table("perpus_peminjaman")
+    $perpus_katalog = DB::table("perpus_peminjaman_katalog")
+    ->where('perpus_peminjaman_id',$id)
+    ->get();
+
+    foreach($perpus_katalog as $katalog){
+      DB::table("perpus_katalog")->where('id',$katalog->perpus_katalog_id)->increment('stok_buku',1);
+    }
+  
+    DB::table("perpus_peminjaman_katalog")
+        ->where('perpus_peminjaman_id',$id)
+        ->delete();
+        DB::table("perpus_peminjaman")
         ->where('id',$id)
         ->delete();
 

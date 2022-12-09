@@ -43,7 +43,7 @@
                                 <th>Waktu</th>
                                 <th>Tanggal</th>
                                 <th>Pelaksana</th>
-                                <th>Status</th>
+                                {{-- <th>Status</th> --}}
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -103,17 +103,17 @@ var table = $('#table-data').DataTable({
                  targets: 4,
                  className: 'center'
               },
-              {
-                 targets: 5,
-                 className: 'center'
-              },
+              // {
+              //    targets: 5,
+              //    className: 'center'
+              // },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'kegiatan', name: 'kegiatan'},
           {data: 'waktu', name: 'waktu'},
           {data: 'tanggal', name: 'tanggal'},
-          {data: 'status', name: 'status'},
+          // {data: 'status', name: 'status'},
           {data: 'pelaksana', name: 'pelaksana'},
           {data: 'aksi', name: 'aksi'},
         ]

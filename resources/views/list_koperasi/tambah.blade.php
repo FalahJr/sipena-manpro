@@ -31,7 +31,7 @@
             <td>Ditambahkan Pegawai <span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="pegawai_id">
-                <option>Pilih</option>
+                <option disabled selected value>Pilih</option>
                 @foreach($employees as $employee)
                   <option value="<?= $employee->id ?>">
                     <?= $employee->nama_lengkap ?>

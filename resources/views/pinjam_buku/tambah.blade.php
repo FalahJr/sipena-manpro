@@ -19,7 +19,7 @@
               <td>Peminjam<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="user_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($users as $user)
                     <option value="<?= $user->id ?>">
                       <?= $user->username ?>
@@ -33,7 +33,6 @@
             <td>Pinjaman Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control multiselect-ui form-control-sm inputtext"  name="perpus_katalog_id[]" multiple="multiple">
-                <option>Pilih</option>
                 @foreach($items as $item)
                   <option value="<?= $item->id ?>">
                     <?= $item->judul ?>
@@ -62,7 +61,7 @@
             <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="pegawai_id">
-                <option>Pilih</option>
+                <option disabled selected value>Pilih</option>
                 @foreach($employees as $employee)
                   <option value="<?= $employee->id ?>">
                     <?= $employee->nama_lengkap ?>

@@ -43,7 +43,7 @@
               <td>User<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="user_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($users as $user)
                     <option value="<?= $user->id ?>" @if($user->id == $user_id) selected @endif>
                       <?= $user->username ?>
@@ -58,7 +58,7 @@
             <td>Kehilangan Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="perpus_katalog_id">
-              <option >Pilih</option>
+              <option disabled selected value>Pilih</option>
                 @foreach($books as $book)
                   <option value="<?= $book->id ?>" @if($book->id == $book_id) selected @endif>
                     <?= $book->judul ?>

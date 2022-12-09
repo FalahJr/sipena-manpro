@@ -26,7 +26,7 @@
             <td>Pilih Pegawai</td>
             <td>
               <select class="form-control form-control-sm inputtext walikelas" name="pegawai_id">
-                <option >Pilih</option>
+                <option disabled selected value>Pilih</option>
                   <?php foreach($items as $item){ ?>
                   <option value="<?= $item->id ?>">
                     <?= $item->nama_lengkap ?>

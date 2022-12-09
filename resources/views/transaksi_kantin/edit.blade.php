@@ -44,7 +44,7 @@
               <td>
                 <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
                 <select class="form-control form-control-sm inputtext walikelas" name="kantin_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                     <?php foreach($items as $item){ ?>
                     <option value="<?= $item->id ?>" @if($item->id == $kantin_id->id) selected @endif>
                       <?= $item->nama ?>

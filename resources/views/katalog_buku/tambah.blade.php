@@ -31,7 +31,6 @@
             <td>Kategori Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="perpus_kategori_id">
-                <option >Pilih</option>
                 @foreach($categories as $category)
                   <option value="<?= $category->id ?>">
                     <?= $category->nama ?>
@@ -56,6 +55,19 @@
             <td>Foto</td>
             <td>
               <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
+            </td>
+          </tr>
+          <tr>
+            <td>Dikonfirmasi Oleh<span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                <option disabled selected value>Pilih</option>
+                @foreach($employees as $employee)
+                  <option value="<?= $employee->id ?>">
+                    <?= $employee->nama_lengkap ?>
+                  </option>
+                  @endforeach
+                </select>
             </td>
           </tr>
           </table>

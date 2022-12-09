@@ -18,7 +18,7 @@
               <td>Mata Pelajaran <span style="color:red;">*</span></td>
               <td>
               <select class="form-control form-control-sm inputtext mapel_id" name="mapel_id">
-                <option >Pilih Mata Pelajaran</option>
+                <option disabled selected value>Pilih Mata Pelajaran</option>
                   <?php foreach($mapel as $mapel){ ?>
 
                   <option value="<?= $mapel->id ?>">
@@ -33,7 +33,7 @@
               <td>Kelas</td>
               <td>
                 <select class="form-control form-control-sm inputtext kelas_id" name="kelas_id">
-                <option >Pilih Kelas</option>
+                <option disabled selected value>Pilih Kelas</option>
                   <?php foreach($kelas as $kelas){ ?>
 
                   <option value="<?= $kelas->id ?>">

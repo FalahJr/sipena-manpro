@@ -56,7 +56,7 @@
             <td>Pilih Pegawai</td>
             <td>
               <select class="form-control form-control-sm inputtext walikelas" name="pegawai_id">
-                <option >Pilih</option>
+                <option disabled selected value>Pilih</option>
                   <?php foreach($employees as $employee){ ?>
                   <option value="<?= $employee->id ?>" @if($employee->id == $employee_id) selected @endif>
                     <?= $employee->nama_lengkap ?>

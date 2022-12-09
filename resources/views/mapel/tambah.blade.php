@@ -25,7 +25,7 @@
               <td>Guru Mata Pelajaran</td>
               <td>
                 <select class="form-control form-control-sm inputtext guru_mapel" name="guru_mapel">
-                <option >Pilih Guru</option>
+                <option disabled selected value>Pilih Guru</option>
                   <?php foreach($guru as $mapel){ ?>
 
                   <option value="<?= $mapel->id ?>">

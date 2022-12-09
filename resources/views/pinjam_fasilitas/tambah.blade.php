@@ -18,7 +18,7 @@
               <td>Dipinjam Oleh <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="user_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($users as $user)
                     <option value="<?= $user->id ?>">
                       <?= $user->username ?>
@@ -32,7 +32,7 @@
               <td>Fasilitas <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="peminjaman_fasilitas_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($facilities as $facility)
                     <option value="<?= $facility->id ?>">
                       <?= $facility->nama ?>
@@ -64,7 +64,7 @@
               <td>Dikonfirmasi Oleh<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="pegawai_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($employees as $employee)
                     <option value="<?= $employee->id ?>">
                       <?= $employee->nama_lengkap ?>

@@ -86,6 +86,7 @@ class KehilanganBukuController extends Controller
             "nominal" => $req->nominal,
             "tanggal_pembayaran" => $req->tanggal_pembayaran,
           ]);
+          DB::table('perpus_katalog')->where('id',$req->perpus_katalog_id)->decrement("stok_buku",1);
           DB::commit();
 
         return response()->json(["status" => 1]);

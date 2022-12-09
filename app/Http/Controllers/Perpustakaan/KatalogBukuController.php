@@ -27,7 +27,8 @@ class KatalogBukuController extends Controller
   public function index()
   {
     $categories = DB::table("perpus_kategori")->get();
-    return view('katalog_buku.index',compact('categories'));
+    $employees = DB::table("pegawai")->where('is_perpus','Y')->get();
+    return view('katalog_buku.index',compact('categories','employees'));
   }
 
   public function datatable()
@@ -58,7 +59,11 @@ class KatalogBukuController extends Controller
         $category= DB::table("perpus_kategori")->where("id",$data->perpus_kategori_id)->first();
         return $category->nama;
       })
-      ->rawColumns(['aksi', 'foto','perpus_kategori_id'])
+      ->addColumn('created_by', function ($data) {
+        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first();
+        return $employee->nama_lengkap;
+      })
+      ->rawColumns(['aksi', 'foto','perpus_kategori_id','created_by'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -81,27 +86,16 @@ class KatalogBukuController extends Controller
         } else {
             return 'already exist';
         }
-
-        $pegawai = DB::table('pegawai')->where('user_id',$req->user_id)->get();
-        
-        if(!empty($pegawai->id)){
-            $created_by = $pegawai->nama_lengkap;
-            $pegawai = $pegawai->id;
-        }else{
-            $created_by = "admin";
-            $pegawai = null;
-        }
         
         DB::table("perpus_katalog")
           ->insert([
-            "pegawai_id" => $pegawai,
+            "pegawai_id" => $req->pegawai_id,
             "foto" => $imgPath,
             "judul" => $req->judul,
             "author" => $req->author,
             "perpus_kategori_id" => $req->perpus_kategori_id,
             "bahasa" => $req->bahasa,
             "total_halaman" => $req->total_halaman,
-            "created_by" => $created_by,
           ]);
           DB::commit();
 
@@ -143,6 +137,7 @@ class KatalogBukuController extends Controller
       'perpus_kategori_id' => 'required|max:255',
       'bahasa' => 'required|max:255',
       'total_halaman' => 'required|max:255',
+      'stok_buku' => 'required|max:100',
     ]);
 
     $imgPath = null;
@@ -158,9 +153,9 @@ class KatalogBukuController extends Controller
       $name = $folder . '.' . $file->getClientOriginalExtension();
       $file->move($path, $name);
       $imgPath = $childPath . $name;
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id,'foto'=>$imgPath]);
+      $data->update(['stok_buku'=>$req->stok_buku,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id,'foto'=>$imgPath]);
     } else {
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id]);
+      $data->update(['stok_buku'=>$req->stok_buku,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id]);
     }
 
     // dd($data);

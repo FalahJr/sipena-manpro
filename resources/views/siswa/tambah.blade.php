@@ -14,6 +14,32 @@
             <div class="alert alert-warning" role="alert">
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
+            <tr>
+              <td>Kelas <span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext w-100 select2" name="koperasi_list_id[]">
+                  <option disabled selected value>Pilih Barang</option>
+                  @foreach($cooperatives as $cooperative)
+                    <option value="<?= $cooperative->id ?>">
+                      <?= $cooperative->nama ?> || <?= $cooperative->harga ?>
+                    </option>
+                    @endforeach
+                  </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Wali Murid <span style="color:red;">*</span></td>
+              <td>
+                <select class="form-control form-control-sm inputtext w-100 select2" name="koperasi_list_id[]">
+                  <option disabled selected value>Pilih Barang</option>
+                  @foreach($cooperatives as $cooperative)
+                    <option value="<?= $cooperative->id ?>">
+                      <?= $cooperative->nama ?> || <?= $cooperative->harga ?>
+                    </option>
+                    @endforeach
+                  </select>
+              </td>
+            </tr>
           <tr>
             <td>Nama Lengkap <span style="color:red;">*</span></td>
             <td>
@@ -51,7 +77,7 @@
           <tr>
             <td>Image</td>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="foto_profil" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
             </td>
           </tr>
           <!-- <tr>

@@ -61,7 +61,7 @@
               <td>Pelaksana<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext @if($errors->has('guru_id')) is-invalid @endif" value="{{$data->guru_id}}" name="guru_id">
-                  <option>Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($teachers as $teacher)
                     <option value="<?= $teacher->id ?>" @if($teacher->id == $data->guru_id) selected @endif>
                       <?= $teacher->nama_lengkap ?>

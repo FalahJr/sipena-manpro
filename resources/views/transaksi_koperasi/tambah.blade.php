@@ -17,7 +17,7 @@
               </div>
               <div class="col-7 pr-0">
               <select class="form-control form-control-sm inputtext select2" name="pegawai_id">
-                <option>Pilih Pegawai</option>
+                <option disabled selected value>Pilih Pegawai</option>
                 @foreach($employees as $employee)
                   <option value="<?= $employee->id ?>">
                     <?= $employee->nama_lengkap ?>
@@ -29,7 +29,7 @@
           <tr class="row d-flex">
             <div class="col-6 pr-0">
               <select class="form-control form-control-sm inputtext w-100 select2" name="koperasi_list_id[]">
-                <option>Pilih Barang</option>
+                <option disabled selected value>Pilih Barang</option>
                 @foreach($cooperatives as $cooperative)
                   <option value="<?= $cooperative->id ?>">
                     <?= $cooperative->nama ?> || <?= $cooperative->harga ?>

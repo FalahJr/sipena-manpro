@@ -185,7 +185,7 @@ var table = $('#table-data').DataTable({
       var i=1;  
       $('#add').click(function(){  
           i++; 
-          var str = '<tr class="row d-flex ml-0" id="row'+i+'"><td class="col-6 pr-2"><select class="form-control form-control-sm inputtext select2" name="koperasi_list_id[]"><option>Pilih Barang Koperasi</option>';
+          var str = '<tr class="row d-flex ml-0" id="row'+i+'"><td class="col-6 pr-2"><select class="form-control form-control-sm inputtext select2" name="koperasi_list_id[]"><option disabled selected value>Pilih Barang Koperasi</option>';
           var cooperatives = {!! $cooperatives->toJson() !!};
           cooperatives.forEach(function(cooperative) {
             str += '<option value="'+cooperative.id+'">'+cooperative.nama+' || '+cooperative.harga+'</option>';

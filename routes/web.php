@@ -190,7 +190,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/kegiatan-osis/update', 'KegiatanOsisController@update');
         Route::post('/kegiatan-osis/simpan', 'KegiatanOsisController@simpan');
         Route::get('/kegiatan-osis/hapus/{id}', 'KegiatanOsisController@hapus');
-        Route::get('/kegiatan-osis/set-acc/{id}', 'KegiatanOsisController@acc');
+        // Route::get('/kegiatan-osis/set-acc/{id}', 'KegiatanOsisController@acc');
         Route::get('/kegiatan-osis/edit/{id}', 'KegiatanOsisController@edit');
        
 

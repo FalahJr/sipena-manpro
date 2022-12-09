@@ -43,7 +43,7 @@
               <td>Dipinjam Oleh <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="user_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($users as $user)
                     <option value="<?= $user->id ?>" @if($data->user_id == $user->id) selected @endif>
                       <?= $user->username ?>
@@ -57,7 +57,7 @@
               <td>Fasilitas <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="peminjaman_fasilitas_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($facilities as $facility)
                     <option value="<?= $facility->id ?>" @if($data->peminjaman_fasilitas_id == $facility->id) selected @endif>
                       <?= $facility->nama ?>
@@ -89,7 +89,7 @@
               <td>Dikonfirmasi Oleh<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="pegawai_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($employees as $employee)
                     <option value="<?= $employee->id ?>" @if($employee->id == $data->pegawai_id) selected @endif>
                       <?= $employee->nama_lengkap ?>

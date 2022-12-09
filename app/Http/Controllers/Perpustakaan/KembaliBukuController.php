@@ -27,7 +27,7 @@ class KembaliBukuController extends Controller
   public function index()
   { 
     // ambil user yang meminjam buku
-    $users = DB::table("perpus_peminjaman")
+    $users = DB::table("perpus_peminjaman")->where('is_kembali','N')
     ->join('user', 'perpus_peminjaman.user_id', '=', 'user.id')
     ->select('user.username','user.id')
     ->get();
@@ -85,8 +85,19 @@ class KembaliBukuController extends Controller
   public function simpan(Request $req)
   {
       try {
+        $peminjaman = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->first();
+        
         DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->update(['is_lunas'=>'Y','is_kembali'=>'Y','pegawai_id'=>$req->pegawai_id]);
-          DB::commit();
+
+        $perpus_katalog = DB::table("perpus_peminjaman_katalog")
+        ->where('perpus_peminjaman_id',$peminjaman->id)
+        ->get();
+    
+        foreach($perpus_katalog as $katalog){
+          DB::table("perpus_katalog")->where('id',$katalog->perpus_katalog_id)->increment('stok_buku',1);
+        }
+
+        DB::commit();
 
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {

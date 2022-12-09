@@ -43,7 +43,7 @@
               <td>Siswa <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext @if($errors->has('nama')) is-invalid @endif" name="siswa_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($students as $student)
                     <option value="<?= $student->id ?>" @if($data->siswa_id == $student->id) selected @endif>
                       <?= $student->nama_lengkap ?>
@@ -57,7 +57,7 @@
               <td>Kelas <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext @if($errors->has('nama')) is-invalid @endif" name="kelas_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($classes as $class)
                     <option value="<?= $class->id ?>" @if($data->kelas_id == $class->id) selected @endif>
                       <?= $class->nama ?>
@@ -71,7 +71,7 @@
               <td>Mata Pelajaran <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext @if($errors->has('mapel_id')) is-invalid @endif" name="mapel_id">
-                  <option >Pilih</option>
+                  <option disabled selected value>Pilih</option>
                   @foreach($lessons as $lesson)
                     <option value="<?= $lesson->id ?>" @if($data->mapel_id == $lesson->id) selected @endif>
                       <?= $lesson->nama ?>
