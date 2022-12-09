@@ -98,59 +98,31 @@ var table = $('#table-data').DataTable({
 
         var image_holder = $(".image-holder");
         image_holder.empty();
-        $("<img />", {
-            "src": baseUrl + data.surat_keterangan_pindah_sekolah_asal,
-            "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-        }).appendTo(image_holder);
+        $("<a href="+baseUrl + data.surat_keterangan_pindah_sekolah_asal+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
         var image_holder = $(".image-holder1");
         image_holder.empty();
-        $("<img />", {
-            "src": baseUrl + data.tanda_bukti_mutasi_dispen_provinsi,
-            "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-        }).appendTo(image_holder);
+        $("<a href="+baseUrl + data.tanda_bukti_mutasi_dispen_provinsi+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
         var image_holder = $(".image-holder2");
         image_holder.empty();
-        $("<img />", {
-            "src":  baseUrl + data.surat_rekom_penyaluran_dari_deriktorat_jendral_dikdasmen,
-            "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-        }).appendTo(image_holder);
+        $("<a href="+baseUrl + data.surat_rekom_penyaluran_dari_deriktorat_jendral_dikdasmen+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
         var image_holder = $(".image-holder3");
         image_holder.empty();
-        $("<img />", {
-            "src":  baseUrl + data.raport_asal,
-            "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-        }).appendTo(image_holder);
+        $("<a href="+baseUrl + data.raport_asal+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
         var image_holder = $(".image-holder4");
         image_holder.empty();
-        $("<img />", {
-            "src":  baseUrl + data.fotocoy_raport,
-            "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-        }).appendTo(image_holder);
+        $("<a href="+baseUrl + data.fotocoy_raport+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
         var image_holder = $(".image-holder5");
         image_holder.empty();
-        $("<img />", {
-            "src":  baseUrl + data.fotocopy_sertifikat,
-            "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-        }).appendTo(image_holder);
+        $("<a href="+baseUrl + data.fotocopy_sertifikat+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
         var image_holder = $(".image-holder6");
         image_holder.empty();
-        $("<img />", {
-            "src":  baseUrl + data.surat_rekomendasi_penerimaan,
-            "class": "thumb-image img-responsive",
-            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-        }).appendTo(image_holder);
+        $("<a href="+baseUrl + data.surat_rekomendasi_penerimaan+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
         $('#tambah').modal('show');
 
@@ -267,265 +239,6 @@ var table = $('#table-data').DataTable({
     $('#tambah').modal('hide');
     table.ajax.reload();
   }
-
-  $(".uploadGambar").on('change', function () {
-          $('.save').attr('disabled', false);
-          // waitingDialog.show();
-        if (typeof (FileReader) != "undefined") {
-            var image_holder = $(".image-holder");
-            image_holder.empty();
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                $('.save').attr('disabled', true);
-                setTimeout(function(){
-                    image_holder.empty();
-                    $("<img />", {
-                        "src": e.target.result,
-                        "class": "thumb-image img-responsive",
-                        "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-                    }).appendTo(image_holder);
-                    $('.save').attr('disabled', false);
-                }, 2000)
-            }
-            image_holder.show();
-            reader.readAsDataURL($(this)[0].files[0]);
-
-            const gallery = document.querySelectorAll("img")
-            gallery.forEach(image => {
-               let src = image.getAttribute('src')
-               image.addEventListener('click', function () {
-                   window.open(src)
-               });
-            });
-            // waitingDialog.hide();
-        } else {
-            // waitingDialog.hide();
-            alert("This browser does not support FileReader.");
-        }
-    });
-
-    $(".uploadGambar1").on('change', function () {
-            $('.save').attr('disabled', false);
-            // waitingDialog.show();
-          if (typeof (FileReader) != "undefined") {
-              var image_holder = $(".image-holder1");
-              image_holder.empty();
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                  image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                  $('.save').attr('disabled', true);
-                  setTimeout(function(){
-                      image_holder.empty();
-                      $("<img />", {
-                          "src": e.target.result,
-                          "class": "thumb-image img-responsive",
-                          "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-                      }).appendTo(image_holder);
-                      $('.save').attr('disabled', false);
-                  }, 2000)
-              }
-              image_holder.show();
-              reader.readAsDataURL($(this)[0].files[0]);
-
-              const gallery = document.querySelectorAll("img")
-              gallery.forEach(image => {
-                 let src = image.getAttribute('src')
-                 image.addEventListener('click', function () {
-                     window.open(src)
-                 });
-              });
-              // waitingDialog.hide();
-          } else {
-              // waitingDialog.hide();
-              alert("This browser does not support FileReader.");
-          }
-      });
-
-      $(".uploadGambar2").on('change', function () {
-              $('.save').attr('disabled', false);
-              // waitingDialog.show();
-            if (typeof (FileReader) != "undefined") {
-                var image_holder = $(".image-holder2");
-                image_holder.empty();
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                    $('.save').attr('disabled', true);
-                    setTimeout(function(){
-                        image_holder.empty();
-                        $("<img />", {
-                            "src": e.target.result,
-                            "class": "thumb-image img-responsive",
-                            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-                        }).appendTo(image_holder);
-                        $('.save').attr('disabled', false);
-                    }, 2000)
-                }
-                image_holder.show();
-                reader.readAsDataURL($(this)[0].files[0]);
-
-                const gallery = document.querySelectorAll("img")
-                gallery.forEach(image => {
-                   let src = image.getAttribute('src')
-                   image.addEventListener('click', function () {
-                       window.open(src)
-                   });
-                });
-                // waitingDialog.hide();
-            } else {
-                // waitingDialog.hide();
-                alert("This browser does not support FileReader.");
-            }
-        });
-
-        $(".uploadGambar3").on('change', function () {
-                $('.save').attr('disabled', false);
-                // waitingDialog.show();
-              if (typeof (FileReader) != "undefined") {
-                  var image_holder = $(".image-holder3");
-                  image_holder.empty();
-                  var reader = new FileReader();
-                  reader.onload = function (e) {
-                      image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                      $('.save').attr('disabled', true);
-                      setTimeout(function(){
-                          image_holder.empty();
-                          $("<img />", {
-                              "src": e.target.result,
-                              "class": "thumb-image img-responsive",
-                              "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-                          }).appendTo(image_holder);
-                          $('.save').attr('disabled', false);
-                      }, 2000)
-                  }
-                  image_holder.show();
-                  reader.readAsDataURL($(this)[0].files[0]);
-
-                  const gallery = document.querySelectorAll("img")
-                  gallery.forEach(image => {
-                     let src = image.getAttribute('src')
-                     image.addEventListener('click', function () {
-                         window.open(src)
-                     });
-                  });
-                  // waitingDialog.hide();
-              } else {
-                  // waitingDialog.hide();
-                  alert("This browser does not support FileReader.");
-              }
-          });
-
-          $(".uploadGambar4").on('change', function () {
-                  $('.save').attr('disabled', false);
-                  // waitingDialog.show();
-                if (typeof (FileReader) != "undefined") {
-                    var image_holder = $(".image-holder4");
-                    image_holder.empty();
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                        $('.save').attr('disabled', true);
-                        setTimeout(function(){
-                            image_holder.empty();
-                            $("<img />", {
-                                "src": e.target.result,
-                                "class": "thumb-image img-responsive",
-                                "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-                            }).appendTo(image_holder);
-                            $('.save').attr('disabled', false);
-                        }, 2000)
-                    }
-                    image_holder.show();
-                    reader.readAsDataURL($(this)[0].files[0]);
-
-                    const gallery = document.querySelectorAll("img")
-                    gallery.forEach(image => {
-                       let src = image.getAttribute('src')
-                       image.addEventListener('click', function () {
-                           window.open(src)
-                       });
-                    });
-                    // waitingDialog.hide();
-                } else {
-                    // waitingDialog.hide();
-                    alert("This browser does not support FileReader.");
-                }
-            });
-
-            $(".uploadGambar5").on('change', function () {
-                    $('.save').attr('disabled', false);
-                    // waitingDialog.show();
-                  if (typeof (FileReader) != "undefined") {
-                      var image_holder = $(".image-holder5");
-                      image_holder.empty();
-                      var reader = new FileReader();
-                      reader.onload = function (e) {
-                          image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                          $('.save').attr('disabled', true);
-                          setTimeout(function(){
-                              image_holder.empty();
-                              $("<img />", {
-                                  "src": e.target.result,
-                                  "class": "thumb-image img-responsive",
-                                  "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-                              }).appendTo(image_holder);
-                              $('.save').attr('disabled', false);
-                          }, 2000)
-                      }
-                      image_holder.show();
-                      reader.readAsDataURL($(this)[0].files[0]);
-
-                      const gallery = document.querySelectorAll("img")
-                      gallery.forEach(image => {
-                         let src = image.getAttribute('src')
-                         image.addEventListener('click', function () {
-                             window.open(src)
-                         });
-                      });
-                      // waitingDialog.hide();
-                  } else {
-                      // waitingDialog.hide();
-                      alert("This browser does not support FileReader.");
-                  }
-              });
-
-              $(".uploadGambar6").on('change', function () {
-                      $('.save').attr('disabled', false);
-                      // waitingDialog.show();
-                    if (typeof (FileReader) != "undefined") {
-                        var image_holder = $(".image-holder6");
-                        image_holder.empty();
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-                            $('.save').attr('disabled', true);
-                            setTimeout(function(){
-                                image_holder.empty();
-                                $("<img />", {
-                                    "src": e.target.result,
-                                    "class": "thumb-image img-responsive",
-                                    "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-                                }).appendTo(image_holder);
-                                $('.save').attr('disabled', false);
-                            }, 2000)
-                        }
-                        image_holder.show();
-                        reader.readAsDataURL($(this)[0].files[0]);
-
-                        const gallery = document.querySelectorAll("img")
-                        gallery.forEach(image => {
-                           let src = image.getAttribute('src')
-                           image.addEventListener('click', function () {
-                               window.open(src)
-                           });
-                        });
-                        // waitingDialog.hide();
-                    } else {
-                        // waitingDialog.hide();
-                        alert("This browser does not support FileReader.");
-                    }
-                });
 
 </script>
 @endsection
