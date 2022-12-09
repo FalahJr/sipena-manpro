@@ -11,7 +11,7 @@
       <div class="modal-body">
         <center>
           <div class="alert alert-warning" role="alert">
-            Silahkan Scan Dulu Berkas, Mejadi Format Gambar
+            Dianjurkan upload file menggunakan format .pdf
           </div>
         </center>
         <div class="row">
