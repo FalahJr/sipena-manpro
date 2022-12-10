@@ -15,6 +15,8 @@ Route::get('/', function () {
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
 Route::get('logout', 'HomeController@logout')->name('logoutadmin');
 
+Route::get('/generatekartudigital', 'KartuDigitalController@generate');
+
 //Route untuk user admin
 Route::group(['middleware' => 'admin'], function () {
 
@@ -150,7 +152,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
         Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
 
-
         Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@index');
         Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
         Route::post('/sumbang-buku/update', 'Perpustakaan\SumbangBukuController@update');
@@ -192,7 +193,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/kegiatan-osis/hapus/{id}', 'KegiatanOsisController@hapus');
         // Route::get('/kegiatan-osis/set-acc/{id}', 'KegiatanOsisController@acc');
         Route::get('/kegiatan-osis/edit/{id}', 'KegiatanOsisController@edit');
-       
+
 
         //Ekstrakulikuler
         Route::get('/ekstrakulikuler', 'EkstrakulikulerController@index');
@@ -201,7 +202,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/ekstrakulikuler/simpan', 'EkstrakulikulerController@simpan');
         Route::get('/ekstrakulikuler/hapus/{id}', 'EkstrakulikulerController@hapus');
         Route::get('/ekstrakulikuler/edit/{id}', 'EkstrakulikulerController@edit');
-
 
         //Peminjaman Fasilitas
         Route::get('/list-fasilitas', 'Fasilitas\ListFasilitasController@index');
@@ -227,40 +227,15 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/nilai-pembelajaran/edit/{id}', 'NilaiPembelajaranController@edit');
 
         //Kartu Figital
-        Route::get('/kartu-digital/cetak-kartu',function(){
-          return view('kartu_digital.cetakKartu');
-        });
-        
+        Route::get('/kartudigital', 'KartuDigitalController@index');
+        Route::get('/kartudigitaltable', 'KartuDigitalController@datatable');
 
-
-
-
-        //Feedback
-        Route::get('/feed', 'FeedController@index');
-        Route::get('/feed/table', 'FeedController@datatable');
-        Route::get('/feed/hapus', 'FeedController@hapus');
-
-        //Category
-        Route::get('/category', 'CategoryController@index');
-        Route::get('/category/simpan', 'CategoryController@dosavecategory');
-        Route::get('/category/edit', 'CategoryController@doeditcategory');
-        Route::get('/category/update', 'CategoryController@doupdatecategory');
-        Route::get('/category/hapus', 'CategoryController@dodeletecategory');
-
-        //Setting backgroundheader
-        Route::get('/setting/backgroundheader', 'BackgroundheaderController@index');
-        Route::post('/setting/backgroundheader/save', 'BackgroundheaderController@save');
-
-        //Setting edit info
-        Route::get('/setting/editinfo', 'EditinfoController@index');
-        Route::get('/setting/editinfo/save', 'EditinfoController@save');
-
-        //Social
-        Route::get('/setting/social', 'SocialController@index');
-        Route::get('/setting/social/simpan', 'SocialController@dosavecategory');
-        Route::get('/setting/social/edit', 'SocialController@doeditcategory');
-        Route::get('/setting/social/update', 'SocialController@doupdatecategory');
-        Route::get('/setting/social/hapus', 'SocialController@dodeletecategory');
+        // Kategori Keuangan
+        Route::get('/kategori-keuangan', 'KategoriKeuanganController@index');
+        Route::get('/kategori-keuangan-table', 'KategoriKeuanganController@datatable');
+        Route::post('/simpan-kategori-keuangan', 'KategoriKeuanganController@simpan');
+        Route::get('/edit-kategori-keuangan', 'KategoriKeuanganController@edit');
+        Route::get('/hapus-kategori-keuangan', 'KategoriKeuanganController@hapus');
 
         //Mutasi Siswa
         Route::get('/mutasisiswa', 'MutasiSiswaController@index');
@@ -280,5 +255,15 @@ Route::group(['middleware' => 'admin'], function () {
         //Absensi Guru
         Route::get('/absensiguru', 'AbsensiGuruController@index');
         Route::get('/absensigurutable', 'AbsensiGuruController@datatable');
+
+        //Dompet Digital
+        Route::get('/dompetdigital', 'DompetDigitalController@index');
+        Route::get('/dompetdigitaltable', 'DompetDigitalController@datatable');
+        Route::post('/topupdompetdigital', 'DompetDigitalController@topup');
+
+        //Approve Dompet Digital
+        Route::get('/approvedompetdigital', 'ApproveDompetDigitalController@index');
+        Route::get('/approvedompetdigitaltable', 'ApproveDompetDigitalController@datatable');
+        Route::get('/actionapprovedompetdigital', 'ApproveDompetDigitalController@action');
     });
 });

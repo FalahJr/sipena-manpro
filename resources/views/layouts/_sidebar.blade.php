@@ -141,7 +141,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ? 'active' : '' }}" href="{{url('admin/berita-sekolah')}}">Berita Sekolah<span class="d-none">Berita Sekolah</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
 
         <li
           class="nav-item {{ ( ( Request::is('admin/kelas/*') || Request::is('admin/kelas') ) ? ' active' : '' ) }}">
@@ -182,16 +182,22 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
+        <li class="nav-item {{ ( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#pinjam-fasilitas" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Dompet Digital</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-wallet menu-icon"></i>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
           </a>
+          <div class="collapse {{( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' show' : '' ) }}" id="pinjam-fasilitas">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') ? 'active' : '' }}" href="{{url('admin/dompetdigital')}}">List Dompet Digital<span class="d-none">List Dompet Digitl</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? 'active' : '' }}" href="{{url('admin/approvedompetdigital')}}">Permintaan Top Up<span class="d-none">Permintaan Top Up</span></a></li>
+            </ul>
+          </div>
         </li>
 
-         <li class="nav-item {{Request::is('admin/kartu-digital/cetak-kartu') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/kartu-digital/cetak-kartu')}}">
+         <li class="nav-item {{Request::is('admin/kartudigital') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/kartudigital')}}">
             <span class="menu-title">Kartu Digital</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-wallet menu-icon"></i>
@@ -229,7 +235,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku') ? 'active' : '' }}" href="{{url('admin/kehilangan-buku')}}">Kehilangan Buku<span class="d-none">Kehilangan Buku</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
         <li class="nav-item {{Request::is('admin/kegiatan-osis') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/kegiatan-osis')}}">
             <span class="menu-title">Kegiatan OSIS</span>
@@ -256,7 +262,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') ? 'active' : '' }}" href="{{url('admin/pinjam-fasilitas')}}">Pinjam Fasilitas<span class="d-none">Pinjam Fasilitas</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
         <li class="nav-item {{Request::is('admin/nilai-pembelajaran') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/nilai-pembelajaran')}}">
             <span class="menu-title">Pembelajaran Siswa</span>
@@ -276,13 +282,6 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ? 'active' : '' }}" href="{{url('admin/transaksi-kantin')}}">Transaksi Kantin<span class="d-none">Transaksi Kantin</span></a></li>
             </ul>
           </div>
-        </li> 
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
-            <span class="menu-title">Jadwal Kelas</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-calendar menu-icon"></i>
-          </a>
         </li>
         <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/feed')}}">
@@ -290,6 +289,19 @@
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-calendar menu-icon"></i>
           </a>
+        </li>
+        <li class="nav-item {{ ( ( Request::is('admin/keuangan/*') || Request::is('admin/keuangan') || Request::is('admin/keuangan/*') || Request::is('admin/keuangan') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#keuangan" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Keuangan Sekolah</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
+          </a>
+          <div class="collapse {{( ( Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') || Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ) ? ' show' : '' ) }}" id="keuangan">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') ? 'active' : '' }}" href="{{url('admin/data-keuangan')}}">Data Keuangan<span class="d-none">Data Keuangan</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ? 'active' : '' }}" href="{{url('admin/kategori-keuangan')}}">Kategori Keuangan<span class="d-none">Transaksi Kantin</span></a></li>
+            </ul>
+          </div>
         </li>
 
         @else

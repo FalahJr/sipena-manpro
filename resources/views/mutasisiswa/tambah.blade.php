@@ -11,7 +11,7 @@
       <div class="modal-body">
         <center>
           <div class="alert alert-warning" role="alert">
-            Silahkan Scan Dulu Berkas, Mejadi Format Gambar
+            Dianjurkan upload file menggunakan format .pdf
           </div>
         </center>
         <div class="row">
@@ -35,7 +35,7 @@
           </tr>
           <tr>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr>
@@ -52,7 +52,7 @@
           </tr>
           <tr>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar1" name="image1" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar1" name="image1" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr>
@@ -69,7 +69,7 @@
           </tr>
           <tr>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar2" name="image2" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar2" name="image2" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr>
@@ -86,7 +86,7 @@
           </tr>
           <tr>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar3" name="image3" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar3" name="image3" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr>
@@ -103,7 +103,7 @@
           </tr>
           <tr>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar4" name="image4" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar4" name="image4" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr>
@@ -120,7 +120,7 @@
           </tr>
           <tr>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar5" name="image5" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar5" name="image5" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr>
@@ -137,7 +137,7 @@
           </tr>
           <tr>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar6" name="image6" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar6" name="image6" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr>
