@@ -25,7 +25,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
-                      <div class="col-12 col-md-3">
+                      <div class="col-12 col-md-5">
                         <h4 class="card-title">Data Kegiatan Ekstrakulikuler</h4>
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}

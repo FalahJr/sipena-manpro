@@ -183,12 +183,12 @@
         </li>
 
         <li class="nav-item {{ ( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' active' : '' ) }}">
-          <a class="nav-link" data-toggle="collapse" href="#pinjam-fasilitas" aria-expanded="false" aria-controls="ui-basic">
+          <a class="nav-link" data-toggle="collapse" href="#dompet-digital" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Dompet Digital</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
-          <div class="collapse {{( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' show' : '' ) }}" id="pinjam-fasilitas">
+          <div class="collapse {{( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' show' : '' ) }}" id="dompet-digital">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') ? 'active' : '' }}" href="{{url('admin/dompetdigital')}}">List Dompet Digital<span class="d-none">List Dompet Digitl</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? 'active' : '' }}" href="{{url('admin/approvedompetdigital')}}">Permintaan Top Up<span class="d-none">Permintaan Top Up</span></a></li>
@@ -262,7 +262,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') ? 'active' : '' }}" href="{{url('admin/pinjam-fasilitas')}}">Pinjam Fasilitas<span class="d-none">Pinjam Fasilitas</span></a></li>
             </ul>
           </div>
-        </li>
+        </li> 
         <li class="nav-item {{Request::is('admin/nilai-pembelajaran') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/nilai-pembelajaran')}}">
             <span class="menu-title">Pembelajaran Siswa</span>
@@ -283,9 +283,9 @@
             </ul>
           </div>
         </li>
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
-            <span class="menu-title">Jadwal Kelas</span>
+        <li class="nav-item {{Request::is('admin/jadwal-sekolah') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/jadwal-sekolah')}}">
+            <span class="menu-title">Jadwal Sekolah</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-calendar menu-icon"></i>
           </a>

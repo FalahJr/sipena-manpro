@@ -88,6 +88,14 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/jadwal-pembelajaran/update', 'JadwalPembelajaranController@update');
         Route::get('/jadwal-pembelajaran/edit/{id}', 'JadwalPembelajaranController@edit');
 
+         //Jadwal Sekolah
+         Route::get('/jadwal-sekolah', 'JadwalSekolahController@index');
+         Route::post('/jadwal-sekolah/simpan', 'JadwalSekolahController@simpan');
+         Route::get('/jadwal-sekolah/hapus/{id}', 'JadwalSekolahController@hapus');
+         Route::get('/jadwal-sekolah/table', 'JadwalSekolahController@datatable');
+         Route::post('/jadwal-sekolah/update', 'JadwalSekolahController@update');
+         Route::get('/jadwal-sekolah/edit/{id}', 'JadwalSekolahController@edit');
+
         //Berita Sekolah
         Route::get('/berita-sekolah', 'BeritaSekolahController@index');
         Route::post('/berita-sekolah/simpan', 'BeritaSekolahController@simpan');
