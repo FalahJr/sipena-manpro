@@ -44,26 +44,13 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/wali-murid/update')}}" method="POST">
+          <form action="{{url('admin/wali-murid/update')}}" method="POST" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
-            <td>Email <span style="color:red;">*</span></td>
+            <td>Nama Lengkap <span style="color:red;">*</span></td>
             <td>
-              <input type="email" class="form-control form-control-sm inputtext @if($errors->has('email')) is-invalid @endif" value="{{$data->email}}" name="email">
+              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_lengkap')) is-invalid @endif" value="{{$data->nama_lengkap}}" name="nama_lengkap">
               <input type="hidden" class="form-control form-control-sm" value="{{$data->id}}" name="id">
-            </td>
-          </tr>
-          <tr>
-            <td>Nama Ayah</td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_ayah')) is-invalid @endif" value="{{$data->nama_ayah}}" name="nama_ayah">
-            </td>
-          </tr>
-          <tr>
-            <td>Nama Ibu</td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_ibu')) is-invalid @endif" value="{{$data->nama_ibu}}" name="nama_ibu">
-
             </td>
           </tr>
           <tr>
@@ -75,36 +62,38 @@
           <tr>
             <td>Phone</td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('no_telp')) is-invalid @endif" value="{{$data->no_telp}}" name="no_telp">
+              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('phone')) is-invalid @endif" value="{{$data->phone}}" name="phone">
 
             </td>
           </tr>
           <tr>
             <td>Alamat <span style="color:red;">*</span></td>
             <td>
-              <textarea class="form-control form-control-sm @if($errors->has('address')) is-invalid @endif" name="address" rows="8" cols="80">{!! htmlspecialchars($data->address) !!}</textarea>
-              <!-- <div class="alert alert-warning" role="alert">
-              This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
-              </div> -->
+              <textarea class="form-control form-control-sm @if($errors->has('alamat')) is-invalid @endif" name="alamat" rows="8" cols="80">{!! htmlspecialchars($data->alamat) !!}</textarea>
+
  
             </td>
           </tr>
          
-          {{-- <tr>
-            <td>Image</td>
+          <tr>
+            <td>Jenis Kelamin <span style="color:red;">*</span></td>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="profile_picture" accept="image/*">
+              <select class="form-control @if($errors->has('jenis_kelamin')) is-invalid @endif" name="jenis_kelamin">
+                <option value="" selected>- Pilih -</option>
+                <option value="L" @if($data->jenis_kelamin == "L") selected @endif> Laki-Laki </option>
+                <option value="P" @if($data->jenis_kelamin == "P") selected @endif> Perempuan </option>
+    
+              </select>
             </td>
-          </tr> --}}
-          <!-- <tr>
-            <td align="center" colspan="2">
-              <div class="col-md-8 col-sm-6 col-xs-12 image-holder" id="image-holder">
-
-                {{-- <img src="#" class="thumb-image img-responsive" height="100px" alt="image" style="display: none"> --}}
-
-            </div>
+          </tr>
+          <tr>
+            <td>Foto</td>
+            <br>
+            <img src="{{asset($data->foto_profil)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
+            <td>
+              <input type="file" class="form-control form-control-sm profil_picture" name="image" accept="image/*">
             </td>
-          </tr> -->
+          </tr>
           <button class="btn btn-success mt-3" id="simpan" type="submit">Simpan Data</button>
         </form>
         </div>

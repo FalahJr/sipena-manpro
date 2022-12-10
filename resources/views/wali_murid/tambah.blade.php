@@ -15,36 +15,34 @@
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
             <tr>
-              <td>Email <span style="color:red;">*</span></td>
+              <td>Username <span style="color:red;">*</span></td>
               <td>
-                <input type="email" class="form-control form-control-sm inputtext email" name="email">
+                <input type="text" class="form-control form-control-sm inputtext username" name="username">
+              </td>
+            </tr>
+            <tr>
+              <td>Password <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext password" name="password">
+              </td>
+            </tr>
+            <tr>
+              <td>Nama Lengkap <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext nama_lengkap" name="nama_lengkap">
                 <input type="hidden" class="form-control form-control-sm id" name="id">
               </td>
             </tr>
           <tr>
-            <td>Nama Ayah <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext nama_ayah" name="nama_ayah">
-              <input type="hidden" class="form-control form-control-sm id" name="id">
-            </td>
-          </tr>
-          <tr>
-            <td>Nama Ibu <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext nama_ibu" name="nama_ibu">
-              <input type="hidden" class="form-control form-control-sm id" name="id">
-            </td>
-          </tr>
-          <tr>
             <td>Tanggal Lahir</td>
             <td>
-              <input type="date" class="form-control form-control-sm inputtext tgl_lahir" name="tgl_lahir">
+              <input type="date" class="form-control form-control-sm inputtext tanggal_lahir" name="tanggal_lahir">
             </td>
           </tr>
           <tr>
             <td>No Hp</td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext no_hp" name="no_hp">
+              <input type="text" class="form-control form-control-sm inputtext phone" name="phone">
             </td>
           </tr>
           <tr>
@@ -54,6 +52,22 @@
               <!-- <div class="alert alert-warning" role="alert">
               This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
               </div> -->
+            </td>
+          </tr>
+          <tr>
+            <td>Jenis Kelamin <span style="color:red;">*</span></td>
+            <td>
+              <select class="form-control" name="jenis_kelamin">
+                <option disabled value selected>Pilih</option>
+                <option value="L"> Laki-Laki </option>
+                <option value="P"> Perempuan </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Foto</td>
+            <td>
+              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
             </td>
           </tr>
           

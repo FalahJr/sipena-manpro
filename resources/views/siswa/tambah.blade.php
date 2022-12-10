@@ -15,6 +15,18 @@
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
             <tr>
+              <td>Username <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext username" name="username">
+              </td>
+            </tr>
+            <tr>
+              <td>Password <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext password" name="password">
+              </td>
+            </tr>
+            <tr>
               <td>Kelas <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext w-100 select2" name="kelas_id">
@@ -60,18 +72,6 @@
             </td>
           </tr>
           <tr>
-            <td>Username <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext username" name="username">
-            </td>
-          </tr>
-          <tr>
-            <td>Password <span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext password" name="password">
-            </td>
-          </tr>
-          <tr>
             <td>Alamat <span style="color:red;">*</span></td>
             <td>
               <textarea class="form-control form-control-sm alamat" name="alamat" rows="8" cols="80"></textarea>
@@ -100,7 +100,7 @@
             </td>
           </tr>
           <tr>
-            <td>Foto</td>
+            <td>Image</td>
             <td>
               <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
             </td>

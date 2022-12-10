@@ -31,12 +31,11 @@
                               <tr>
                                 <th>No</th>
                                 <th>Foto</th>
-                                <th>Email</th>
-                                <th>Nama Ayah</th>
-                                <th>Nama Ibu</th>
+                                <th>Nama Lengkap</th>
                                 <th>Tanggal Lahir</th>
-                                <th>Phone</th>
+                                <th>Telepone</th>
                                 <th>Alamat</th>
+                                <th>Jenis Kelamin</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -104,23 +103,27 @@ var table = $('#table-data').DataTable({
                  targets: 6,
                  className: 'center'
               },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          // {data: 'image', name: 'image'},
-          {data: 'email', name: 'email'},
-          {data: 'nama_ayah', name: 'nama_ayah'},
-          {data: 'nama_ibu', name: 'nama_ibu'},
+          {data: 'foto_profil', name: 'foto_profil'},
+          {data: 'nama_lengkap', name: 'nama_lengkap'},
           {data: 'tanggal_lahir', name: 'tanggal_lahir'},
-          {data: 'no_telp', name: 'no_telp'},
-          {data: 'address', name: 'address'},
+          {data: 'phone', name: 'phone'},
+          {data: 'alamat', name: 'alamat'},
+          {data: 'jenis_kelamin', name: 'jenis_kelamin'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
 
     $('#simpan').click(function(){
 
-    var formdata = $('.table_modal :input').serialize();
+    var formdata = new FormData();
+    formdata.append('image', $('.uploadGambar')[0].files[0]);
 
     $.ajax({
       type: "post",

@@ -58,12 +58,12 @@ class SiswaController extends Controller
       ->addColumn('osis',function($data){
         if($data->is_osis == "Y"){
           return '<div class="btn-group">' .
-          '<div class="btn btn-success btn-lg">'.
+          '<div class="btn btn-secondary btn-lg">'.
           '<label class="fa fa-check"></label></div>' .
           '</div>';
         }else{
           return '<div class="btn-group">' .
-          '<div class="btn btn-warning btn-lg">'.
+          '<div class="btn btn-secondary btn-lg">'.
           '<label class="fa fa-close"></label></div>' .
           '</div>';
         }
@@ -156,7 +156,7 @@ class SiswaController extends Controller
 
   public function hapus($id)
   {
-    $user_id = DB::table("siswa")
+    $siswa = DB::table("siswa")
     ->where('id',$id)
     ->first();
 
@@ -165,10 +165,14 @@ class SiswaController extends Controller
         ->delete();
 
     DB::table("user")
-        ->where('id',$user_id->user_id)
+        ->where('id',$siswa->user_id)
         ->delete();
 
-      return back()->with(['success' => 'Data berhasil dihapus']);
+    DB::table("wali_murid")
+        ->where('id',$siswa->wali_murid_id)
+        ->delete();
+
+    return back()->with(['success' => 'Data berhasil dihapus']);
   }
 
   public function edit($id)
@@ -181,22 +185,49 @@ class SiswaController extends Controller
 
   }
 
-  public function update(Request $request)
+  public function update(Request $req)
   {
-    $this->validate($request,[
+    $this->validate($req,[
       'nama_lengkap' => 'required|max:100',
       'tanggal_lahir' => 'required|max:14',
       'jenis_kelamin' => 'required|max:1',
       'alamat' => 'required|max:100',
       'agama' => 'required|max:100',
       'phone' => 'required|max:100',
-      'foto_profile' => 'required|max:200',
-      'kartu_digital' => 'required|max:100',
-      'is_osis' => 'required|max:100',
       'tanggal_daftar' => 'required|max:100',
     ]);
+    $imgPath = null;
+    $tgl = Carbon::now('Asia/Jakarta');
+    $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+    $dir = 'image/uploads/User/' . $req->id;
+    $childPath = $dir . '/';
+    $path = $childPath;
+
+    $file = $req->file('image');
+    $name = null;
     $newData = request()->except(['_token','image']);
-    $data = DB::table("guru")->where('id',$request->id)->update($newData);
+    if ($file != null) {
+      $this->deleteDir($dir);
+      $name = $folder . '.' . $file->getClientOriginalExtension();
+      if (!File::exists($path)) {
+        if (File::makeDirectory($path, 0777, true)) {
+          if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
+          } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+          } else {
+            compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
+          }
+          $file->move($path, $name);
+          $imgPath = $childPath . $name;
+        } else
+          $imgPath = null;
+      } else {
+        return 'already exist';
+      }
+      $newData += ["foto_profil"=>$imgPath];
+      DB::table("siswa")->where('id',$req->id)->update($newData); 
+    }else{
+      DB::table("siswa")->where('id',$req->id)->update($newData);
+     }
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);

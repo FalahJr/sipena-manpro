@@ -44,7 +44,7 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/siswa/update')}}" method="POST">
+          <form action="{{url('admin/siswa/update')}}" method="POST" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
             <td>Nama Lengkap <span style="color:red;">*</span></td>
@@ -99,26 +99,11 @@
           <tr>
             <td>Foto</td>
             <br>
-            <img src="{{asset($data->foto)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
+            <img src="{{asset($data->foto_profil)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
             <td>
               <input type="file" class="form-control form-control-sm profil_picture" name="image" accept="image/*">
             </td>
           </tr>
-          {{-- <tr>
-            <td>Image</td>
-            <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="profile_picture" accept="image/*">
-            </td>
-          </tr> --}}
-          <!-- <tr>
-            <td align="center" colspan="2">
-              <div class="col-md-8 col-sm-6 col-xs-12 image-holder" id="image-holder">
-
-                {{-- <img src="#" class="thumb-image img-responsive" height="100px" alt="image" style="display: none"> --}}
-
-            </div>
-            </td>
-          </tr> -->
           <button class="btn btn-success mt-3" id="simpan" type="submit">Simpan Data</button>
         </form>
         </div>

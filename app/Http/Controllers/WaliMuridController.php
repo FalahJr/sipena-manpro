@@ -31,8 +31,8 @@ class WaliMuridController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('wali_murid')
-      ->get();
+    $data = DB::table('wali_murid')      
+    ->get();
 
 
     // return $data;
@@ -50,34 +50,128 @@ class WaliMuridController extends Controller
           '<a href="/admin/wali-murid/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
+      })->addColumn('foto_profil', function ($data) {
+        $url= asset($data->foto_profil);
+        return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
       })
-      ->rawColumns(['aksi', 'image'])
+      ->rawColumns(['aksi', 'foto_profil'])
       ->addIndexColumn()
       ->make(true);
   }
 
+
   public function simpan(Request $req)
   {
-    dd($req->all());
+      if (!$this->cekemail($req->username)) {
+        return response()->json(["status" => 7, "message" => "Data username sudah digunakan, tidak dapat disimpan!"]);
+      }
+      DB::beginTransaction();
+      try {
+        $max = DB::table("user")->max('id') + 1;
+        $maxWaliMurid = DB::table("wali_murid")->max('id') + 1;
+
+        $imgPath = null;
+        $tgl = Carbon::now('Asia/Jakarta');
+        $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+        $dir = 'image/uploads/User/' . $max;
+        $childPath = $dir . '/';
+        $path = $childPath;
+
+        $file = $req->file('image');
+        $name = null;
+        if ($file != null) {
+          $this->deleteDir($dir);
+          $name = $folder . '.' . $file->getClientOriginalExtension();
+          if (!File::exists($path)) {
+            if (File::makeDirectory($path, 0777, true)) {
+              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
+              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+              } else {
+                compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
+              }
+              $file->move($path, $name);
+              $imgPath = $childPath . $name;
+            } else
+              $imgPath = null;
+          } else {
+            return 'already exist';
+          }
+        }
+
+      $tes=DB::table("user")
+          ->insert([
+            "id" => $max,
+            "username" => $req->username,
+            "password" => $req->password,
+            "role_id" => 3,
+            "is_active" => 'Y',
+            "saldo" => 0,
+            "created_at" => Carbon::now('Asia/Jakarta'),
+          ]);
+        
+          DB::table("wali_murid")->insert([
+            "id"=>$maxWaliMurid,
+            "user_id" => $max,
+            "nama_lengkap" => $req->nama_lengkap,
+            "tanggal_lahir" => $req->tanggal_lahir,
+            "jenis_kelamin" => $req->jenis_kelamin,
+            "alamat" => $req->alamat,
+            "phone" => $req->phone,
+            "foto_profil" => $imgPath,
+          ]);
+        
+          DB::commit();
+
+        
+
+        // }
+        return response()->json(["status" => 1]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 2,"message"=>$e]);
+      }
   }
 
   public function hapus($id)
   {
-    $user_id = DB::table("wali_murid")
+    $waliMurid = DB::table("wali_murid")
     ->where('id',$id)
     ->first();
 
+    DB::table("siswa")
+    ->where('wali_murid_id',$id)
+    ->delete();
+    
     DB::table("wali_murid")
         ->where('id',$id)
         ->delete();
 
     DB::table("user")
-        ->where('id',$user_id->user_id)
+        ->where('id',$waliMurid->user_id)
         ->delete();
 
       return back()->with(['success' => 'Data berhasil dihapus']);
   }
 
+  public static function cekemail($username, $id = null)
+  {
+
+    $cek = DB::table('user')->where("username", $username)->first();
+
+    if ($cek != null) {
+      if ($id != null) {
+        if ($cek->id != $id) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
   public function edit($id)
   {
     $data = DB::table("wali_murid")->where("id", $id)->first();
@@ -86,24 +180,55 @@ class WaliMuridController extends Controller
     
   }
 
-  public function update(Request $request)
+  public function update(Request $req)
   {
-    $this->validate($request,[
-      'email' => 'required|max:100',
-      'nama_ayah' => 'required|max:100',
-      'nama_ibu' => 'required|max:100',
-      'no_telp' => 'required|max:14',
-      'address' => 'required|max:255',
+    $this->validate($req,[
+      'nama_lengkap' => 'required|max:100',
+      'phone' => 'required|max:14',
+      'alamat' => 'required|max:255',
       'tanggal_lahir' => 'required|max:100',
     ]);
+    $imgPath = null;
+    $tgl = Carbon::now('Asia/Jakarta');
+    $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+    $dir = 'image/uploads/User/' . $req->id;
+    $childPath = $dir . '/';
+    $path = $childPath;
+
+    $file = $req->file('image');
+    $name = null;
     $newData = request()->except(['_token','image']);
-    $data = DB::table("wali_murid")->where('id',$request->id)->update($newData);
+    if ($file != null) {
+      $this->deleteDir($dir);
+      $name = $folder . '.' . $file->getClientOriginalExtension();
+      if (!File::exists($path)) {
+        if (File::makeDirectory($path, 0777, true)) {
+          if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
+          } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+          } else {
+            compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
+          }
+          $file->move($path, $name);
+          $imgPath = $childPath . $name;
+        } else
+          $imgPath = null;
+      } else {
+        return 'already exist';
+      }
+      $newData += ["foto_profil"=>$imgPath];
+      DB::table("wali_murid")->where('id',$req->id)->update($newData); 
+    }else{
+      DB::table("wali_murid")->where('id',$req->id)->update($newData);
+     }
+
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
     
   }
+
+  
 
   public function deleteDir($dirPath)
   {
