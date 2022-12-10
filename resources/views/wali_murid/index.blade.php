@@ -30,14 +30,13 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                {{-- <th>Foto Profile</th> --}}
+                                <th>Foto</th>
                                 <th>Email</th>
                                 <th>Nama Ayah</th>
                                 <th>Nama Ibu</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Phone</th>
                                 <th>Alamat</th>
-                                {{-- <th>Kartu Digital</th> --}}
                                 <th>Action</th>
                               </tr>
                             </thead>

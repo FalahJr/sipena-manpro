@@ -70,10 +70,6 @@
             <td>Alamat <span style="color:red;">*</span></td>
             <td>
               <textarea class="form-control form-control-sm @if($errors->has('alamat')) is-invalid @endif" name="alamat" rows="8" cols="80">{!! htmlspecialchars($data->alamat) !!}</textarea>
-              <!-- <div class="alert alert-warning" role="alert">
-              This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
-              </div> -->
- 
             </td>
           </tr>
           <tr>
@@ -95,7 +91,15 @@
             </td>
           </tr>
           <tr>
-            <td>Image</td>
+            <td>Tanggal Daftar</td>
+            <td>
+              <input type="date" class="form-control form-control-sm inputtext @if($errors->has('tanggal_daftar')) is-invalid @endif" value="{{$data->tanggal_daftar}}" name="tanggal_daftar">
+            </td>
+          </tr>
+          <tr>
+            <td>Foto</td>
+            <br>
+            <img src="{{asset($data->foto)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
             <td>
               <input type="file" class="form-control form-control-sm profil_picture" name="image" accept="image/*">
             </td>

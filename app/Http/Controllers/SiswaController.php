@@ -11,7 +11,7 @@ use App\Authentication;
 use Auth;
 
 use Carbon\Carbon;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Session;
 
 use DB;
@@ -26,23 +26,19 @@ class SiswaController extends Controller
 {
   public function index()
   {
-    return view('siswa.index');
+    $classes = DB::table('kelas')->get();
+    $studentGuardians = DB::table('wali_murid')->get(); 
+    return view('siswa.index', compact('classes','studentGuardians'));
   }
 
   public function datatable()
   {
     $data = DB::table('siswa')
-      ->get();
-
-
-    // return $data;
-    // $xyzab = collect($data);
-    // return $xyzab;
-    // return $xyzab->i_price;
+          ->join('kelas','kelas.id','=','siswa.kelas_id')
+          ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
+          ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid")
+          ->get();
     return Datatables::of($data)
-    //   ->addColumn("image", function ($data) {
-    //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
-    //   })
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
           '<a href="siswa/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
@@ -51,83 +47,47 @@ class SiswaController extends Controller
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })
-      ->rawColumns(['aksi', 'image'])
+      ->addColumn('foto_profil', function ($data) {
+        $url= asset($data->foto_profil);
+        return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
+      })
+      ->addColumn('kartu_digital',function($data){
+        $generateQRCode = QrCode::size(100)->generate($data->kartu_digital);
+        return $generateQRCode;
+      })
+      ->addColumn('osis',function($data){
+        if($data->is_osis == "Y"){
+          return '<div class="btn-group">' .
+          '<div class="btn btn-success btn-lg">'.
+          '<label class="fa fa-check"></label></div>' .
+          '</div>';
+        }else{
+          return '<div class="btn-group">' .
+          '<div class="btn btn-warning btn-lg">'.
+          '<label class="fa fa-close"></label></div>' .
+          '</div>';
+        }
+      })
+      ->rawColumns(['aksi', 'foto_profil', 'kartu_digital', 'osis'])
       ->addIndexColumn()
       ->make(true);
   }
 
-public function simpan(Request $req)
+
+  public function simpan(Request $req)
   {
-    // dd(;
-    $max = DB::table("user")->max('id') + 1;
-    $maxsiswa = DB::table("siswa")->max('id') + 1;
-    if ($req->id == null) {
       if (!$this->cekemail($req->username)) {
         return response()->json(["status" => 7, "message" => "Data username sudah digunakan, tidak dapat disimpan!"]);
       }
       DB::beginTransaction();
-//       DB::transaction(function()
-// {
-    // DB::table('users')->update(['votes' => 1]);
-
-    // DB::table('posts')->delete();
       try {
         $max = DB::table("user")->max('id') + 1;
-        $imgPath = null;
-        $tgl = Carbon::now('Asia/Jakarta');
-        $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $childPath ='image/uploads/user-siswa/';
-        $path = $childPath;
-
-        $file = $req->file('image');
-        $name = null;
-        if ($file != null) {
-          $name = $folder . '.' . $file->getClientOriginalExtension();
-          $file->move($path, $name);
-          $imgPath = $childPath . $name;
-        } else {
-            return 'already exist';
-        }
-      $linkCode = url('/generatekartudigital?id='.$max);
-      $tes=DB::table("user")
-          ->insert([
-            "id" => $max,
-            "username" => $req->username,
-            "password" => $req->password,
-            "role_id" => 4,
-            "is_active" => 'Y',
-            "kartu_digital" => $linkCode,
-            "kartu_digital" => $linkCode,
-            "saldo" => 0,
-            "created_at" => Carbon::now('Asia/Jakarta'),
-          ]);
-        
-          DB::commit();
-
-
-
-        // }
-        return response()->json(["status" => 1]);
-      } catch (\Exception $e) {
-        DB::rollback();
-        return response()->json(["status" => 2]);
-      }
-// });
-
-
-    }
-     else
-     {
-      if (!$this->cekemail($req->username, $req->id)) {
-        return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
-      }
-      DB::beginTransaction();
-      try {
+        $maxSiswa = DB::table("siswa")->max('id') + 1;
 
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
         $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $dir = 'image/uploads/User/' . $req->id;
+        $dir = 'image/uploads/User/' . $max;
         $childPath = $dir . '/';
         $path = $childPath;
 
@@ -152,74 +112,47 @@ public function simpan(Request $req)
           }
         }
 
-        if ($imgPath == null) {
-          $tes= DB::table("user")
-            ->where('user', $req->id)
-            ->update([
-              // "id" => $max,
+      $tes=DB::table("user")
+          ->insert([
+            "id" => $max,
             "username" => $req->username,
             "password" => $req->password,
-            "role_id" => 4,
+            "role_id" => 2,
             "is_active" => 'Y',
             "saldo" => 0,
             "created_at" => Carbon::now('Asia/Jakarta'),
-            ]);
-            if($tes){
-              DB::table("guru")->insert([
-                // "id"=>$maxGuru,
-                // "user_id" => $max,
-                "nama_lengkap" => $req->nama_lengkap,
-                "tanggal_lahir" => $req->tgl_lahir,
-                "phone" => $req->no_hp,
-                "alamat" => $req->alamat,
-                "is_walikelas" => 'N',
-                "jenis_kelamin" => $req->jenis_kelamin,
-                "agama" => 'Islam',
-                "is_ekstrakulikuler" => 'N',
-                "is_mapel" => 'N',
-                "created_at" => Carbon::now('Asia/Jakarta'),
-              ]);
-            }
-        } else {
-          $tes=  DB::table("user")
-            ->where('user', $req->id)
-            ->update([
-              "id" => $max,
-            "username" => $req->username,
-            "password" => $req->password,
-            "role_id" => 4,
-            "is_active" => 'Y',
-            "saldo" => 0,
-            "created_at" => Carbon::now('Asia/Jakarta'),
-            ]);
-            if($tes){
-              DB::table("guru")->insert([
-                "id"=>$maxGuru,
-                "user_id" => $max,
-                "nama_lengkap" => $req->nama_lengkap,
-                "tanggal_lahir" => $req->tgl_lahir,
-                "phone" => $req->no_hp,
-                "alamat" => $req->alamat,
-                "jk" => $req->jk,
-                "is_walikelas" => 'N',
-                "is_ekstrakulikuler" => 'N',
-                "is_mapel" => 'N',
-                "created_at" => Carbon::now('Asia/Jakarta'),
-              ]);
-            }
-        }
-
-        // $tes = DB::commit();
-
+          ]);
+          $linkCode = url('/generatekartudigital?id='.$maxSiswa);
+        
+          DB::table("siswa")->insert([
+            "id"=>$maxSiswa,
+            "user_id" => $max,
+            "wali_murid_id" => $req->wali_murid_id,
+            "kelas_id" => $req->kelas_id,
+            "nama_lengkap" => $req->nama_lengkap,
+            "tanggal_lahir" => $req->tanggal_lahir,
+            "jenis_kelamin" => $req->jenis_kelamin,
+            "alamat" => $req->alamat,
+            "agama" => $req->agama,
+            "phone" => $req->phone,
+            "foto_profil" => $imgPath,
+            "kartu_digital" => $linkCode,
+            "is_osis" => 'N',
+            "tanggal_daftar" => $req->tanggal_daftar,
+          ]);
+        
           DB::commit();
 
-        return response()->json(["status" => 3]);
+        
+
+        // }
+        return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 4]);
+        return response()->json(["status" => 2,"message"=>$e]);
       }
-    }
   }
+
 
   public function hapus($id)
   {
@@ -240,29 +173,55 @@ public function simpan(Request $req)
 
   public function edit($id)
   {
+    $classes = DB::table('kelas')->get();
+    $studentGuardians = DB::table('wali_murid')->get(); 
     $data = DB::table("siswa")->where("id", $id)->first();
     // dd($data);
-    return view("siswa.edit", compact('data'));
+    return view("siswa.edit", compact('data','classes','studentGuardians'));
 
   }
 
   public function update(Request $request)
   {
     $this->validate($request,[
-      'jenis_kelamin' => 'required|max:2',
       'nama_lengkap' => 'required|max:100',
-      'phone' => 'required|max:14',
+      'tanggal_lahir' => 'required|max:14',
+      'jenis_kelamin' => 'required|max:1',
       'alamat' => 'required|max:100',
-      'tanggal_lahir' => 'required|max:100',
       'agama' => 'required|max:100',
+      'phone' => 'required|max:100',
+      'foto_profile' => 'required|max:200',
+      'kartu_digital' => 'required|max:100',
+      'is_osis' => 'required|max:100',
+      'tanggal_daftar' => 'required|max:100',
     ]);
     $newData = request()->except(['_token','image']);
-    $data = DB::table("siswa")->where('id',$request->id)->update($newData);
+    $data = DB::table("guru")->where('id',$request->id)->update($newData);
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
+    
+  }
 
+  public static function cekemail($username, $id = null)
+  {
+
+    $cek = DB::table('user')->where("username", $username)->first();
+
+    if ($cek != null) {
+      if ($id != null) {
+        if ($cek->id != $id) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
   }
 
   public function deleteDir($dirPath)

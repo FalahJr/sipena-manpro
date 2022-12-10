@@ -30,13 +30,17 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                {{-- <th>Foto Profile</th> --}}
+                                <th>Foto</th>
                                 <th>Nama Lengkap</th>
                                 <th>Tanggal Lahir</th>
-                                <th>Phone</th>
+                                <th>Telepone</th>
                                 <th>Alamat</th>
                                 <th>Agama</th>
-                                {{-- <th>Kartu Digital</th> --}}
+                                <th>Osis</th>
+                                <th>Tanggal Daftar</th>
+                                <th>Kelas</th>
+                                <th>Wali Murid</th>
+                                <th>Kartu Digital</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -104,24 +108,52 @@ var table = $('#table-data').DataTable({
                  targets: 6,
                  className: 'center'
               },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
+              {
+                 targets: 8,
+                 className: 'center'
+              },
+              {
+                 targets: 9,
+                 className: 'center'
+              },
+              {
+                 targets: 10,
+                 className: 'center'
+              },
+              {
+                 targets: 11,
+                 className: 'center'
+              },
+              {
+                 targets: 12,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          // {data: 'image', name: 'image'},
+          {data: 'foto_profil', name: 'foto_profil'},
           {data: 'nama_lengkap', name: 'nama_lengkap'},
           {data: 'tanggal_lahir', name: 'tanggal_lahir'},
           {data: 'phone', name: 'phone'},
-          {data: 'alamat', name: 'alamat'},
           {data: 'agama', name: 'agama'},
+          {data: 'alamat', name: 'alamat'},
+          {data: 'osis', name: 'osis'},
+          {data: 'tanggal_daftar', name: 'tanggal_daftar'},
+          {data: 'kelas', name: 'kelas'},
+          {data: 'wali_murid', name: 'wali_murid'},
+          {data: 'kartu_digital', name: 'kartu_digital'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
 
   $('#simpan').click(function(){
 
-  var formdata = new FormData();
-  formdata.append('image', $('.uploadGambar')[0].files[0]);
-  console.log(formdata);
+    var formdata = new FormData();
+    formdata.append('image', $('.uploadGambar')[0].files[0]);
   $.ajax({
     type: "post",
     url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
