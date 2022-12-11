@@ -117,7 +117,7 @@ class JadwalSekolahController extends Controller
   public static function cekemail($jadwal, $id = null)
   {
 
-    $cek = DB::table('jadwal_sekolah')->where("jadwal_id", $jadwal)->first();
+    $cek = DB::table('jadwal_sekolah')->where("jadwal_hari", $jadwal)->first();
 
     if ($cek != null) {
       if ($id != null) {

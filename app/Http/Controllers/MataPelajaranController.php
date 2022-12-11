@@ -160,6 +160,16 @@ class MataPelajaranController extends Controller
 
   }
 
+  public static function getData(){
+    try{
+      $data = DB::table("mapel")->get();
+      return response()->json(['status' => 1, 'data'=>$data]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public static function cekemail($nama, $id = null)
   {
 

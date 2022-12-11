@@ -64,7 +64,6 @@ class ListFasilitasController extends Controller
   public function simpan(Request $req)
   {
       try {
-      
         DB::table("peminjaman_fasilitas")
         ->insert([
           "nama" => $req->nama,
@@ -76,7 +75,7 @@ class ListFasilitasController extends Controller
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => $e]);
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
       }
   }
 
@@ -108,6 +107,33 @@ class ListFasilitasController extends Controller
 
     
   }
+
+
+  public function delete($id){
+    if($id){
+      $data = DB::table("peminjaman_fasilitas")
+      ->where('id',$id)
+      ->delete();
+      if($data){
+        return response()->json(["status" => 1,"message"=>"data berhasil dihapus"]);
+      }else{
+        return response()->json(["status" => 2,"message"=>"data tidak ditemukan"]);
+      }
+    }
+    return response()->json(["status" => 2,"message"=>"masukkan url id"]);
+  }
+
+  public function getData(){
+    try{
+      $data = DB::table("peminjaman_fasilitas")->get();
+      return response()->json(['status' => 1, 'data'=>$data]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
+
 
   public static function cekemail($username, $id = null)
   {

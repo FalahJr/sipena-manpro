@@ -32,7 +32,7 @@ class BeritaKelasController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('berita')->where('is_kelas','Y')
+    $data = DB::table('berita')->whereNotNull('kelas_id')
       ->get();
 
 
@@ -89,8 +89,8 @@ class BeritaKelasController extends Controller
             "deskripsi" => $req->deskripsi,
             "foto" => $imgPath,
             "total_views" => '0',
-            "is_kelas" => "Y",
             "kelas_id" => $req->kelas_id,
+            "tanggal" => Carbon::now('Asia/Jakarta'),
           ]);
           DB::commit();
 
@@ -108,6 +108,37 @@ class BeritaKelasController extends Controller
         ->delete();
 
       return back()->with(['success' => 'Data berhasil dihapus']);
+  }
+
+  public function getData(Request $req){
+    try{
+      if($req->id){
+        DB::table("berita")->where("id",$req->id)->increment("total_views",1);
+        $data = DB::table('berita')->where("id",$req->id)
+        ->first();
+        return response()->json(["status" => 1, "data"=>$data]);
+      }
+
+      if($req->kategori == "kelas"){
+        $data = DB::table('berita')->whereNotNull('kelas_id')
+        ->get();
+      }else if($req->kategori == "sekolah"){
+        $data = DB::table('berita')->wheretNull('kelas_id')
+        ->get();
+      }else{
+        return response()->json(["status" => 2, "message"=>"kategori berita tidak ditemukan"]);
+      }
+
+      if(!$req->kategori){
+        $data = DB::table('berita')->get();
+      }
+
+      return response()->json(["status" => 1, "data"=>$data]);
+
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
   }
 
   public function edit($id)

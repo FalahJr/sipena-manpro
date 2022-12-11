@@ -45,4 +45,34 @@ Route::middleware('api')->group(function () {
     //Approve Dompet Digital
     Route::get('/approvedompetdigital', 'ApproveDompetDigitalController@getApproveDompetDigitalJson');
     Route::get('/actionapprovedompetdigital', 'ApproveDompetDigitalController@action');
+
+    //Berita kelas/sekolah
+    Route::get('/berita', 'BeritaKelasController@getData');
+
+    //Kegitan kelas/sekolah
+    Route::post('/kegiatan-osis', 'KegiatanOsisController@insertOrUpdate');
+    Route::get('/kegiatan-osis', 'KegiatanOsisController@getData');
+    Route::delete('/kegiatan-osis/{id}', 'KegiatanOsisController@delete');
+
+    //Fasilitas Sekolah
+    Route::post('/list-fasilitas', 'Fasilitas\ListFasilitasController@simpan');
+    Route::get('/list-fasilitas', 'Fasilitas\ListFasilitasController@getData');
+    Route::delete('/list-fasilitas/{id}', 'Fasilitas\ListFasilitasController@delete');
+
+    //Pinjam Fasilitas Sekolah
+    Route::post('/pinjam-fasilitas', 'Fasilitas\PinjamFasilitasController@ajukanPeminjaman');
+    Route::post('/pinjam-fasilitas/acc', 'Fasilitas\PinjamFasilitasController@accPeminjaman');
+    Route::get('/pinjam-fasilitas', 'Fasilitas\PinjamFasilitasController@getData');
+    Route::delete('/pinjam-fasilitas/{id}', 'Fasilitas\PinjamFasilitasController@delete');
+
+    //Raport/Nilai Pembelajaran
+    Route::get('/nilai-pembelajaran', 'NilaiPembelajaranController@getData');
+    Route::post('/nilai-pembelajaran', 'NilaiPembelajaranController@insertOrUpdate');
+    Route::get('/nilai-pembelajaran/acc', 'NilaiPembelajaranController@accNilai');
+
+    //Kelas
+    Route::get('/kelas', 'KelasController@getData');
+
+    //Mapel
+    Route::get('/mata-pelajaran', 'MataPelajaranController@getData');
 });

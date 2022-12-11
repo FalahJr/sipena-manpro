@@ -116,6 +116,16 @@ class KelasController extends Controller
     }
   }
 
+  public static function getData(){
+    try{
+      $data = DB::table("kelas")->get();
+      return response()->json(['status' => 1, 'data'=>$data]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public function hapus($id)
   {
     $guru_id = DB::table("kelas")

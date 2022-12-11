@@ -99,6 +99,59 @@ class PinjamFasilitasController extends Controller
       }
   }
 
+  public function ajukanPeminjaman(Request $req){
+    try {
+      DB::table("peminjaman_fasilitas_jadwal")
+      ->insert([
+        "peminjaman_fasilitas_id" => $req->peminjaman_fasilitas_id,
+        "jam_mulai" => $req->jam_mulai,
+        "jam_selesai" => $req->jam_selesai,
+        "user_id" => $req->user_id,
+        "tanggal" => $req->tanggal,
+      ]);
+
+        DB::commit();
+
+      return response()->json(["status" => 1,"message" => "berhasil diajukan"]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
+  public function getData(Request $req){
+    try{
+      if($req->acc){
+        $data = DB::table("peminjaman_fasilitas_jadwal")->whereNotNull('pegawai_id')->get(); // sudah di acc
+      }else{
+        $data = DB::table("peminjaman_fasilitas_jadwal")->whereNull('pegawai_id')->get(); // belom di acc
+      }
+      return response()->json(['status' => 1, 'data'=>$data]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
+  public function accPeminjaman(Request $req){
+    try {
+      $data = DB::table("peminjaman_fasilitas_jadwal")
+      ->where("id",$req->id)
+      ->update([
+        "pegawai_id" => $req->pegawai_id,
+      ]);
+
+        DB::commit();
+      if($data)
+      return response()->json(["status" => 1,"message" => "berhasil di ACC"]);
+      else
+      return response()->json(["status" => 2,"message" => "data sudah di acc atau id tidak ditemukan"]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public function hapus($id)
   {
     DB::table("peminjaman_fasilitas_jadwal")
@@ -116,7 +169,19 @@ class PinjamFasilitasController extends Controller
     $users = DB::table("user")->get();
     return view("pinjam_fasilitas.edit", compact('data','employees','facilities','users'));
   }
-
+  public function delete($id){
+    if($id){
+      $data = DB::table("peminjaman_fasilitas_jadwal")
+      ->where('id',$id)
+      ->delete();
+      if($data){
+        return response()->json(["status" => 1,"message"=>"data berhasil dihapus"]);
+      }else{
+        return response()->json(["status" => 2,"message"=>"data tidak ditemukan"]);
+      }
+    }
+    return response()->json(["status" => 2,"message"=>"masukkan url id"]);
+  }
   public function update(Request $req)
   {
     $this->validate($req,[

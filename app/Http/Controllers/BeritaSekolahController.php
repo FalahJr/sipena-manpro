@@ -31,9 +31,8 @@ class BeritaSekolahController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('berita')->where('is_kelas','N')
+    $data = DB::table('berita')->whereNull('kelas_id')
       ->get();
-
 
     // return $data;
     // $xyzab = collect($data);
@@ -84,7 +83,7 @@ class BeritaSekolahController extends Controller
             "deskripsi" => $req->deskripsi,
             "foto" => $imgPath,
             "total_views" => '0',
-            "is_kelas" => "N",
+            "tanggal" => Carbon::now('Asia/Jakarta'),
           ]);
           DB::commit();
 

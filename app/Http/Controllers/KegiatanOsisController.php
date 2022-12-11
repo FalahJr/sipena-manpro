@@ -19,7 +19,7 @@ use Carbon\Carbon;
 use Session;
 
 use DB;
-
+use Exception;
 use File;
 
 use Yajra\Datatables\Datatables;
@@ -72,6 +72,8 @@ class KegiatanOsisController extends Controller
       ->addIndexColumn()
       ->make(true);
   }
+
+
   public function simpan(Request $req)
   {
       try {
@@ -116,6 +118,40 @@ class KegiatanOsisController extends Controller
     $data = DB::table("kegiatan_osis")->where("id", $id)->first();
     $students = DB::table('siswa')->where("is_osis","Y")->get();
     return view("kegiatan_osis.edit", compact('data','students'));
+  }
+
+  public function insertOrUpdate(Request $req){
+    if($req->id){
+      $this->update($req);
+      return response()->json(["status" => 1]);
+    }else{
+      $this->simpan($req);
+      return response()->json(["status" => 1]);
+    }
+  }
+
+  public function delete($id){
+    if($id){
+      $data = DB::table("kegiatan_osis")
+      ->where('id',$id)
+      ->delete();
+      if($data){
+        return response()->json(["status" => 1,"message"=>"data berhasil dihapus"]);
+      }else{
+        return response()->json(["status" => 2,"message"=>"data tidak ditemukan"]);
+      }
+    }
+    return response()->json(["status" => 2,"message"=>"masukkan url id"]);
+  }
+
+  public function getData(){
+    try{
+      $data = DB::table("kegiatan_osis")->get();
+    return response()->json(['status' => 1, 'data'=>$data]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
   }
 
   public function update(Request $req)
