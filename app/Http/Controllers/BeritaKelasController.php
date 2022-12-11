@@ -123,7 +123,7 @@ class BeritaKelasController extends Controller
         $data = DB::table('berita')->whereNotNull('kelas_id')
         ->get();
       }else if($req->kategori == "sekolah"){
-        $data = DB::table('berita')->wheretNull('kelas_id')
+        $data = DB::table('berita')->whereNull('kelas_id')
         ->get();
       }else{
         return response()->json(["status" => 2, "message"=>"kategori berita tidak ditemukan"]);
