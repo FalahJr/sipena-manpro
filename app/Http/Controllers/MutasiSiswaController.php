@@ -67,15 +67,6 @@ class MutasiSiswaController extends Controller
         DB::beginTransaction();
         try {
 
-          $cek = DB::table("siswa_mutasi")
-                  ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
-                  ->where("siswa_id", $req->siswa_id)
-                  ->first();
-
-          if ($cek != null) {
-            return response()->json(["status" => 7, "message" => "Mutasi siswa atas nama " . $cek->nama_lengkap . " sudah terdaftar!"]);
-          }
-
           $max = DB::table("siswa_mutasi")->max('id') + 1;
 
           $imgPath = null;
