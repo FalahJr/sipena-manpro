@@ -59,8 +59,17 @@ class NilaiPembelajaranController extends Controller
           '<label class="fa fa-pencil-alt"></label></a>' .
           '<a href="/admin/nilai-pembelajaran/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
-      })     
-      ->rawColumns(['aksi'])
+      })->addColumn('is_show', function ($data) {
+        if($data->is_show == "Y")
+        return '<div class="btn-group">' .
+        '<a href="/admin/nilai-pembelajaran/unacc?kelas_id='.$data->kelas_id.'&semester='.$data->semester.'" class="btn btn-warning btn-lg" title="hapus">' .
+        'Batalkan</a></div>';
+        else
+        return '<div class="btn-group">' .
+        '<a href="/admin/nilai-pembelajaran/acc?kelas_id='.$data->kelas_id.'&semester='.$data->semester.'" class="btn btn-success btn-lg" title="hapus">' .
+        'ACC Sekarang</a></div>';
+      })
+      ->rawColumns(['aksi',"is_show"])
       ->addIndexColumn()
       ->make(true);
   }
@@ -99,6 +108,29 @@ class NilaiPembelajaranController extends Controller
       ->update(["is_show"=>"Y"]);
 
       return response()->json(['status' => 1, "message"=> "berhasil di acc"]);
+    } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
+  public function accOrUnacc(Request $req,$tipe){
+    try{
+      if($tipe == "acc"){
+      DB::table("nilai_pembelajaran")
+      ->where("kelas_id",$req->kelas_id)
+      ->where("semester",$req->semester)
+      ->update(["is_show"=>"Y"]);
+
+      return back()->with(['success' => 'berhasil di acc']);
+      }else{
+        DB::table("nilai_pembelajaran")
+        ->where("kelas_id",$req->kelas_id)
+        ->where("semester",$req->semester)
+        ->update(["is_show"=>"N"]);
+  
+        return back()->with(['success' => 'berhasil diupdate']);
+      }
     } catch (\Exception $e) {
         DB::rollback();
         return response()->json(["status" => 2, "message" => $e->getMessage()]);

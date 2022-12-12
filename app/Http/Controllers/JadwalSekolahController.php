@@ -99,6 +99,16 @@ class JadwalSekolahController extends Controller
 
   }
 
+  public function getData(){
+    try{
+      $data = DB::table('jadwal_sekolah')->get();
+      return response()->json(["status" => 1, "data"=>$data]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public function update(Request $request)
   {
     $this->validate($request, [

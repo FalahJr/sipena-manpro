@@ -38,7 +38,7 @@ class PinjamFasilitasController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('peminjaman_fasilitas_jadwal')->whereNotNull("pegawai_id")->get();
+    $data = DB::table('peminjaman_fasilitas_jadwal')->get();
 
     // return $data;
     // $xyzab = collect($data);
@@ -69,11 +69,17 @@ class PinjamFasilitasController extends Controller
       ->addColumn('tanggal', function ($data) {
         return Carbon::CreateFromFormat('Y-m-d',$data->tanggal)->format('d M Y');
       })
-      ->addColumn('pegawai', function ($data) {
-        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first();
-        return $employee->nama_lengkap;
+      ->addColumn('acc', function ($data) {
+        if($data->pegawai_id){
+        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
+        return $employee;
+      }else{
+        return  '<div class="btn-group">' .
+        '<div class="btn btn-secondary btn-lg">'.
+        'PENDING</div></div>';
+        }
       })
-      ->rawColumns(['aksi','user','fasilitas','waktu','tanggal','pegawai'])
+      ->rawColumns(['aksi','user','fasilitas','waktu','tanggal','acc'])
       ->addIndexColumn()
       ->make(true);
   }
