@@ -72,7 +72,7 @@ class MutasiSiswaController extends Controller
           $imgPath = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $max . '/surat_keterangan_pindah_sekolah_asal';
+          $dir = 'file/uploads/siswa_mutasi/' . $max . '/surat_keterangan_pindah_sekolah_asal';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -96,7 +96,7 @@ class MutasiSiswaController extends Controller
           $imgPath1 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $max . '/tanda_bukti_mutasi_dispen_provinsi';
+          $dir = 'file/uploads/siswa_mutasi/' . $max . '/tanda_bukti_mutasi_dispen_provinsi';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -120,7 +120,7 @@ class MutasiSiswaController extends Controller
           $imgPath2 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $max . '/surat_rekom';
+          $dir = 'file/uploads/siswa_mutasi/' . $max . '/surat_rekom';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -144,7 +144,7 @@ class MutasiSiswaController extends Controller
           $imgPath3 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $max . '/raport_asal';
+          $dir = 'file/uploads/siswa_mutasi/' . $max . '/raport_asal';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -168,7 +168,7 @@ class MutasiSiswaController extends Controller
           $imgPath4 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $max . '/fotocoy_raport';
+          $dir = 'file/uploads/siswa_mutasi/' . $max . '/fotocoy_raport';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -192,7 +192,7 @@ class MutasiSiswaController extends Controller
           $imgPath5 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $max . '/fotocopy_sertifikat';
+          $dir = 'file/uploads/siswa_mutasi/' . $max . '/fotocopy_sertifikat';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -216,7 +216,7 @@ class MutasiSiswaController extends Controller
           $imgPath6 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $max . '/surat_rekomendasi_penerimaan';
+          $dir = 'file/uploads/siswa_mutasi/' . $max . '/surat_rekomendasi_penerimaan';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -345,7 +345,7 @@ class MutasiSiswaController extends Controller
           $imgPath = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/surat_keterangan_pindah_sekolah_asal';
+          $dir = 'file/uploads/siswa_mutasi/' . $req->id . '/surat_keterangan_pindah_sekolah_asal';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -369,7 +369,7 @@ class MutasiSiswaController extends Controller
           $imgPath1 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/tanda_bukti_mutasi_dispen_provinsi';
+          $dir = 'file/uploads/siswa_mutasi/' . $req->id . '/tanda_bukti_mutasi_dispen_provinsi';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -393,7 +393,7 @@ class MutasiSiswaController extends Controller
           $imgPath2 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/surat_rekom';
+          $dir = 'file/uploads/siswa_mutasi/' . $req->id . '/surat_rekom';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -417,7 +417,7 @@ class MutasiSiswaController extends Controller
           $imgPath3 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/raport_asal';
+          $dir = 'file/uploads/siswa_mutasi/' . $req->id . '/raport_asal';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -441,7 +441,7 @@ class MutasiSiswaController extends Controller
           $imgPath4 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/fotocoy_raport';
+          $dir = 'file/uploads/siswa_mutasi/' . $req->id . '/fotocoy_raport';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -465,7 +465,7 @@ class MutasiSiswaController extends Controller
           $imgPath5 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/fotocopy_sertifikat';
+          $dir = 'file/uploads/siswa_mutasi/' . $req->id . '/fotocopy_sertifikat';
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -489,7 +489,7 @@ class MutasiSiswaController extends Controller
           $imgPath6 = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/surat_rekomendasi_penerimaan';
+          $dir = 'file/uploads/siswa_mutasi/' . $req->id . '/surat_rekomendasi_penerimaan';
           $childPath = $dir . '/';
           $path = $childPath;
 
