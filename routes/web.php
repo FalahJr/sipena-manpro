@@ -233,6 +233,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/nilai-pembelajaran/simpan', 'NilaiPembelajaranController@simpan');
         Route::get('/nilai-pembelajaran/hapus/{id}', 'NilaiPembelajaranController@hapus');
         Route::get('/nilai-pembelajaran/edit/{id}', 'NilaiPembelajaranController@edit');
+        Route::get('/nilai-pembelajaran/{tipe}', 'NilaiPembelajaranController@accOrUnacc');
 
         //Kartu Figital
         Route::get('/kartudigital', 'KartuDigitalController@index');

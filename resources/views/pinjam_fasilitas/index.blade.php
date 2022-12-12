@@ -43,7 +43,7 @@
                                 <th>Fasilitas</th>
                                 <th>Waktu</th>
                                 <th>Tanggal</th>
-                                <th>Dikonfirmasi Oleh</th>
+                                <th>ACC Pegawai</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -118,7 +118,7 @@ var table = $('#table-data').DataTable({
           {data: 'fasilitas', name: 'fasilitas'},
           {data: 'waktu', name: 'waktu'},
           {data: 'tanggal', name: 'tanggal'},
-          {data: 'pegawai', name: 'pegawai'},
+          {data: 'acc', name: 'acc'},
           {data: 'aksi', name: 'aksi'},
         ]
   });

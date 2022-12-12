@@ -48,6 +48,7 @@
                                 <th>N.UTS</th>
                                 <th>N.UAS</th>
                                 <th>Rata-rata</th>
+                                <th>Tampilkan Nilai</th>
                                 <th>Aksi</th>
                               </tr>
                             </thead>
@@ -127,6 +128,10 @@ var table = $('#table-data').DataTable({
                  targets: 9,
                  className: 'center'
               },
+              {
+                 targets: 10,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -139,6 +144,7 @@ var table = $('#table-data').DataTable({
           {data: 'nilai_uts', name: 'nilai_uts'},
           {data: 'nilai_uas', name: 'nilai_uas'},
           {data: 'nilai_rata', name: 'nilai_rata'},
+          {data: 'is_show', name: 'is_show'},
           {data: 'aksi', name: 'aksi'},
         ]
   });

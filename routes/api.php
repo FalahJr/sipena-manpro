@@ -75,4 +75,7 @@ Route::middleware('api')->group(function () {
 
     //Mapel
     Route::get('/mata-pelajaran', 'MataPelajaranController@getData');
+
+    //Jadwal Sekolah
+    Route::get('/jadwal-sekolah', 'JadwalSekolahController@getData');
 });
