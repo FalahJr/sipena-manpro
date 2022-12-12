@@ -11,7 +11,7 @@
       <div class="modal-body">
         <center>
           <div class="alert alert-warning" role="alert">
-            Dianjurkan upload file menggunakan format .pdf
+            Dianjurkan upload file menggunakan format .pdf, untuk pas foto bisa menggunakan semua format gambar
           </div>
         </center>
         <div class="row">
@@ -148,7 +148,7 @@
           </tr>
           <tr class="uploadGambar6">
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar6" name="image6" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
+              <input type="file" class="form-control form-control-sm uploadGambar6" id="uploadGambar6" name="image6" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf">
             </td>
           </tr>
           <tr class="uploadGambar6">
@@ -170,7 +170,7 @@
           </tr>
           <tr>
             <td align="center" colspan="2">
-              <div class="col-md-8 col-sm-6 col-xs-12 image-holder6" id="image-holder7">
+              <div class="col-md-8 col-sm-6 col-xs-12 image-holder7" id="image-holder7">
 
                 {{-- <img src="#" class="thumb-image img-responsive" height="100px" alt="image" style="display: none"> --}}
 

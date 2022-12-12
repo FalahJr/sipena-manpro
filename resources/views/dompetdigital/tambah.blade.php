@@ -38,6 +38,15 @@
               </td>
             </tr>
             <tr>
+              <td align="center" colspan="2">
+                <div class="col-md-8 col-sm-6 col-xs-12 image-holder" id="image-holder">
+
+                  {{-- <img src="#" class="thumb-image img-responsive" height="100px" alt="image" style="display: none"> --}}
+
+              </div>
+              </td>
+            </tr>
+            <tr>
               <td>Keterangan</td>
             </tr>
             <tr>

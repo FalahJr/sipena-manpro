@@ -29,6 +29,7 @@
                               <tr>
                                 <th style="width:15px">No</th>
                                 <th>Nama Siswa</th>
+                                <th>Status</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -79,10 +80,15 @@ var table = $('#table-data').DataTable({
                  targets: 2,
                  className: 'center'
               },
+              {
+                 targets: 3,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'nama_lengkap', name: 'nama_lengkap'},
+          {data: 'status', name: 'status'},
           {data: 'aksi', name: 'aksi'},
 
         ]
@@ -97,6 +103,8 @@ var table = $('#table-data').DataTable({
       success:function(data){
         $('.id').val(data.id);
         $("#siswa_id").val(data.siswa_id).change();
+        $("#status").val(data.status).change();
+        $('#status').attr('disabled', 'disabled');
 
         var image_holder = $(".image-holder");
         image_holder.empty();
@@ -158,7 +166,7 @@ var table = $('#table-data').DataTable({
     formdata.append('image3', $('.uploadGambar3')[0].files[0]);
     formdata.append('image4', $('.uploadGambar4')[0].files[0]);
     formdata.append('image5', $('.uploadGambar5')[0].files[0]);
-    formdata.append('image6', $('.uploadGambar6')[0].files[0]);
+    formdata.append('image6', $('#uploadGambar6')[0].files[0]);
     formdata.append('image7', $('.uploadGambar7')[0].files[0]);
 
     $.ajax({
@@ -238,6 +246,7 @@ var table = $('#table-data').DataTable({
   })
 
   function reloadall() {
+    $('#status').removeAttr('disabled');
     $('.table_modal :input').val("");
     $("#siswa_id").val("").change();
     $('.image-holder').empty();
@@ -261,7 +270,6 @@ var table = $('#table-data').DataTable({
         var reader = new FileReader();
         reader.onload = function (e) {
             image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-            console.log(e.target.result);
             $('.save').attr('disabled', true);
             setTimeout(function(){
                 image_holder.empty();
@@ -276,13 +284,6 @@ var table = $('#table-data').DataTable({
         image_holder.show();
         reader.readAsDataURL($(this)[0].files[0]);
 
-        const gallery = document.querySelectorAll("img")
-        gallery.forEach(image => {
-           let src = image.getAttribute('src')
-           image.addEventListener('click', function () {
-               window.open(src)
-           });
-        });
         // waitingDialog.hide();
     } else {
         // waitingDialog.hide();
