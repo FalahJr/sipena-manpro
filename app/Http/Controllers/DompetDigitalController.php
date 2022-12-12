@@ -86,6 +86,9 @@ class DompetDigitalController extends Controller
                      '<label class="fa fa-plus"></label></button>'.
                   '</div>';
           })
+          ->addColumn('saldo', function ($data) {
+            return FormatRupiahFront($data->saldo)
+          })
           ->rawColumns(['aksi'])
           ->addIndexColumn()
           ->make(true);
