@@ -100,7 +100,7 @@ class DompetDigitalController extends Controller
           $imgPath = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/log_transaksi/' . $max;
+          $dir = 'image/uploads/dompet_digital/' . $max;
           $childPath = $dir . '/';
           $path = $childPath;
 
