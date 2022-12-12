@@ -87,7 +87,7 @@ class DompetDigitalController extends Controller
                   '</div>';
           })
           ->addColumn('saldo', function ($data) {
-            return FormatRupiahFront($data->saldo)
+            return FormatRupiahFront($data->saldo);
           })
           ->rawColumns(['aksi'])
           ->addIndexColumn()
