@@ -246,18 +246,100 @@ class MutasiSiswaController extends Controller
               }
           }
 
+          $imgPath7 = null;
+          $tgl = carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/siswa_mutasi/' . $max . '/pas_foto';
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image7');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                    // compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],50);
+                      $file->move($path, $name);
+                      $imgPath7 = $childPath . $name;
+                  } else
+                      $imgPath7 = null;
+              } else {
+                  return 'already exist';
+              }
+          }
+
           DB::table("siswa_mutasi")
               ->insert([
               "id" => $max,
               "siswa_id" => $req->siswa_id,
-              "surat_keterangan_pindah_sekolah_asal" => $imgPath,
-              "tanda_bukti_mutasi_dispen_provinsi" => $imgPath1,
-              "surat_rekom_penyaluran_dari_deriktorat_jendral_dikdasmen" => $imgPath2,
-              "raport_asal" => $imgPath3,
-              "fotocoy_raport" => $imgPath4,
-              "fotocopy_sertifikat" => $imgPath5,
-              "surat_rekomendasi_penerimaan" => $imgPath6,
+              "status" => $req->status,
             ]);
+
+            if ($imgPath != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "surat_keterangan_pindah_sekolah_asal" => $imgPath,
+                ]);
+            }
+
+            if ($imgPath1 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "tanda_bukti_mutasi_dispen_provinsi" => $imgPath1,
+                ]);
+            }
+
+            if ($imgPath2 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "surat_rekom_penyaluran_dari_deriktorat_jendral_dikdasmen" => $imgPath2,
+                ]);
+            }
+
+            if ($imgPath3 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "raport_asal" => $imgPath3,
+                ]);
+            }
+
+            if ($imgPath4 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "fotocoy_raport" => $imgPath4,
+                ]);
+            }
+
+            if ($imgPath5 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "fotocopy_sertifikat" => $imgPath5,
+                ]);
+            }
+
+            if ($imgPath6 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "surat_rekomendasi_penerimaan" => $imgPath6,
+                ]);
+            }
+
+            if ($imgPath7 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $max)
+                  ->update([
+                    "pas_foto" => $imgPath7,
+                ]);
+            }
 
           DB::commit();
           return response()->json(["status" => 1]);
@@ -437,6 +519,36 @@ class MutasiSiswaController extends Controller
               }
           }
 
+          $imgPath7 = null;
+          $tgl = carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/siswa_mutasi/' . $req->id . '/pas_foto';
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image7');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                    // compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],50);
+                      $file->move($path, $name);
+                      $imgPath7 = $childPath . $name;
+                  } else
+                      $imgPath7 = null;
+              } else {
+                  return 'already exist';
+              }
+          }
+
+            DB::table("siswa_mutasi")
+              ->where('id', $req->id)
+              ->update([
+                "status" => $req->status,
+            ]);
+
             if ($imgPath != null) {
               DB::table("siswa_mutasi")
                   ->where('id', $req->id)
@@ -490,6 +602,14 @@ class MutasiSiswaController extends Controller
                   ->where('id', $req->id)
                   ->update([
                     "surat_rekomendasi_penerimaan" => $imgPath6,
+                ]);
+            }
+
+            if ($imgPath7 != null) {
+              DB::table("siswa_mutasi")
+                  ->where('id', $req->id)
+                  ->update([
+                    "pas_foto" => $imgPath7,
                 ]);
             }
 

@@ -48,6 +48,8 @@
 @endsection
 @section('extra_script')
 <script>
+$(".uploadGambar6").css("display", "none");
+$(".image-holder6").css("display", "none");
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -124,6 +126,14 @@ var table = $('#table-data').DataTable({
         image_holder.empty();
         $("<a href="+baseUrl + data.surat_rekomendasi_penerimaan+" target='_blank'> Lihat File </a>").appendTo(image_holder);
 
+        var image_holder = $(".image-holder7");
+        image_holder.empty();
+        $("<img />", {
+            "src":  baseUrl + data.pas_foto,
+            "class": "thumb-image img-responsive",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
+        }).appendTo(image_holder);
+
         $('#tambah').modal('show');
 
         const gallery = document.querySelectorAll("img")
@@ -149,6 +159,7 @@ var table = $('#table-data').DataTable({
     formdata.append('image4', $('.uploadGambar4')[0].files[0]);
     formdata.append('image5', $('.uploadGambar5')[0].files[0]);
     formdata.append('image6', $('.uploadGambar6')[0].files[0]);
+    formdata.append('image7', $('.uploadGambar7')[0].files[0]);
 
     $.ajax({
       type: "post",
@@ -236,9 +247,58 @@ var table = $('#table-data').DataTable({
     $('.image-holder4').empty();
     $('.image-holder5').empty();
     $('.image-holder6').empty();
+    $('.image-holder7').empty();
     $('#tambah').modal('hide');
     table.ajax.reload();
   }
+
+  $(".uploadGambar7").on('change', function () {
+      $('.save').attr('disabled', false);
+      // waitingDialog.show();
+    if (typeof (FileReader) != "undefined") {
+        var image_holder = $(".image-holder7");
+        image_holder.empty();
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
+            console.log(e.target.result);
+            $('.save').attr('disabled', true);
+            setTimeout(function(){
+                image_holder.empty();
+                $("<img />", {
+                    "src": e.target.result,
+                    "class": "thumb-image img-responsive",
+                    "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
+                }).appendTo(image_holder);
+                $('.save').attr('disabled', false);
+            }, 2000)
+        }
+        image_holder.show();
+        reader.readAsDataURL($(this)[0].files[0]);
+
+        const gallery = document.querySelectorAll("img")
+        gallery.forEach(image => {
+           let src = image.getAttribute('src')
+           image.addEventListener('click', function () {
+               window.open(src)
+           });
+        });
+        // waitingDialog.hide();
+    } else {
+        // waitingDialog.hide();
+        alert("This browser does not support FileReader.");
+    }
+  });
+
+  $("#status").on("change", function(){
+    if(this.value == "MASUK") {
+      $(".uploadGambar6").css("display", "none");
+      $(".image-holder6").css("display", "none");
+    } else if(this.value == "KELUAR") {
+      $(".uploadGambar6").css("display", "");
+      $(".image-holder6").css("display", "");
+    }
+  });
 
 </script>
 @endsection

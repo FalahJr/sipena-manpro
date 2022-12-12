@@ -43,7 +43,7 @@ class DompetDigitalController extends Controller
             } else if($value->roleid == 3) {
                 $cekdata = DB::table("wali_murid")->where('user_id', $value->id)->first();
 
-                $value->nama_lengkap = $cekdata->nama_ayah . " / " . $cekdata->nama_ibu;
+                $value->nama_lengkap = $cekdata->nama_lengkap;
             } else if($value->roleid == 4) {
                 $cekdata = DB::table("guru")->where('user_id', $value->id)->first();
 
