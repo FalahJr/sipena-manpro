@@ -38,7 +38,7 @@ class PinjamFasilitasController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('peminjaman_fasilitas_jadwal')->get();
+    $data = DB::table('peminjaman_fasilitas_jadwal')->whereNotNull("pegawai_id")->get();
 
     // return $data;
     // $xyzab = collect($data);
@@ -117,7 +117,7 @@ class PinjamFasilitasController extends Controller
       DB::rollback();
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }
-  }
+}
 
   public function getData(Request $req){
     try{
