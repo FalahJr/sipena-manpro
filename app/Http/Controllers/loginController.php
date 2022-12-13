@@ -25,7 +25,7 @@ class loginController extends Controller
         $password = $req->password;
         $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $req->id)->join("role", "role.id", '=', "user.role_id")->first();
 
-        if ($user && $user->password == $password) {
+        if ($user != null) {
 
             if($user->roleid == 1) {
                 $user->data = null;
