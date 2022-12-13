@@ -54,6 +54,18 @@
             </td>
           </tr>
           <tr>
+            <td>Email <span style="color:red;">*</span></td>
+            <td>
+              <input type="email" class="form-control form-control-sm inputtext @if($errors->has('email')) is-invalid @endif email" value="{{$data->email}}" name="email">
+            </td>
+          </tr>
+          <tr>
+            <td>Tempat Lahir <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('tempat_lahir')) is-invalid @endif tempat_lahir" value="{{$data->tempat_lahir}}" name="tempat_lahir">
+            </td>
+          </tr>
+          <tr>
             <td>Tanggal Lahir</td>
             <td>
               <input type="date" class="form-control form-control-sm inputtext @if($errors->has('tanggal_lahir')) is-invalid @endif" value="{{$data->tanggal_lahir}}" name="tanggal_lahir">

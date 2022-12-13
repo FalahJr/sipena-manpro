@@ -3,7 +3,6 @@
 
 @include('kategori-keuangan.tambah')
 <style type="text/css">
-
 </style>
 <!-- partial -->
 <div class="content-wrapper">
@@ -114,7 +113,6 @@ var table = $('#table-data').DataTable({
   }
 
   $('#simpan').click(function(){
-
     // 
     var formdata = new FormData();
 
@@ -190,7 +188,7 @@ var table = $('#table-data').DataTable({
   	});
   }
 
-  $('#tambah').on('hidden.bs.modal', function (e) {
+  $('#tambah').on(function (e) {
     reloadall()
   })
 

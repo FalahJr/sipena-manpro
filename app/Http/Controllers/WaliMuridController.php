@@ -31,7 +31,7 @@ class WaliMuridController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('wali_murid')      
+    $data = DB::table('wali_murid')     
     ->get();
 
 
@@ -113,6 +113,8 @@ class WaliMuridController extends Controller
             "id"=>$maxWaliMurid,
             "user_id" => $max,
             "nama_lengkap" => $req->nama_lengkap,
+            "email" => $req->email,
+            "tempat_lahir" => $req->tempat_lahir,
             "tanggal_lahir" => $req->tanggal_lahir,
             "jenis_kelamin" => $req->jenis_kelamin,
             "alamat" => $req->alamat,

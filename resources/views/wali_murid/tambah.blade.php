@@ -33,6 +33,18 @@
                 <input type="hidden" class="form-control form-control-sm id" name="id">
               </td>
             </tr>
+            <tr>
+              <td>Email <span style="color:red;">*</span></td>
+              <td>
+                <input type="email" class="form-control form-control-sm inputtext agama" name="email">
+              </td>
+            </tr>
+            <tr>
+              <td>Tempat Lahir <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext tempat_lahir" name="tempat_lahir">
+              </td>
+            </tr>
           <tr>
             <td>Tanggal Lahir</td>
             <td>

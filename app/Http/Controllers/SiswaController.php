@@ -57,15 +57,11 @@ class SiswaController extends Controller
       })
       ->addColumn('osis',function($data){
         if($data->is_osis == "Y"){
-          return '<div class="btn-group">' .
-          '<div class="btn btn-secondary btn-lg">'.
-          '<label class="fa fa-check"></label></div>' .
-          '</div>';
+          return '<div class="badge badge-secondary text-dark badge-lg">'.
+          '<label class="fa fa-check"></label></div>';
         }else{
-          return '<div class="btn-group">' .
-          '<div class="btn btn-secondary btn-lg">'.
-          '<label class="fa fa-close"></label></div>' .
-          '</div>';
+          return '<div class="badge badge-secondary text-dark badge-lg">'.
+          '<label class="fa fa-close"></label></div>';
         }
       })
       ->rawColumns(['aksi', 'foto_profil', 'kartu_digital', 'osis'])
@@ -130,7 +126,12 @@ class SiswaController extends Controller
             "wali_murid_id" => $req->wali_murid_id,
             "kelas_id" => $req->kelas_id,
             "nama_lengkap" => $req->nama_lengkap,
+            "nisn" => $req->nisn,
+            "email" => $req->email,
+            "tempat_lahir" => $req->tempat_lahir,
             "tanggal_lahir" => $req->tanggal_lahir,
+            "nama_ayah" => $req->nama_ayah,
+            "nama_ibu" => $req->nama_ibu,
             "jenis_kelamin" => $req->jenis_kelamin,
             "alamat" => $req->alamat,
             "agama" => $req->agama,
@@ -195,6 +196,11 @@ class SiswaController extends Controller
       'agama' => 'required|max:100',
       'phone' => 'required|max:100',
       'tanggal_daftar' => 'required|max:100',
+      'nama_ayah' => 'required|max:100',
+      'nama_ibu' => 'required|max:100',
+      'tempat_lahir' => 'required|max:100',
+      'email' => 'required|max:100',
+      'nisn' => 'required|max:100',
     ]);
     $imgPath = null;
     $tgl = Carbon::now('Asia/Jakarta');

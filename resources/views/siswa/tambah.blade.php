@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Guru</h4>
+        <h4 class="modal-title">Form Siswa</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -52,11 +52,41 @@
                   </select>
               </td>
             </tr>
+            <tr>
+              <td>NISN <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext nisn" name="nisn">
+              </td>
+            </tr>
           <tr>
             <td>Nama Lengkap <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext nama_lengkap" name="nama_lengkap">
               <input type="hidden" class="form-control form-control-sm id" name="id">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Ayah <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext nama_ayah" name="nama_ayah">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Ibu <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext nama_ibu" name="nama_ibu">
+            </td>
+          </tr>
+          <tr>
+            <td>Email <span style="color:red;">*</span></td>
+            <td>
+              <input type="email" class="form-control form-control-sm inputtext agama" name="email">
+            </td>
+          </tr>
+          <tr>
+            <td>Tempat Lahir <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext tempat_lahir" name="tempat_lahir">
             </td>
           </tr>
           <tr>
