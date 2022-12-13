@@ -20,6 +20,52 @@ class loginController extends Controller
         $this->middleware('guest');
     }
 
+    public function profileApi(Request $req) {
+        $username = $req->username;
+        $password = $req->password;
+        $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $req->id)->join("role", "role.id", '=', "user.role_id")->first();
+
+        if ($user && $user->password == $password) {
+
+            if($user->roleid == 1) {
+                $user->data = null;
+            } else if($user->roleid == 2) {
+                $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 3) {
+                $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 4) {
+                $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 5) {
+                $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 6) {
+                $cekdata = DB::table("kepala_sekolah")->where('user_id', $user->id)->first();
+
+                $user->data = $cekdata;
+            } else if($user->roleid == 7) {
+                $cekdata = DB::table("dinas_pendidikan")->where('user_id', $user->id)->first();
+
+                $user->data = $cekdata;
+            }
+
+            return response()->json([
+                "status" => 1,
+                "data" => $user
+            ]);
+        } else {
+            return response()->json([
+                'status' => 2,
+            ]);
+        }
+    }
+
     public function loginApi(Request $req) {
         $username = $req->username;
         $password = $req->password;

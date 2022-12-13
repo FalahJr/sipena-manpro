@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::middleware('api')->group(function () {
     Route::any('login', 'loginController@loginApi');
+    Route::any('profile', 'loginController@profileApi');
 
     //Mutasi Siswa
     Route::get('/iistmutasisiswa', 'MutasiSiswaController@getMutasiSiswaJson');
@@ -91,5 +92,5 @@ Route::middleware('api')->group(function () {
     Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@accSumbang');
     Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@getData');
 
-   
+
 });
