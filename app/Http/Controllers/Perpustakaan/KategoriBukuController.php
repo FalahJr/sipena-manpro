@@ -80,6 +80,23 @@ class KategoriBukuController extends Controller
       }
   }
 
+  public function getData(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table('perpus_kategori')->where("id",$req->id)->first();
+      }else{
+        $data = DB::table('perpus_kategori')
+          ->when($req->nama, function($q, $nama) {
+              return $q->where('nama', 'like','%'.$nama.'%');
+          })->get();
+      }
+
+      return response()->json(["status" => 1, "data" => $data]);
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public function hapus($id)
   {
     DB::table("perpus_kategori")

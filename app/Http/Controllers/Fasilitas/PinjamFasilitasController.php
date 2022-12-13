@@ -74,9 +74,8 @@ class PinjamFasilitasController extends Controller
         $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
         return $employee;
       }else{
-        return  '<div class="btn-group">' .
-        '<div class="btn btn-secondary btn-lg">'.
-        'PENDING</div></div>';
+        return '<span class="badge badge-warning">'.
+        'PENDING</span>';
         }
       })
       ->rawColumns(['aksi','user','fasilitas','waktu','tanggal','acc'])

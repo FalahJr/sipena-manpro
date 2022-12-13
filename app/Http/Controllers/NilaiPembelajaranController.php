@@ -208,98 +208,41 @@ class NilaiPembelajaranController extends Controller
     }
   }
 
-
+  
   public function getData(Request $req){
     try{
-      if(!$req->all()){
-        $data = DB::table("nilai_pembelajaran")
-        ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
-        ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
-        ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
-        ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-        ->where("nilai_pembelajaran.is_show","Y")
-        ->get()->toArray();
-       return response()->json(['status' => 1, 'data'=>$data]);
-      }
-
       if($req->id){
-        $data = DB::table("nilai_pembelajaran")
+        $data = DB::table('nilai_pembelajaran')
         ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
         ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
         ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
         ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-        ->where("nilai_pembelajaran.is_show","Y")
-        ->where("nilai_pembelajaran.id",$req->id)
-        ->first();
-
-        return response()->json(['status' => 1, 'data'=>$data]);
-      }
-
-      if($req->siswa_id && $req->mapel_id && $req->kelas_id){
-      $data = DB::table("nilai_pembelajaran")
-        ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
-        ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
-        ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
-        ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-        ->where("nilai_pembelajaran.is_show","Y")
-        ->where("nilai_pembelajaran.siswa_id",$req->siswa_id)
-        ->where("nilai_pembelajaran.mapel_id",$req->mapel_id)
-        ->where("nilai_pembelajaran.kelas_id",$req->kelas_id)
-        ->get()->toArray();
-
-        return response()->json(['status' => 1, 'data'=>$data]);
-      }
-
-      if($req->mapel_id && $req->kelas_id){
-        $data = DB::table("nilai_pembelajaran")
+        ->where("nilai_pembelajaran.id",$req->id)->first();
+      }else{
+        $data = DB::table('nilai_pembelajaran')
           ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
           ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
           ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
           ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-          ->where("nilai_pembelajaran.is_show","Y")
-          ->where("nilai_pembelajaran.mapel_id",$req->mapel_id)
-          ->where("nilai_pembelajaran.kelas_id",$req->kelas_id)
-          ->get()->toArray();
-  
-          return response()->json(['status' => 1, 'data'=>$data]);
-        }
-
-      if($req->kelas_id){
-        $data = DB::table("nilai_pembelajaran")
-        ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
-        ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
-        ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
-        ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-        ->where("nilai_pembelajaran.is_show","Y")
-        ->where("nilai_pembelajaran.kelas_id",$req->kelas_id)
-        ->get()->toArray();
+          ->when($req->kelas_id, function($q, $kelas_id) {
+              return $q->where('nilai_pembelajaran.kelas_id',$kelas_id);
+          })
+          ->when($req->mapel_id, function($q, $mapel_id) {
+            return $q->where('nilai_pembelajaran.mapel_id',$mapel_id);
+          })
+          ->when($req->siswa_id, function($q, $siswa_id) {
+          return $q->where('nilai_pembelajaran.siswa_id',$siswa_id);
+          })
+          ->when($req->semester, function($q, $semester) {
+            return $q->where('nilai_pembelajaran.semester',$semester);
+          })
+          ->when($req->is_show, function($q, $is_show) {
+            return $q->where('nilai_pembelajaran.is_show',$is_show);
+          })
+          ->get();
       }
-
-      if($req->siswa_id){
-        $data = DB::table("nilai_pembelajaran")
-        ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
-        ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
-        ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
-        ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-        ->where("nilai_pembelajaran.is_show","Y")
-        ->where("nilai_pembelajaran.siswa_id",$req->siswa_id)
-        ->get()->toArray();
-      }
-
-      if($req->mampel_id){
-        $data = DB::table("nilai_pembelajaran")
-        ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
-        ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
-        ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
-        ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-        ->where("nilai_pembelajaran.is_show","Y")
-        ->where("nilai_pembelajaran.mapel_id",$req->mapel_id)
-        ->get()->toArray();
-      }
-
-      return response()->json(['status' => 1, 'data'=>$data]);
-    } catch (\Exception $e) {
-      DB::rollback();
+      return response()->json(["status" => 1, "data" => $data]);
+    }catch(\Exception $e){
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }
   }

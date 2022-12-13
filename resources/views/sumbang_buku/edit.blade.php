@@ -45,7 +45,7 @@
                 <select class="form-control form-control-sm inputtext" name="user_id">
                   <option disabled selected value>Pilih</option>
                   @foreach($users as $user)
-                    <option value="<?= $user->id ?>" @if($user->id == $user_id) selected @endif>
+                    <option value="<?= $user->id ?>" @if($user->id == $data->user_id) selected @endif>
                       <?= $user->username ?>
                     </option>
                     @endforeach
@@ -72,7 +72,7 @@
               <select class="form-control form-control-sm inputtext" name="perpus_kategori_id">
                 <option disabled selected value>Pilih</option>
                 @foreach($categories as $category)
-                  <option value="<?= $category->id ?>" @if($category->id == $category_id) selected @endif>
+                  <option value="<?= $category->id ?>" @if($category->id == $data->perpus_kategori_id) selected @endif>
                     <?= $category->nama ?>
                   </option>
                   @endforeach
@@ -98,7 +98,7 @@
               <select class="form-control form-control-sm inputtext" name="pegawai_id">
                 <option disabled selected value>Pilih</option>
                 @foreach($employees as $employee)
-                  <option value="<?= $employee->id ?>" @if($employee->id == $employee_id) selected @endif>
+                  <option value="<?= $employee->id ?>" @if($employee->id == $data->pegawai_id) selected @endif>
                     <?= $employee->nama_lengkap ?>
                   </option>
                   @endforeach
