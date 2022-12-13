@@ -15,9 +15,9 @@ use Carbon\Carbon;
 use Session;
 
 use DB;
-
+use Exception;
 use File;
-
+use PhpParser\Node\Stmt\TryCatch;
 use Yajra\Datatables\Datatables;
 
 use Response;
@@ -66,6 +66,35 @@ class KatalogBukuController extends Controller
       ->rawColumns(['aksi', 'foto','perpus_kategori_id','created_by'])
       ->addIndexColumn()
       ->make(true);
+  }
+
+  public function getData(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table('perpus_katalog')
+        ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_katalog.perpus_kategori_id')
+        ->where("id",$req->id)->first();
+      }else{
+        $data = DB::table('perpus_katalog')
+          ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_katalog.perpus_kategori_id')
+          ->where("stok_buku",">","0")
+          ->when($req->judul, function($q, $judul) {
+            return $q->where('judul', 'like','%'.$judul.'%');
+          })
+          ->when($req->perpus_kategori_id, function($q, $perpus_kategori_id) {
+            return $q->where('perpus_kategori_id',$perpus_kategori_id);
+          })
+          ->when($req->author, function($q, $author) {
+              return $q->where('author', 'like','%'.$author.'%');
+          })
+          ->select("perpus_katalog.*","perpus_kategori.nama as kategori_nama","perpus_kategori.id as kategori_id")
+          ->get();
+      }
+
+      return response()->json(["status" => 1, "data" => $data]);
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
   }
 
   public function simpan(Request $req)
@@ -131,6 +160,7 @@ class KatalogBukuController extends Controller
 
   public function update(Request $req)
   {
+    try{
     $this->validate($req,[
       'judul' => 'required|max:255',
       'author' => 'required|max:255',
@@ -140,28 +170,27 @@ class KatalogBukuController extends Controller
       'stok_buku' => 'required|max:100',
     ]);
 
-    $imgPath = null;
-    $tgl = Carbon::now('Asia/Jakarta');
-    $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-    $childPath ='image/uploads/buku/';
-    $path = $childPath;
-
-    $file = $req->file('foto');
-    $name = null;
     $data = DB::table("perpus_katalog")->where('id',$req->id);
-    if ($file != null) {
-      $name = $folder . '.' . $file->getClientOriginalExtension();
-      $file->move($path, $name);
-      $imgPath = $childPath . $name;
-      $data->update(['stok_buku'=>$req->stok_buku,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id,'foto'=>$imgPath]);
-    } else {
+
       $data->update(['stok_buku'=>$req->stok_buku,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id]);
-    }
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
+  } catch (\Exception $e) {
+    DB::rollback();
+    return response()->json(["status" => 2, "message" => $e->getMessage()]);
+  }
+  }
 
-    
+
+  public function insertOrUpdate(Request $req){
+    if($req->id){
+      $this->update($req);
+      return response()->json(["status" => 1]);
+    }else{
+      $this->simpan($req);
+      return response()->json(["status" => 1]);
+    }
   }
 
   public static function cekemail($username, $id = null)
@@ -182,6 +211,24 @@ class KatalogBukuController extends Controller
     } else {
       return true;
     }
+  }
+
+  public function delete($id){
+    if($id){
+      DB::table("perpus_peminjaman_katalog")
+      ->where('perpus_katalog_id',$id)
+      ->delete();
+  
+      $data = DB::table("perpus_katalog")
+          ->where('id',$id)
+          ->delete();
+      if($data){
+        return response()->json(["status" => 1,"message"=>"data berhasil dihapus"]);
+      }else{
+        return response()->json(["status" => 2,"message"=>"data tidak ditemukan"]);
+      }
+    }
+    return response()->json(["status" => 2,"message"=>"masukkan url id"]);
   }
 
   public function deleteDir($dirPath)

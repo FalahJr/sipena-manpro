@@ -83,7 +83,7 @@ class KegiatanOsisController extends Controller
           "jam_mulai" => $req->jam_mulai,
           "jam_selesai" => $req->jam_selesai,
           "pelaksana" => $req->pelaksana,
-          "tanggal" => Carbon::now('Asia/Jakarta'),
+          "tanggal" => $req->tanggal,
         ]);
 
           DB::commit();
@@ -161,10 +161,11 @@ class KegiatanOsisController extends Controller
       'jam_mulai' => 'required|max:100',
       'jam_selesai' => 'required|max:255',
       'pelaksana' => 'required|max:150',
+      'tanggal' => 'required|max:150',
     ]);
 
     $data = DB::table("kegiatan_osis")->where('id',$req->id);
-    $data->update(['kegiatan'=>$req->kegiatan,'jam_mulai'=>$req->jam_mulai,'jam_selesai'=>$req->jam_selesai,'pelaksana'=>$req->pelaksana]);
+    $data->update(['tanggal'=>$req->tanggal,'kegiatan'=>$req->kegiatan,'jam_mulai'=>$req->jam_mulai,'jam_selesai'=>$req->jam_selesai,'pelaksana'=>$req->pelaksana]);
     return back()->with(['success' => 'Data berhasil diupdate']);
   }
 

@@ -63,8 +63,13 @@ class SumbangBukuController extends Controller
         return $kategori->nama;
       })
       ->addColumn('pegawai', function ($data) {
-        $pegawai = DB::table('pegawai')->where('id',$data->pegawai_id)->first();
-        return $pegawai->nama_lengkap;
+        if($data->pegawai_id){
+        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
+        return $employee;
+      }else{
+        return '<span class="badge badge-warning">'.
+        'PENDING</span>';
+        }
       })
       ->rawColumns(['aksi', 'foto','user','kategori','pegawai'])
       ->addIndexColumn()
@@ -89,7 +94,8 @@ class SumbangBukuController extends Controller
         } else {
             return 'already exist';
         }
-        
+
+        if($req->pegawai_id){
         DB::table("perpus_sumbang")
           ->insert([
             "user_id" => $req->user_id,
@@ -101,7 +107,6 @@ class SumbangBukuController extends Controller
             "bahasa" => $req->bahasa,
             "total_halaman" => $req->total_halaman,
           ]);
-          $pegawai = DB::table('pegawai')->where('id',$req->pegawai_id)->first();
           DB::table("perpus_katalog")
           ->insert([
             "pegawai_id" => $req->pegawai_id,
@@ -111,15 +116,27 @@ class SumbangBukuController extends Controller
             "author" => $req->author,
             "bahasa" => $req->bahasa,
             "total_halaman" => $req->total_halaman,
-            "created_by" => $pegawai->nama_lengkap,
           ]);
+        }else{
+          DB::table("perpus_sumbang")
+          ->insert([
+            "user_id" => $req->user_id,
+            // "pegawai_id" => null,
+            "perpus_kategori_id" => $req->perpus_kategori_id,
+            "foto" => $imgPath,
+            "judul" => $req->judul,
+            "author" => $req->author,
+            "bahasa" => $req->bahasa,
+            "total_halaman" => $req->total_halaman,
+          ]);
+        }
 
           DB::commit();
 
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => "error".$e]);
+        return response()->json(["status" => 2, "message" =>$e]);
       }
   }
 
@@ -132,20 +149,158 @@ class SumbangBukuController extends Controller
       return back()->with(['success' => 'Data berhasil dihapus']);
   }
 
+  public function delete($id){
+    if($id){
+      $data = DB::table("perpus_sumbang")
+      ->where('id',$id)
+      ->delete();
+      if($data){
+        return response()->json(["status" => 1,"message"=>"data berhasil dihapus"]);
+      }else{
+        return response()->json(["status" => 2,"message"=>"data tidak ditemukan"]);
+      }
+    }
+    return response()->json(["status" => 2,"message"=>"masukkan url id"]);
+  }
+
   public function edit($id)
   {
     $data = DB::table("perpus_sumbang")->where("id", $id)->first();
     $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
-    $employee_id = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->id;
     $users = DB::table("user")->get();
-    $user_id = DB::table("user")->where("id",$data->user_id)->first()->id;
     $categories = DB::table("perpus_kategori")->get();
-    $category_id = DB::table("perpus_kategori")->where("id",$data->perpus_kategori_id)->first()->id;
     // dd($data);
-    return view("sumbang_buku.edit", compact('data','employees','employee_id','users','user_id','categories','category_id'));
+    return view("sumbang_buku.edit", compact('data','employees','users','categories'));
     
   }
 
+
+  public function accSumbang(Request $req){
+    try{
+      if($req->id == null && $req->pegawai_id == null){
+        return response()->json(["status" => 2, "message" => "required peprus_sumbang.id and pegawai_id"]);
+      }
+        $data = DB::table('perpus_sumbang')
+        ->whereNull("perpus_sumbang.pegawai_id")
+        ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_sumbang.perpus_kategori_id')
+        ->select("perpus_sumbang.*")
+        ->when($req->id, function($q, $id) {
+          return $q->where('perpus_sumbang.id',$id);
+        })
+        ->first();
+        if($data){
+        DB::table('perpus_sumbang')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id]);
+        DB::table("perpus_katalog")
+          ->insert([
+            "pegawai_id" => $req->pegawai_id,
+            "perpus_kategori_id" => $data->perpus_kategori_id,
+            "foto" => $data->foto,
+            "judul" => $data->judul,
+            "author" => $data->author,
+            "bahasa" => $data->bahasa,
+            "total_halaman" => $data->total_halaman,
+          ]);
+          return response()->json(["status" => 1, "message" => "berhasil di acc"]);
+          }else{
+            return response()->json(["status" => 2, "message" => "perpus_sumbang.id tidak ditemukan"]);
+          }
+        }catch(\Exception $e){
+          return response()->json(["status" => 2, "message" => $e->getMessage()]);
+        }
+
+  }
+
+  public function getData(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table('perpus_sumbang')
+        ->join("user", "user.id", '=', 'perpus_sumbang.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_sumbang.perpus_kategori_id')
+        ->select("perpus_sumbang.*","perpus_kategori.nama as kategori_nama","perpus_kategori.id as kategori_id","user.role_id","role.nama as role_nama")
+        ->when($req->id, function($q, $id) {
+          return $q->where('perpus_sumbang.id',$id);
+        })
+        ->first();
+        if($data){
+          if($data->role_id == 1) {
+            $data->user_nama = "admin";
+        } else if($data->role_id == 2) {
+            $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 3) {
+            $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 4) {
+            $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 5) {
+            $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 6) {
+            $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 7) {
+            $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+            $data->user_nama = $cekdata->nama_lengkap;
+        }
+      }
+        return response()->json(["status" => 1, "data" => $data]);
+      }else{
+        $datas = DB::table('perpus_sumbang')
+        ->whereNull("perpus_sumbang.pegawai_id")
+        ->join("user", "user.id", '=', 'perpus_sumbang.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_sumbang.perpus_kategori_id')
+        ->select("perpus_sumbang.*","perpus_kategori.nama as kategori_nama","perpus_kategori.id as kategori_id","user.role_id","role.nama as role_nama")
+        ->get();
+      foreach($datas as $data){
+        if($data->role_id == 1) {
+          $data->user_nama = "admin";
+      } else if($data->role_id == 2) {
+          $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 3) {
+          $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 4) {
+          $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 5) {
+          $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 6) {
+          $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 7) {
+          $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+          $data->user_nama = $cekdata->nama_lengkap;
+      }
+    }
+        return response()->json(["status" => 1, "data" => $datas]);
+        }
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+  public function insertData(Request $req){
+    if($req){
+      $this->simpan($req);
+      return response()->json(["status"=>1]);
+    }else{
+      return response()->json(["status"=>2,"message","isi semua input"]);
+    }
+  }
   public function update(Request $req)
   {
     $this->validate($req,[
@@ -168,9 +323,9 @@ class SumbangBukuController extends Controller
       $name = $folder . '.' . $file->getClientOriginalExtension();
       $file->move($path, $name);
       $imgPath = $childPath . $name;
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'foto'=>$imgPath]);
+      $data->update(['user_id'=>$req->user_id,'perpus_kategori_id'=>$req->perpus_kategori_id,'pegawai_id'=>$req->pegawai_id,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'foto'=>$imgPath]);
     } else {
-      $data->update(['judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman]);
+      $data->update(['user_id'=>$req->user_id,'perpus_kategori_id'=>$req->perpus_kategori_id,'pegawai_id'=>$req->pegawai_id,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman]);
     }
 
     // dd($data);

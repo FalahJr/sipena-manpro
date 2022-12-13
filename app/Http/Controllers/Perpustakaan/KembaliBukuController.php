@@ -27,7 +27,9 @@ class KembaliBukuController extends Controller
   public function index()
   { 
     // ambil user yang meminjam buku
-    $users = DB::table("perpus_peminjaman")->where('is_kembali','N')
+    $users = DB::table("perpus_peminjaman")
+    ->where('is_kembali','N')
+    ->whereNotNull('pegawai_id')
     ->join('user', 'perpus_peminjaman.user_id', '=', 'user.id')
     ->select('user.username','user.id')
     ->get();
@@ -66,8 +68,13 @@ class KembaliBukuController extends Controller
         return $urlBook;
 
       })->addColumn('pegawai_id', function ($data) {
-        $pegawai = DB::table("pegawai")->where("id", $data->pegawai_id)->first();
-        return $pegawai->nama_lengkap;
+        if($data->pegawai_id){
+        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
+        return $employee;
+      }else{
+        return '<span class="badge badge-warning">'.
+        'PENDING</span>';
+        }
       })->addColumn('user', function ($data) {
         $user = DB::table("user")->where("id", $data->user_id)->first();
         return $user->username;

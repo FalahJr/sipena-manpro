@@ -78,4 +78,18 @@ Route::middleware('api')->group(function () {
 
     //Jadwal Sekolah
     Route::get('/jadwal-sekolah', 'JadwalSekolahController@getData');
+
+    //Perpustakaan
+    Route::get('/katalog-buku', 'Perpustakaan\KatalogBukuController@getData');
+    Route::get('/kategori-buku', 'Perpustakaan\KategoriBukuController@getData');
+    Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@getData');
+    Route::get('/pinjam-buku', 'Perpustakaan\PinjamBukuController@insertOrUpdate');
+    Route::post('/sumbang-buku', 'Perpustakaan\SumbangBukuController@insertData');
+    Route::post('/katalog-buku', 'Perpustakaan\KatalogBukuController@insertOrUpdate');
+    Route::delete('/sumbang-buku/{id}', 'Perpustakaan\SumbangBukuController@delete');
+    Route::delete('/katalog-buku/{id}', 'Perpustakaan\KatalogBukuController@delete');
+    Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@accSumbang');
+    Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@getData');
+
+   
 });

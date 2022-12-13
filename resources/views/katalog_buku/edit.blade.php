@@ -92,7 +92,7 @@
             <br>
             <img src="{{asset($data->foto)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
             </td>
           </tr>
           {{-- <tr>

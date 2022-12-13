@@ -132,6 +132,92 @@ class KehilanganBukuController extends Controller
     
   }
 
+
+  public function getData(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table('perpus_kehilangan')
+        ->join("user", "user.id", '=', 'perpus_kehilangan.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->join("perpus_katalog", "perpus_katalog.id", '=', 'perpus_kehilangan.perpus_katalog_id')
+        ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_katalog.perpus_kategori_id')
+        ->select("perpus_kehilangan.*","perpus_katalog.judul","perpus_katalog.author","perpus_katalog.bahasa","perpus_katalog.total_halaman","perpus_kategori.nama as kategori_nama","user.role_id","role.nama as role_nama")
+        ->when($req->id, function($q, $id) {
+          return $q->where('perpus_kehilangan.id',$id);
+        })
+        ->first();
+        if($data){
+          if($data->role_id == 1) {
+            $data->user_nama = "admin";
+        } else if($data->role_id == 2) {
+            $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 3) {
+            $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 4) {
+            $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 5) {
+            $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 6) {
+            $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 7) {
+            $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+            $data->user_nama = $cekdata->nama_lengkap;
+        }
+      }
+        return response()->json(["status" => 1, "data" => $data]);
+      }else{
+        $datas = DB::table('perpus_kehilangan')
+        ->join("user", "user.id", '=', 'perpus_kehilangan.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->join("perpus_katalog", "perpus_katalog.id", '=', 'perpus_kehilangan.perpus_katalog_id')
+        ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_katalog.perpus_kategori_id')
+        ->select("perpus_kehilangan.*","perpus_katalog.judul","perpus_katalog.author","perpus_katalog.bahasa","perpus_katalog.total_halaman","perpus_kategori.nama as kategori_nama","user.role_id","role.nama as role_nama")
+        ->get();
+      foreach($datas as $data){
+        if($data->role_id == 1) {
+          $data->user_nama = "admin";
+      } else if($data->role_id == 2) {
+          $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 3) {
+          $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 4) {
+          $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 5) {
+          $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 6) {
+          $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+
+          $data->user_nama = $cekdata->nama_lengkap;
+      } else if($data->role_id == 7) {
+          $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+          $data->user_nama = $cekdata->nama_lengkap;
+      }
+    }
+        return response()->json(["status" => 1, "data" => $datas]);
+        }
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public static function cekemail($username, $id = null)
   {
 

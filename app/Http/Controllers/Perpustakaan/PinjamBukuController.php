@@ -63,9 +63,15 @@ class PinjamBukuController extends Controller
 
         return $urlBook;
 
-      })->addColumn('pegawai_id', function ($data) {
-        $pegawai = DB::table("pegawai")->where("id", $data->pegawai_id)->first();
-        return $pegawai->nama_lengkap;
+      })
+      ->addColumn('pegawai_id', function ($data) {
+        if($data->pegawai_id){
+        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
+        return $employee;
+      }else{
+        return '<span class="badge badge-warning">'.
+        'PENDING</span>';
+        }
       })
       ->addColumn('user', function ($data) {
         $pegawai = DB::table("user")->where("id", $data->user_id)->first();
@@ -111,6 +117,54 @@ class PinjamBukuController extends Controller
         DB::rollback();
         return response()->json(["status" => 7, "message" => "error"+$e]);
       }
+  }
+  
+  public function insertOrUpdate(Request $req){
+    if($req->id){
+      $this->update($req);
+      return response()->json(["status" => 1]);
+    }else{
+      $this->simpan($req);
+      return response()->json(["status" => 1]);
+    }
+  }
+
+  public function getData(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table('perpus_peminjaman')
+        ->join("perpus_peminjaman_katalog", "perpus_peminjaman_katalog.perpus_peminjaman_id", '=', 'perpus_peminjaman.id')
+        ->join("perpus_katalog", "perpus_peminjaman_katalog.perpus_katalog_id", '=', 'perpus_katalog.id')
+        ->select("perpus_peminjaman.*", "perpus_peminjaman_katalog.*","perpus_katalog.*")
+        ->where("perpus_peminjaman.id",$req->id)->first();
+      }
+      // }else{
+      //   $data = DB::table('perpus_peminjaman')
+      //     ->join("siswa", "siswa.id", '=', 'perpus_peminjaman.siswa_id')
+      //     ->join("mapel", "mapel.id", '=', 'perpus_peminjaman.mapel_id')
+      //     ->join("kelas", "kelas.id", '=', 'perpus_peminjaman.kelas_id')
+      //     ->select("perpus_peminjaman.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
+      //     ->when($req->kelas_id, function($q, $kelas_id) {
+      //         return $q->where('perpus_peminjaman.kelas_id',$kelas_id);
+      //     })
+      //     ->when($req->mapel_id, function($q, $mapel_id) {
+      //       return $q->where('perpus_peminjaman.mapel_id',$mapel_id);
+      //     })
+      //     ->when($req->siswa_id, function($q, $siswa_id) {
+      //     return $q->where('perpus_peminjaman.siswa_id',$siswa_id);
+      //     })
+      //     ->when($req->semester, function($q, $semester) {
+      //       return $q->where('perpus_peminjaman.semester',$semester);
+      //     })
+      //     ->when($req->is_show, function($q, $is_show) {
+      //       return $q->where('perpus_peminjaman.is_show',$is_show);
+      //     })
+      //     ->get();
+      // }
+      return response()->json(["status" => 1, "data" => $data]);
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
   }
 
   public function hapus($id)

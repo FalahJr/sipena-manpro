@@ -33,6 +33,12 @@
               </td>
             </tr>
             <tr>
+              <td>Tanggal <span style="color:red;">*</span></td>
+              <td>
+                <input type="date" class="form-control form-control-sm inputtext tanggal" name="tanggal">
+              </td>
+            </tr>
+            <tr>
               <td>Pelaksana<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="pelaksana">
