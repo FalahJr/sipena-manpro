@@ -250,6 +250,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit-kategori-keuangan', 'KategoriKeuanganController@edit');
         Route::get('/hapus-kategori-keuangan', 'KategoriKeuanganController@hapus');
 
+          //  Keuangan
+          Route::get('/data-keuangan', 'KeuanganController@index');
+          Route::get('/data-keuangan-table', 'KeuanganController@datatable');
+          Route::post('/simpan-data-keuangan', 'KeuanganController@simpan');
+          Route::get('/edit-data-keuangan', 'KeuanganController@edit');
+          Route::get('/hapus-data-keuangan', 'KeuanganController@hapus');
+
         //Mutasi Siswa
         Route::get('/mutasisiswa', 'MutasiSiswaController@index');
         Route::get('/mutasisiswatable', 'MutasiSiswaController@datatable');
