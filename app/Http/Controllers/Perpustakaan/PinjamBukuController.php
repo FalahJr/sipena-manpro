@@ -153,18 +153,136 @@ class PinjamBukuController extends Controller
     try{
       if($req->id){
         $data = DB::table('perpus_peminjaman')
-        ->join("perpus_peminjaman_katalog", "perpus_peminjaman_katalog.perpus_peminjaman_id", '=', 'perpus_peminjaman.id')
-        ->join("perpus_katalog", "perpus_peminjaman_katalog.perpus_katalog_id", '=', 'perpus_katalog.id')
-        ->select("perpus_peminjaman.*", "perpus_peminjaman_katalog.*","perpus_katalog.*")
+        ->join("user", "user.id", '=', 'perpus_peminjaman.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
         ->where("perpus_peminjaman.id",$req->id)->first();
+        if($data){
+          if($data->role_id == 1){
+            $data->user_nama = "admin";
+          } else if($data->role_id == 2) {
+              $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 3) {
+              $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 4) {
+              $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 5) {
+              $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 6) {
+              $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 7) {
+              $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+              $data->user_nama = $cekdata->nama_lengkap;
+          }
+          $katalogs = DB::table("perpus_peminjaman_katalog")->where("perpus_peminjaman_id",$data->id)->get();
+          $perpus_katalog = [];
+          foreach($katalogs as $katalog){
+            $perpus_katalog[] = DB::table("perpus_katalog")->where("id",$katalog->perpus_katalog_id)->get();
+          }
+          $data->jumlah_pinjam = count($perpus_katalog);
+          $data->buku_pinjam = $perpus_katalog;
+        }
+        return response()->json(["status" => 1, "data" => $data]);
       }else{
-        $data = DB::table('perpus_peminjaman')
-        ->join("perpus_peminjaman_katalog", "perpus_peminjaman_katalog.perpus_peminjaman_id", '=', 'perpus_peminjaman.id')
-        ->join("perpus_katalog", "perpus_peminjaman_katalog.perpus_katalog_id", '=', 'perpus_katalog.id')
-        ->select("perpus_peminjaman.*", "perpus_peminjaman_katalog.*","perpus_katalog.*")
+        $datas = DB::table('perpus_peminjaman')
+        ->join("user", "user.id", '=', 'perpus_peminjaman.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
         ->get();
+
+        foreach($datas as $data){
+          if($data->role_id == 1) {
+            $data->user_nama = "admin";
+        } else if($data->role_id == 2) {
+            $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 3) {
+            $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 4) {
+            $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 5) {
+            $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 6) {
+            $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+  
+            $data->user_nama = $cekdata->nama_lengkap;
+        } else if($data->role_id == 7) {
+            $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+            $data->user_nama = $cekdata->nama_lengkap;
+        }
+        $katalogs = DB::table("perpus_peminjaman_katalog")->where("perpus_peminjaman_id",$data->id)->get();
+          $perpus_katalog = [];
+          foreach($katalogs as $katalog){
+            $perpus_katalog[] = DB::table("perpus_katalog")->where("id",$katalog->perpus_katalog_id)->get();
+          }
+          $data->jumlah_pinjam = count($perpus_katalog);
+          $data->buku_pinjam = $perpus_katalog;
       }
-      return response()->json(["status" => 1, "data" => $data]);
+      return response()->json(["status" => 1, "data" => $datas]);
+      }
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
+  public function accPinjam(Request $req){
+    try{
+      if($req->id == null && $req->pegawai_id == null){
+        return response()->json(["status" => 2, "message" => "required peprus_sumbang.id and pegawai_id"]);
+      }
+        $data = DB::table('perpus_peminjaman')
+        ->where("id",$req->perpus_peminjaman_id)->first();
+        if($data){
+          DB::table('perpus_peminjaman')->where("id",$req->perpus_peminjaman_id)->update(["pegawai_id"=>$req->pegawai_id]);
+          return response()->json(["status" => 1, "message" => "berhasil di acc"]);
+          }else{
+            return response()->json(["status" => 2, "message" => "id tidak ditemukan"]);
+          }
+        }catch(\Exception $e){
+          return response()->json(["status" => 2, "message" => $e->getMessage()]);
+        }
+
+  }
+
+  public function delete($id){
+    try{
+      if($id){
+        $perpus_katalog = DB::table("perpus_peminjaman_katalog")
+        ->where('perpus_peminjaman_id',$id)
+        ->get();
+    
+        foreach($perpus_katalog as $katalog){
+          DB::table("perpus_katalog")->where('id',$katalog->perpus_katalog_id)->increment('stok_buku',1);
+        }
+      
+        DB::table("perpus_peminjaman_katalog")
+            ->where('perpus_peminjaman_id',$id)
+            ->delete();
+            DB::table("perpus_peminjaman")
+            ->where('id',$id)
+            ->delete();
+            
+        return response()->json(["status" => 1, "message" => "berhasil menghapus data"]);
+      }else{
+        return response()->json(["status" => 2, "message" => "id tidak ditemukan"]);
+      }
     }catch(\Exception $e){
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }

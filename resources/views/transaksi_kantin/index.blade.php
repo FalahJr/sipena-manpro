@@ -28,6 +28,7 @@
                                 <th>Keterangan</th>
                                 <th>Total Harga</th>
                                 <th>Tanggal Pembelian</th>
+                                <th>Metode Pembayaran</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -95,6 +96,10 @@ var table = $('#table-data').DataTable({
                  targets: 6,
                  className: 'center'
               },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -104,6 +109,7 @@ var table = $('#table-data').DataTable({
           {data: 'keterangan', name: 'keterangan'},
           {data: 'harga_total', name: 'harga_total'},
           {data: 'tanggal_pembelian', name: 'tanggal_pembelian'},
+          {data: 'pembayaran', name: 'pembayaran'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
