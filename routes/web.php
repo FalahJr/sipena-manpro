@@ -1,12 +1,18 @@
 <?php
 
-Route::get('/', function () {
+Route::get('/login', function () {
     $user = \Auth::user();
     if($user == null) {
       return view('auth.login');
     } else {
         return redirect()->route('homeadmin');
     }
+}
+);
+
+
+Route::get('/', function () {
+    return view('homepage.index');
 }
 );
 
