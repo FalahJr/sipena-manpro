@@ -48,6 +48,7 @@ class TransaksiController extends Controller
     //   ->addColumn("image", function ($data) {
     //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
     //   })
+    
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
           '<a href="transaksi-koperasi/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
@@ -65,50 +66,60 @@ class TransaksiController extends Controller
         }
         return $penjualan;
       })
+      ->addColumn('tanggal', function ($data) {
+        return Carbon::CreateFromFormat('Y-m-d',$data->tanggal)->format('d M Y');
+      })
       ->addColumn('qr_code',function($data){
         $generateQRCode = QrCode::size(100)->generate($data->qr_code);
         return $generateQRCode;
       })
       ->addColumn('is_lunas',function($data){
         if($data->is_lunas == "Y"){
-          return "SUCCESS";
+          return "<span class='badge badge-success badge-lg'>SUCCESS</span>";
         }else{
-          return "PENDING";
+          return "<span class='badge badge-warning badge-lg'>PENDING</span>";
         }
       })
       ->addColumn('pegawai_id',function($data){
         $pegawai = DB::table("pegawai")->where("id",$data->pegawai_id)->first();
         return $pegawai->nama_lengkap;
       })
-      ->rawColumns(['aksi','penjualan','qr_code','is_lunas','pegawai_id'])
+      ->rawColumns(['aksi','penjualan','qr_code','is_lunas','pegawai_id','tanggal'])
       ->addIndexColumn()
       ->make(true);
   }
 
-  public function toBayar($id){
-    $data = DB::table('kantin')->where("id",$id)->first();
-    return view('kantin.pembayaran',compact("data"));
-  }
-
-  public function bayar(Request $req)
+  public function APIbayar(Request $req)
   {
-        $this->validate($req,[
-          'nama_pembeli' => 'required|max:255',
-          'keterangan' => 'required|max:255',
-          'total_harga' => 'required|max:255',
-        ]);
-        $tgl = Carbon::now('Asia/Jakarta');
-        DB::table("koperasi_list")
-          ->insert([
-            "kantin_id" => $req->kantin_id,
-            "user_id" => $req->user_id,
-            "nama_pembeli" => $req->nama_pembeli,
-            "keterangan" => $req->keterangan,
-            "harga_total" => $req->total_harga,
-            "created_at" => $tgl,
-          ]);
-        
-          return back()->with(['success' => 'Data berhasil diupdate']);
+    try{
+          if($req->koperasi_transaksi_id && $req->user_id){// jika role pegawai kantin maka pembayaran secara cash
+            $transaksi = DB::table("koperasi_transaksi")->where('id', $req->koperasi_transaksi_id);
+            $user = DB::table("user")->where('id', $req->user_id);
+
+            $saldoUser = $user->first()->saldo;
+            $totalPembayaran = $transaksi->first()->total_pembayaran;
+            $sisaSaldo = $saldoUser - $totalPembayaran;
+            $transaksi->update(["is_lunas"=>"Y"]);
+
+            if($sisaSaldo <= 0){
+              return response()->json(["status" => 2, "message" => "saldo kamu tidak mencukupi"]);
+            }else{
+              $user->update(['saldo'=>$sisaSaldo]);
+
+              $kantin = DB::table("koperasi");
+              $saldoKantin = $kantin->first()->saldo + $totalPembayaran;
+              $kantin->update(['saldo'=>$saldoKantin]);
+              
+              DB::table("koperasi_transaksi")->where('id', $req->koperasi_transaksi_id)->update(["user_id"=>$req->user_id]);
+
+              return response()->json(["status" => 1, "message" => 'berhasil dibayar, sisa saldo anda Rp '.$sisaSaldo]);
+            }
+          }else{
+            return response()->json(["status" => 2, "message" => "id user atau transaksi tidak ada"]);
+          }
+      }catch(\Exception $e){
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
   }
 
   public function simpan(Request $req)
@@ -141,7 +152,7 @@ class TransaksiController extends Controller
         DB::table("koperasi_transaksi")
         ->insert([
           "id" => $transaksiId,
-          "qr_code" => '/koperasi/show/'.$transaksiId,
+          "qr_code" => url("/transaksi-koperasi?id=".$transaksiId),
           "pegawai_id" => $req->pegawai_id,
           "total_pembayaran" => $totalPembayaran,
         ]);
@@ -153,6 +164,28 @@ class TransaksiController extends Controller
         DB::rollback();
         return response()->json(["status" => 7, "message" => "error".$e]);
       }
+  }
+
+  public function getData(Request $req){
+    try{
+      if($req->id){
+      $data = DB::table("koperasi_transaksi")->where("id",$req->id)->first(["id as koperasi_transaksi_id","total_pembayaran","tanggal"]);
+      $dataPenjualan = DB::table("koperasi_penjualan")
+      ->when($req->id, function($q, $transaksi_id) {
+        return $q->where('koperasi_penjualan.koperasi_transaksi_id',$transaksi_id);
+      })
+      ->join("koperasi_list","koperasi_list.id","=","koperasi_penjualan.koperasi_list_id")
+      ->select("koperasi_penjualan.id","koperasi_penjualan.jumlah_pembelian","koperasi_list.nama","koperasi_penjualan.total_harga")->get();
+      $data->list = $dataPenjualan;
+      return response()->json(["status"=>1,"data"=>$data]);
+      }else{
+        $data = DB::table("koperasi_transaksi")->get(["id as koperasi_transaksi_id","total_pembayaran","tanggal","is_lunas"]);
+        return response()->json(["status"=>1,"data"=>$data]);
+      }
+
+    }catch(\Exception $e){
+      return response()->json(["status"=>2,"message"=>$e->getMessage()]);
+    }
   }
 
   public function hapus($id)

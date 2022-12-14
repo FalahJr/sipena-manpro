@@ -3,8 +3,13 @@
 
 @include('kantin.tambah')
 <style type="text/css">
-
-</style>
+  .dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+.dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+  </style>
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
@@ -19,12 +24,15 @@
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Kantin</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
+                      <div class="col-12 col-md-3 pl-0">
+                        <h4 class="card-title">Data List Kantin</h4>
+                      </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kantin</button>
-                      {{-- @endif --}}
-                    </div>
+                      <div class="col-12 col-md-5 p-0 text-right">
+                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kantin</button>
+                      </div>
+                      </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
@@ -33,6 +41,7 @@
                                 <th>Foto Kantin</th>
                                 <th>Nama Kantin</th>
                                 <th>Pegawai Kantin</th>
+                                <th>Saldo Kantin</th>
                                 <th>QrCode</th>
                                 <th>Action</th>
                               </tr>
@@ -97,10 +106,10 @@ var table = $('#table-data').DataTable({
                  targets: 5,
                  className: 'center'
               },
-              // {
-              //    targets: 6,
-              //    className: 'center'
-              // },
+              {
+                 targets: 6,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -108,6 +117,7 @@ var table = $('#table-data').DataTable({
           {data: 'foto', name: 'foto'},
           {data: 'nama', name: 'nama'},
           {data: 'pegawai', name: 'pegawai'},
+          {data: 'saldo', name: 'saldo'},
           {data: 'qr_code', name: 'qr_code'},
           {data: 'aksi', name: 'aksi'},
         ]

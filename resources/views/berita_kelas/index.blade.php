@@ -3,8 +3,13 @@
 
 @include('berita_kelas.tambah')
 <style type="text/css">
-
-</style>
+  .dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+.dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+  </style>
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
@@ -19,12 +24,15 @@
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Berita Kelas</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
+                      <div class="col-12 col-md-3 pl-0">
+                        <h4 class="card-title">Berita Kelas</h4>
+                      </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-                      {{-- @endif --}}
-                    </div>
+                      <div class="col-12 col-md-5 p-0 text-right">
+                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Berita</button>
+                      </div>
+                      </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">

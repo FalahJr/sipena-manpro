@@ -25,11 +25,11 @@
                   <div class="card-body">
                     <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
                       <div class="col-12 col-md-3">
-                        <h4 class="card-title">Data Tansaksi Buku</h4>
+                        <h4 class="card-title">Data Tansaksi Koperasi</h4>
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
-                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Peminjaman</button>
+                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Transaksi</button>
                       </div>
                       </div>
                     <div class="table-responsive">
@@ -42,6 +42,7 @@
                                 <th>Status</th>
                                 <th>QRCode</th>
                                 <th>Pegawai</th>
+                                <th>Tanggal</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -109,6 +110,10 @@ var table = $('#table-data').DataTable({
                  targets: 6,
                  className: 'center'
               },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -117,6 +122,7 @@ var table = $('#table-data').DataTable({
           {data: 'is_lunas', name: 'is_lunas'},
           {data: 'qr_code', name: 'qr_code'},
           {data: 'pegawai_id', name: 'pegawai_id'},
+          {data: 'tanggal', name: 'tanggal'},
           {data: 'aksi', name: 'aksi'},
         ]
   });

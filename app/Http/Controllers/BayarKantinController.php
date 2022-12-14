@@ -77,25 +77,175 @@ class BayarKantinController extends Controller
     return view('kantin.pembayaran',compact("data"));
   }
 
+  public function getData(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table('kantin')->where("id",$req->id)->first();
+        return response()->json(["status" => 1, "data" => $data]);
+      }else{
+      $data = DB::table('kantin')->get();
+
+        return response()->json(["status" => 1, "data" => $data]);
+
+      }
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public function bayar(Request $req)
   {
+    $user = DB::table('user')->where("id",$req->user_id)->first();
+    if($user){
+      if($user->role_id == 1){
+        $user->user_nama = "admin";
+      } else if($user->role_id == 2) {
+          $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
+
+          $user->user_nama = $cekdata->nama_lengkap;
+      } else if($user->role_id == 3) {
+          $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
+
+          $user->user_nama = $cekdata->nama_lengkap;
+      } else if($user->role_id == 4) {
+          $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
+
+          $user->user_nama = $cekdata->nama_lengkap;
+      } else if($user->role_id == 5) {
+          $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
+
+          $user->user_nama = $cekdata->nama_lengkap;
+      } else if($user->role_id == 6) {
+          $cekdata = DB::table("kepala_sekolah")->where('user_id', $user->id)->first();
+
+          $user->user_nama = $cekdata->nama_lengkap;
+      } else if($user->role_id == 7) {
+          $cekdata = DB::table("dinas_pendidikan")->where('user_id', $user->id)->first();
+          $user->user_nama = $cekdata->nama_lengkap;
+      }
+    }
+
+    $tgl = Carbon::now('Asia/Jakarta');
+          if($user->role_id == 5){// jika role pegawai kantin maka pembayaran secara cash
+            $pegawai = DB::table("pegawai")->where('user_id', $user->user_id)->first();
+            if($pegawai->is_kantin == "Y"){
+              DB::table("kantin_penjualan")
+              ->insert([
+                "kantin_id" => $req->kantin_id,
+                "user_id" => $user->id,
+                "nama_pembeli" => $user->user_nama,
+                "keterangan" => $req->keterangan,
+                "harga_total" => $req->harga_total,
+                "tanggal_pembelian" => $tgl,
+              ]);
+              return back()->with(['success' => 'berhasil dibayar']);
+            }
+          }
+          //jika role selain pegawai kurangin saldo user id
         $this->validate($req,[
           'nama_pembeli' => 'required|max:255',
           'keterangan' => 'required|max:255',
           'total_harga' => 'required|max:255',
         ]);
-        $tgl = Carbon::now('Asia/Jakarta');
-        DB::table("kantin_penjualan")
+        $saldoUser = $user->saldo;
+        $sisaSaldo = $saldoUser - $req->harga_total;
+        if($sisaSaldo <= 0){
+          return back()->with(['success' => 'Saldo kamu tidak mencukupi']);
+        }else{
+          DB::table("user")->where('id', $user->id)->update(['saldo'=>$sisaSaldo]);
+
+          $kantin = DB::table("kantin")->where('id', $req->kantin_id);
+          $saldoKantin = $kantin->first()->saldo + $req->harga_total;
+          $kantin->update(['saldo'=>$saldoKantin]);
+
+          DB::table("kantin_penjualan")
           ->insert([
             "kantin_id" => $req->kantin_id,
             "user_id" => $req->user_id,
-            "nama_pembeli" => $req->nama_pembeli,
+            "nama_pembeli" => $user->user_nama,
             "keterangan" => $req->keterangan,
-            "harga_total" => $req->total_harga,
-            "created_at" => $tgl,
+            "harga_total" => $req->harga_total,
+            "tanggal_pembelian" => $tgl,
           ]);
-        
-          return back()->with(['success' => 'Data berhasil diupdate']);
+          return back()->with(['success' => 'berhasil dibayar, sisa saldo anda Rp '.$sisaSaldo]);
+        }
+  }
+
+  public function APIbayar(Request $req)
+  {
+    try{
+      $user = DB::table('user')->where("id",$req->user_id)->first();
+      if($user){
+        if($user->role_id == 1){
+          $user->user_nama = "admin";
+        } else if($user->role_id == 2) {
+          $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
+          
+          $user->user_nama = $cekdata->nama_lengkap;
+        } else if($user->role_id == 3) {
+          $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
+          
+          $user->user_nama = $cekdata->nama_lengkap;
+        } else if($user->role_id == 4) {
+          $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
+
+          $user->user_nama = $cekdata->nama_lengkap;
+        } else if($user->role_id == 5) {
+          $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
+          
+          $user->user_nama = $cekdata->nama_lengkap;
+        } else if($user->role_id == 6) {
+          $cekdata = DB::table("kepala_sekolah")->where('user_id', $user->id)->first();
+          
+          $user->user_nama = $cekdata->nama_lengkap;
+        } else if($user->role_id == 7) {
+          $cekdata = DB::table("dinas_pendidikan")->where('user_id', $user->id)->first();
+          $user->user_nama = $cekdata->nama_lengkap;
+        }
+      }
+
+      $tgl = Carbon::now('Asia/Jakarta');
+          if($user->role_id == 5){// jika role pegawai kantin maka pembayaran secara cash
+            $pegawai = DB::table("pegawai")->where('user_id', $req->user_id)->first();
+            if($pegawai->is_kantin == "Y"){
+              DB::table("kantin_penjualan")
+              ->insert([
+                "kantin_id" => $req->kantin_id,
+                "user_id" => $req->user_id,
+                "nama_pembeli" => $user->user_nama,
+                "keterangan" => $req->keterangan,
+                "harga_total" => $req->harga_total,
+                "tanggal_pembelian" => $tgl,
+              ]);
+              return response()->json(["status" => 2, "message" => "berhasil dibayar (cash)"]);
+            }
+          }
+          //jika role selain pegawai kurangin saldo user id
+        $saldoUser = $user->saldo;
+        $sisaSaldo = $saldoUser - $req->harga_total;
+        if($sisaSaldo <= 0){
+          return response()->json(["status" => 2, "message" => "saldo kamu tidak mencukupi"]);
+        }else{
+          DB::table("user")->where('id', $user->id)->update(['saldo'=>$sisaSaldo]);
+
+          $kantin = DB::table("kantin")->where('id', $req->kantin_id);
+          $saldoKantin = $kantin->first()->saldo + $req->harga_total;
+          $kantin->update(['saldo'=>$saldoKantin]);
+          
+          DB::table("kantin_penjualan")
+          ->insert([
+            "kantin_id" => $req->kantin_id,
+            "user_id" => $req->user_id,
+            "nama_pembeli" => $user->user_nama,
+            "keterangan" => $req->keterangan,
+            "harga_total" => $req->harga_total,
+            "tanggal_pembelian" => $tgl,
+          ]);
+          return response()->json(["status" => 1, "message" => 'berhasil dibayar, sisa saldo anda Rp '.$sisaSaldo]);
+        }
+      }catch(\Exception $e){
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
   }
 
   public function simpan(Request $req)

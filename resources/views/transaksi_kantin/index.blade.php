@@ -103,7 +103,7 @@ var table = $('#table-data').DataTable({
           {data: 'nama_pembeli', name: 'nama_pembeli'},
           {data: 'keterangan', name: 'keterangan'},
           {data: 'harga_total', name: 'harga_total'},
-          {data: 'created_at', name: 'created_at'},
+          {data: 'tanggal_pembelian', name: 'tanggal_pembelian'},
           {data: 'aksi', name: 'aksi'},
         ]
   });

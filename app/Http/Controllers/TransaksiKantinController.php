@@ -53,11 +53,14 @@ class TransaksiKantinController extends Controller
           '<a href="/admin/transaksi-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })
+      ->addColumn('tanggal_pembelian', function ($data) {
+        return Carbon::CreateFromFormat('Y-m-d',$data->tanggal_pembelian)->format('d M Y');
+      })
       ->addColumn('kantin', function ($data) {
         $kantin = DB::table('kantin')->where('id',$data->kantin_id)->first();
         return $kantin->nama;
       })
-      ->rawColumns(['aksi','kantin'])
+      ->rawColumns(['aksi','kantin',"tanggal_pembelian"])
       ->addIndexColumn()
       ->make(true);
   }
@@ -83,7 +86,6 @@ class TransaksiKantinController extends Controller
   public function update(Request $req)
   {
     $this->validate($req,[
-      'kantin_id' => 'required|max:255',
       'keterangan' => 'required|max:255',
     ]);
     // $imgPath = null;
@@ -103,11 +105,48 @@ class TransaksiKantinController extends Controller
     // } else {
     //   $data->update(['judul'=>$req->judul,'deskripsi'=>$req->deskripsi,'id_kantin'=>$req->id_kantin]);
     // }
-    $data->update(['kantin_id'=>$req->kantin_id,'keterangan'=>$req->keterangan]);
+    $data->update(['keterangan'=>$req->keterangan]);
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
+  }
+  public function APIupdate(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table("kantin_penjualan")->where("id",$req->id);
+        $data->update(['keterangan'=>$req->keterangan]);
 
-    
+        return response()->json(["status"=>1,"message"=>"berhasil diubah"]);
+      }else{
+        return response()->json(["status"=>2,"message"=>"tidak ada param id"]);
+      }
+
+    }catch(\Exception $e){
+      return response()->json(["status"=>2,"message"=>$e->getMessage()]);
+    }
+  }
+  public function delete($id){
+    try{
+      if($id){
+      DB::table("kantin_penjualan")->where("id",$id)->delete();
+      return response()->json(["status"=>1,"message"=>"berhasil dihapus"]);
+      }else{
+        return response()->json(["status"=>1,"message"=>"parameter id tidak ditemukan"]);
+      }
+    }catch(\Exception $e){
+      return response()->json(["status"=>2,"message"=>$e->getMessage()]);
+    }
+  }
+  public function getData(Request $req){
+    try{
+      $data = DB::table("kantin_penjualan")
+      ->when($req->kantin_id, function($q, $kantin_id) {
+        return $q->where('kantin_penjualan.kantin_id',$kantin_id);
+      })
+      ->get();
+      return response()->json(["status"=>1,"data"=>$data]);
+    }catch(\Exception $e){
+      return response()->json(["status"=>2,"message"=>$e->getMessage()]);
+    }
   }
 
   public static function cekemail($username, $id = null)

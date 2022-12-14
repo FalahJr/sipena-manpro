@@ -283,6 +283,19 @@
             </ul>
           </div>
         </li>
+        <li class="nav-item {{ ( ( Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') || Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ) ? ' active' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#koperasi" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Koperasi Sekolah</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
+          </a>
+          <div class="collapse {{( ( Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') || Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ) ? ' show' : '' ) }}" id="koperasi">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') ? 'active' : '' }}" href="{{url('admin/list-koperasi')}}">List Koperasi<span class="d-none">List Koperasi</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ? 'active' : '' }}" href="{{url('admin/transaksi-koperasi')}}">Transaksi Koperasi<span class="d-none">Transaksi Koperasi</span></a></li>
+            </ul>
+          </div>
+        </li>
         <li class="nav-item {{Request::is('admin/jadwal-sekolah') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/jadwal-sekolah')}}">
             <span class="menu-title">Jadwal Sekolah</span>

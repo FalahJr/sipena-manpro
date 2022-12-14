@@ -84,6 +84,7 @@ Route::middleware('api')->group(function () {
     Route::get('/katalog-buku', 'Perpustakaan\KatalogBukuController@getData');
     Route::get('/kategori-buku', 'Perpustakaan\KategoriBukuController@getData');
     Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@getData');
+    Route::get('/kantin', 'BayarKantinController@getData');
     Route::get('/pinjam-buku', 'Perpustakaan\PinjamBukuController@insertOrUpdate');
     Route::post('/sumbang-buku', 'Perpustakaan\SumbangBukuController@insertData');
     Route::post('/katalog-buku', 'Perpustakaan\KatalogBukuController@insertOrUpdate');
@@ -91,6 +92,16 @@ Route::middleware('api')->group(function () {
     Route::delete('/katalog-buku/{id}', 'Perpustakaan\KatalogBukuController@delete');
     Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@accSumbang');
     Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@getData');
+
+    //Kantin
+    Route::post('/bayar-koperasi', 'Koperasi\TransaksiController@APIbayar');
+    Route::post('/bayar-kantin', 'BayarKantinController@APIbayar');
+    Route::post('/kantin', 'BayarKantinController@getData');
+    Route::get('/transaksi-kantin', 'TransaksiKantinController@getData');
+    Route::get('/transaksi-koperasi', 'Koperasi\TransaksiController@getData');
+    Route::post('/transaksi-kantin', 'TransaksiKantinController@APIupdate');
+    Route::delete('/transaksi-kantin/{id}', 'TransaksiKantinController@delete');
+
 
 
 });
