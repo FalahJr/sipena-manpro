@@ -69,9 +69,9 @@ class HomeController extends Controller
     public function checklogin() {
       // dd("asd");
       if (Auth::check()) {
-        if(Auth::user()->role_id == 1) {
+        // if(Auth::user()->role_id == 1) {
           return Redirect('/admin/home');
-        } else {
+        // } else {
           Account::where('id', Auth::user()->id)->update([
               //  'last_online' => Carbon::now(),
                'is_login' => "Y",
@@ -80,7 +80,6 @@ class HomeController extends Controller
           Auth::logout();
 
           return Redirect('/admin/login');
-        }
       } else {
         return Redirect('/admin/login');
       }

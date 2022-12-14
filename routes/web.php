@@ -5,9 +5,7 @@ Route::get('/', function () {
     if($user == null) {
       return view('auth.login');
     } else {
-      if($user->role_id == 1) {
         return redirect()->route('homeadmin');
-      }
     }
 }
 );
@@ -18,7 +16,7 @@ Route::get('logout', 'HomeController@logout')->name('logoutadmin');
 Route::get('/generatekartudigital', 'KartuDigitalController@generate');
 
 //Route untuk user admin
-Route::group(['middleware' => 'admin'], function () {
+Route::group(['middleware' => 'auth'], function () {
 
     //Admin Module
     Route::prefix('admin')->group(function () {

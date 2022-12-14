@@ -96,7 +96,6 @@
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav" id="ayaysir">
 
-        @if (Auth::user()->role_id == 1)
         <li class="nav-item {{Request::is('admin/home') ? 'active' : ''}} {{Request::is('/') ? 'active' : ''}} ">
           <a class="nav-link" href="{{url('admin/home')}}">
             <span class="menu-title">Dashboard</span>
@@ -129,19 +128,21 @@
           </div>
         </li>
 
-        <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
-          <a class="nav-link" data-toggle="collapse" href="#berita" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">Berita</span>
-            <i class="menu-arrow"></i>
-            <i class="mdi mdi-database menu-icon"></i>
-          </a>
-          <div class="collapse {{( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') ? 'active' : '' }}" href="{{url('admin/berita-kelas')}}">Berita Kelas<span class="d-none">Berita Kelas</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ? 'active' : '' }}" href="{{url('admin/berita-sekolah')}}">Berita Sekolah<span class="d-none">Berita Sekolah</span></a></li>
-            </ul>
-          </div>
-        </li>
+        @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
+          <li class="nav-item {{ ( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' active' : '' ) }}">
+            <a class="nav-link" data-toggle="collapse" href="#berita" aria-expanded="false" aria-controls="ui-basic">
+              <span class="menu-title">Berita</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-database menu-icon"></i>
+            </a>
+            <div class="collapse {{( ( Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') || Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ) ? ' show' : '' ) }}" id="berita">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-kelas/*') || Request::is('admin/berita-kelas') ? 'active' : '' }}" href="{{url('admin/berita-kelas')}}">Berita Kelas<span class="d-none">Berita Kelas</span></a></li>
+                <li class="nav-item"> <a class="nav-link {{Request::is('admin/berita-sekolah/*') || Request::is('admin/berita-sekolah') ? 'active' : '' }}" href="{{url('admin/berita-sekolah')}}">Berita Sekolah<span class="d-none">Berita Sekolah</span></a></li>
+              </ul>
+            </div>
+          </li>
+        @endif
 
         <li
           class="nav-item {{ ( ( Request::is('admin/kelas/*') || Request::is('admin/kelas') ) ? ' active' : '' ) }}">
@@ -204,20 +205,21 @@
           </a>
         </li>
 
-        <li class="nav-item {{Request::is('admin/absensisiswa') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/absensisiswa')}}">
-            <span class="menu-title">Absensi Siswa</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-note menu-icon"></i>
+        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') ? ' active' : '' || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? ' active' : '' )) }}">
+          <a class="nav-link" data-toggle="collapse" href="#absensi" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Absensi</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-database menu-icon"></i>
           </a>
-        </li>
-
-        <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('admin/feed')}}">
-            <span class="menu-title">Absensi Pegawai</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-note menu-icon"></i>
-          </a>
+          <div class="collapse {{((Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? ' show' : '' ))}}" id="absensi">
+            <ul class="nav flex-column sub-menu">
+              @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
+              @endif
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') ? 'active' : '' }}" href="{{url('admin/absensiguru')}}">Absensi Guru<span class="d-none">Absensi Guru</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? 'active' : '' }}" href="{{url('admin/absensipegawai')}}">Absensi Pegawai<span class="d-none">Absensi Pegawai</span></a></li>
+            </ul>
+          </div>
         </li>
 
         <li class="nav-item {{ ( ( Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') || Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') || Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') || Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') || Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku')) ? ' active' : '' ) }}">
@@ -262,7 +264,7 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') ? 'active' : '' }}" href="{{url('admin/pinjam-fasilitas')}}">Pinjam Fasilitas<span class="d-none">Pinjam Fasilitas</span></a></li>
             </ul>
           </div>
-        </li> 
+        </li>
         <li class="nav-item {{Request::is('admin/nilai-pembelajaran') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/nilai-pembelajaran')}}">
             <span class="menu-title">Pembelajaran Siswa</span>
@@ -270,6 +272,7 @@
             <i class="mdi mdi-library-books menu-icon"></i>
           </a>
         </li>
+        @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
         <li class="nav-item {{ ( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#kantin" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Pembayaran Kantin</span>
@@ -283,6 +286,8 @@
             </ul>
           </div>
         </li>
+        @endif
+        @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
         <li class="nav-item {{Request::is('admin/jadwal-sekolah') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/jadwal-sekolah')}}">
             <span class="menu-title">Jadwal Sekolah</span>
@@ -290,6 +295,7 @@
             <i class="mdi mdi-calendar menu-icon"></i>
           </a>
         </li>
+        @endif
         <li class="nav-item {{ ( ( Request::is('admin/keuangan/*') || Request::is('admin/keuangan') || Request::is('admin/keuangan/*') || Request::is('admin/keuangan') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#keuangan" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Keuangan Sekolah</span>
@@ -303,94 +309,6 @@
             </ul>
           </div>
         </li>
-
-        @else
-        <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('penjual/home')}}">
-            <span class="menu-title">Store Performance Report</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-chart-areaspline menu-icon"></i>
-          </a>
-        </li>
-
-        <li class="nav-item {{Request::is('penjual/toko') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('penjual/toko')}}">
-            <span class="menu-title">Store</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-store menu-icon"></i>
-          </a>
-        </li>
-
-        <li class="nav-item {{Request::is('penjual/produk') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('penjual/produk')}}">
-            <span class="menu-title">Manage Product</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-          </a>
-        </li>
-
-        <li class="nav-item {{Request::is('penjual/lelang') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('penjual/lelang')}}">
-            <span class="menu-title">Manage Action</span>
-            <span class="menu-sub-title" id="lelangnotif">( 0 new )</span>
-            <i class="mdi mdi-sale menu-icon"></i>
-          </a>
-        </li>
-
-        <li class="nav-item {{Request::is('penjual/listorder') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('penjual/listorder')}}">
-            <span class="menu-title">List Order</span>
-            <span class="menu-sub-title" id="pesanannotif">( 0 new )</span>
-            <i class="mdi mdi-cart-outline menu-icon"></i>
-          </a>
-        </li>
-
-        <li class="nav-item {{Request::is('penjual/listfeed') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('penjual/listfeed')}}">
-            <span class="menu-title">List Feedback / Review</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            <i class="mdi mdi-comment menu-icon"></i>
-          </a>
-        </li>
-
-        @endif
-
-
-        {{-- <li class="nav-item {{Request::is('mutasi') ? 'active' : ''}}">
-          <a class="nav-link" href="{{url('/mutasi')}}">
-            <span class="menu-title">Mutation Check</span> --}}
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-            {{-- <i class="fa fa-history"></i>
-          </a>
-        </li> --}}
-        {{-- <li
-          class="nav-item {{Request::is('setting') ? 'active' : '' || Request::is('setting/*') ? 'active' : '' }}">
-          <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">Setup</span>
-            <span class="d-none">
-              Level Account Setting
-              Account Setting
-              Permission Setting
-              Menu List Setting
-            </span>
-            <i class="menu-arrow"></i>
-            <i class="mdi mdi-settings menu-icon mdi-spin"></i>
-          </a>
-          <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}"
-            id="setting">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a
-                  class="nav-link {{Request::is('setting/modul/keuangan/setting/klasifikasi-akun') ? 'active' : '' || Request::is('setting/modul/keuangan/setting/klasifikasi-akun/*') ? 'active' : '' }}"
-                  href="{{url('setting/modul/keuangan/setting/klasifikasi-akun')}}">Klasifikasi Akun<span
-                    class="d-none">Setting</span></a></li>
-              <li class="nav-item"> <a
-                  class="nav-link {{Request::is('setting/modul/keuangan/setting/klasifikasi-akun') ? 'active' : '' || Request::is('setting/modul/keuangan/setting/klasifikasi-akun/*') ? 'active' : '' }}"
-                  href="{{url('setting/modul/keuangan/setting/klasifikasi-akun')}}">Klasifikasi Akun<span
-                    class="d-none">Setting</span></a></li>
-
-            </ul>
-          </div>
-        </li> --}}
 
       </ul>
 

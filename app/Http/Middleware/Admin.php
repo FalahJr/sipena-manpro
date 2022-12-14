@@ -18,9 +18,9 @@ class Admin
         /*'fBaCZemyXbk6uUButDcfLhw1Z21B56Yd4sS4MR3'*/
         /*dd(Auth::user()->m_token.'!='.Session::get('m_token'));*/
         if (Auth::check()) {
-          if(Auth::user()->role_id != 1){
-                  return Redirect('/admin/home');
-          }
+          // if(Auth::user()->role_id != 1){
+          return Redirect('/admin/home');
+          // }
         } else {
           return Redirect('/');
         }
