@@ -42,17 +42,11 @@
             <tr>
               <td>Nama Kantin<span style="color:red;">*</span></td>
               <td>
-                <input type="hidden" class="form-control form-control-sm id" value="{{Auth::user()->id}}" name="user_id">
                 <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="kantin_id">
                 <input type="text" class="form-control form-control-sm inputtext nama" value="{{$data->nama}}" disabled>
+              <input type="hidden" class="form-control form-control-sm id" value="{{Auth::user()->id}}" name="user_id">
               </td>
             </tr>
-          <tr>
-            <td>Nama Pembeli<span style="color:red;">*</span></td>
-            <td>
-              <input type="text" class="form-control form-control-sm inputtext namaPembeli" name="nama_pembeli">
-            </td>
-          </tr>
           <tr>
             <td>Keterangan <span style="color:red;">*</span></td>
             <td>
@@ -62,10 +56,10 @@
             <tr>
               <td>Total Harga<span style="color:red;">*</span></td>
               <td>
-                <input type="text" class="form-control form-control-sm inputtext totalHarga" name="total_harga">
+                <input type="text" class="form-control form-control-sm inputtext totalHarga" name="harga_total">
               </td>
             </tr>
-          <button class="btn btn-success mt-3" id="simpan" type="submit">Simpan Data</button>
+          <button class="btn btn-success mt-3" id="simpan" type="submit">Bayar Sekarang</button>
         </form>
         </div>
       </div>
