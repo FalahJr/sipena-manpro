@@ -115,18 +115,38 @@ class PinjamBukuController extends Controller
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => "error"+$e]);
+        return response()->json(["status" => 7, "message" => $e]);
       }
   }
-  
-  public function insertOrUpdate(Request $req){
-    if($req->id){
-      $this->update($req);
-      return response()->json(["status" => 1]);
-    }else{
-      $this->simpan($req);
-      return response()->json(["status" => 1]);
-    }
+    
+
+  public function insertData(Request $req){
+      try {   
+        $max = DB::table("perpus_peminjaman")->max('id') + 1;
+        $date = Carbon::CreateFromFormat('Y-m-d', $req->tanggal_peminjaman);
+        $req->tanggal_pengembalian = $date->addDays(7)->format('Y-m-d');
+        DB::table("perpus_peminjaman")
+          ->insert([
+            "id" => $max,
+            "user_id" => $req->user_id,
+            "tanggal_peminjaman" => $req->tanggal_peminjaman,
+            "tanggal_pengembalian" => $req->tanggal_pengembalian,
+          ]);
+          foreach($req->perpus_katalog_id as  $perpus_katalog_id){
+            DB::table("perpus_peminjaman_katalog")
+            ->insert([
+              "perpus_peminjaman_id" => $max,
+              "perpus_katalog_id" => $perpus_katalog_id,
+            ]);
+            DB::table("perpus_katalog")->where('id',$perpus_katalog_id)->decrement('stok_buku');
+          }
+          DB::commit();
+
+        return response()->json(["status" => 1,"message" => "buku berhasil dipinjamkan, tunggu acc dari pegawai"]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
   }
 
   public function getData(Request $req){
@@ -137,30 +157,13 @@ class PinjamBukuController extends Controller
         ->join("perpus_katalog", "perpus_peminjaman_katalog.perpus_katalog_id", '=', 'perpus_katalog.id')
         ->select("perpus_peminjaman.*", "perpus_peminjaman_katalog.*","perpus_katalog.*")
         ->where("perpus_peminjaman.id",$req->id)->first();
+      }else{
+        $data = DB::table('perpus_peminjaman')
+        ->join("perpus_peminjaman_katalog", "perpus_peminjaman_katalog.perpus_peminjaman_id", '=', 'perpus_peminjaman.id')
+        ->join("perpus_katalog", "perpus_peminjaman_katalog.perpus_katalog_id", '=', 'perpus_katalog.id')
+        ->select("perpus_peminjaman.*", "perpus_peminjaman_katalog.*","perpus_katalog.*")
+        ->get();
       }
-      // }else{
-      //   $data = DB::table('perpus_peminjaman')
-      //     ->join("siswa", "siswa.id", '=', 'perpus_peminjaman.siswa_id')
-      //     ->join("mapel", "mapel.id", '=', 'perpus_peminjaman.mapel_id')
-      //     ->join("kelas", "kelas.id", '=', 'perpus_peminjaman.kelas_id')
-      //     ->select("perpus_peminjaman.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
-      //     ->when($req->kelas_id, function($q, $kelas_id) {
-      //         return $q->where('perpus_peminjaman.kelas_id',$kelas_id);
-      //     })
-      //     ->when($req->mapel_id, function($q, $mapel_id) {
-      //       return $q->where('perpus_peminjaman.mapel_id',$mapel_id);
-      //     })
-      //     ->when($req->siswa_id, function($q, $siswa_id) {
-      //     return $q->where('perpus_peminjaman.siswa_id',$siswa_id);
-      //     })
-      //     ->when($req->semester, function($q, $semester) {
-      //       return $q->where('perpus_peminjaman.semester',$semester);
-      //     })
-      //     ->when($req->is_show, function($q, $is_show) {
-      //       return $q->where('perpus_peminjaman.is_show',$is_show);
-      //     })
-      //     ->get();
-      // }
       return response()->json(["status" => 1, "data" => $data]);
     }catch(\Exception $e){
       return response()->json(["status" => 2, "message" => $e->getMessage()]);

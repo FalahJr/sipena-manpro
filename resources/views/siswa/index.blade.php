@@ -32,8 +32,10 @@
                                 <th>No</th>
                                 <th>Foto</th>
                                 <th>Wali Murid</th>
+                                <th>NISN</th>
                                 <th>Nama Lengkap</th>
-                                <th>Tanggal Lahir</th>
+                                <th>Email</th>
+                                <th>Tempat, Tanggal Lahir</th>
                                 <th>Telepone</th>
                                 <th>Alamat</th>
                                 <th>Agama</th>
@@ -137,13 +139,19 @@ var table = $('#table-data').DataTable({
                  targets: 13,
                  className: 'center'
               },
+              {
+                 targets: 14,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'foto_profil', name: 'foto_profil'},
           {data: 'wali_murid', name: 'wali_murid'},
+          {data: 'nisn', name: 'nisn'},
           {data: 'nama_lengkap', name: 'nama_lengkap'},
-          {data: 'tanggal_lahir', name: 'tanggal_lahir'},
+          {data: 'email', name: 'email'},
+          {data: 'tempat_tanggal_lahir', name: 'tempat_tanggal_lahir'},
           {data: 'phone', name: 'phone'},
           {data: 'alamat', name: 'alamat'},
           {data: 'agama', name: 'agama'},

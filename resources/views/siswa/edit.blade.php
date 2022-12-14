@@ -46,11 +46,29 @@
           
           <form action="{{url('admin/siswa/update')}}" method="POST" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <tr>
+              <td>NISN <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nisn')) is-invalid @endif nisn" value="{{$data->nisn}}" name="nisn">
+              </td>
+            </tr>
           <tr>
             <td>Nama Lengkap <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_lengkap')) is-invalid @endif" value="{{$data->nama_lengkap}}" name="nama_lengkap">
               <input type="hidden" class="form-control form-control-sm" value="{{$data->id}}" name="id">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Ayah <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_ayah')) is-invalid @endif nama_ayah" value="{{$data->nama_ayah}}" name="nama_ayah">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Ibu <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_ibu')) is-invalid @endif nama_ibu" value="{{$data->nama_ibu}}" name="nama_ibu">
             </td>
           </tr>
           <tr>
