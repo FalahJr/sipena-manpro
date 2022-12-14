@@ -87,6 +87,9 @@ Route::middleware('api')->group(function () {
     Route::get('/kantin', 'BayarKantinController@getData');
     Route::post('/pinjam-buku', 'Perpustakaan\PinjamBukuController@insertData');
     Route::get('/pinjam-buku', 'Perpustakaan\PinjamBukuController@getData');
+    Route::get('/kembali-buku', 'Perpustakaan\KembaliBukuController@getData');
+    Route::post('/kembali-buku', 'Perpustakaan\KembaliBukuController@insertData');
+    Route::get('/kembali-buku/acc', 'Perpustakaan\KembaliBukuController@accKembali');
     Route::get('/pinjam-buku/acc', 'Perpustakaan\PinjamBukuController@accPinjam');
     Route::delete('/pinjam-buku/{id}', 'Perpustakaan\PinjamBukuController@delete');
     Route::post('/sumbang-buku', 'Perpustakaan\SumbangBukuController@insertData');

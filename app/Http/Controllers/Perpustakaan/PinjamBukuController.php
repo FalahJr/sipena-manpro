@@ -93,7 +93,13 @@ class PinjamBukuController extends Controller
         $this->validate($req,[
           'perpus_katalog_id' => 'required|max:3',
         ]);
+        $userPinjam = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->where("is_kembali","N")->first();
+        if($userPinjam){
+          return response()->json(["status" => 2, "message" => "untuk meminjam buku, user harus mengembalikan buku yang dipinjam sebelumnya"]);
+        }
         $max = DB::table("perpus_peminjaman")->max('id') + 1;
+        $date = Carbon::CreateFromFormat('Y-m-d', $req->tanggal_peminjaman);
+        $req->tanggal_pengembalian = $date->addDays(7)->format('Y-m-d');
         DB::table("perpus_peminjaman")
           ->insert([
             "id" => $max,
@@ -115,13 +121,17 @@ class PinjamBukuController extends Controller
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => $e]);
+        return response()->json(["status" => 2, "message" => $e]);
       }
   }
     
 
   public function insertData(Request $req){
       try {   
+        $userPinjam = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->where("is_kembali","N")->first();
+        if($userPinjam){
+          return response()->json(["status" => 2, "message" => "untuk meminjam buku, user harus mengembalikan buku yang dipinjam sebelumnya"]);
+        }
         $max = DB::table("perpus_peminjaman")->max('id') + 1;
         $date = Carbon::CreateFromFormat('Y-m-d', $req->tanggal_peminjaman);
         $req->tanggal_pengembalian = $date->addDays(7)->format('Y-m-d');
@@ -155,7 +165,13 @@ class PinjamBukuController extends Controller
         $data = DB::table('perpus_peminjaman')
         ->join("user", "user.id", '=', 'perpus_peminjaman.user_id')
         ->join("role", "user.role_id", '=', 'role.id')
-        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
+        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.is_kembali","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
+        ->when($req->user_id,function($q,$user_id){
+          return $q->where("perpus_peminjaman.user_id",$user_id);
+        })
+        ->when($req->is_kembali,function($q,$is_kembali){
+          return $q->where("perpus_peminjaman.is_kembali",$is_kembali);
+        })
         ->where("perpus_peminjaman.id",$req->id)->first();
         if($data){
           if($data->role_id == 1){
@@ -197,7 +213,13 @@ class PinjamBukuController extends Controller
         $datas = DB::table('perpus_peminjaman')
         ->join("user", "user.id", '=', 'perpus_peminjaman.user_id')
         ->join("role", "user.role_id", '=', 'role.id')
-        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
+        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_dikembalikan","perpus_peminjaman.is_kembali","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
+        ->when($req->is_kembali,function($q,$is_kembali){
+          return $q->where("perpus_peminjaman.is_kembali",$is_kembali);
+        })
+        ->when($req->user_id,function($q,$user_id){
+          return $q->where("perpus_peminjaman.user_id",$user_id);
+        })
         ->get();
 
         foreach($datas as $data){
@@ -248,9 +270,9 @@ class PinjamBukuController extends Controller
         return response()->json(["status" => 2, "message" => "required peprus_sumbang.id and pegawai_id"]);
       }
         $data = DB::table('perpus_peminjaman')
-        ->where("id",$req->perpus_peminjaman_id)->first();
+        ->where("id",$req->id)->first();
         if($data){
-          DB::table('perpus_peminjaman')->where("id",$req->perpus_peminjaman_id)->update(["pegawai_id"=>$req->pegawai_id]);
+          DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"N"]);
           return response()->json(["status" => 1, "message" => "berhasil di acc"]);
           }else{
             return response()->json(["status" => 2, "message" => "id tidak ditemukan"]);
@@ -278,7 +300,7 @@ class PinjamBukuController extends Controller
             DB::table("perpus_peminjaman")
             ->where('id',$id)
             ->delete();
-            
+
         return response()->json(["status" => 1, "message" => "berhasil menghapus data"]);
       }else{
         return response()->json(["status" => 2, "message" => "id tidak ditemukan"]);

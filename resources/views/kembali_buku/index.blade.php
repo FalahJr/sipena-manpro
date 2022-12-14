@@ -45,6 +45,7 @@
                                 <th>Tanggal Peminjaman</th>
                                 <th>Tanggal Pengembalian</th>
                                 <th>Total Denda</th>
+                                <th>Tanggal Dikembalikan</th>
                                 <th>Dikonfirmasi Pegawai</th>
                                 <th>Action</th>
                               </tr>
@@ -117,6 +118,10 @@ var table = $('#table-data').DataTable({
                  targets: 7,
                  className: 'center'
               },
+              {
+                 targets: 8,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -125,6 +130,7 @@ var table = $('#table-data').DataTable({
           {data: 'tanggal_peminjaman', name: 'tanggal_peminjaman'},
           {data: 'tanggal_pengembalian', name: 'tanggal_pengembalian'},
           {data: 'total_denda', name: 'total_denda'},
+          {data: 'tanggal_dikembalikan', name: 'tanggal_dikembalikan'},
           {data: 'pegawai_id', name: 'pegawai_id'},
           {data: 'aksi', name: 'aksi'},
         ]
