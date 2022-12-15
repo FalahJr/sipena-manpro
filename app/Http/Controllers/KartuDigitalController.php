@@ -72,10 +72,10 @@ class KartuDigitalController extends Controller
     }
 
     public function generateJson(Request $req) {
-              $data = DB::table("siswa")
+      $data = DB::table("siswa")
+              ->where("siswa.id", $req->id)
               ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
               ->select("siswa.*", "kelas.*", "siswa.id as id", "kelas.id as kelasid", "siswa.tanggal_daftar as linkGenerate")
-              ->where("siswa.id", $req->id)
               ->first();
 
       $data->linkGenerate = url('/generatekartudigital?id=') . $data->id;
