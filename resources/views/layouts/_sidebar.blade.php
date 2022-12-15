@@ -205,7 +205,7 @@
           </a>
         </li>
 
-        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') ? ' active' : '' || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? ' active' : '' )) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? ' active' : '' )) }}">
           <a class="nav-link" data-toggle="collapse" href="#absensi" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Absensi</span>
             <i class="menu-arrow"></i>

@@ -34,7 +34,8 @@
                   <th>Mata Pelajaran</th>
                   <th>Kelas</th>
                   <th>Hari</th>
-                  <th>Waktu</th>
+                  <th>Waktu Mulai</th>
+                  <th>Waktu Akhir</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -105,7 +106,8 @@
     { data: 'mapel', name: 'mapel' },
     { data: 'kelas', name: 'kelas' },
     { data: 'jadwal_hari', name: 'jadwal_hari' },
-    { data: 'jadwal_waktu', name: 'jadwal_waktu' },
+    { data: 'jadwal_waktu_mulai', name: 'jadwal_waktu_mulai' },
+    { data: 'jadwal_waktu_akhir', name: 'jadwal_waktu_akhir' },
 
     { data: 'aksi', name: 'aksi' },
   ]

@@ -80,14 +80,15 @@ class JadwalPembelajaranController extends Controller
       }
       DB::beginTransaction();
 
-      try {
+    try {
         $tes = DB::table("jadwal_pembelajaran")
           ->insert([
             "id" => $max,
             "mapel_id" => $req->mapel_id,
             "kelas_id" => $req->kelas_id,
             "jadwal_hari" => $req->jadwal_hari,
-            "jadwal_waktu" => $req->jadwal_waktu,
+            "jadwal_waktu_mulai" => $req->jadwal_waktu_mulai,
+            "jadwal_waktu_akhir" => $req->jadwal_waktu_akhir,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
         DB::commit();
@@ -152,7 +153,8 @@ class JadwalPembelajaranController extends Controller
   {
     $this->validate($request, [
       'jadwal_hari' => 'required|max:100',
-      'jadwal_waktu' => 'required',
+      'jadwal_waktu_mulai' => 'required',
+      'jadwal_waktu_akhir' => 'required',
     ]);
 
     // $guru_id = DB::table("jadwal_pembelajaran")

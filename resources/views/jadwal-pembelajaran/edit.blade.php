@@ -79,7 +79,13 @@
             <tr>
               <td>Jadwal Waktu <span style="color:red;">*</span></td>
               <td>
-                <input type="time" class="form-control form-control-sm inputtext jadwal_waktu @if($errors->has('jadwal_waktu')) is-invalid @endif" value="{{$detail->jadwal_waktu}}" name="jadwal_waktu">
+                <input type="time" class="form-control form-control-sm inputtext jadwal_waktu_mulai @if($errors->has('jadwal_waktu_mulai')) is-invalid @endif" value="{{$detail->jadwal_waktu_mulai}}" name="jadwal_waktu_mulai">
+              </td>
+            </tr>
+            <tr>
+              <td>Jadwal Akhir <span style="color:red;">*</span></td>
+              <td>
+                <input type="time" class="form-control form-control-sm inputtext jadwal_waktu_akhir @if($errors->has('jadwal_waktu_akhir')) is-invalid @endif" value="{{$detail->jadwal_waktu_akhir}}" name="jadwal_waktu_akhir">
               </td>
             </tr>
           <!-- <tr>

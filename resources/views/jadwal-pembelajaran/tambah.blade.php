@@ -50,9 +50,15 @@
               </td>
             </tr>
             <tr>
-              <td>Jadwal Waktu <span style="color:red;">*</span></td>
+              <td>Jadwal Waktu Mulai <span style="color:red;">*</span></td>
               <td>
-                <input type="time" class="form-control form-control-sm inputtext jadwal_waktu" name="jadwal_waktu">
+                <input type="time" class="form-control form-control-sm inputtext jadwal_waktu" name="jadwal_waktu_mulai">
+              </td>
+            </tr>
+            <tr>
+              <td>Jadwal Waktu Akhir <span style="color:red;">*</span></td>
+              <td>
+                <input type="time" class="form-control form-control-sm inputtext jadwal_waktu" name="jadwal_waktu_akhir">
               </td>
             </tr>
 
