@@ -125,5 +125,8 @@ Route::middleware('api')->group(function () {
 
     Route::get('/ppdb', 'SiswaController@ppdb');
 
+    Route::get('/ppdb', 'SiswaController@ppdb');
+    Route::get('/ppdb', 'SiswaController@ppdb');
+
 
 });

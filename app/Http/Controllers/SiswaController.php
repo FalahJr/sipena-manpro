@@ -169,6 +169,17 @@ public function osisdatatable()
     ->get();
     return response()->json(["status" => 1,"data"=>$data]); 
   }
+
+  public function ppdb(){
+    $data = DB::table("ppdb")->first();
+    if($data){
+      $data = DB::table("ppdb")->update(["is_active"=>"Y"]);
+      return response()->json(["status" => 1,"message"=>"ppdb berhasil ditambahkan"]);
+    }else{
+      return response()->json(["status" => 2,"message"=>"data ppdb tidak ada"]);
+    }
+  }
+
   public function APIAccPermintaan(Request $req){
     if($req->id){
     $siswa= DB::table("siswa")->where("id",$req->id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);

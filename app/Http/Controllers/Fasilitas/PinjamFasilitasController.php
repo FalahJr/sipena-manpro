@@ -127,14 +127,14 @@ class PinjamFasilitasController extends Controller
   public function getData(Request $req){
     try{
       if($req->acc){
-        $data = DB::table("peminjaman_fasilitas_jadwal")
+        $datas = DB::table("peminjaman_fasilitas_jadwal")
         ->join("user","user.id","=","peminjaman_fasilitas_jadwal.user_id")
         ->join("role","role.id","=","user.role_id")
         ->join("peminjaman_fasilitas","peminjaman_fasilitas.id","=","peminjaman_fasilitas_jadwal.peminjaman_fasilitas_id")
         ->select("peminjaman_fasilitas_jadwal.*","peminjaman_fasilitas.nama as nama_fasilitas","user.role_id","role.nama as role_nama")
         ->whereNotNull('pegawai_id')->get(); // sudah di acc
 
-        if($data){
+        foreach($datas as $data){
           if($data->role_id == 1){
             $data->user_nama = "admin";
           } else if($data->role_id == 2) {
@@ -161,8 +161,9 @@ class PinjamFasilitasController extends Controller
               $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
               $data->user_nama = $cekdata->nama_lengkap;
           }
-          return response()->json(['status' => 1, 'data'=>$data]);
         }
+        return response()->json(['status' => 1, 'data'=>$datas]);
+
       }else{
         $datas = DB::table("peminjaman_fasilitas_jadwal")
         ->join("user","user.id","=","peminjaman_fasilitas_jadwal.user_id")
