@@ -40,7 +40,7 @@ class KeuanganController extends Controller
                 ->get();
     $kategori = DB::table("keuangan_kategori")->get();
     $siswa = DB::table("siswa")->get();
-      
+
 
       return view('data-keuangan.index', compact('data2', 'kategori', 'siswa'));
     }
@@ -51,13 +51,16 @@ class KeuanganController extends Controller
         return Datatables::of($data)
         ->addColumn("siswa_id", function ($data) {
           $siswa = DB::table('siswa')->where('id', $data->siswa_id)->first();
-          
+
           return $siswa->nama_lengkap ;
         })
         ->addColumn("keuangan_kategori_id", function ($data) {
           $keuangan_kategori = DB::table('keuangan_kategori')->where('id', $data->keuangan_kategori_id)->first();
-          
+
           return $keuangan_kategori->nama ;
+        })
+        ->addColumn('nominal', function ($data) {
+          return FormatRupiahFront($data->nominal);
         })
           ->addColumn('aksi', function ($data) {
             return  '<div class="btn-group">'.
@@ -85,19 +88,42 @@ class KeuanganController extends Controller
 
           $max = DB::table("keuangan")->max('id') + 1;
 
-          
+          $nominal = str_replace("", "Rp. ", $req->nominal);
+          $nominal = str_replace("", ".", $nominal);
+
+          $imgPath = null;
+          $tgl = carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/keuangan/' . $max;
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                    // compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],50);
+                      $file->move($path, $name);
+                      $imgPath = $childPath . $name;
+                  } else
+                      $imgPath = null;
+              } else {
+                  return 'already exist';
+              }
+          }
 
           DB::table("keuangan")
               ->insert([
               "id" => $max,
               "keuangan_kategori_id" => $req->keuangan_kategori_id,
               "keterangan" => $req->keterangan,
-              "nominal" => $req->nominal,
+              "nominal" => $nominal,
               "siswa_id" => $req->siswa_id,
-              "bukti_pembayaran" => null,
-                "created_at" => Carbon::now('Asia/Jakarta')
-
-              
+              "bukti_pembayaran" => $imgPath,
+              "created_at" => Carbon::now('Asia/Jakarta')
             ]);
 
           DB::commit();
@@ -110,20 +136,50 @@ class KeuanganController extends Controller
         DB::beginTransaction();
         try {
 
-         
+          $nominal = str_replace("", "Rp. ", $req->nominal);
+          $nominal = str_replace("", ".", $nominal);
 
-            if ($req->nama_kategori != null) {
-              DB::table("keuangan")
-                  ->where('id', $req->id)
-                  ->update([
-                    "keuangan_kategori_id" => $req->keuangan_kategori_id,
+          $imgPath = null;
+          $tgl = carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/keuangan/' . $req->id;
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                    // compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],50);
+                      $file->move($path, $name);
+                      $imgPath = $childPath . $name;
+                  } else
+                      $imgPath = null;
+              } else {
+                  return 'already exist';
+              }
+          }
+
+          DB::table("keuangan")
+            ->where('id', $req->id)
+            ->update([
+              "keuangan_kategori_id" => $req->keuangan_kategori_id,
               "keterangan" => $req->keterangan,
-              "nominal" => $req->nominal,
+              "nominal" => $nominal,
               "siswa_id" => $req->siswa_id,
-                "created_at" => Carbon::now('Asia/Jakarta')
+              "created_at" => Carbon::now('Asia/Jakarta')
+          ]);
 
-                ]);
-            }
+          if($imgPath != null) {
+            DB::table("keuangan")
+              ->where('id', $req->id)
+              ->update([
+                "bukti_pembayaran" => $imgPath
+            ]);
+          }
 
           DB::commit();
           return response()->json(["status" => 3]);
@@ -142,8 +198,6 @@ class KeuanganController extends Controller
         DB::table("keuangan")
             ->where("id", $req->id)
             ->delete();
-
-       
 
         DB::commit();
         return response()->json(["status" => 5]);

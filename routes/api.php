@@ -118,7 +118,8 @@ Route::middleware('api')->group(function () {
     Route::get('/calon-osis/permintaan', 'SiswaController@listPermintaan');
     Route::get('/anggota-osis', 'SiswaController@listAnggota');
 
-
-
+    //Keuangan
+    Route::get('/keuangan', 'KeuanganController@getKeuanganJson');
+    Route::post('/simpankeuangan', 'KeuanganController@simpan');
 
 });
