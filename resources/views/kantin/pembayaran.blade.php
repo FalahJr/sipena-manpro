@@ -23,7 +23,7 @@
         Silahkan isi semua data yang bertanda<span style="color:red;">*</span><br>
         Pastikan saldo anda cukup<span style="color:red;">*</span>
 
-        </div>
+      </div>
         
     </div>
     <div class="row">

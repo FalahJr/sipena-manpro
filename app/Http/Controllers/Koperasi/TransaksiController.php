@@ -70,8 +70,7 @@ class TransaksiController extends Controller
         return Carbon::CreateFromFormat('Y-m-d',$data->tanggal)->format('d M Y');
       })
       ->addColumn('qr_code',function($data){
-        $generateQRCode = QrCode::size(100)->generate($data->id);
-        return $generateQRCode;
+        return '<a href="#mymodal" data-remote="'.url('/admin/transaksi-koperasi/show/'.$data->id).'" data-toggle="modal" data-target="#mymodal" data-title="Show QRCode">'.QrCode::size(100)->generate($data->id).'</a>';
       })
       ->addColumn('is_lunas',function($data){
         if($data->is_lunas == "Y"){
@@ -120,6 +119,11 @@ class TransaksiController extends Controller
       }catch(\Exception $e){
         return response()->json(["status" => 2, "message" => $e->getMessage()]);
       }
+  }
+
+  public function show($id)
+  {
+      return view('transaksi_koperasi.show',['id'=>$id]);
   }
 
   public function simpan(Request $req)
