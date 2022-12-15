@@ -180,7 +180,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-        App\Providers\UserServiceProvider::class,
 
     ],
 
@@ -234,8 +233,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'penyebut' => App\Lib\penyebutlib::class,
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        'Notifikasi' => App\Helpers\Notifikasi::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
     ],
 
 ];
