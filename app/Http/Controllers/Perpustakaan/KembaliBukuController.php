@@ -109,7 +109,7 @@ class KembaliBukuController extends Controller
         return response()->json(["status" => 1]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 7, "message" => "aman"]);
+        return response()->json(["status" => 7, "message" => $e]);
       }
   }
 

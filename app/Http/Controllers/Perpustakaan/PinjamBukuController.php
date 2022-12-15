@@ -95,7 +95,7 @@ class PinjamBukuController extends Controller
         ]);
         $userPinjam = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->where("is_kembali","N")->first();
         if($userPinjam){
-          return response()->json(["status" => 2, "message" => "untuk meminjam buku, user harus mengembalikan buku yang dipinjam sebelumnya"]);
+          return response()->json(["status" => 7, "message" => "untuk meminjam buku, user harus mengembalikan buku yang dipinjam sebelumnya"]);
         }
         $max = DB::table("perpus_peminjaman")->max('id') + 1;
         $date = Carbon::CreateFromFormat('Y-m-d', $req->tanggal_peminjaman);
@@ -118,7 +118,7 @@ class PinjamBukuController extends Controller
           }
           DB::commit();
 
-        return response()->json(["status" => 1]);
+        return response()->json(["status" => 1,"message" => "berhasil dipinjamkan"]);
       } catch (\Exception $e) {
         DB::rollback();
         return response()->json(["status" => 2, "message" => $e]);
