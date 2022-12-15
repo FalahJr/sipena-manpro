@@ -55,6 +55,9 @@ class SiswaController extends Controller
         $generateQRCode = QrCode::size(100)->generate($data->kartu_digital);
         return $generateQRCode;
       })
+      ->addColumn('tempat_tanggal_lahir',function($data){
+        return $data->tempat_lahir.", ".$data->tanggal_lahir;
+      })
       ->addColumn('osis',function($data){
         if($data->is_osis == "Y"){
           return '<div class="badge badge-secondary text-dark badge-lg">'.

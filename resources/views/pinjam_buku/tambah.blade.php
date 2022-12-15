@@ -51,13 +51,6 @@
           </tr>
 
           <tr>
-            <td>Tanggal Pengembalian <span style="color:red;">*</span></td>
-            <td>
-              <input type="date" class="form-control form-control-sm inputDate inputtext tanggal_pengembalian" name="tanggal_pengembalian">
-            </td>
-          </tr>
-
-          <tr>
             <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
             <td>
               <select class="form-control form-control-sm inputtext" name="pegawai_id">

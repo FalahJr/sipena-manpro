@@ -60,7 +60,22 @@ class TransaksiKantinController extends Controller
         $kantin = DB::table('kantin')->where('id',$data->kantin_id)->first();
         return $kantin->nama;
       })
-      ->rawColumns(['aksi','kantin',"tanggal_pembelian"])
+      ->addColumn('pembayaran', function ($data) {
+        $data = DB::table('user')->where('id',$data->user_id)->first();
+        if($data){
+          if($data->role_id == 5){
+            $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+            if($cekdata->is_kantin == "Y"){
+              return "Cash";
+            }else{
+              return "Non-Cash";
+            }
+          }else{
+            return "Cash";
+          }
+        }
+      })
+      ->rawColumns(['aksi','kantin',"tanggal_pembelian","pembayaran"])
       ->addIndexColumn()
       ->make(true);
   }

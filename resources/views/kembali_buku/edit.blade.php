@@ -87,6 +87,13 @@
               <input type="text" class="form-control form-control-sm inputtext tanggal_pengembalian" value="{{$data->total_denda}}" name="tanggal_pengembalian" disabled>
             </td>
           </tr>
+
+          <tr>
+            <td>Tanggal Dikembalikan <span style="color:red;">*</span></td>
+            <td>
+              <input type="date" class="form-control form-control-sm inputtext tanggal_dikembalikan @if($errors->has('tanggal_dikembalikan')) is-invalid @endif" value="{{$data->tanggal_dikembalikan}}" name="tanggal_dikembalikan">
+            </td>
+          </tr>
           <tr>
             <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
             <td>
