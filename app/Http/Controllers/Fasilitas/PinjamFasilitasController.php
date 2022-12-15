@@ -128,16 +128,78 @@ class PinjamFasilitasController extends Controller
     try{
       if($req->acc){
         $data = DB::table("peminjaman_fasilitas_jadwal")
+        ->join("user","user.id","=","peminjaman_fasilitas_jadwal.user_id")
+        ->join("role","role.id","=","user.role_id")
         ->join("peminjaman_fasilitas","peminjaman_fasilitas.id","=","peminjaman_fasilitas_jadwal.peminjaman_fasilitas_id")
-        ->select("peminjaman_fasilitas_jadwal.*","peminjaman_fasilitas.nama as nama_fasilitas")
+        ->select("peminjaman_fasilitas_jadwal.*","peminjaman_fasilitas.nama as nama_fasilitas","user.role_id","role.nama as role_nama")
         ->whereNotNull('pegawai_id')->get(); // sudah di acc
+
+        if($data){
+          if($data->role_id == 1){
+            $data->user_nama = "admin";
+          } else if($data->role_id == 2) {
+              $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 3) {
+              $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 4) {
+              $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 5) {
+              $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 6) {
+              $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 7) {
+              $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+              $data->user_nama = $cekdata->nama_lengkap;
+          }
+          return response()->json(['status' => 1, 'data'=>$data]);
+        }
       }else{
-        $data = DB::table("peminjaman_fasilitas_jadwal")
+        $datas = DB::table("peminjaman_fasilitas_jadwal")
+        ->join("user","user.id","=","peminjaman_fasilitas_jadwal.user_id")
+        ->join("role","role.id","=","user.role_id")
         ->join("peminjaman_fasilitas","peminjaman_fasilitas.id","=","peminjaman_fasilitas_jadwal.peminjaman_fasilitas_id")
-        ->select("peminjaman_fasilitas_jadwal.*","peminjaman_fasilitas.nama as nama_fasilitas")
+        ->select("peminjaman_fasilitas_jadwal.*","peminjaman_fasilitas.nama as nama_fasilitas","user.role_id","role.nama as role_nama")
         ->whereNull('pegawai_id')->get(); // belom di acc
+        foreach($datas as $data){
+          if($data->role_id == 1){
+            $data->user_nama = "admin";
+          } else if($data->role_id == 2) {
+              $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 3) {
+              $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 4) {
+              $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 5) {
+              $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 6) {
+              $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+    
+              $data->user_nama = $cekdata->nama_lengkap;
+          } else if($data->role_id == 7) {
+              $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+              $data->user_nama = $cekdata->nama_lengkap;
+          }
+        }
+        return response()->json(['status' => 1, 'data'=>$datas]);
       }
-      return response()->json(['status' => 1, 'data'=>$data]);
     } catch (\Exception $e) {
       DB::rollback();
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
