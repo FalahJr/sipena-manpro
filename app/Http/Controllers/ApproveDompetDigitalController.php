@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\NotifikasiController as Notifikasi;
 use Illuminate\Http\Request;
 
 use App\mMember;
@@ -143,7 +143,8 @@ class ApproveDompetDigitalController extends Controller
           if($req->status == "approve") {
             $data = DB::table("log_transaksi")->where("id", $req->id)->first();
             $user = DB::table("user")->where("id", $data->user_id)->first();
-
+            Notifikasi::push_notifikasi($data->user_id,"Berhasil isi saldo","Saldo dompet digital kamu sudah terisi");
+            
             DB::table("log_transaksi")
                 ->where("id", $req->id)
                 ->update([
@@ -156,6 +157,8 @@ class ApproveDompetDigitalController extends Controller
                   "saldo" => $data->nominal + $user->saldo
                 ]);
           } else {
+            $data = DB::table("log_transaksi")->where("id", $req->id)->first();
+            Notifikasi::push_notifikasi($data->user_id,"Gagal Isi Saldo","Saldo dompet digital kamu tidak di acc oleh admin, harap teliti pastikan data telah sesuai");
             DB::table("log_transaksi")
                 ->where("id", $req->id)
                 ->update([

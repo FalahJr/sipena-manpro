@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Fasilitas;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotifikasiController as Notifikasi;
+
 use Illuminate\Http\Request;
 
 use App\Account;
@@ -215,11 +217,15 @@ class PinjamFasilitasController extends Controller
         "pegawai_id" => $req->pegawai_id,
       ]);
 
-        DB::commit();
-      if($data)
-      return response()->json(["status" => 1,"message" => "berhasil di ACC"]);
-      else
+      DB::commit();
+      if($data){
+        $user_id = DB::table("peminjaman_fasilitas_jadwal")
+        ->where("id",$req->id)->first()->user_id;
+        Notifikasi::push_notifikasi($user_id,"Pinjam Fasilitas","Peminjaman fasilitas berhasil di konfirmasi kamu bisa menggunakan fasilitas sekolah");
+        return response()->json(["status" => 1,"message" => "berhasil di ACC"]);
+      }else{
       return response()->json(["status" => 2,"message" => "data sudah di acc atau id tidak ditemukan"]);
+      }
     } catch (\Exception $e) {
       DB::rollback();
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
@@ -246,8 +252,9 @@ class PinjamFasilitasController extends Controller
   public function delete($id){
     if($id){
       $data = DB::table("peminjaman_fasilitas_jadwal")
-      ->where('id',$id)
-      ->delete();
+      ->where('id',$id);
+      Notifikasi::push_notifikasi($data->first()->user_id,"Gagal Pinjam Fasilitas","Peminjaman fasilitas ditolak pegawai, mungkin fasilitas sedang dipakai");
+      $data->delete();
       if($data){
         return response()->json(["status" => 1,"message"=>"data berhasil dihapus"]);
       }else{

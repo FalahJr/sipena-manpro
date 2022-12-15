@@ -20,6 +20,9 @@ use File;
 
 use Yajra\Datatables\Datatables;
 
+use App\Http\Controllers\NotifikasiController as Notifikasi;
+
+
 use Response;
 
 class SumbangBukuController extends Controller
@@ -200,6 +203,7 @@ class SumbangBukuController extends Controller
             "bahasa" => $data->bahasa,
             "total_halaman" => $data->total_halaman,
           ]);
+          Notifikasi::push_notifikasi($data->user_id,"Sumbang Buku","Sumbangan buku anda berhasil di konfirmasi pegawai, buku anda sekarang ada pada katalog perpus");
           return response()->json(["status" => 1, "message" => "berhasil di acc"]);
           }else{
             return response()->json(["status" => 2, "message" => "perpus_sumbang.id tidak ditemukan"]);

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\NotifikasiController as Notifikasi;
 use Illuminate\Http\Request;
 
 use App\Account;
@@ -146,6 +146,8 @@ public function osisdatatable()
   }
   public function accPermintaan($id){
     DB::table("siswa")->where("id",$id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
+    $user_id = DB::table("siswa")->where("id",$id)->first()->user_id;
+    Notifikasi::push_notifikasi($user_id,"Berhasil Daftar OSIS","Selamat anda telah menjadi OSIS, sekarang anda dapat melakukan kegiatan osis dan menambahkan kegiatan osis");
     return back()->with(['success' => 'siswa sekarang menjadi osis']);
   }
   public function listPermintaan(){
@@ -170,10 +172,14 @@ public function osisdatatable()
     return response()->json(["status" => 1,"data"=>$data]); 
   }
 
-  public function ppdb(){
+  public function ppdb(Request $req){
     $data = DB::table("ppdb")->first();
     if($data){
-      $data = DB::table("ppdb")->update(["is_active"=>"Y"]);
+      if($req->is_active == "Y"){
+        $data = DB::table("ppdb")->update(["is_active"=>"Y"]);
+      }else{
+        $data = DB::table("ppdb")->update(["is_active"=>"N"]);
+      }
       return response()->json(["status" => 1,"message"=>"ppdb berhasil ditambahkan"]);
     }else{
       return response()->json(["status" => 2,"message"=>"data ppdb tidak ada"]);
@@ -184,8 +190,9 @@ public function osisdatatable()
     if($req->id){
     $siswa= DB::table("siswa")->where("id",$req->id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
     if($siswa){
-    return response()->json(["status" => 1,"message"=>"berhasil menjadi anggota osis"]);
-
+      $siswa= DB::table("siswa")->where("id",$req->id)->first();
+      Notifikasi::push_notifikasi($siswa->user_id,"Berhasil Daftar OSIS","Selamat anda telah menjadi OSIS, sekarang anda dapat melakukan kegiatan osis dan menambahkan kegiatan osis");
+      return response()->json(["status" => 1,"message"=>"berhasil menjadi anggota osis"]);
       }else{
       return response()->json(["status" => 2,"message"=>"id siswa tidak ditemukan"]);
       }
