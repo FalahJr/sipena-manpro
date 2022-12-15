@@ -42,7 +42,11 @@ class PublicController extends Controller
      public function homepage() {
 
 
-       return view("homepage/index");
+    $siswa = DB::table('siswa')->count();
+    $guru = DB::table('guru')->count();
+    $pegawai = DB::table('pegawai')->count();
+
+       return view("homepage/index",  compact('siswa','guru', 'pegawai'));
      }
 
     

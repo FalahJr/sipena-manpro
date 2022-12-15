@@ -96,11 +96,51 @@
         <!-- Navbar & Hero End -->
 
 
-       
+       <!-- Advanced Feature Start -->
+       <div class="container-xxl py-6" id="features">
+            <div class="container">
+                <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h1 class="mb-4">Fitur Unggulan</h1>
+                    <!-- <p class="mb-5">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo</p> -->
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="advanced-feature-item text-center rounded py-5 px-4">
+                            <i class="fa fa-edit fa-3x text-primary mb-4"></i>
+                            <h5 class="mb-3">Raport</h5>
+                            <p class="m-0">Siswa dapat melihat nilai pembelajaran dengan mudah selain itu orang tua atau walimurid siswa dapat memonitoring nilai pembelajaranya.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="advanced-feature-item text-center rounded py-5 px-4">
+                            <i class="fa fa-sync fa-3x text-primary mb-4"></i>
+                            <h5 class="mb-3">Absensi Selfie</h5>
+                            <p class="m-0">Siswa dapat melakukan absensi dan melihat total kehadiran dengan mudah selain itu orang tua atau walimurid siswa dapat memonitoring absensi dan total kehadiran</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="advanced-feature-item text-center rounded py-5 px-4">
+                            <i class="fa fa-laptop fa-3x text-primary mb-4"></i>
+                            <h5 class="mb-3">Dompet Digital</h5>
+                            <p class="m-0">Dompet Digital digunakan untuk melakukan pembayaran kantin atau koperasi sekolah, dengan adanya fitur ini transaksi lebih efisien dan sesuai harga.
+</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="advanced-feature-item text-center rounded py-5 px-4">
+                            <i class="fa fa-draw-polygon fa-3x text-primary mb-4"></i>
+                            <h5 class="mb-3">Managemen Keuangan Sekolah</h5>
+                            <p class="m-0">Pada fitur ini siswa dapat membayar dan melihat keuangan sekolah seperti spp, pembayaran buku dan tabungan, selain itu orang tua atau walimurid siswa dapat memonitoring keuangan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Advanced Feature End -->
 
 
         <!-- About Start -->
-        <div class="container-xxl py-6" id="about">
+        <!-- <div class="container-xxl py-6" id="about">
             <div class="container">
                 <div class="row g-5 flex-column-reverse flex-lg-row">
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -131,7 +171,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- About End -->
 
 
@@ -140,18 +180,18 @@
             <div class="container">
                 <div class="row g-5 py-5 align-items-center">
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <img class="img-fluid rounded" src="{{asset('resources/img/overview-1.jpg')}} ">
+                        <img class="img-fluid rounded" src="{{asset('resources/img/overview-website.png')}} ">
                     </div>
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="d-flex align-items-center mb-4">
                             <h1 class="mb-0">01</h1>
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
-                            <h5 class="mb-0">App Integration</h5>
+                            <h5 class="mb-0">Website</h5>
                         </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
+                        <p class="mb-4">Dengan menggunakan versi website kamu bisa menggunakan sipena dimanapun dan kapanpun tanpa mendownload aplikasi sipena.</p>
+                        <p><i class="fa fa-check-circle text-primary me-3"></i>Mudah digunakan</p>
+                        <p><i class="fa fa-check-circle text-primary me-3"></i>Memanjakan Mata</p>
+                        <!-- <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>Tanpa Download App</p> -->
                     </div>
                 </div>
                 <div class="row g-5 py-5 align-items-center flex-column-reverse flex-lg-row">
@@ -159,104 +199,53 @@
                         <div class="d-flex align-items-center mb-4">
                             <h1 class="mb-0">02</h1>
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
-                            <h5 class="mb-0">App Customization</h5>
+                            <h5 class="mb-0">Mobile</h5>
                         </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
+                        <p class="mb-4">Dengan menggunakan versi mobile kamu bisa menggunakan fitur sipena sepenuhnya  yang tidak bisa dilakukan pada website salah satunya scan pembayaran kantin atau koperasi menggunakan barcode, absensi siswa ata guru dan lain-lain</p>
+                        <p><i class="fa fa-check-circle text-primary me-3"></i>Mudah digunakan</p>
+                        <p><i class="fa fa-check-circle text-primary me-3"></i>Memanjakan Mata</p>
+                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>Fitur yang lengkap</p>
                     </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <img class="img-fluid rounded" src="{{asset('resources/img/overview-2.jpg') }}">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+                        <img class="img-fluid rounded" src="{{asset('resources/img/mobile.png') }}" width=70%>
                     </div>
                 </div>
-                <div class="row g-5 py-5 align-items-center">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <img class="img-fluid rounded" src="{{asset('resources/img/overview-3.jpg') }} ">
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="d-flex align-items-center mb-4">
-                            <h1 class="mb-0">03</h1>
-                            <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
-                            <h5 class="mb-0">App Modification</h5>
-                        </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
-                    </div>
-                </div>
+               
             </div>
         </div>
         <!-- Overview End -->
 
 
-        <!-- Advanced Feature Start -->
-        <div class="container-xxl py-6" id="features">
-            <div class="container">
-                <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="mb-3">Advanced Features</h1>
-                    <p class="mb-5">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo</p>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="advanced-feature-item text-center rounded py-5 px-4">
-                            <i class="fa fa-edit fa-3x text-primary mb-4"></i>
-                            <h5 class="mb-3">Fully Customizable</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="advanced-feature-item text-center rounded py-5 px-4">
-                            <i class="fa fa-sync fa-3x text-primary mb-4"></i>
-                            <h5 class="mb-3">App Integration</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="advanced-feature-item text-center rounded py-5 px-4">
-                            <i class="fa fa-laptop fa-3x text-primary mb-4"></i>
-                            <h5 class="mb-3">High Resolution</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="advanced-feature-item text-center rounded py-5 px-4">
-                            <i class="fa fa-draw-polygon fa-3x text-primary mb-4"></i>
-                            <h5 class="mb-3">Drag And Drop</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Advanced Feature End -->
+        
 
 
         <!-- Facts Start -->
         <div class="container-xxl bg-primary my-6 py-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container">
                 <div class="row g-4">
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
-                        <i class="fa fa-cogs fa-3x text-white mb-3"></i>
-                        <h1 class="mb-2" data-toggle="counter-up">7264</h1>
-                        <p class="text-white mb-0">Active Install</p>
+                    <div class="col-md-4 col-lg-4 text-center wow fadeIn" data-wow-delay="0.1s">
+                      <i class="fa fa-users fa-3x text-white mb-3"></i>
+
+                        <h1 class="mb-2" data-toggle="counter-up"><?= $guru ?></h1>
+                        <p class="text-white mb-0">Guru</p>
                     </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <div class="col-md-4 col-lg-4 text-center wow fadeIn" data-wow-delay="0.3s">
                         <i class="fa fa-users fa-3x text-white mb-3"></i>
-                        <h1 class="mb-2" data-toggle="counter-up">6521</h1>
-                        <p class="text-white mb-0">Satisfied Clients</p>
+                        <h1 class="mb-2" data-toggle="counter-up"><?= $siswa ?></h1>
+                        <p class="text-white mb-0">Siswa</p>
                     </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
-                        <i class="fa fa-certificate fa-3x text-white mb-3"></i>
-                        <h1 class="mb-2" data-toggle="counter-up">729</h1>
-                        <p class="text-white mb-0">Award Wins</p>
+                    <div class="col-md-4 col-lg-4 text-center wow fadeIn" data-wow-delay="0.5s">
+                      <i class="fa fa-users fa-3x text-white mb-3"></i>
+
+                        <h1 class="mb-2" data-toggle="counter-up"><?= $pegawai ?></h1>
+                        <p class="text-white mb-0">Pegawai</p>
                     </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                    <!-- <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
                         <i class="fa fa-quote-left fa-3x text-white mb-3"></i>
                         <h1 class="mb-2" data-toggle="counter-up">5917</h1>
                         <p class="text-white mb-0">Clients Reviews</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -466,42 +455,48 @@
         <div class="container-fluid bg-dark text-body footer wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5 px-lg-5">
                 <div class="row g-5">
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Address<span></span></p>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                        <div class="d-flex pt-2">
+                    <div class="col-md-4 col-lg-4">
+                        <p class="section-title text-white h5 mb-4">
+                          <!-- Address<span></span> -->
+                    <img src="{{asset('assets/sipenahorz.png')}}" alt="Logo" width="50%">
+
+                        </p>
+                        <p>Sipena merupakan aplikasi berbasis website dan aplikasi android yang dibuat oleh perusahaan FiveCods. dan Star7 yang dapat memudahkan pengguna untuk mengakses segala kebutuhan yang ada dalam lingkungan  sekolah.</p>
+                        <!-- <div class="d-flex pt-2">
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-4 col-lg-4">
                         <p class="section-title text-white h5 mb-4">Quick Link<span></span></p>
-                        <a class="btn btn-link" href="">About</a>
-                        <a class="btn btn-link" href="">Contact</a>
+                        <a class="btn btn-link" href="">PPDB</a>
+                        <a class="btn btn-link" href="">Tentang</a>
                         <a class="btn btn-link" href="">Privacy Policy</a>
                         <a class="btn btn-link" href="">Terms & Conditions</a>
-                        <a class="btn btn-link" href="">Support</a>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Community<span></span></p>
-                        <a class="btn btn-link" href="">Career</a>
-                        <a class="btn btn-link" href="">Leadership</a>
-                        <a class="btn btn-link" href="">Strategy</a>
-                        <a class="btn btn-link" href="">History</a>
-                        <a class="btn btn-link" href="">Components</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-4 col-lg-4">
+                      <p class="section-title text-white h5 mb-4">Alamat<span></span></p>
+                      <p><i class="fa fa-map-marker-alt me-3"></i>Jl. Ketintang, Ketintang, Kec. Gayungan, Kota Surabaya, Jawa Timur 60231</p>
+                      <p><i class="fa fa-phone-alt me-3"></i>(031) 8280009</p>
+                      <!-- <p><i class="fa fa-envelope me-3"></i>info@example.com</p> -->
+                      <div class="d-flex pt-2">
+                          <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                          <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                          <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
+                          <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                      </div>
+                  </div>
+
+                    <!-- <div class="col-md-6 col-lg-3">
                         <p class="section-title text-white h5 mb-4">Newsletter<span></span></p>
                         <p>Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulpu</p>
                         <div class="position-relative w-100 mt-3">
                             <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Your Email" style="height: 48px;">
                             <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
           <div class="container px-lg-5">
