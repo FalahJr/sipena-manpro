@@ -143,9 +143,8 @@ class BayarKantinController extends Controller
           }
           //jika role selain pegawai kurangin saldo user id
         $this->validate($req,[
-          'nama_pembeli' => 'required|max:255',
           'keterangan' => 'required|max:255',
-          'total_harga' => 'required|max:255',
+          'harga_total' => 'required|max:255',
         ]);
         $saldoUser = $user->saldo;
         $sisaSaldo = $saldoUser - $req->harga_total;
