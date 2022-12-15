@@ -127,9 +127,15 @@ class PinjamFasilitasController extends Controller
   public function getData(Request $req){
     try{
       if($req->acc){
-        $data = DB::table("peminjaman_fasilitas_jadwal")->whereNotNull('pegawai_id')->get(); // sudah di acc
+        $data = DB::table("peminjaman_fasilitas_jadwal")
+        ->join("peminjaman_fasilitas","peminjaman_fasilitas.id","=","peminjaman_fasilitas_jadwal.peminjaman_fasilitas_id")
+        ->select("peminjaman_fasilitas_jadwal.*","peminjaman_fasilitas.nama as nama_fasilitas")
+        ->whereNotNull('pegawai_id')->get(); // sudah di acc
       }else{
-        $data = DB::table("peminjaman_fasilitas_jadwal")->whereNull('pegawai_id')->get(); // belom di acc
+        $data = DB::table("peminjaman_fasilitas_jadwal")
+        ->join("peminjaman_fasilitas","peminjaman_fasilitas.id","=","peminjaman_fasilitas_jadwal.peminjaman_fasilitas_id")
+        ->select("peminjaman_fasilitas_jadwal.*","peminjaman_fasilitas.nama as nama_fasilitas")
+        ->whereNull('pegawai_id')->get(); // belom di acc
       }
       return response()->json(['status' => 1, 'data'=>$data]);
     } catch (\Exception $e) {
