@@ -64,8 +64,7 @@ class BayarKantinController extends Controller
         return $pegawai->nama_lengkap;
       })
       ->addColumn('qr_code',function($data){
-        $generateQRCode = QrCode::size(100)->generate($data->id);
-        return $generateQRCode;
+        return '<a href="#mymodal" data-remote="'.url('/admin/bayar-kantin/show/'.$data->id).'" data-toggle="modal" data-target="#mymodal" data-title="Show QRCode">'.QrCode::size(100)->generate($data->id).'</a>';
       })
       ->rawColumns(['aksi','foto','pegawai','qr_code'])
       ->addIndexColumn()

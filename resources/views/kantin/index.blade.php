@@ -59,6 +59,21 @@
     </div>
   </div>
 </div>
+<div class="modal" id="mymodal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
@@ -168,7 +183,14 @@ var table = $('#table-data').DataTable({
       }
     });
   })
-
+  jQuery(document).ready(function($) {
+  $('#mymodal').on('show.bs.modal',function(e){
+      var button = $(e.relatedTarget);
+      var modal = $(this);
+      modal.find('.modal-body').load(button.data('remote'));
+      modal.find('.modal-title').html(button.data('title'));
+  });
+  });
   //show pop up jika data berhasil di hapus
   if("{{Session::has('success')}}"){
     iziToast.success({

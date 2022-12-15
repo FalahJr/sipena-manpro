@@ -128,6 +128,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/bayar-kantin/hapus/{id}', 'BayarKantinController@hapus');
         Route::post('/bayar-kantin/update', 'BayarKantinController@update');
         Route::get('/bayar-kantin/edit/{id}', 'BayarKantinController@edit');
+        Route::get('/bayar-kantin/show/{id}', 'Koperasi\TransaksiController@show');
+
 
         //Transaksi Kantin
         Route::get('/transaksi-kantin', 'TransaksiKantinController@index');
@@ -199,6 +201,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/transaksi-koperasi/simpan', 'Koperasi\TransaksiController@simpan');
         Route::get('/transaksi-koperasi/hapus/{id}', 'Koperasi\TransaksiController@hapus');
         Route::get('/transaksi-koperasi/edit/{id}', 'Koperasi\TransaksiController@edit');
+        Route::get('/transaksi-koperasi/show/{id}', 'Koperasi\TransaksiController@show');
 
         //Kegiatan OSIS
         Route::get('/kegiatan-osis', 'KegiatanOsisController@index');

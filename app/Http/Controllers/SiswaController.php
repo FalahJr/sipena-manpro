@@ -36,7 +36,9 @@ class SiswaController extends Controller
     $data = DB::table('siswa')
           ->join('kelas','kelas.id','=','siswa.kelas_id')
           ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
-          ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid")
+          ->join('user','user.id','=','siswa.user_id')
+          ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid","user.is_active")
+          ->where("user.is_active","Y")
           ->get();
     return Datatables::of($data)
       ->addColumn('aksi', function ($data) {
@@ -164,17 +166,9 @@ class SiswaController extends Controller
     ->where('id',$id)
     ->first();
 
-    DB::table("siswa")
-        ->where('id',$id)
-        ->delete();
-
     DB::table("user")
         ->where('id',$siswa->user_id)
-        ->delete();
-
-    DB::table("wali_murid")
-        ->where('id',$siswa->wali_murid_id)
-        ->delete();
+        ->update(["is_active"=>"N"]);
 
     return back()->with(['success' => 'Data berhasil dihapus']);
   }
