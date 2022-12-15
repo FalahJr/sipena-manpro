@@ -49,7 +49,35 @@ class PublicController extends Controller
        return view("homepage/index",  compact('siswa','guru', 'pegawai'));
      }
 
+     public function registerWalimurid() {
+
+
+      // $siswa = DB::table('siswa')->count();
+      // $guru = DB::table('guru')->count();
+      // $pegawai = DB::table('pegawai')->count();
+  
+         return view("homepage/ppdb-register-walimurid");
+       }
+
+       public function loginWalimurid() {
+
+
+        // $siswa = DB::table('siswa')->count();
+        // $guru = DB::table('guru')->count();
+        // $pegawai = DB::table('pegawai')->count();
+    
+           return view("homepage/ppdb-login-walimurid");
+         }
     
 
+         public function registerMurid() {
+
+
+          // $siswa = DB::table('siswa')->count();
+          // $guru = DB::table('guru')->count();
+          // $pegawai = DB::table('pegawai')->count();
+      
+             return view("homepage/ppdb-register-murid");
+           }
     
 }
