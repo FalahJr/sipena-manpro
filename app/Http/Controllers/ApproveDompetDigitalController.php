@@ -40,7 +40,7 @@ class ApproveDompetDigitalController extends Controller
               } else if($value->roleid == 2) {
                   $cekdata = DB::table("siswa")->where('user_id', $value->id)->first();
 
-                  if($cekdata->nama_lengkap == null) {
+                  if($cekdata == null) {
                     $value->nama_lengkap = "-";
                   } else {
                     $value->nama_lengkap = $cekdata->nama_lengkap;
@@ -48,7 +48,7 @@ class ApproveDompetDigitalController extends Controller
               } else if($value->roleid == 3) {
                   $cekdata = DB::table("wali_murid")->where('user_id', $value->id)->first();
 
-                  if($cekdata->nama_lengkap == null) {
+                  if($cekdata == null) {
                     $value->nama_lengkap = "-";
                   } else {
                     $value->nama_lengkap = $cekdata->nama_lengkap;
@@ -56,7 +56,7 @@ class ApproveDompetDigitalController extends Controller
               } else if($value->roleid == 4) {
                   $cekdata = DB::table("guru")->where('user_id', $value->id)->first();
 
-                  if($cekdata->nama_lengkap == null) {
+                  if($cekdata == null) {
                     $value->nama_lengkap = "-";
                   } else {
                     $value->nama_lengkap = $cekdata->nama_lengkap;
@@ -64,7 +64,7 @@ class ApproveDompetDigitalController extends Controller
               } else if($value->roleid == 5) {
                   $cekdata = DB::table("pegawai")->where('user_id', $value->id)->first();
 
-                  if($cekdata->nama_lengkap == null) {
+                  if($cekdata == null) {
                     $value->nama_lengkap = "-";
                   } else {
                     $value->nama_lengkap = $cekdata->nama_lengkap;
@@ -72,7 +72,7 @@ class ApproveDompetDigitalController extends Controller
               } else if($value->roleid == 6) {
                   $cekdata = DB::table("kepala_sekolah")->where('user_id', $value->id)->first();
 
-                  if($cekdata->nama_lengkap == null) {
+                  if($cekdata == null) {
                     $value->nama_lengkap = "-";
                   } else {
                     $value->nama_lengkap = $cekdata->nama_lengkap;
@@ -80,7 +80,7 @@ class ApproveDompetDigitalController extends Controller
               } else if($value->roleid == 7) {
                   $cekdata = DB::table("dinas_pendidikan")->where('user_id', $value->id)->first();
 
-                  if($cekdata->nama_lengkap == null) {
+                  if($cekdata == null) {
                     $value->nama_lengkap = "-";
                   } else {
                     $value->nama_lengkap = $cekdata->nama_lengkap;
