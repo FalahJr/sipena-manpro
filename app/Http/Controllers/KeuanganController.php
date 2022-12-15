@@ -38,8 +38,8 @@ class KeuanganController extends Controller
     public function index() {
       $data2 = DB::table("keuangan")
                 ->get();
-    $kategori = DB::table("keuangan_kategori")->get();
-    $siswa = DB::table("siswa")->get();
+      $kategori = DB::table("keuangan_kategori")->get();
+      $siswa = DB::table("siswa")->get();
 
 
       return view('data-keuangan.index', compact('data2', 'kategori', 'siswa'));

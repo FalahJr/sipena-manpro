@@ -120,6 +120,7 @@ Route::middleware('api')->group(function () {
 
     //Keuangan
     Route::get('/keuangan', 'KeuanganController@getKeuanganJson');
+    Route::get('/kategorikeuangan', 'KategoriKeuanganController@getKategoriKeuanganJson');
     Route::post('/simpankeuangan', 'KeuanganController@simpan');
 
 });
