@@ -26,10 +26,31 @@ class AbsensiPegawaiController extends Controller
     {
         $data = DB::table("pegawai_absensi")
             ->join("pegawai", "pegawai.id", '=', 'pegawai_absensi.pegawai_id')
-            ->select("pegawai.*", "pegawai_absensi.*")
+            ->select("pegawai.*", "pegawai_absensi.*", "pegawai_absensi.id as terlambat")
             ->get()->toArray();
 
+            foreach ($data as $key => $value) {
+              $waktu = Carbon::parse($value->waktu)->format('H:i:s');
+              $batas = "06:00:00";
+
+              if($waktu > Carbon::parse($batas)->format('H:i:s')) {
+                $data->terlambat = "Y";
+              } else {
+                $data->terlambat = "N";
+              }
+            }
+
         return $data;
+    }
+
+    public static function getTotalKehadiran(Request $req) {
+        $data = DB::table("pegawai_absensi")
+            ->join("pegawai", "pegawai.id", '=', 'pegawai_absensi.pegawai_id')
+            ->select("pegawai.*", "pegawai_absensi.*")
+            ->where("pegawai_absensi.pegawai_id", $req->id)
+            ->count();
+
+        return response()->json($data);
     }
 
     public static function getMutasiPegawaiJson() {

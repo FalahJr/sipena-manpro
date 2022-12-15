@@ -24,14 +24,17 @@ Route::middleware('api')->group(function () {
     Route::get('/hapusmutasisiswa', 'MutasiSiswaController@hapus');
 
     //Absensi Siswa
+    Route::get('/totalabsensiswa', 'AbsensiSiswaController@getTotalKehadiran');
     Route::get('/listabsensisiswa', 'AbsensiSiswaController@getMutasiSiswaJson');
     Route::post('/simpanabsensisiswa', 'AbsensiSiswaController@simpan');
 
     //Absensi Pegawai
+    Route::get('/totalabsenpegawai', 'AbsensiPegawaiController@getTotalKehadiran');
     Route::get('/listabsensipegawai', 'AbsensiPegawaiController@getMutasiPegawaiJson');
     Route::post('/simpanabsensipegawai', 'AbsensiPegawaiController@simpan');
 
     //Absensi Guru
+    Route::get('/totalabsenguru', 'AbsensiGuruController@getTotalKehadiran');
     Route::get('/listabsensiguru', 'AbsensiGuruController@getMutasiGuruJson');
     Route::post('/simpanabsensiguru', 'AbsensiGuruController@simpan');
 

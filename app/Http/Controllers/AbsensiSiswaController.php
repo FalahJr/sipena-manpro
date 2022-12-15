@@ -35,6 +35,28 @@ class AbsensiSiswaController extends Controller
         return $data;
     }
 
+    public static function getTotalKehadiran(Request $req) {
+        $data = DB::table("siswa_absensi")
+            ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
+            ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
+            ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
+            ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
+            ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
+            ->where("siswa_absensi.siswa_id", $req->id)
+            ->get()->toArray();
+
+            $count = 0;
+            foreach ($data as $key => $value) {
+              $date2 = convertNameDayIdn(Carbon::parse($value->created_at)->format('l'));
+
+              if($value->jadwal_hari === $date2) {
+                $count += 1;
+              }
+            }
+
+        return response()->json($count);
+    }
+
     public static function getMutasiSiswaJson() {
       $data = AbsensiSiswaController::getAbsensiSiswa();
 

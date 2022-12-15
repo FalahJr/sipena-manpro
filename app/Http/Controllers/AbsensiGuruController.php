@@ -26,10 +26,30 @@ class AbsensiGuruController extends Controller
     {
         $data = DB::table("guru_absensi")
             ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
-            ->select("guru.*", "guru_absensi.*")
+            ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
             ->get()->toArray();
 
+            foreach ($data as $key => $value) {
+              $waktu = Carbon::parse($value->waktu)->format('H:i:s');
+              $batas = "06:00:00";
+
+              if($waktu > Carbon::parse($batas)->format('H:i:s')) {
+                $data->terlambat = "Y";
+              } else {
+                $data->terlambat = "N";
+              }
+            }
+
         return $data;
+    }
+
+    public static function getTotalKehadiran(Request $req) {
+      $data = DB::table("guru_absensi")
+          ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
+          ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
+          ->count();
+
+        return response()->json($data);
     }
 
     public static function getMutasiGuruJson() {
