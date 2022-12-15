@@ -68,7 +68,29 @@ class JadwalPembelajaranController extends Controller
       ->addIndexColumn()
       ->make(true);
   }
-
+  public function getData(Request $req){
+    try{
+        $data = DB::table('jadwal_pembelajaran')
+        ->join("kelas","kelas.id","=","jadwal_pembelajaran.kelas_id")
+        ->join("mapel","mapel.id","=","jadwal_pembelajaran.mapel_id")
+        ->select("jadwal_pembelajaran.*","kelas.nama as kelas_nama","kelas.id as kelas_id","mapel.nama as mapel_nama","mapel.id as mapel_id")
+        ->when($req->mapel_id,function($q,$idMapel){
+          return $q->where("jadwal_pembelajaran.mapel_id",$idMapel);
+        })
+        ->when($req->kelas_id,function($q,$idMapel){
+          return $q->where("jadwal_pembelajaran.kelas_id",$idMapel);
+        })
+        ->get();
+        if($data){
+          return response()->json(["status" => 1, "data"=>$data]);
+        }else{
+          return response()->json(["status" => 2, "message"=>"data tidak ditemukan"]);
+        }
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
   public function simpan(Request $req)
   {
     // dd(;

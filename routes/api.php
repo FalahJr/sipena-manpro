@@ -82,6 +82,7 @@ Route::middleware('api')->group(function () {
 
     //Jadwal Sekolah
     Route::get('/jadwal-sekolah', 'JadwalSekolahController@getData');
+    Route::get('/jadwal-kelas', 'JadwalPembelajaranController@getData');
 
     //Perpustakaan
     Route::get('/katalog-buku', 'Perpustakaan\KatalogBukuController@getData');
@@ -110,6 +111,13 @@ Route::middleware('api')->group(function () {
     Route::get('/transaksi-koperasi', 'Koperasi\TransaksiController@getData');
     Route::post('/transaksi-kantin', 'TransaksiKantinController@APIupdate');
     Route::delete('/transaksi-kantin/{id}', 'TransaksiKantinController@delete');
+
+    //OSIS
+    Route::get('/calon-osis/daftar', 'SiswaController@APIDaftarOsis');
+    Route::get('/calon-osis/acc', 'SiswaController@APIAccPermintaan');
+    Route::get('/calon-osis/permintaan', 'SiswaController@listPermintaan');
+    Route::get('/anggota-osis', 'SiswaController@listAnggota');
+
 
 
 
