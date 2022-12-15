@@ -11,10 +11,13 @@ Route::get('/login', function () {
 );
 
 
-Route::get('/', function () {
-    return view('homepage.index');
-}
-);
+// Route::get('/', function () {
+//     return view('homepage.index');
+// }
+// );
+
+Route::get('/', 'PublicController@homepage')->name('Public');
+
 
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
 Route::get('logout', 'HomeController@logout')->name('logoutadmin');
@@ -180,7 +183,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/kehilangan-buku/hapus/{id}', 'Perpustakaan\KehilanganBukuController@hapus');
         Route::get('/kehilangan-buku/edit/{id}', 'Perpustakaan\KehilanganBukuController@edit');
 
-        //Koperasi
+      //Koperasi
         Route::get('/list-koperasi', 'Koperasi\ListController@index');
         Route::get('/list-koperasi/table', 'Koperasi\ListController@datatable');
         Route::post('/list-koperasi/update', 'Koperasi\ListController@update');
