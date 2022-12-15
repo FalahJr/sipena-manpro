@@ -75,7 +75,7 @@ class KartuDigitalController extends Controller
               $data = DB::table("siswa")
               ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
               ->select("siswa.*", "kelas.*", "siswa.id as id", "kelas.id as kelasid", "siswa.tanggal_daftar as linkGenerate")
-              ->where("siswa.user_id", $req->user_id)
+              ->where("siswa.id", $req->id)
               ->first();
 
       $data->linkGenerate = url('/generatekartudigital?id=') . $data->id;
