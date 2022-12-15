@@ -123,4 +123,7 @@ Route::middleware('api')->group(function () {
     Route::get('/kategorikeuangan', 'KategoriKeuanganController@getKategoriKeuanganJson');
     Route::post('/simpankeuangan', 'KeuanganController@simpan');
 
+    Route::get('/ppdb', 'SiswaController@ppdb');
+
+
 });
