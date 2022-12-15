@@ -64,7 +64,7 @@ class BayarKantinController extends Controller
         return $pegawai->nama_lengkap;
       })
       ->addColumn('qr_code',function($data){
-        $generateQRCode = QrCode::size(100)->generate($data->qr_code);
+        $generateQRCode = QrCode::size(100)->generate($data->id);
         return $generateQRCode;
       })
       ->rawColumns(['aksi','foto','pegawai','qr_code'])
@@ -267,14 +267,12 @@ class BayarKantinController extends Controller
         }
 
         $max = DB::table("kantin")->max('id') + 1;
-        $linkCode = url('/kantin?id='.$max);
         DB::table("kantin")
         ->insert([
           "id" => $max,
           "foto"=>$imgPath,
           "nama" => $req->nama,
           "pegawai_id" => $req->pegawai_id,
-          "qr_code" => $linkCode
         ]);
           
 

@@ -70,7 +70,7 @@ class TransaksiController extends Controller
         return Carbon::CreateFromFormat('Y-m-d',$data->tanggal)->format('d M Y');
       })
       ->addColumn('qr_code',function($data){
-        $generateQRCode = QrCode::size(100)->generate($data->qr_code);
+        $generateQRCode = QrCode::size(100)->generate($data->id);
         return $generateQRCode;
       })
       ->addColumn('is_lunas',function($data){
@@ -152,7 +152,6 @@ class TransaksiController extends Controller
         DB::table("koperasi_transaksi")
         ->insert([
           "id" => $transaksiId,
-          "qr_code" => url("/transaksi-koperasi?id=".$transaksiId),
           "pegawai_id" => $req->pegawai_id,
           "total_pembayaran" => $totalPembayaran,
         ]);
