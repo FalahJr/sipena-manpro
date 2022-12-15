@@ -13,7 +13,6 @@
           <table class="table table_modal">
             <div class="alert alert-warning" role="alert">
               Silahkan isi semua data yang bertanda<span style="color:red;">*</span><br>
-              Pastikan saldo anda cukup<span style="color:red;">*</span>
               <br>QRCode akan dibuat setelah menambahkan data kantin
             </div>
           <tr>

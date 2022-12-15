@@ -20,7 +20,9 @@
     <!-- Modal content-->
     <div class="row">
       <div class="alert alert-warning" role="alert">
-        Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
+        Silahkan isi semua data yang bertanda<span style="color:red;">*</span><br>
+        Pastikan saldo anda cukup<span style="color:red;">*</span>
+
         </div>
         
     </div>
