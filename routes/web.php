@@ -17,6 +17,9 @@ Route::get('/login', function () {
 // );
 
 Route::get('/', 'PublicController@homepage')->name('Public');
+Route::get('/ppdb-register', 'PublicController@registerWalimurid')->name('registerWalimurid');
+Route::get('/ppdb-register-murid', 'PublicController@registerMurid')->name('registerMurid');
+Route::get('/ppdb-login', 'PublicController@loginWalimurid')->name('loginWalimurid');
 
 
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');

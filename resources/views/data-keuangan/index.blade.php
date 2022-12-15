@@ -100,22 +100,28 @@ var table = $('#table-data').DataTable({
       dataType:'json',
       success:function(data){
         $('.id').val(data.id);
-        $("#keuangan_kategori_id").val(data.keuangan_kategori_id).change();
-        $("#siswa_id").val(data.siswa_id).change();
-        $("#nominal").val(data.nominal).change();
+        $(".keuangan_kategori_id").val(data.keuangan_kategori_id).change();
+        $(".siswa_id").val(data.siswa_id).change();
+        $("#nominal").val("Rp. " + accounting.formatMoney(data.nominal,"",0,'.',',')).change();
         $("#keterangan").val(data.keterangan).change();
 
-        
+        var image_holder = $(".image-holder");
+        image_holder.empty();
+        $("<img />", {
+            "src":  baseUrl + data.bukti_pembayaran,
+            "class": "thumb-image img-responsive",
+            "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
+        }).appendTo(image_holder);
 
         $('#tambah').modal('show');
 
-        // const gallery = document.querySelectorAll("img")
-        // gallery.forEach(image => {
-        //    let src = image.getAttribute('src')
-        //    image.addEventListener('click', function () {
-        //        window.open(src)
-        //    });
-        // });
+        const gallery = document.querySelectorAll("img")
+        gallery.forEach(image => {
+           let src = image.getAttribute('src')
+           image.addEventListener('click', function () {
+               window.open(src)
+           });
+        });
 
       }
     });
@@ -124,8 +130,8 @@ var table = $('#table-data').DataTable({
 
   $('#simpan').click(function(){
 
-    // 
     var formdata = new FormData();
+    formdata.append('image', $('.uploadGambar')[0].files[0]);
 
     $.ajax({
       type: "post",
@@ -199,277 +205,58 @@ var table = $('#table-data').DataTable({
   	});
   }
 
-  $('#tambah').on( function (e) {
+  $('#tambah').on('hidden.bs.modal', function (e) {
     reloadall()
   })
 
   function reloadall() {
     $('.table_modal :input').val("");
+    $('.image-holder').empty();
+    $(".keuangan_kategori_id").val("").change();
+    $(".siswa_id").val("").change();
     $('#tambah').modal('hide');
 
     $("#nama_kategori").val("").change();
-   
+
     table.ajax.reload();
   }
 
-  // $(".uploadGambar").on('change', function () {
-  //         $('.save').attr('disabled', false);
-  //         // waitingDialog.show();
-  //       if (typeof (FileReader) != "undefined") {
-  //           var image_holder = $(".image-holder");
-  //           image_holder.empty();
-  //           var reader = new FileReader();
-  //           reader.onload = function (e) {
-  //               image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-  //               $('.save').attr('disabled', true);
-  //               setTimeout(function(){
-  //                   image_holder.empty();
-  //                   $("<img />", {
-  //                       "src": e.target.result,
-  //                       "class": "thumb-image img-responsive",
-  //                       "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-  //                   }).appendTo(image_holder);
-  //                   $('.save').attr('disabled', false);
-  //               }, 2000)
-  //           }
-  //           image_holder.show();
-  //           reader.readAsDataURL($(this)[0].files[0]);
+  $(".uploadGambar").on('change', function () {
+      $('.save').attr('disabled', false);
+      // waitingDialog.show();
+    if (typeof (FileReader) != "undefined") {
+        var image_holder = $(".image-holder");
+        image_holder.empty();
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
+            $('.save').attr('disabled', true);
+            setTimeout(function(){
+                image_holder.empty();
+                $("<img />", {
+                    "src": e.target.result,
+                    "class": "thumb-image img-responsive",
+                    "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
+                }).appendTo(image_holder);
+                $('.save').attr('disabled', false);
+            }, 2000)
+        }
+        image_holder.show();
+        reader.readAsDataURL($(this)[0].files[0]);
 
-  //           const gallery = document.querySelectorAll("img")
-  //           gallery.forEach(image => {
-  //              let src = image.getAttribute('src')
-  //              image.addEventListener('click', function () {
-  //                  window.open(src)
-  //              });
-  //           });
-  //           // waitingDialog.hide();
-  //       } else {
-  //           // waitingDialog.hide();
-  //           alert("This browser does not support FileReader.");
-  //       }
-  //   });
-
-  //   $(".uploadGambar1").on('change', function () {
-  //           $('.save').attr('disabled', false);
-  //           // waitingDialog.show();
-  //         if (typeof (FileReader) != "undefined") {
-  //             var image_holder = $(".image-holder1");
-  //             image_holder.empty();
-  //             var reader = new FileReader();
-  //             reader.onload = function (e) {
-  //                 image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-  //                 $('.save').attr('disabled', true);
-  //                 setTimeout(function(){
-  //                     image_holder.empty();
-  //                     $("<img />", {
-  //                         "src": e.target.result,
-  //                         "class": "thumb-image img-responsive",
-  //                         "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-  //                     }).appendTo(image_holder);
-  //                     $('.save').attr('disabled', false);
-  //                 }, 2000)
-  //             }
-  //             image_holder.show();
-  //             reader.readAsDataURL($(this)[0].files[0]);
-
-  //             const gallery = document.querySelectorAll("img")
-  //             gallery.forEach(image => {
-  //                let src = image.getAttribute('src')
-  //                image.addEventListener('click', function () {
-  //                    window.open(src)
-  //                });
-  //             });
-  //             // waitingDialog.hide();
-  //         } else {
-  //             // waitingDialog.hide();
-  //             alert("This browser does not support FileReader.");
-  //         }
-  //     });
-
-  //     $(".uploadGambar2").on('change', function () {
-  //             $('.save').attr('disabled', false);
-  //             // waitingDialog.show();
-  //           if (typeof (FileReader) != "undefined") {
-  //               var image_holder = $(".image-holder2");
-  //               image_holder.empty();
-  //               var reader = new FileReader();
-  //               reader.onload = function (e) {
-  //                   image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-  //                   $('.save').attr('disabled', true);
-  //                   setTimeout(function(){
-  //                       image_holder.empty();
-  //                       $("<img />", {
-  //                           "src": e.target.result,
-  //                           "class": "thumb-image img-responsive",
-  //                           "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-  //                       }).appendTo(image_holder);
-  //                       $('.save').attr('disabled', false);
-  //                   }, 2000)
-  //               }
-  //               image_holder.show();
-  //               reader.readAsDataURL($(this)[0].files[0]);
-
-  //               const gallery = document.querySelectorAll("img")
-  //               gallery.forEach(image => {
-  //                  let src = image.getAttribute('src')
-  //                  image.addEventListener('click', function () {
-  //                      window.open(src)
-  //                  });
-  //               });
-  //               // waitingDialog.hide();
-  //           } else {
-  //               // waitingDialog.hide();
-  //               alert("This browser does not support FileReader.");
-  //           }
-  //       });
-
-  //       $(".uploadGambar3").on('change', function () {
-  //               $('.save').attr('disabled', false);
-  //               // waitingDialog.show();
-  //             if (typeof (FileReader) != "undefined") {
-  //                 var image_holder = $(".image-holder3");
-  //                 image_holder.empty();
-  //                 var reader = new FileReader();
-  //                 reader.onload = function (e) {
-  //                     image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-  //                     $('.save').attr('disabled', true);
-  //                     setTimeout(function(){
-  //                         image_holder.empty();
-  //                         $("<img />", {
-  //                             "src": e.target.result,
-  //                             "class": "thumb-image img-responsive",
-  //                             "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-  //                         }).appendTo(image_holder);
-  //                         $('.save').attr('disabled', false);
-  //                     }, 2000)
-  //                 }
-  //                 image_holder.show();
-  //                 reader.readAsDataURL($(this)[0].files[0]);
-
-  //                 const gallery = document.querySelectorAll("img")
-  //                 gallery.forEach(image => {
-  //                    let src = image.getAttribute('src')
-  //                    image.addEventListener('click', function () {
-  //                        window.open(src)
-  //                    });
-  //                 });
-  //                 // waitingDialog.hide();
-  //             } else {
-  //                 // waitingDialog.hide();
-  //                 alert("This browser does not support FileReader.");
-  //             }
-  //         });
-
-  //         $(".uploadGambar4").on('change', function () {
-  //                 $('.save').attr('disabled', false);
-  //                 // waitingDialog.show();
-  //               if (typeof (FileReader) != "undefined") {
-  //                   var image_holder = $(".image-holder4");
-  //                   image_holder.empty();
-  //                   var reader = new FileReader();
-  //                   reader.onload = function (e) {
-  //                       image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-  //                       $('.save').attr('disabled', true);
-  //                       setTimeout(function(){
-  //                           image_holder.empty();
-  //                           $("<img />", {
-  //                               "src": e.target.result,
-  //                               "class": "thumb-image img-responsive",
-  //                               "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-  //                           }).appendTo(image_holder);
-  //                           $('.save').attr('disabled', false);
-  //                       }, 2000)
-  //                   }
-  //                   image_holder.show();
-  //                   reader.readAsDataURL($(this)[0].files[0]);
-
-  //                   const gallery = document.querySelectorAll("img")
-  //                   gallery.forEach(image => {
-  //                      let src = image.getAttribute('src')
-  //                      image.addEventListener('click', function () {
-  //                          window.open(src)
-  //                      });
-  //                   });
-  //                   // waitingDialog.hide();
-  //               } else {
-  //                   // waitingDialog.hide();
-  //                   alert("This browser does not support FileReader.");
-  //               }
-  //           });
-
-  //           $(".uploadGambar5").on('change', function () {
-  //                   $('.save').attr('disabled', false);
-  //                   // waitingDialog.show();
-  //                 if (typeof (FileReader) != "undefined") {
-  //                     var image_holder = $(".image-holder5");
-  //                     image_holder.empty();
-  //                     var reader = new FileReader();
-  //                     reader.onload = function (e) {
-  //                         image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-  //                         $('.save').attr('disabled', true);
-  //                         setTimeout(function(){
-  //                             image_holder.empty();
-  //                             $("<img />", {
-  //                                 "src": e.target.result,
-  //                                 "class": "thumb-image img-responsive",
-  //                                 "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-  //                             }).appendTo(image_holder);
-  //                             $('.save').attr('disabled', false);
-  //                         }, 2000)
-  //                     }
-  //                     image_holder.show();
-  //                     reader.readAsDataURL($(this)[0].files[0]);
-
-  //                     const gallery = document.querySelectorAll("img")
-  //                     gallery.forEach(image => {
-  //                        let src = image.getAttribute('src')
-  //                        image.addEventListener('click', function () {
-  //                            window.open(src)
-  //                        });
-  //                     });
-  //                     // waitingDialog.hide();
-  //                 } else {
-  //                     // waitingDialog.hide();
-  //                     alert("This browser does not support FileReader.");
-  //                 }
-  //             });
-
-  //             $(".uploadGambar6").on('change', function () {
-  //                     $('.save').attr('disabled', false);
-  //                     // waitingDialog.show();
-  //                   if (typeof (FileReader) != "undefined") {
-  //                       var image_holder = $(".image-holder6");
-  //                       image_holder.empty();
-  //                       var reader = new FileReader();
-  //                       reader.onload = function (e) {
-  //                           image_holder.html('<img src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
-  //                           $('.save').attr('disabled', true);
-  //                           setTimeout(function(){
-  //                               image_holder.empty();
-  //                               $("<img />", {
-  //                                   "src": e.target.result,
-  //                                   "class": "thumb-image img-responsive",
-  //                                   "style": "height: 100px; width:100px; border-radius: 0px; cursor: pointer;",
-  //                               }).appendTo(image_holder);
-  //                               $('.save').attr('disabled', false);
-  //                           }, 2000)
-  //                       }
-  //                       image_holder.show();
-  //                       reader.readAsDataURL($(this)[0].files[0]);
-
-  //                       const gallery = document.querySelectorAll("img")
-  //                       gallery.forEach(image => {
-  //                          let src = image.getAttribute('src')
-  //                          image.addEventListener('click', function () {
-  //                              window.open(src)
-  //                          });
-  //                       });
-  //                       // waitingDialog.hide();
-  //                   } else {
-  //                       // waitingDialog.hide();
-  //                       alert("This browser does not support FileReader.");
-  //                   }
-  //               });
+        const gallery = document.querySelectorAll("img")
+        gallery.forEach(image => {
+           let src = image.getAttribute('src')
+           image.addEventListener('click', function () {
+               window.open(src)
+           });
+        });
+        // waitingDialog.hide();
+    } else {
+        // waitingDialog.hide();
+        alert("This browser does not support FileReader.");
+    }
+  });
 
 </script>
 @endsection
