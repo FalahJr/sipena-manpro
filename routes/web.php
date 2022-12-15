@@ -55,6 +55,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/siswa/update', 'SiswaController@update');
         Route::get('/siswa/edit/{id}', 'SiswaController@edit');
 
+        //siswa
+        Route::get('/anggota-osis', 'SiswaController@osisindex');
+        Route::get('/anggota-osis/table', 'SiswaController@osisdatatable');
+        Route::get('/anggota-osis/keluar/{id}', 'SiswaController@osiskeluar');
+        Route::get('/calon-osis', 'SiswaController@calonosisindex');
+        Route::get('/calon-osis/table', 'SiswaController@calonosisdatatable');
+        Route::get('/calon-osis/acc/{id}', 'SiswaController@accPermintaan');
         //Pegawai
         Route::get('/pegawai', 'PegawaiController@index');
         Route::post('/pegawai/simpan', 'PegawaiController@simpan');

@@ -238,13 +238,28 @@
             </ul>
           </div>
         </li>
-        <li class="nav-item {{Request::is('admin/kegiatan-osis') ? 'active' : ''}}">
+
+        <li class="nav-item {{( ( Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis')) ? ' show' : '' ) }}">
+          <a class="nav-link" data-toggle="collapse" href="#osis" aria-expanded="false" aria-controls="ui-basic">
+            <span class="menu-title">Kelola OSIS</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-library menu-icon"></i>
+          </a>
+          <div class="collapse {{( ( Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis')) ? ' show' : '' ) }}" id="osis">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') ? 'active' : '' }}" href="{{url('admin/anggota-osis')}}">Anggota OSIS<span class="d-none">Anggota OSIS</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis') ? 'active' : '' }}" href="{{url('admin/kegiatan-osis')}}">Kegiatan Osis<span class="d-none">Kegiatan Osis</span></a></li>
+            </ul>
+          </div>
+        </li>
+
+        {{-- <li class="nav-item {{Request::is('admin/kegiatan-osis') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/kegiatan-osis')}}">
             <span class="menu-title">Kegiatan OSIS</span>
-            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-worker menu-icon"></i>
           </a>
-        </li>
+        </li> --}}
+        
         <li class="nav-item {{Request::is('admin/ekstrakulikuler') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/ekstrakulikuler')}}">
             <span class="menu-title">Ekstrakulikuler</span>

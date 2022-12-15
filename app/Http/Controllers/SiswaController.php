@@ -31,6 +31,20 @@ class SiswaController extends Controller
     return view('siswa.index', compact('classes','studentGuardians'));
   }
 
+  public function osisindex()
+  {
+    // $classes = DB::table('kelas')->get();
+    // $studentGuardians = DB::table('wali_murid')->get(); 
+    return view('anggota-osis.index');
+  }
+
+  public function calonosisindex()
+  {
+    // $classes = DB::table('kelas')->get();
+    // $studentGuardians = DB::table('wali_murid')->get(); 
+    return view('anggota-osis.calon-osis');
+  }
+
   public function datatable()
   {
     $data = DB::table('siswa')
@@ -73,8 +87,113 @@ class SiswaController extends Controller
       ->addIndexColumn()
       ->make(true);
   }
+public function osisdatatable()
+  {
+    $data = DB::table('siswa')
+          ->join('kelas','kelas.id','=','siswa.kelas_id')
+          ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
+          ->join('user','user.id','=','siswa.user_id')
+          ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid","user.is_active")
+          ->where("user.is_active","Y")
+          ->where("siswa.is_osis","Y")
+          ->get();
+    return Datatables::of($data)
+      ->addColumn('foto_profil', function ($data) {
+        $url= asset($data->foto_profil);
+        return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
+      })
+      ->addColumn('tempat_tanggal_lahir',function($data){
+        return $data->tempat_lahir.", ".$data->tanggal_lahir;
+      })
+      ->addColumn('aksi',function($data){
+        if($data->is_osis == "Y"){
+          return '<a href="' . url('admin/anggota-osis/keluar/'.$data->id). '" class="badge badge-danger p-2 badge-lg">Keluar dari OSIS</a>';
+        }
+      })
+      ->rawColumns(['foto_profil', 'kartu_digital', 'aksi'])
+      ->addIndexColumn()
+      ->make(true);
+  }
+  public function calonosisdatatable()
+  {
+    $data = DB::table('siswa')
+          ->join('kelas','kelas.id','=','siswa.kelas_id')
+          ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
+          ->join('user','user.id','=','siswa.user_id')
+          ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid","user.is_active")
+          ->where("user.is_active","Y")
+          ->where("siswa.is_osis","N")
+          ->whereNotNull("siswa.tanggal_daftar_osis")
+          ->get();
+    return Datatables::of($data)
+      ->addColumn('foto_profil', function ($data) {
+        $url= asset($data->foto_profil);
+        return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
+      })
+      ->addColumn('tempat_tanggal_lahir',function($data){
+        return $data->tempat_lahir.", ".$data->tanggal_lahir;
+      })
+      ->addColumn('aksi',function($data){
+          return '<a href="' . url('admin/calon-osis/acc/'.$data->id). '" class="badge badge-success p-2 badge-lg">Acc Permintaan</a>';
+      })
+      ->rawColumns(['foto_profil', 'kartu_digital', 'aksi'])
+      ->addIndexColumn()
+      ->make(true);
+  }
+  public function osisKeluar($id){
+    DB::table("siswa")->where("id",$id)->update(["is_osis"=>"N","tanggal_daftar_osis"=>null]);
+    return back()->with(['success' => 'siswa keluar dari osis']);
+  }
+  public function accPermintaan($id){
+    DB::table("siswa")->where("id",$id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
+    return back()->with(['success' => 'siswa sekarang menjadi osis']);
+  }
+  public function listPermintaan(){
+    $data = DB::table('siswa')
+          ->join('kelas','kelas.id','=','siswa.kelas_id')
+          ->join('user','user.id','=','siswa.user_id')
+          ->select("siswa.*","kelas.nama as kelas","user.is_active")
+          ->where("user.is_active","Y")
+          ->where("siswa.is_osis","N")
+          ->whereNotNull("siswa.tanggal_daftar_osis")
+          ->get();
+    return response()->json(["status" => 1,"data"=>$data]); 
+  }
+  public function listAnggota(){
+    $data = DB::table('siswa')
+    ->join('kelas','kelas.id','=','siswa.kelas_id')
+    ->join('user','user.id','=','siswa.user_id')
+    ->select("siswa.*","kelas.nama as kelas","user.is_active")
+    ->where("user.is_active","Y")
+    ->where("siswa.is_osis","Y")
+    ->get();
+    return response()->json(["status" => 1,"data"=>$data]); 
+  }
+  public function APIAccPermintaan(Request $req){
+    if($req->id){
+    $siswa= DB::table("siswa")->where("id",$req->id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
+    if($siswa){
+    return response()->json(["status" => 1,"message"=>"berhasil menjadi anggota osis"]);
 
-
+      }else{
+      return response()->json(["status" => 2,"message"=>"id siswa tidak ditemukan"]);
+      }
+    }else{
+      return response()->json(["status" => 2,"message"=>"masukkan id siswa"]);
+    }
+  }
+  public function APIDaftarOsis(Request $req){
+    if($req->id){
+      $siswa = DB::table("siswa")->where("id",$req->id)->update(["tanggal_daftar_osis"=>date("Y-m-d")]);
+      if($siswa){
+      return response()->json(["status" => 1,"message"=>"berhasil mendaftar osis, tunggu acc"]);
+      }else{
+      return response()->json(["status" => 2,"message"=>"id siswa tidak ditemukan"]);
+      }
+    }else{
+      return response()->json(["status" => 2,"message"=>"masukkan id siswa"]);
+    }
+  }
   public function simpan(Request $req)
   {
       if (!$this->cekemail($req->username)) {
