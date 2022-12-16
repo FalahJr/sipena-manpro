@@ -102,7 +102,7 @@ Route::middleware('api')->group(function () {
     Route::delete('/katalog-buku/{id}', 'Perpustakaan\KatalogBukuController@delete');
     Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@accSumbang');
     Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@getData');
-
+    Route::post('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@APIinsertData');
     //Kantin
     Route::post('/bayar-koperasi', 'Koperasi\TransaksiController@APIbayar');
     Route::post('/bayar-kantin', 'BayarKantinController@APIbayar');
@@ -125,8 +125,11 @@ Route::middleware('api')->group(function () {
 
     Route::get('/ppdb', 'SiswaController@ppdb');
 
-    Route::get('/ppdb', 'SiswaController@ppdb');
-    Route::get('/ppdb', 'SiswaController@ppdb');
+    Route::get('/total-notifikasi', 'NotifikasiController@count_notifikasi');
+    Route::get('/get-notifikasi', 'NotifikasiController@get_notifikasi');
+
+    //withdrawe
+    Route::post('/withdraw', 'WithdrawController@insertData');
 
 
 });

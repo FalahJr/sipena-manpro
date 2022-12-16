@@ -96,6 +96,38 @@ class KehilanganBukuController extends Controller
       }
   }
 
+  public function APIinsertData(Request $req)
+  {
+      try {
+        $req->tanggal_pembayaran = date("Y-m-d");
+        $user = DB::table("user")->where("id",$req->user_id);
+        $sisaSaldo = $user->first()->saldo - $req->nominal;
+        if($sisaSaldo<=0){
+          return response()->json(["status" => 2, "message" => "saldo anda kurang"]);
+        }else{
+          $user->update(["saldo"=>$sisaSaldo]);
+          $perpus = DB::table("perpustakaan");
+          $saldoPerpus = $perpus->first()->saldo + $req->nominal;
+          $perpus->update(['saldo'=>$saldoPerpus]);
+
+          DB::table("perpus_kehilangan")
+          ->insert([
+            "user_id" => $req->user_id,
+            "perpus_katalog_id" => $req->perpus_katalog_id,
+            "nominal" => $req->nominal,
+            "tanggal_pembayaran" => $req->tanggal_pembayaran,
+          ]);
+          DB::table('perpus_katalog')->where('id',$req->perpus_katalog_id)->decrement("stok_buku",1);
+          DB::commit();
+
+        return response()->json(["status" => 1,"message" => "berhasil membayar denda kehilangan buku"]);
+        }
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
+  }
+
   public function hapus($id)
   {
     DB::table("perpus_kehilangan")
@@ -131,6 +163,7 @@ class KehilanganBukuController extends Controller
 
     
   }
+
 
 
   public function getData(Request $req){

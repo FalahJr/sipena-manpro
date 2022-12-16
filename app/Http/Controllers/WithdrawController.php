@@ -20,14 +20,14 @@ use File;
 
 use Yajra\Datatables\Datatables;
 
-class ApproveDompetDigitalController extends Controller
+class WithdrawController extends Controller
 {
-    public static function getApproveDompetDigital()
+    public static function getWithdrawJson()
     {
-        $data = DB::table("log_transaksi")
-            ->join("user", "user.id", '=', "log_transaksi.user_id")
+        $data = DB::table("withdraw")
+            ->join("user", "user.id", '=', "withdraw.user_id")
             ->join("role", "role.id", '=', "user.role_id")
-            ->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as role", "user.created_at as nama_lengkap", "log_transaksi.*")
+            ->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as role", "user.created_at as nama_lengkap", "withdraw.*")
             ->get()->toArray();
 
             foreach ($data as $key => $value) {
@@ -91,18 +91,33 @@ class ApproveDompetDigitalController extends Controller
         return $data;
     }
 
-    public static function getApproveDompetDigitalJson() {
-      $data = ApproveDompetDigitalController::getApproveDompetDigital();
+    public function insertData(Request $req){
+      try{
+        DB::table("withdraw")->insert([
+          "user_id" => $req->user_id,
+          "saldo" => $req->saldo,
+          "keterangan" => $req->keterangan,
+          "nominal" => $req->nominal,
+        ]);
+        return response()->json(["status"=>1,"message"=>"Berhasil diajukan tunggu notifikasi approve penarikan saldo dan cek rekening kamu"]);
+      }catch(\Exception $e){
+        return response()->json(["status"=>2,"message"=>$e->getMessage()]);
 
-      return response()->json($data);
+      }
+    }
+
+    public static function getData() {
+      $data = WithdrawController::getWithdrawJson();
+
+      return response()->json(["status"=>1,"data"=>$data]);
     }
 
     public function index() {
-      return view('approvedompetdigital.index');
+      return view('withdraw.index');
     }
 
     public function datatable() {
-      $data = ApproveDompetDigitalController::getApproveDompetDigital();
+      $data = WithdrawController::getWithdrawJson();
 
         return Datatables::of($data)
           ->addColumn('nominal', function ($data) {
@@ -119,19 +134,25 @@ class ApproveDompetDigitalController extends Controller
                     '</div>';
             }
           })
+          ->addColumn('aksi', function ($data) {
+              return  '<div class="btn-group">'.
+                       '<button type="button" onclick="tolak('.$data->id.')" class="btn btn-danger btn-lg" title="topup">'.
+                       '<label class="fa fa-close"></label></button>'.
+                       '&nbsp'.
+                       '<button type="button" onclick="terima('.$data->id.')" class="btn btn-success btn-lg" title="topup">'.
+                       '<label class="fa fa-check"></label></button>'.
+                    '</div>';
+          })
           ->addColumn('status', function ($data) {
             if($data->is_approve == "Y") {
               return '<span class="badge badge-success"> Diterima </span>';
             } else if($data->is_approve == "N") {
-              return '<span class="badge badge-success"> Ditolak </span>';
+              return '<span class="badge badge-danger"> Ditolak </span>';
             } else {
-              return '<span class="badge badge-success"> Belum Diproses </span>';
+              return '<span class="badge badge-warning"> Belum Diproses </span>';
             }
           })
-          ->addColumn("image", function($data) {
-            return '<div> <img src="'.url('/') . '/' . $data->bukti_tf.'" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
-          })
-          ->rawColumns(['aksi', 'image', 'status'])
+          ->rawColumns(['aksi', 'status','aksi'])
           ->addIndexColumn()
           ->make(true);
     }
@@ -141,11 +162,11 @@ class ApproveDompetDigitalController extends Controller
         try {
 
           if($req->status == "approve") {
-            $data = DB::table("log_transaksi")->where("id", $req->id)->first();
+            $data = DB::table("withdraw")->where("id", $req->id)->first();
             $user = DB::table("user")->where("id", $data->user_id)->first();
-            Notifikasi::push_notifikasi($data->user_id,"Berhasil isi saldo","Saldo dompet digital kamu sudah terisi");
+            Notifikasi::push_notifikasi($data->user_id,"Berhasil Withdraw","Admin sudah transfer silahkan cek rekening anda");
             
-            DB::table("log_transaksi")
+            DB::table("withdraw")
                 ->where("id", $req->id)
                 ->update([
                     "is_approve" => "Y"
@@ -157,9 +178,9 @@ class ApproveDompetDigitalController extends Controller
                   "saldo" => $data->nominal + $user->saldo
                 ]);
           } else {
-            $data = DB::table("log_transaksi")->where("id", $req->id)->first();
-            Notifikasi::push_notifikasi($data->user_id,"Gagal Isi Saldo","Saldo dompet digital kamu tidak di acc oleh admin, harap teliti pastikan data telah sesuai");
-            DB::table("log_transaksi")
+            $data = DB::table("withdraw")->where("id", $req->id)->first();
+            Notifikasi::push_notifikasi($data->user_id,"Gagal Withdraw","Penarikan uang tidak di konfirmasi oleh admin, harap teliti pastikan data telah sesuai");
+            DB::table("withdraw")
                 ->where("id", $req->id)
                 ->update([
                   "is_approve" => "N"

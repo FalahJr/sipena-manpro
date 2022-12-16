@@ -205,6 +205,14 @@
           </a>
         </li>
 
+        <li class="nav-item {{Request::is('admin/withdraw') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/withdraw')}}">
+            <span class="menu-title">Withdraw Kantin</span>
+            {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+            <i class="mdi mdi-wallet menu-icon"></i>
+          </a>
+        </li>
+
         <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? ' active' : '' )) }}">
           <a class="nav-link" data-toggle="collapse" href="#absensi" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Absensi</span>

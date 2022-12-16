@@ -271,6 +271,11 @@ class KembaliBukuController extends Controller
           return response()->json(["status" => 2, "message" => "saldo anda kurang"]);
         }else{
           $user->update(["saldo"=>$sisaSaldo]);
+
+          $perpus = DB::table("perpustakaan");
+          $saldoPerpus = $perpus->first()->saldo + $req->total_denda;
+          $perpus->update(['saldo'=>$saldoPerpus]);
+          
           //kurangin saldo perpustakaan
           DB::table('perpus_peminjaman')
         ->join("user", "user.id", '=', 'perpus_peminjaman.user_id')
@@ -298,6 +303,7 @@ class KembaliBukuController extends Controller
         ->where("id",$req->id)->first();
         if($data){
           DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"Y"]);
+          
           return response()->json(["status" => 1, "message" => "berhasil di acc"]);
           }else{
             return response()->json(["status" => 2, "message" => "id tidak ditemukan"]);

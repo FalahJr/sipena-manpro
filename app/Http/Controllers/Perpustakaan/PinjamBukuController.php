@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Perpustakaan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\NotifikasiController as Notifikasi;
 use App\Account;
 
 use App\Authentication;
@@ -273,8 +273,9 @@ class PinjamBukuController extends Controller
         ->where("id",$req->id)->first();
         if($data){
           DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"N"]);
+          Notifikasi::push_notifikasi($data->user_id,"Pinjam Buku","Peminjaman buku berhasil di konfirmasi kamu bisa pergi ke perpus untuk pinjam buku");
           return response()->json(["status" => 1, "message" => "berhasil di acc"]);
-          }else{
+        }else{
             return response()->json(["status" => 2, "message" => "id tidak ditemukan"]);
           }
         }catch(\Exception $e){
@@ -297,9 +298,16 @@ class PinjamBukuController extends Controller
         DB::table("perpus_peminjaman_katalog")
             ->where('perpus_peminjaman_id',$id)
             ->delete();
+
+            $user_id = DB::table("perpus_peminjaman")
+            ->where('id',$id)->first();
+            Notifikasi::push_notifikasi($user_id,"Gagal Pinjam Buku","Peminjaman buku tidak diacc oleh pagawai perpus harap mencoba meminjam buku lain");
+
+
             DB::table("perpus_peminjaman")
             ->where('id',$id)
             ->delete();
+            
 
         return response()->json(["status" => 1, "message" => "berhasil menghapus data"]);
       }else{

@@ -306,5 +306,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/approvedompetdigital', 'ApproveDompetDigitalController@index');
         Route::get('/approvedompetdigitaltable', 'ApproveDompetDigitalController@datatable');
         Route::get('/actionapprovedompetdigital', 'ApproveDompetDigitalController@action');
+
+        //Withdraw kantin
+        Route::get('/withdraw', 'WithdrawController@index');
+        Route::get('/withdraw/table', 'WithdrawController@datatable');
+        Route::get('/approve-withdraw', 'WithdrawController@action');
     });
 });
