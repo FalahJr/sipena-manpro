@@ -36,6 +36,8 @@
                                 <th>Terlambat</th>
                                 <th>Valid</th>
                                 <th>Izin</th>
+                                <th>Alasan</th>
+                                <th>Keterangan</th>
                               </tr>
                             </thead>
 
@@ -107,6 +109,18 @@ var table = $('#table-data').DataTable({
                  targets: 8,
                  className: 'center'
               },
+              {
+                 targets: 5,
+                 className: 'center'
+              },
+              {
+                 targets: 6,
+                 className: 'center'
+              },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -119,6 +133,8 @@ var table = $('#table-data').DataTable({
           {data: 'terlambat', name: 'terlambat'},
           {data: 'valid', name: 'valid'},
           {data: 'izin', name: 'izin'},
+          {data: 'alasan_izin', name: 'alasan_izin'},
+          {data: 'keterangan_izin', name: 'keterangan_izin'},
         ]
   });
 

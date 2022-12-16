@@ -31,6 +31,9 @@
                                 <th>Foto</th>
                                 <th>Jam Absen</th>
                                 <th>Terlambat</th>
+                                <th>Izin</th>
+                                <th>Alasan</th>
+                                <th>Keterangan</th>
                               </tr>
                             </thead>
 
@@ -85,7 +88,19 @@ var table = $('#table-data').DataTable({
               {
                  targets: 4,
                  className: 'center'
-              }
+              },
+              {
+                 targets: 5,
+                 className: 'center'
+              },
+              {
+                 targets: 6,
+                 className: 'center'
+              },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -94,6 +109,8 @@ var table = $('#table-data').DataTable({
           {data: 'waktu', name: 'waktu  '},
           {data: 'terlambat', name: 'terlambat'},
           {data: 'izin', name: 'izin'},
+          {data: 'alasan_izin', name: 'alasan_izin'},
+          {data: 'keterangan_izin', name: 'keterangan_izin'},
         ]
   });
 
