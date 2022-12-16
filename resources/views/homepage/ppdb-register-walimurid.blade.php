@@ -111,35 +111,38 @@
                         </div> -->
                     </div>
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <form>
+                    <!-- <div class="table_modal"> -->
+                        <form action="{{url('/ppdb-register-simpan')}}" method="POST" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+            <!-- {{ csrf_field() }} -->
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Your Name">
                                         <label for="name">Username</label>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="password" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Your Email">
                                         <label for="email">Password</label>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
                                         <label for="email">Email</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Subject">
                                         <label for="subject">Nama Lengkap</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="">
-                                    <select class="form-control jk" name="jk">
+                                    <select class="form-control jk" id="jk" name="jk">
                 <option value="" selected>- Pilih Jenis Kelamin-</option>
                 <option value="L"> Laki-Laki </option>
                 <option value="P"> Perempuan </option>
@@ -149,37 +152,37 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Subject">
                                         <label for="subject">Tempat Lahir</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="date" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="Subject">
                                         <label for="subject">Tanggal Lahir</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Subject">
                                         <label for="subject">No Hp</label>
                                     </div>
                                 </div>
                                 
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                                        <textarea class="form-control" placeholder="Leave a message here" id="alamat" name="alamat" style="height: 150px"></textarea>
                                         <label for="message">Alamat</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="file" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="file" class="form-control form-control-sm profil_picture" name="image" accept="image/*">
                                         <label for="subject">Foto Profil</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Registrasi</button>
+                                    <button class="btn btn-primary rounded-pill py-3 px-5" type="submit" id="simpan">Registrasi</button>
                                 </div>
                             </div>
                         </form>
@@ -251,6 +254,76 @@
                 </div>
             </div>
         </div>
+        @section('extra_script')
+<script>
+
+baseUrlChange += "/admin/wali-murid";
+
+// $('#simpan').click(function(){
+
+// var formdata = new FormData();
+// formdata.append('image', $('.uploadGambar')[0].files[0]);
+
+// $.ajax({
+//   type: "post",
+//   url: baseUrlChange + '/ppdb-register-simpan='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
+//   data: formdata,
+//   processData: false, //important
+//   contentType: false,
+//   cache: false,
+//   success:function(data){
+//     if (data.status == 1) {
+//       iziToast.success({
+//           icon: 'fa fa-save',
+//           message: 'Data Saved Successfully!',
+//       });
+//       reloadall();
+//     }else if(data.status == 2){
+//       iziToast.warning({
+//           icon: 'fa fa-info',
+//           message: 'Data failed to save!, Check your data and connection!',
+//       });
+//     }else if (data.status == 3){
+//       iziToast.success({
+//           icon: 'fa fa-save',
+//           message: 'Data Modified Successfully!',
+//       });
+//       reloadall();
+//     }else if (data.status == 4){
+//       iziToast.warning({
+//           icon: 'fa fa-info',
+//           message: 'Data Failed to Change!',
+//       });
+//     } else if (data.status == 7) {
+//       iziToast.warning({
+//           icon: 'fa fa-info',
+//           message: data.message,
+//       });
+//     }
+
+//   }
+// });
+// })
+// function reloadall() {
+//       $('.table_modal :input').val("");
+//       $('.image-holder').empty();
+//       $('#tambah').modal('hide');
+//       $('.role').val('').change();
+//       $('.gender').val('').change();
+//       // // $('#table_modal :input').val('');
+//       // $(".inputtext").val("");
+//       // var table1 = $('#table_modal').DataTable();
+//       // table1.ajax.reload();
+//       table.ajax.reload();
+//     }
+  if("{{Session::has('success')}}"){
+    iziToast.success({
+  icon: 'fa fa-save',
+  message: "{{Session::get('success')}}",
+});
+}
+</script>
+@endsection
         <!-- Footer End -->
         <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -111,18 +111,26 @@
                         </div> -->
                     </div>
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <form>
+                        <!-- <form> -->
+                        <form autocomplete="off" method="GET" action="{{ url('/ppdb-login-walimurid') }}">
+          {{ csrf_field() }}
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input type="text" class="form-control" name="username" id="username" placeholder="Your Name">
                                         <label for="name">Username</label>
+                                        @if (session('username'))
+              <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
+            @endif
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="password" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Your Email">
                                         <label for="email">Password</label>
+                                        @if (session('password'))
+            <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
+            @endif
                                     </div>
                                 </div>
                                

@@ -18,8 +18,13 @@ Route::get('/login', function () {
 
 Route::get('/', 'PublicController@homepage')->name('Public');
 Route::get('/ppdb-register', 'PublicController@registerWalimurid')->name('registerWalimurid');
+Route::post('/ppdb-register-simpan', 'PublicController@registerWalimuridSimpan');
+
 Route::get('/ppdb-register-murid', 'PublicController@registerMurid')->name('registerMurid');
+Route::post('/ppdb-register-murid-simpan', 'PublicController@registerMuridSimpan');
+
 Route::get('/ppdb-login', 'PublicController@loginWalimurid')->name('loginWalimurid');
+Route::get('/ppdb-login-walimurid', 'PublicController@authenticate')->name('ppdbloginWalimurid');
 
 
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
