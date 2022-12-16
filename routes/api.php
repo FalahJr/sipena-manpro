@@ -130,6 +130,7 @@ Route::middleware('api')->group(function () {
 
     //withdrawe
     Route::post('/withdraw', 'WithdrawController@insertData');
+    Route::get('/getDataWithdraw', 'WithdrawController@getWithdrawJson');
 
 
 });

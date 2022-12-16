@@ -24,71 +24,64 @@ class WithdrawController extends Controller
 {
     public static function getWithdrawJson()
     {
-        $data = DB::table("withdraw")
+        $datas = DB::table("withdraw")
             ->join("user", "user.id", '=', "withdraw.user_id")
             ->join("role", "role.id", '=', "user.role_id")
-            ->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as role", "user.created_at as nama_lengkap", "withdraw.*")
-            ->get()->toArray();
-
-            foreach ($data as $key => $value) {
-              if($value->saldo == null) {
-                $value->saldo = 0;
-              }
-
-              if($value->roleid == 1) {
-                  $value->nama_lengkap = $value->username;
-              } else if($value->roleid == 2) {
-                  $cekdata = DB::table("siswa")->where('user_id', $value->id)->first();
-
-                  if($cekdata == null) {
-                    $value->nama_lengkap = "-";
+            ->select("withdraw.*","role.nama as nama_role","user.role_id","role.nama as rolenama")
+            ->get();
+            
+            foreach($datas as $data){
+              
+              if($data->role_id == 1) {
+                $data->nama_lengkap = "admin";
+              } else if($data->role_id == 2) {
+                $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
+                                  if($cekdata == null) {
+                    $data->nama_lengkap = "-";
                   } else {
-                    $value->nama_lengkap = $cekdata->nama_lengkap;
+                $data->nama_lengkap = $cekdata->nama_lengkap;
                   }
-              } else if($value->roleid == 3) {
-                  $cekdata = DB::table("wali_murid")->where('user_id', $value->id)->first();
-
-                  if($cekdata == null) {
-                    $value->nama_lengkap = "-";
+            } else if($data->role_id == 3) {
+                $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
+                        if($cekdata == null) {
+                    $data->nama_lengkap = "-";
                   } else {
-                    $value->nama_lengkap = $cekdata->nama_lengkap;
+                $data->nama_lengkap = $cekdata->nama_lengkap;
                   }
-              } else if($value->roleid == 4) {
-                  $cekdata = DB::table("guru")->where('user_id', $value->id)->first();
-
-                  if($cekdata == null) {
-                    $value->nama_lengkap = "-";
+            } else if($data->role_id == 4) {
+                $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
+                        if($cekdata == null) {
+                    $data->nama_lengkap = "-";
                   } else {
-                    $value->nama_lengkap = $cekdata->nama_lengkap;
+                $data->nama_lengkap = $cekdata->nama_lengkap;
                   }
-              } else if($value->roleid == 5) {
-                  $cekdata = DB::table("pegawai")->where('user_id', $value->id)->first();
-
-                  if($cekdata == null) {
-                    $value->nama_lengkap = "-";
+            } else if($data->role_id == 5) {
+                $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+                        if($cekdata == null) {
+                    $data->nama_lengkap = "-";
                   } else {
-                    $value->nama_lengkap = $cekdata->nama_lengkap;
+                $data->nama_lengkap = $cekdata->nama_lengkap;
                   }
-              } else if($value->roleid == 6) {
-                  $cekdata = DB::table("kepala_sekolah")->where('user_id', $value->id)->first();
 
-                  if($cekdata == null) {
-                    $value->nama_lengkap = "-";
+            } else if($data->role_id == 6) {
+                $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
+                                  if($cekdata == null) {
+                    $data->nama_lengkap = "-";
                   } else {
-                    $value->nama_lengkap = $cekdata->nama_lengkap;
+                $data->nama_lengkap = $cekdata->nama_lengkap;
                   }
-              } else if($value->roleid == 7) {
-                  $cekdata = DB::table("dinas_pendidikan")->where('user_id', $value->id)->first();
-
-                  if($cekdata == null) {
-                    $value->nama_lengkap = "-";
+            } else if($data->role_id == 7) {
+                $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
+                                  if($cekdata == null) {
+                    $data->nama_lengkap = "-";
                   } else {
-                    $value->nama_lengkap = $cekdata->nama_lengkap;
+                $data->nama_lengkap = $cekdata->nama_lengkap;
                   }
-              }
             }
 
-        return $data;
+          }
+
+        return $datas;
     }
 
     public function insertData(Request $req){
@@ -124,22 +117,11 @@ class WithdrawController extends Controller
             return FormatRupiahFront($data->nominal);
           })
           ->addColumn('aksi', function ($data) {
-            if($data->is_approve == null) {
               return  '<div class="btn-group">'.
-                       '<button type="button" onclick="tolak('.$data->id.')" class="btn btn-danger btn-lg" title="topup">'.
+                       '<button type="button" onclick="tolak('.$data->id.')" class="btn btn-danger btn-lg" title="Tolak">'.
                        '<label class="fa fa-close"></label></button>'.
                        '&nbsp'.
-                       '<button type="button" onclick="terima('.$data->id.')" class="btn btn-success btn-lg" title="topup">'.
-                       '<label class="fa fa-check"></label></button>'.
-                    '</div>';
-            }
-          })
-          ->addColumn('aksi', function ($data) {
-              return  '<div class="btn-group">'.
-                       '<button type="button" onclick="tolak('.$data->id.')" class="btn btn-danger btn-lg" title="topup">'.
-                       '<label class="fa fa-close"></label></button>'.
-                       '&nbsp'.
-                       '<button type="button" onclick="terima('.$data->id.')" class="btn btn-success btn-lg" title="topup">'.
+                       '<button type="button" onclick="terima('.$data->id.')" class="btn btn-success btn-lg" title="Setujui">'.
                        '<label class="fa fa-check"></label></button>'.
                     '</div>';
           })

@@ -28,7 +28,7 @@
                               <tr>
                                 <th style="width:15px">No</th>
                                 <th>Nama Pegawai</th>
-                                <th>Role</th>
+                                <th>Keterangan</th>
                                 <th>Saldo Penjualan</th>
                                 <th>Nominal Penarikan</th>
                                 <th>Status</th>
@@ -100,7 +100,7 @@ var table = $('#table-data').DataTable({
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'nama_lengkap', name: 'nama_lengkap'},
-          {data: 'rolenama', name: 'rolenama'},
+          {data: 'keterangan', name: 'keterangan'},
           {data: 'saldo', name: 'saldo'},
           {data: 'nominal', name: 'nominal'},
           {data: 'status', name: 'status'},
