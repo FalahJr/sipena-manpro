@@ -169,6 +169,12 @@ class BayarKantinController extends Controller
         }
   }
 
+
+  public function show($id)
+  {
+      return view('bayar_kantin.show',['id'=>$id]);
+  }
+
   public function APIbayar(Request $req)
   {
     try{

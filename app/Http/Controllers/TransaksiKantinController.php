@@ -33,6 +33,53 @@ class TransaksiKantinController extends Controller
     return view('transaksi_kantin.index');
   }
 
+  public function withdrawdatatable()
+  {
+    $data = DB::table('kantin_penjualan')->get();
+
+
+    // return $data;
+    // $xyzab = collect($data);
+    // return $xyzab;
+    // return $xyzab->i_price;
+    return Datatables::of($data)
+    //   ->addColumn("image", function ($data) {
+    //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
+    //   })
+      ->addColumn('aksi', function ($data) {
+        return  '<div class="btn-group">' .
+          '<a href="transaksi-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+          '<label class="fa fa-pencil-alt"></label></a>' .
+          '<a href="/admin/transaksi-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<label class="fa fa-trash"></label></a>';
+      })
+      ->addColumn('tanggal_pembelian', function ($data) {
+        return Carbon::CreateFromFormat('Y-m-d',$data->tanggal_pembelian)->format('d M Y');
+      })
+      ->addColumn('kantin', function ($data) {
+        $kantin = DB::table('kantin')->where('id',$data->kantin_id)->first();
+        return $kantin->nama;
+      })
+      ->addColumn('pembayaran', function ($data) {
+        $data = DB::table('user')->where('id',$data->user_id)->first();
+        if($data){
+          if($data->role_id == 5){
+            $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
+            if($cekdata->is_kantin == "Y"){
+              return "Cash";
+            }else{
+              return "Non-Cash";
+            }
+          }else{
+            return "Cash";
+          }
+        }
+      })
+      ->rawColumns(['aksi','kantin',"tanggal_pembelian","pembayaran"])
+      ->addIndexColumn()
+      ->make(true);
+  }
+
   public function datatable()
   {
     $data = DB::table('kantin_penjualan')->get();
