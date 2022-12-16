@@ -27,8 +27,9 @@ class loginController extends Controller
 
         if ($user != null) {
 
+            $oVal = (object)[];
             if($user->roleid == 1) {
-                $user->data = null;
+                $user->data = $oVal;
             } else if($user->roleid == 2) {
                 $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
 
@@ -75,8 +76,9 @@ class loginController extends Controller
 
         if ($user && $user->password == $password) {
 
+            $oVal = (object)[];
             if($user->roleid == 1) {
-                $user->data = null;
+              $user->data = $oVal;
             } else if($user->roleid == 2) {
                 $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
 

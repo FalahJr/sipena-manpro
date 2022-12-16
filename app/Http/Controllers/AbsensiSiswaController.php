@@ -80,7 +80,7 @@ class AbsensiSiswaController extends Controller
             $created_at = Carbon::parse($data->created_at)->format('H:i:s');
 
             if($data->jadwal_hari === $date2) {
-              if($created_at > $data->jadwal_waktu) {
+              if($created_at > $data->jadwal_waktu_mulai) {
                 return '<span class="fa fa-check"> </span>';
               } else {
                 return '<span class="fa fa-close"> </span>';
@@ -98,13 +98,20 @@ class AbsensiSiswaController extends Controller
               return '<span class="badge badge-danger"> Tidak </span>';
             }
           })
+          ->addColumn('izin', function ($data) {
+            if($data->is_izin === "Y") {
+              return '<span class="badge badge-success"> Ya </span>';
+            } else {
+              return '<span class="badge badge-danger"> Tidak </span>';
+            }
+          })
           ->addColumn('jadwal', function ($data) {
-            return $data->jadwal_hari . ", " . $data->jadwal_waktu;
+            return $data->jadwal_hari . ", " . $data->jadwal_waktu_mulai;
           })
           ->addColumn('created_at', function ($data) {
             return convertNameDayIdn(Carbon::parse($data->created_at)->format('l, d M Y H:i:s'));
           })
-          ->rawColumns(['terlambat', 'image', 'valid'])
+          ->rawColumns(['terlambat', 'image', 'valid', 'izin'])
           ->addIndexColumn()
           ->make(true);
     }
@@ -166,6 +173,16 @@ class AbsensiSiswaController extends Controller
               "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
+          if($req->is_izin) {
+            DB::table("siswa_absensi")
+              ->where("id", $max)
+              ->update([
+                "is_izin" => $req->is_izin,
+                "alasan_izin" => $req->alasan_izin,
+                "keterangan_izin" => $req->keterangan_izin
+              ]);
+          }
+
           DB::commit();
           return response()->json(["status" => 1]);
         } catch (\Exception $e) {
@@ -208,6 +225,16 @@ class AbsensiSiswaController extends Controller
               "foto" => $imgPath,
               "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
+
+            if($req->is_izin) {
+              DB::table("siswa_absensi")
+                ->where("id", $req->id)
+                ->update([
+                  "is_izin" => $req->is_izin,
+                  "alasan_izin" => $req->alasan_izin,
+                  "keterangan_izin" => $req->keterangan_izin
+                ]);
+            }
 
           DB::commit();
           return response()->json(["status" => 3]);

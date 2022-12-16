@@ -73,7 +73,7 @@
       </li>
       @else
       <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
-        <a class="nav-link" href="{{ url('/') }}">
+        <a class="nav-link" href="{{ url('logout') }}">
           <i class="mdi mdi-power"></i>
         </a>
       </li>
