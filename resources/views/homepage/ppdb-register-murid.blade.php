@@ -79,7 +79,7 @@
                 <div class="row g-5">
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <h1 class="mb-3">Form PPDB Murid</h1>
-                        {{ Auth::user()->id }}
+                        <!-- {{ Auth::user()->id }} -->
                         <!-- <p class="mb-4">Jika anda ingin mendaftarkan anak anda untuk menjadi calon siswa / siswi maka diwajibkan untuk registrasi membuat akun wali murid terlebih dahulu. Jika sudah mempunyai akun silahkan LOGIN 
                             .</p>
                             <a href="{{ route('loginWalimurid') }}">Login Disini</a> -->
