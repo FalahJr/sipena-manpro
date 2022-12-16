@@ -82,7 +82,14 @@ class AbsensiGuruController extends Controller
           ->addColumn('waktu', function ($data) {
             return convertNameDayIdn(Carbon::parse($data->waktu)->format('l, d M Y H:i:s'));
           })
-          ->rawColumns(['terlambat', 'image', 'valid'])
+          ->addColumn('izin', function ($data) {
+            if($data->is_izin === "Y") {
+              return '<span class="badge badge-success"> Ya </span>';
+            } else {
+              return '<span class="badge badge-danger"> Tidak </span>';
+            }
+          })
+          ->rawColumns(['terlambat', 'image', 'valid', 'izin'])
           ->addIndexColumn()
           ->make(true);
     }
@@ -139,6 +146,16 @@ class AbsensiGuruController extends Controller
               "waktu" => Carbon::now('Asia/Jakarta'),
             ]);
 
+            if($req->is_izin) {
+              DB::table("guru_absensi")
+                ->where("id", $max)
+                ->update([
+                  "is_izin" => $req->is_izin,
+                  "alasan_izin" => $req->alasan_izin,
+                  "keterangan_izin" => $req->keterangan_izin
+                ]);
+            }
+
           DB::commit();
           return response()->json(["status" => 1]);
         } catch (\Exception $e) {
@@ -180,6 +197,16 @@ class AbsensiGuruController extends Controller
                 "foto" => $imgPath,
                 "waktu" => Carbon::now('Asia/Jakarta'),
             ]);
+
+            if($req->is_izin) {
+              DB::table("guru_absensi")
+                ->where("id", $req->id)
+                ->update([
+                  "is_izin" => $req->is_izin,
+                  "alasan_izin" => $req->alasan_izin,
+                  "keterangan_izin" => $req->keterangan_izin
+                ]);
+            }
 
           DB::commit();
           return response()->json(["status" => 3]);

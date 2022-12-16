@@ -93,7 +93,18 @@ var table = $('#table-data').DataTable({
           {data: 'image', name: 'image'},
           {data: 'waktu', name: 'waktu  '},
           {data: 'terlambat', name: 'terlambat'},
+          {data: 'izin', name: 'izin'},
         ]
   });
+
+  $(document).ajaxComplete(function(){
+    const gallery = document.querySelectorAll("img")
+    gallery.forEach(image => {
+       let src = image.getAttribute('src')
+       image.addEventListener('click', function () {
+           window.open(src)
+       });
+    });
+  })
 </script>
 @endsection

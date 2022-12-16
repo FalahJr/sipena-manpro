@@ -35,6 +35,7 @@
                                 <th>Jam Absen</th>
                                 <th>Terlambat</th>
                                 <th>Valid</th>
+                                <th>Izin</th>
                               </tr>
                             </thead>
 
@@ -117,7 +118,18 @@ var table = $('#table-data').DataTable({
           {data: 'created_at', name: 'created_at'},
           {data: 'terlambat', name: 'terlambat'},
           {data: 'valid', name: 'valid'},
+          {data: 'izin', name: 'izin'},
         ]
   });
+
+  $(document).ajaxComplete(function(){
+    const gallery = document.querySelectorAll("img")
+    gallery.forEach(image => {
+       let src = image.getAttribute('src')
+       image.addEventListener('click', function () {
+           window.open(src)
+       });
+    });
+  })
 </script>
 @endsection
