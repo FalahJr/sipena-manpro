@@ -98,13 +98,20 @@ class AbsensiSiswaController extends Controller
               return '<span class="badge badge-danger"> Tidak </span>';
             }
           })
+          ->addColumn('approve', function ($data) {
+            if($data->is_approve === "Y") {
+              return '<span class="badge badge-success"> Ya </span>';
+            } else {
+              return '<span class="badge badge-danger"> Tidak </span>';
+            }
+          })
           ->addColumn('jadwal', function ($data) {
             return $data->jadwal_hari . ", " . $data->jadwal_waktu;
           })
           ->addColumn('created_at', function ($data) {
             return convertNameDayIdn(Carbon::parse($data->created_at)->format('l, d M Y H:i:s'));
           })
-          ->rawColumns(['terlambat', 'image', 'valid'])
+          ->rawColumns(['terlambat', 'image', 'valid', 'approve'])
           ->addIndexColumn()
           ->make(true);
     }
