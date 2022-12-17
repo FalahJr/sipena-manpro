@@ -39,11 +39,13 @@ class loginController extends Controller
 
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
-                $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas")->where('user_id', $user->id)->first();
+                $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas", "guru.created_at as mapel")->where('user_id', $user->id)->first();
                 $cekkelas = DB::table("kelas")->where("guru_id", $cekdata->id)->first();
+                $cekmapel = DB::table("mapel")->where("guru_id", $cekdata->id)->first();
 
                 $user->data = $cekdata;
                 $user->kelas = $cekkelas;
+                $user->maper = $cekmapel;
             } else if($user->roleid == 5) {
                 $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
 
@@ -88,11 +90,13 @@ class loginController extends Controller
 
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
-                $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas")->where('user_id', $user->id)->first();
+                $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas", "guru.created_at as mapel")->where('user_id', $user->id)->first();
                 $cekkelas = DB::table("kelas")->where("guru_id", $cekdata->id)->first();
+                $cekmapel = DB::table("mapel")->where("guru_id", $cekdata->id)->first();
 
                 $user->data = $cekdata;
                 $user->kelas = $cekkelas;
+                $user->maper = $cekmapel;
             } else if($user->roleid == 5) {
                 $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
 
