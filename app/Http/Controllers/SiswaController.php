@@ -288,6 +288,7 @@ public function osisdatatable()
             "kelas_id" => $req->kelas_id,
             "nama_lengkap" => $req->nama_lengkap,
             "nisn" => $req->nisn,
+            // "email" => $req->email,
             "tempat_lahir" => $req->tempat_lahir,
             "tanggal_lahir" => $req->tanggal_lahir,
             "nama_ayah" => $req->nama_ayah,
