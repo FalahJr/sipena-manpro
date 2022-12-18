@@ -63,7 +63,7 @@ class loginController extends Controller
                   $cek = DB::table("perpus_katalog")->where("pegawai_id", $cekdata->id)->first();
                   $user->perpus = $cek;
                 }
-                
+
                 $user->data = $cekdata;
             } else if($user->roleid == 6) {
                 $cekdata = DB::table("kepala_sekolah")->where('user_id', $user->id)->first();
@@ -113,7 +113,7 @@ class loginController extends Controller
                 $user->kelas = $cekkelas;
                 $user->maper = $cekmapel;
             } else if($user->roleid == 5) {
-                $cekdata = DB::table("pegawai")->select("pegawa.*", "pegawa.created_at as kelas")->where('user_id', $user->id)->first();
+                $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
 
                 if($cekdata->is_kantin == "Y") {
                   $cek = DB::table("kantin")->where("pegawai_id", $cekdata->id)->first();
