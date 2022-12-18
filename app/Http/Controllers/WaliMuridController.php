@@ -115,7 +115,7 @@ class WaliMuridController extends Controller
             "nama_lengkap" => $req->nama_lengkap,
             "tempat_lahir" => $req->tempat_lahir,
             "tanggal_lahir" => $req->tanggal_lahir,
-            "jenis_kelamin" => $req->jk,
+            "jenis_kelamin" => $req->jenis_kelamin,
             "alamat" => $req->alamat,
             "phone" => $req->phone,
             "foto_profil" => $imgPath,
