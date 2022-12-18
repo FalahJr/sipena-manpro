@@ -86,6 +86,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/wali-murid/update', 'WaliMuridController@update');
         Route::get('/wali-murid/edit/{id}', 'WaliMuridController@edit');
 
+        //Dinas Pendidikan
+        Route::get('/dinas-pendidikan', 'DinasPendidikanController@index');
+        Route::post('/dinas-pendidikan/simpan', 'DinasPendidikanController@simpan');
+        Route::get('/dinas-pendidikan/hapus/{id}', 'DinasPendidikanController@hapus');
+        Route::get('/dinas-pendidikan/table', 'DinasPendidikanController@datatable');
+        Route::post('/dinas-pendidikan/update', 'DinasPendidikanController@update');
+        Route::get('/dinas-pendidikan/edit/{id}', 'DinasPendidikanController@edit');
+
+        //Kepala Sekolah
+        Route::get('/kepala-sekolah', 'KepalaSekolahController@index');
+        Route::post('/kepala-sekolah/simpan', 'KepalaSekolahController@simpan');
+        Route::get('/kepala-sekolah/hapus/{id}', 'KepalaSekolahController@hapus');
+        Route::get('/kepala-sekolah/table', 'KepalaSekolahController@datatable');
+        Route::post('/kepala-sekolah/update', 'KepalaSekolahController@update');
+        Route::get('/kepala-sekolah/edit/{id}', 'KepalaSekolahController@edit');
+
         //kelas
         Route::get('/kelas', 'KelasController@index');
         Route::post('/kelas/simpan', 'KelasController@simpan');

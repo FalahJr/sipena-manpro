@@ -77,12 +77,12 @@
               <input type="text" class="form-control form-control-sm inputtext nama_ibu" name="nama_ibu">
             </td>
           </tr>
-          <tr>
+          {{-- <tr>
             <td>Email <span style="color:red;">*</span></td>
             <td>
               <input type="email" class="form-control form-control-sm inputtext agama" name="email">
             </td>
-          </tr>
+          </tr> --}}
           <tr>
             <td>Tempat Lahir <span style="color:red;">*</span></td>
             <td>

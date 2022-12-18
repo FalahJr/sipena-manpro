@@ -12,7 +12,7 @@
     <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
-          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/wali-murid')}}">Wali Murid</a></li>
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/dinas-pendidikan')}}">Dinas Pendidikan</a></li>
           <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
         </ol>
       </nav>
@@ -21,7 +21,7 @@
         <div class="card">
           <div class="card-body">
             
-           <h4 class="card-title">Edit Data Wali Murid</h4>
+           <h4 class="card-title">Edit Data Dinas Pendidikan</h4>
            
                     <!-- Modal -->
     <!-- Modal content-->
@@ -44,7 +44,7 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/wali-murid/update')}}" method="POST" method="POST" enctype="multipart/form-data">
+          <form action="{{url('admin/dinas-pendidikan/update')}}" method="POST" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
             <td>Nama Lengkap <span style="color:red;">*</span></td>
@@ -59,12 +59,12 @@
               <input type="email" class="form-control form-control-sm inputtext @if($errors->has('email')) is-invalid @endif email" value="{{$data->email}}" name="email">
             </td>
           </tr> --}}
-          <tr>
+          {{-- <tr>
             <td>Tempat Lahir <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext @if($errors->has('tempat_lahir')) is-invalid @endif tempat_lahir" value="{{$data->tempat_lahir}}" name="tempat_lahir">
             </td>
-          </tr>
+          </tr> --}}
           <tr>
             <td>Tanggal Lahir</td>
             <td>

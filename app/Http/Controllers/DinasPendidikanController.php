@@ -22,16 +22,16 @@ use Yajra\Datatables\Datatables;
 
 use Response;
 
-class WaliMuridController extends Controller
+class DinasPendidikanController extends Controller
 {
   public function index()
   {
-    return view('wali_murid.index');
+    return view('dinas-pendidikan.index');
   }
 
   public function datatable()
   {
-    $data = DB::table('wali_murid')     
+    $data = DB::table('dinas_pendidikan')     
     ->get();
 
 
@@ -45,9 +45,9 @@ class WaliMuridController extends Controller
     //   })
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
-          '<a href="wali-murid/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+          '<a href="dinas-pendidikan/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/wali-murid/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="/admin/dinas-pendidikan/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })->addColumn('foto_profil', function ($data) {
@@ -68,7 +68,7 @@ class WaliMuridController extends Controller
       DB::beginTransaction();
       try {
         $max = DB::table("user")->max('id') + 1;
-        $maxWaliMurid = DB::table("wali_murid")->max('id') + 1;
+        $maxWaliMurid = DB::table("dinas_pendidikan")->max('id') + 1;
 
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
@@ -103,17 +103,16 @@ class WaliMuridController extends Controller
             "id" => $max,
             "username" => $req->username,
             "password" => $req->password,
-            "role_id" => 3,
+            "role_id" => 7,
             "is_active" => 'Y',
             "saldo" => 0,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
         
-          DB::table("wali_murid")->insert([
+          DB::table("dinas_pendidikan")->insert([
             "id"=>$maxWaliMurid,
             "user_id" => $max,
             "nama_lengkap" => $req->nama_lengkap,
-            "tempat_lahir" => $req->tempat_lahir,
             "tanggal_lahir" => $req->tanggal_lahir,
             "jenis_kelamin" => $req->jk,
             "alamat" => $req->alamat,
@@ -135,20 +134,16 @@ class WaliMuridController extends Controller
 
   public function hapus($id)
   {
-    $waliMurid = DB::table("wali_murid")
+    $dinas = DB::table("dinas_pendidikan")
     ->where('id',$id)
     ->first();
-
-    DB::table("siswa")
-    ->where('wali_murid_id',$id)
-    ->delete();
     
-    DB::table("wali_murid")
+    DB::table("dinas_pendidikan")
         ->where('id',$id)
         ->delete();
 
     DB::table("user")
-        ->where('id',$waliMurid->user_id)
+        ->where('id',$dinas->user_id)
         ->delete();
 
       return back()->with(['success' => 'Data berhasil dihapus']);
@@ -175,9 +170,9 @@ class WaliMuridController extends Controller
   }
   public function edit($id)
   {
-    $data = DB::table("wali_murid")->where("id", $id)->first();
+    $data = DB::table("dinas_pendidikan")->where("id", $id)->first();
     // dd($data);
-    return view("wali_murid.edit", compact('data'));
+    return view("dinas-pendidikan.edit", compact('data'));
     
   }
 
@@ -217,9 +212,9 @@ class WaliMuridController extends Controller
         return 'already exist';
       }
       $newData += ["foto_profil"=>$imgPath];
-      DB::table("wali_murid")->where('id',$req->id)->update($newData); 
+      DB::table("dinas_pendidikan")->where('id',$req->id)->update($newData); 
     }else{
-      DB::table("wali_murid")->where('id',$req->id)->update($newData);
+      DB::table("dinas_pendidikan")->where('id',$req->id)->update($newData);
      }
 
 

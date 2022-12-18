@@ -106,6 +106,7 @@ Route::middleware('api')->group(function () {
     //Kantin
     Route::post('/bayar-koperasi', 'Koperasi\TransaksiController@APIbayar');
     Route::post('/bayar-kantin', 'BayarKantinController@APIbayar');
+    Route::post('/tambah-transaksi', 'BayarKantinController@APIbayar');
     Route::post('/kantin', 'BayarKantinController@getData');
     Route::get('/transaksi-kantin', 'TransaksiKantinController@getData');
     Route::get('/transaksi-koperasi', 'Koperasi\TransaksiController@getData');
@@ -124,6 +125,7 @@ Route::middleware('api')->group(function () {
     Route::post('/simpankeuangan', 'KeuanganController@simpan');
 
     Route::get('/ppdb', 'SiswaController@ppdb');
+    Route::get('/list-pendaftaran', 'SiswaController@getPpdb');
 
     Route::get('/total-notifikasi', 'NotifikasiController@count_notifikasi');
     Route::get('/get-notifikasi', 'NotifikasiController@get_notifikasi');
@@ -131,6 +133,9 @@ Route::middleware('api')->group(function () {
     //withdrawe
     Route::post('/withdraw', 'WithdrawController@insertData');
     Route::get('/getDataWithdraw', 'WithdrawController@getWithdrawJson');
+
+    //update username or password user 
+    Route::get('/update-user', 'SiswaController@updateProfileUser');
 
 
 });

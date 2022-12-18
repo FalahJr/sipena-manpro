@@ -103,14 +103,14 @@
             <i class="mdi mdi-home menu-icon"></i>
           </a>
         </li>
-        <li class="nav-item {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'active' : '') }}">
+        <li class="nav-item {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') ||  Request::is('admin/dinas-pendidikan/*') || Request::is('admin/dinas-pendidikan') ||  Request::is('admin/kepala-sekolah/*') || Request::is('admin/kepala-sekolah') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'active' : '') }}">
           <a class="nav-link" data-toggle="collapse" href="#dataMaster" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Data Master</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
 
-          <div class="collapse {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'show' : '') }}" id="dataMaster">
+          <div class="collapse {{( ( Request::is('admin/guru/*') || Request::is('admin/guru') ||  Request::is('admin/dinas-pendidikan/*') || Request::is('admin/dinas-pendidikan') ||  Request::is('admin/kepala-sekolah/*') || Request::is('admin/kepala-sekolah') || Request::is('admin/siswa/*') || Request::is('admin/siswa') || Request::is('admin/wali-murid') || Request::is('admin/wali-murid/*') || Request::is('admin/pegawai') || Request::is('admin/pegawai/*') )  ? 'show' : '') }}" id="dataMaster">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/guru') || Request::is('admin/guru/*') ? 'active' : '' }}"
@@ -124,6 +124,13 @@
               <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/pegawai') || Request::is('admin/pegawai/*') ? 'active' : '' }}"
                   href="{{url('admin/pegawai')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
+              
+                  <li class="nav-item"> <a
+                    class="nav-link {{Request::is('admin/dinas-pendidikan') || Request::is('admin/dinas-pendidikan/*') ? 'active' : '' }}"
+                    href="{{url('admin/dinas-pendidikan')}}">Dinas Pendidikan<span class="d-none">Setting</span></a></li>
+                    <li class="nav-item"> <a
+                      class="nav-link {{Request::is('admin/kepala-sekolah') || Request::is('admin/kepala-sekolah/*') ? 'active' : '' }}"
+                      href="{{url('admin/kepala-sekolah')}}">Kepala Sekolah<span class="d-none">Setting</span></a></li>
             </ul>
           </div>
         </li>

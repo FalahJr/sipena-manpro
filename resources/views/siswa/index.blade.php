@@ -34,7 +34,7 @@
                                 <th>Wali Murid</th>
                                 <th>NISN</th>
                                 <th>Nama Lengkap</th>
-                                <th>Email</th>
+                                {{-- <th>Email</th> --}}
                                 <th>Tempat, Tanggal Lahir</th>
                                 <th>Telepone</th>
                                 <th>Alamat</th>
@@ -139,10 +139,10 @@ var table = $('#table-data').DataTable({
                  targets: 13,
                  className: 'center'
               },
-              {
-                 targets: 14,
-                 className: 'center'
-              },
+              // {
+              //    targets: 14,
+              //    className: 'center'
+              // },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -150,7 +150,7 @@ var table = $('#table-data').DataTable({
           {data: 'wali_murid', name: 'wali_murid'},
           {data: 'nisn', name: 'nisn'},
           {data: 'nama_lengkap', name: 'nama_lengkap'},
-          {data: 'email', name: 'email'},
+          // {data: 'email', name: 'email'},
           {data: 'tempat_tanggal_lahir', name: 'tempat_tanggal_lahir'},
           {data: 'phone', name: 'phone'},
           {data: 'alamat', name: 'alamat'},
