@@ -91,6 +91,7 @@ class loginController extends Controller
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
                 $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas", "guru.created_at as mapel")->where('user_id', $user->id)->first();
+                dd($cekdata);
                 $cekkelas = DB::table("kelas")->where("guru_id", $cekdata->id)->first();
                 $cekmapel = DB::table("mapel")->where("guru_id", $cekdata->id)->first();
 
