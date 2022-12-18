@@ -75,7 +75,7 @@ class loginController extends Controller
         $username = $req->username;
         $password = $req->password;
         $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("username", $username)->join("role", "role.id", '=', "user.role_id")->first();
-
+        dd($user);
         if ($user && $user->password == $password) {
 
             $oVal = (object)[];
@@ -91,7 +91,6 @@ class loginController extends Controller
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
                 $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas", "guru.created_at as mapel")->where('user_id', $user->id)->first();
-                dd($cekdata);
                 $cekkelas = DB::table("kelas")->where("guru_id", $cekdata->id)->first();
                 $cekmapel = DB::table("mapel")->where("guru_id", $cekdata->id)->first();
 
