@@ -646,7 +646,7 @@ class MutasiSiswaController extends Controller
     public function edit(Request $req) {
       $data = DB::table("siswa_mutasi")
               ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
-              ->where("id", $req->id)
+              ->where("siswa_mutasi.id", $req->id)
               ->first();
 
       return response()->json($data);
