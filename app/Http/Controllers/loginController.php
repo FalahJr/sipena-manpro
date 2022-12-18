@@ -75,7 +75,7 @@ class loginController extends Controller
         $username = $req->username;
         $password = $req->password;
         $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("username", $username)->join("role", "role.id", '=', "user.role_id")->first();
-        dd($user);
+
         if ($user && $user->password == $password) {
 
             $oVal = (object)[];
