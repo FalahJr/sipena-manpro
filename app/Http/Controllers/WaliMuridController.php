@@ -113,7 +113,7 @@ class WaliMuridController extends Controller
             "id"=>$maxWaliMurid,
             "user_id" => $max,
             "nama_lengkap" => $req->nama_lengkap,
-            "email" => $req->email,
+            // "email" => $req->email,
             "tempat_lahir" => $req->tempat_lahir,
             "tanggal_lahir" => $req->tanggal_lahir,
             "jenis_kelamin" => $req->jk,

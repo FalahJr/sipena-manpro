@@ -63,8 +63,8 @@
                     <div class="navbar-nav mx-auto py-0">
                         <a href="#home" class="nav-item nav-link active">Beranda</a>
                         <a href="#about" class="nav-item nav-link">Tentang</a>
-                        <a href="#overview" class="nav-item nav-link">Fitur</a>
-                        <a href="#features" class="nav-item nav-link">Overview</a>
+                        <a href="#features" class="nav-item nav-link">Fitur</a>
+                        <a href="#overview" class="nav-item nav-link">Overview</a>
                         <!-- <a href="#contact" class="nav-item nav-link">Contact</a> -->
                     </div>
                     <a href="{{ route('registerWalimurid') }}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Info PPDB</a>

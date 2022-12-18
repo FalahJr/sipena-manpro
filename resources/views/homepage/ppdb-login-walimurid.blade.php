@@ -61,10 +61,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                        <a href="#home" class="nav-item nav-link active text-dark">Beranda</a>
-                        <a href="#about" class="nav-item nav-link text-dark">Tentang</a>
-                        <a href="#overview" class="nav-item nav-link text-dark">Fitur</a>
-                        <a href="#features" class="nav-item nav-link text-dark">Overview</a>
+                    <a href="{{ url('/') }}" class="nav-item nav-link active text-dark">Beranda</a>
+                        <a href="{{ url('/') }}" class="nav-item nav-link text-dark">Tentang</a>
+                        <a href="{{ url('/') }}" class="nav-item nav-link text-dark">Fitur</a>
+                        <a href="{{ url('/') }}" class="nav-item nav-link text-dark">Overview</a>
                         <!-- <a href="#contact" class="nav-item nav-link">Contact</a> -->
                     </div>
                     <a href="{{ route('registerWalimurid') }}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Info PPDB</a>
