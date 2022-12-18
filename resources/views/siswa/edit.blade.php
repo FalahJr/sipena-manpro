@@ -71,12 +71,12 @@
               <input type="text" class="form-control form-control-sm inputtext @if($errors->has('nama_ibu')) is-invalid @endif nama_ibu" value="{{$data->nama_ibu}}" name="nama_ibu">
             </td>
           </tr>
-          <tr>
+          {{-- <tr>
             <td>Email <span style="color:red;">*</span></td>
             <td>
               <input type="email" class="form-control form-control-sm inputtext @if($errors->has('email')) is-invalid @endif email" value="{{$data->email}}" name="email">
             </td>
-          </tr>
+          </tr> --}}
           <tr>
             <td>Tempat Lahir <span style="color:red;">*</span></td>
             <td>

@@ -186,6 +186,25 @@ public function osisdatatable()
     }
   }
 
+  public function getPpdb(Request $req){
+    try{
+      if($req->id){
+        $data = DB::table('siswa')
+        ->where("id",$req->id)
+        ->where("is_active","N")
+        ->get();
+      }else{
+        $data = DB::table('siswa')
+        ->where("is_active","N")
+        ->get();
+      }
+
+      return response()->json(["status" => 1,"data"=>$data]);
+    }catch(\Exception $e){
+      return response()->json(["status" => 2,"message"=>$e->getMessage()]);
+    }
+  }
+
   public function APIAccPermintaan(Request $req){
     if($req->id){
     $siswa= DB::table("siswa")->where("id",$req->id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
@@ -333,7 +352,6 @@ public function osisdatatable()
       'nama_ayah' => 'required|max:100',
       'nama_ibu' => 'required|max:100',
       'tempat_lahir' => 'required|max:100',
-      'email' => 'required|max:100',
       'nisn' => 'required|max:100',
     ]);
     $imgPath = null;
@@ -392,6 +410,21 @@ public function osisdatatable()
       }
     } else {
       return true;
+    }
+  }
+
+  public function updateProfileUser(Request $req){
+    try{
+      if (!$this->cekemail($req->username)) {
+        return response()->json(["status" => 2, "message" => "Data username sudah digunakan, tidak dapat disimpan!"]);
+      }
+      DB::table("user")->where("id",$req->id)->update([
+        "username"=>$req->username,
+        "password"=>$req->password,
+      ]);
+      return response()->json(["status" => 1,"message" => "username atau password berhasil diubah"]);
+    }catch(\Exception $e){
+      return response()->json(["status" => 2,"message" => $e->getMessage()]);
     }
   }
 

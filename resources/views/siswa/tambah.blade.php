@@ -77,12 +77,20 @@
               <input type="text" class="form-control form-control-sm inputtext nama_ibu" name="nama_ibu">
             </td>
           </tr>
+<<<<<<< HEAD
+          {{-- <tr>
+=======
           <!-- <tr>
+>>>>>>> 0948bf6674e12a0467ecdd0ea900056a6e4fb45c
             <td>Email <span style="color:red;">*</span></td>
             <td>
               <input type="email" class="form-control form-control-sm inputtext agama" name="email">
             </td>
+<<<<<<< HEAD
+          </tr> --}}
+=======
           </tr> -->
+>>>>>>> 0948bf6674e12a0467ecdd0ea900056a6e4fb45c
           <tr>
             <td>Tempat Lahir <span style="color:red;">*</span></td>
             <td>
