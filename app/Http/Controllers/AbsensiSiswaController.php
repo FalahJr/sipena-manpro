@@ -52,7 +52,7 @@ class AbsensiSiswaController extends Controller
               ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
               ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
               ->get()->toArray();
-        } else if($kelasid == null && $tanggal == null) {
+        } else {
           $data = DB::table("siswa_absensi")
               ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
               ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
