@@ -21,19 +21,19 @@
               </td>
             </tr>
             <tr>
+              <td>Jadwal Hari <span style="color:red;">*</span></td>
+              <td>
+                <input type="text" class="form-control form-control-sm inputtext jadwal_hari" name="jadwal_hari">
+              </td>
+            </tr>
+            <tr>
               <td>Jam Mulai <span style="color:red;">*</span></td>
               <td>
                 <input type="time" class="form-control form-control-sm inputtext jam_mulai" name="jam_mulai">
               </td>
             </tr>
             <tr>
-              <td>Jam Selesai <span style="color:red;">*</span></td>
-              <td>
-                <input type="time" class="form-control form-control-sm inputtext jam_selesai" name="jam_selesai">
-              </td>
-            </tr>
-            <tr>
-              <td>Pelaksana<span style="color:red;">*</span></td>
+              <td>Guru Penanggung Jawab<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="guru_id">
                   <option disabled selected value>Pilih</option>

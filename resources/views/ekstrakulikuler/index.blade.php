@@ -40,9 +40,9 @@
                               <tr>
                                 <th>No</th>
                                 <th>Nama Ekstrakulikuler</th>
-                                <th>Waktu</th>
-                                <th>Tanggal</th>
-                                <th>Pelaksana</th>
+                                <th>Waktu Mulai</th>
+                                <th>Jadwal Hari</th>
+                                <th>Guru Penanggung Jawab</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -110,8 +110,8 @@ var table = $('#table-data').DataTable({
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'nama', name: 'nama'},
-          {data: 'waktu', name: 'waktu'},
-          {data: 'tanggal', name: 'tanggal'},
+          {data: 'jam_mulai', name: 'jam_mulai'},
+          {data: 'jadwal_hari', name: 'jadwal_hari'},
           {data: 'pelaksana', name: 'pelaksana'},
           {data: 'aksi', name: 'aksi'},
         ]
