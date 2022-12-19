@@ -119,6 +119,7 @@ class loginController extends Controller
                 } else {
                   $user->siswa = $oVal;
                 }
+                
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
                 $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
