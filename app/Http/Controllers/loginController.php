@@ -46,10 +46,11 @@ class loginController extends Controller
               $ceksiswa = DB::table("siswa")->where("wali_murid_id", $cekdata->id)->first();
 
               if($cekwali != null) {
-                $user->wali = $cekwali;
+                $user->siswa = $ceksiswa;
               } else {
-                $user->wali = $oVal;
+                $user->siswa = $oVal;
               }
+              $user->data = $cekdata;
             } else if($user->roleid == 4) {
                 $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas", "guru.created_at as mapel")->where('user_id', $user->id)->first();
                 $cekkelas = DB::table("kelas")->where("guru_id", $cekdata->id)->first();
@@ -114,11 +115,10 @@ class loginController extends Controller
                 $ceksiswa = DB::table("siswa")->where("wali_murid_id", $cekdata->id)->first();
 
                 if($cekwali != null) {
-                  $user->wali = $cekwali;
+                  $user->siswa = $ceksiswa;
                 } else {
-                  $user->wali = $oVal;
+                  $user->siswa = $oVal;
                 }
-
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
                 $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
