@@ -32,7 +32,7 @@ class loginController extends Controller
                 $user->data = $oVal;
             } else if($user->roleid == 2) {
               $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
-              $cekwali = DB::table("wali_murid")->where("id", $cekdata->wali_murid_id)->first()
+              $cekwali = DB::table("wali_murid")->where("id", $cekdata->wali_murid_id)->first();
 
               if($cekwali != null) {
                 $user->wali = $cekwali;
@@ -95,7 +95,7 @@ class loginController extends Controller
               $user->data = $oVal;
             } else if($user->roleid == 2) {
                 $cekdata = DB::table("siswa")->where('user_id', $user->id)->first();
-                $cekwali = DB::table("wali_murid")->where("id", $cekdata->wali_murid_id)->first()
+                $cekwali = DB::table("wali_murid")->where("id", $cekdata->wali_murid_id)->first();
 
                 if($cekwali != null) {
                   $user->wali = $cekwali;
