@@ -30,7 +30,7 @@ class EkstrakulikulerController extends Controller
 {
   public function index()
   {
-    $teachers = DB::table("guru")->where("is_ekstrakulikuler","Y")->get();
+    $teachers = DB::table("guru")->where("is_ekstrakulikuler","N")->get();
     return view('ekstrakulikuler.index',compact('teachers'));
   }
 
@@ -50,15 +50,10 @@ class EkstrakulikulerController extends Controller
         return  '<div class="btn-group">' .
           '<a href="ekstrakulikuler/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/ekstrakulikuler/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="ekstrakulikuler/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })
-      ->addColumn('waktu', function ($data) {
-        return $data->jam_mulai ." - ".$data->jam_selesai;
-      })
-      ->addColumn('tanggal', function ($data) {
-        return Carbon::CreateFromFormat('Y-m-d',$data->tanggal)->format('d M Y');
-      })
+      
       ->addColumn('pelaksana', function ($data) {
         $teacher = DB::table("guru")->where("id",$data->guru_id)->first();
         return $teacher->nama_lengkap;
@@ -69,15 +64,19 @@ class EkstrakulikulerController extends Controller
   }
   public function simpan(Request $req)
   {
+    DB::beginTransaction();
+
       try {
-        DB::table("ekstrakulikuler")
+       DB::table("ekstrakulikuler")
         ->insert([
           "nama" => $req->nama,
           "jam_mulai" => $req->jam_mulai,
-          "jam_selesai" => $req->jam_selesai,
+          "jadwal_hari" => $req->jadwal_hari,
           "guru_id" => $req->guru_id,
-          "tanggal" => Carbon::now('Asia/Jakarta'),
+          // "tanggal" => Carbon::now('Asia/Jakarta'),
         ]);
+
+        DB::table('guru')->where('id',$req->guru_id)->update(['is_ekstrakulikuler'=> "Y"]);
 
           DB::commit();
 
@@ -100,8 +99,9 @@ class EkstrakulikulerController extends Controller
   public function edit($id)
   {
     $data = DB::table("ekstrakulikuler")->where("id", $id)->first();
-    $teachers = DB::table('guru')->where("is_ekstrakulikuler","Y")->get();
-    return view("ekstrakulikuler.edit", compact('data','teachers'));
+    $teachers = DB::table('guru')->where("is_ekstrakulikuler","N")->get();
+    $teacherChoice = DB::table('guru')->where("is_ekstrakulikuler","Y")->get();
+    return view("ekstrakulikuler.edit", compact('data','teachers','teacherChoice'));
   }
 
   public function update(Request $req)
@@ -109,12 +109,19 @@ class EkstrakulikulerController extends Controller
     $this->validate($req,[
       'nama' => 'required|max:150',
       'jam_mulai' => 'required|max:100',
-      'jam_selesai' => 'required|max:255',
+      'jadwal_hari' => 'required|max:255',
       'guru_id' => 'required|max:150',
     ]);
 
+    $guru_id = DB::table("ekstrakulikuler")
+    ->where('id', $req->id)
+    ->first();
+
     $data = DB::table("ekstrakulikuler")->where('id',$req->id);
-    $data->update(['nama'=>$req->kegiatan,'jam_mulai'=>$req->jam_mulai,'jam_selesai'=>$req->jam_selesai,'guru_id'=>$req->guru_id]);
+    $data->update(['nama'=>$req->nama,'jam_mulai'=>$req->jam_mulai,'jadwal_hari'=>$req->jadwal_hari,'guru_id'=>$req->guru_id]);
+    DB::table('guru')->where('id',$guru_id->guru_id)->update(['is_ekstrakulikuler'=> "N"]);
+
+    DB::table('guru')->where('id',$req->guru_id)->update(['is_ekstrakulikuler'=> "Y"]);
     return back()->with(['success' => 'Data berhasil diupdate']);
   }
 
