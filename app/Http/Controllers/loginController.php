@@ -45,7 +45,7 @@ class loginController extends Controller
               $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
               $ceksiswa = DB::table("siswa")->where("wali_murid_id", $cekdata->id)->first();
 
-              if($cekwali != null) {
+              if($ceksiswa != null) {
                 $user->siswa = $ceksiswa;
               } else {
                 $user->siswa = $oVal;
@@ -114,7 +114,7 @@ class loginController extends Controller
                 $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
                 $ceksiswa = DB::table("siswa")->where("wali_murid_id", $cekdata->id)->first();
 
-                if($cekwali != null) {
+                if($ceksiswa != null) {
                   $user->siswa = $ceksiswa;
                 } else {
                   $user->siswa = $oVal;
