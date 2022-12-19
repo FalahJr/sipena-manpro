@@ -34,11 +34,7 @@
                                 <th>Wali Murid</th>
                                 <th>NISN</th>
                                 <th>Nama Lengkap</th>
-<<<<<<< HEAD
-                                {{-- <th>Email</th> --}}
-=======
                                 <!-- <th>Email</th> -->
->>>>>>> 0948bf6674e12a0467ecdd0ea900056a6e4fb45c
                                 <th>Tempat, Tanggal Lahir</th>
                                 <th>Telepone</th>
                                 <th>Alamat</th>

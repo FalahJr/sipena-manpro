@@ -83,6 +83,7 @@ Route::middleware('api')->group(function () {
     //Jadwal Sekolah
     Route::get('/jadwal-sekolah', 'JadwalSekolahController@getData');
     Route::get('/jadwal-kelas', 'JadwalPembelajaranController@getData');
+    Route::get('/jadwal-kelas-sekarang', 'JadwalPembelajaranController@getJadwalSekarang');
 
     //Perpustakaan
     Route::get('/katalog-buku', 'Perpustakaan\KatalogBukuController@getData');

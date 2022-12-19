@@ -70,7 +70,7 @@ class JadwalPembelajaranController extends Controller
   }
   public function getData(Request $req){
     try{
-        $data = DB::table('jadwal_pembelajaran')
+        $datas = DB::table('jadwal_pembelajaran')
         ->join("kelas","kelas.id","=","jadwal_pembelajaran.kelas_id")
         ->join("mapel","mapel.id","=","jadwal_pembelajaran.mapel_id")
         ->select("jadwal_pembelajaran.*","kelas.nama as kelas_nama","kelas.id as kelas_id","mapel.nama as mapel_nama","mapel.id as mapel_id")
@@ -81,8 +81,38 @@ class JadwalPembelajaranController extends Controller
           return $q->where("jadwal_pembelajaran.kelas_id",$idMapel);
         })
         ->get();
-        if($data){
-          return response()->json(["status" => 1, "data"=>$data]);
+
+        $senin = [];
+        $selasa = [];
+        $rabu = [];
+        $kamis = [];
+        $jumat = [];
+        $sabtu = [];
+        
+        foreach($datas as $data){
+            if($data->jadwal_hari == "Senin"){
+              array_push($senin, $data);
+            }
+            if($data->jadwal_hari == "Selasa"){
+              array_push($selasa, $data);
+            }
+            if($data->jadwal_hari == "Rabu"){
+              array_push($rabu, $data);
+            }
+            if($data->jadwal_hari == "Kamis"){
+              array_push($kamis, $data);
+            }
+            if($data->jadwal_hari == "Jumat"){
+              array_push($Jumat, $data);
+            }
+            if($data->jadwal_hari == "Sabtu"){
+              array_push($Sabtu, $data);
+            }
+        }   
+        $datas = (object) array('Senin' => $senin,'Selasa' => $selasa,'Rabu' => $rabu,'Kamis' => $kamis,'Jumat' => $jumat,'Sabtu' => $sabtu);
+
+        if($datas){
+          return response()->json(["status" => 1, "data"=>$datas]);
         }else{
           return response()->json(["status" => 2, "message"=>"data tidak ditemukan"]);
         }
@@ -91,6 +121,83 @@ class JadwalPembelajaranController extends Controller
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }
   }
+
+  public function hari_ini(){
+    $hari = date ("D");
+   
+    switch($hari){
+      case 'Sun':
+        $hari_ini = "Minggu";
+      break;
+   
+      case 'Mon':			
+        $hari_ini = "Senin";
+      break;
+   
+      case 'Tue':
+        $hari_ini = "Selasa";
+      break;
+   
+      case 'Wed':
+        $hari_ini = "Rabu";
+      break;
+   
+      case 'Thu':
+        $hari_ini = "Kamis";
+      break;
+   
+      case 'Fri':
+        $hari_ini = "Jumat";
+      break;
+   
+      case 'Sat':
+        $hari_ini = "Sabtu";
+      break;
+      
+      default:
+        $hari_ini = "Tidak di ketahui";		
+      break;
+    }
+   
+    return $hari_ini;
+   
+  }
+
+  public function getJadwalSekarang(Request $req){
+    try{
+        $datas = DB::table('jadwal_pembelajaran')
+        ->join("kelas","kelas.id","=","jadwal_pembelajaran.kelas_id")
+        ->join("mapel","mapel.id","=","jadwal_pembelajaran.mapel_id")
+        ->select("jadwal_pembelajaran.*","kelas.nama as kelas_nama","kelas.id as kelas_id","mapel.nama as mapel_nama","mapel.id as mapel_id")
+        ->when($req->mapel_id,function($q,$idMapel){
+          return $q->where("jadwal_pembelajaran.mapel_id",$idMapel);
+        })
+        ->when($req->kelas_id,function($q,$idMapel){
+          return $q->where("jadwal_pembelajaran.kelas_id",$idMapel);
+        })
+        ->get();
+
+        $jadwalHari = [];
+        
+        foreach($datas as $data){
+          if($data->jadwal_hari == $this->hari_ini()){
+            array_push($jadwalHari, $data);
+          }
+        }   
+
+        $datas = (object) array($this->hari_ini() => $jadwalHari);
+
+        if($datas){
+          return response()->json(["status" => 1, "data"=>$datas]);
+        }else{
+          return response()->json(["status" => 2, "message"=>"data tidak ditemukan"]);
+        }
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public function simpan(Request $req)
   {
     // dd(;
@@ -103,6 +210,8 @@ class JadwalPembelajaranController extends Controller
       DB::beginTransaction();
 
     try {
+      $req->jadwal_hari = ucfirst($req->jadwal_hari);
+
         $tes = DB::table("jadwal_pembelajaran")
           ->insert([
             "id" => $max,
