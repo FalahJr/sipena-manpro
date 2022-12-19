@@ -135,7 +135,7 @@ Route::middleware('api')->group(function () {
     Route::get('/getDataWithdraw', 'WithdrawController@getWithdrawJson');
 
     //update username or password user 
-    Route::get('/update-user', 'SiswaController@updateProfileUser');
+    Route::post('/update-user', 'SiswaController@updateProfileUser');
 
 
 });
