@@ -172,6 +172,9 @@ class PinjamBukuController extends Controller
         ->when($req->is_kembali,function($q,$is_kembali){
           return $q->where("perpus_peminjaman.is_kembali",$is_kembali);
         })
+        ->when($req->is_acc,function($q,$is_acc){
+          return $q->where("perpus_peminjaman.is_acc",$is_acc);
+        })
         ->where("perpus_peminjaman.id",$req->id)->first();
         if($data){
           if($data->role_id == 1){
@@ -216,6 +219,9 @@ class PinjamBukuController extends Controller
         ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_dikembalikan","perpus_peminjaman.is_kembali","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
         ->when($req->is_kembali,function($q,$is_kembali){
           return $q->where("perpus_peminjaman.is_kembali",$is_kembali);
+        })
+        ->when($req->is_acc,function($q,$is_acc){
+          return $q->where("perpus_peminjaman.is_acc",$is_acc);
         })
         ->when($req->user_id,function($q,$user_id){
           return $q->where("perpus_peminjaman.user_id",$user_id);
@@ -272,7 +278,7 @@ class PinjamBukuController extends Controller
         $data = DB::table('perpus_peminjaman')
         ->where("id",$req->id)->first();
         if($data){
-          DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"N"]);
+          DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"N","is_acc"=>"Y"]);
           Notifikasi::push_notifikasi($data->user_id,"Pinjam Buku","Peminjaman buku berhasil di konfirmasi kamu bisa pergi ke perpus untuk pinjam buku");
           return response()->json(["status" => 1, "message" => "berhasil di acc"]);
         }else{

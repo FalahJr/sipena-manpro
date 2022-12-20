@@ -302,7 +302,7 @@ class KembaliBukuController extends Controller
         $data = DB::table('perpus_peminjaman')
         ->where("id",$req->id)->first();
         if($data){
-          DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"Y"]);
+          DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"Y","is_acc"=>"Y"]);
           
           return response()->json(["status" => 1, "message" => "berhasil di acc"]);
           }else{
