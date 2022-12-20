@@ -137,10 +137,10 @@ Route::group(['middleware' => 'auth'], function () {
         //PPDB
         Route::get('/ppdb/list', 'SiswaController@ppdbindex');
         Route::get('/ppdb/table', 'SiswaController@datatablePpdb');
-        
+
         Route::get('/ppdb/acc/{id}', 'SiswaController@accPpdb');
         Route::get('/ppdb/tolak/{id}', 'SiswaController@tolakPpdb');
-        
+
         //Berita Sekolah
         Route::get('/berita-sekolah', 'BeritaSekolahController@index');
         Route::post('/berita-sekolah/simpan', 'BeritaSekolahController@simpan');
@@ -294,12 +294,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit-kategori-keuangan', 'KategoriKeuanganController@edit');
         Route::get('/hapus-kategori-keuangan', 'KategoriKeuanganController@hapus');
 
-          //  Keuangan
-          Route::get('/data-keuangan', 'KeuanganController@index');
-          Route::get('/data-keuangan-table', 'KeuanganController@datatable');
-          Route::post('/simpan-data-keuangan', 'KeuanganController@simpan');
-          Route::get('/edit-data-keuangan', 'KeuanganController@edit');
-          Route::get('/hapus-data-keuangan', 'KeuanganController@hapus');
+        //  Keuangan
+        Route::get('/data-keuangan', 'KeuanganController@index');
+        Route::get('/data-keuangan-table', 'KeuanganController@datatable');
+        Route::post('/simpan-data-keuangan', 'KeuanganController@simpan');
+        Route::get('/edit-data-keuangan', 'KeuanganController@edit');
+        Route::get('/hapus-data-keuangan', 'KeuanganController@hapus');
 
         //Mutasi Siswa
         Route::get('/mutasisiswa', 'MutasiSiswaController@index');

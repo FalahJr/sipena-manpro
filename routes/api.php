@@ -145,5 +145,7 @@ Route::middleware('api')->group(function () {
     //update username or password user
     Route::post('/update-user', 'SiswaController@updateProfileUser');
 
+    //List siswa by id
+    Route::get('/listsiswabykelas', 'SiswaController@getSiswaByKelas');
 
 });
