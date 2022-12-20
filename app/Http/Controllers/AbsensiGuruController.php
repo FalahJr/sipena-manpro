@@ -29,16 +29,14 @@ class AbsensiGuruController extends Controller
             ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
             ->get()->toArray();
 
-            dd($data);
-
             foreach ($data as $key => $value) {
               $waktu = Carbon::parse($value->waktu)->format('H:i:s');
               $batas = "06:00:00";
 
               if($waktu > Carbon::parse($batas)->format('H:i:s')) {
-                $data->terlambat = "Y";
+                $value->terlambat = "Y";
               } else {
-                $data->terlambat = "N";
+                $value->terlambat = "N";
               }
             }
 

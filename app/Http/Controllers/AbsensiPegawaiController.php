@@ -34,9 +34,9 @@ class AbsensiPegawaiController extends Controller
               $batas = "06:00:00";
 
               if($waktu > Carbon::parse($batas)->format('H:i:s')) {
-                $data->terlambat = "Y";
+                $value->terlambat = "Y";
               } else {
-                $data->terlambat = "N";
+                $value->terlambat = "N";
               }
             }
 
