@@ -25,13 +25,18 @@ Route::middleware('api')->group(function () {
 
     //Absensi Siswa
     Route::get('/totalabsensiswa', 'AbsensiSiswaController@getTotalKehadiran');
-    Route::get('/listabsensisiswa', 'AbsensiSiswaController@getMutasiSiswaJson');
+    Route::get('/listabsensisiswa', 'AbsensiSiswaController@getAbsensiSiswaJson');
     Route::post('/simpanabsensisiswa', 'AbsensiSiswaController@simpan');
 
     //Absensi Pegawai
     Route::get('/totalabsenpegawai', 'AbsensiPegawaiController@getTotalKehadiran');
-    Route::get('/listabsensipegawai', 'AbsensiPegawaiController@getMutasiPegawaiJson');
+    Route::get('/listabsensipegawai', 'AbsensiPegawaiController@getAbsensiPegawaiJson');
     Route::post('/simpanabsensipegawai', 'AbsensiPegawaiController@simpan');
+
+    //Absensi Kepala Sekolah
+    Route::get('/totalabsenkepalasekolah', 'AbsensiKepalaSekolahController@getTotalKehadiran');
+    Route::get('/listabsensikepalasekolah', 'AbsensiKepalaSekolahController@getAbsensiKepalaSekolahJson');
+    Route::post('/simpanabsensikepalasekolah', 'AbsensiKepalaSekolahController@simpan');
 
     //Absensi Guru
     Route::get('/totalabsenguru', 'AbsensiGuruController@getTotalKehadiran');
@@ -134,7 +139,7 @@ Route::middleware('api')->group(function () {
     Route::post('/withdraw', 'WithdrawController@insertData');
     Route::get('/getDataWithdraw', 'WithdrawController@getWithdrawJson');
 
-    //update username or password user 
+    //update username or password user
     Route::post('/update-user', 'SiswaController@updateProfileUser');
 
 

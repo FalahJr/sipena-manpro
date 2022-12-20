@@ -53,7 +53,7 @@ class AbsensiPegawaiController extends Controller
         return response()->json($data);
     }
 
-    public static function getMutasiPegawaiJson() {
+    public static function getAbsensiKepalaSekolahJson() {
       $data = AbsensiPegawaiController::getAbsensiPegawai();
 
       return response()->json($data);

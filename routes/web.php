@@ -309,6 +309,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/absensipegawai', 'AbsensiPegawaiController@index');
         Route::get('/absensipegawaitable', 'AbsensiPegawaiController@datatable');
 
+        //Absensi Kepala Sekolah
+        Route::get('/absensikepalasekolah', 'AbsensiKepalaSekolahController@index');
+        Route::get('/absensikepalasekolahtable', 'AbsensiKepalaSekolahController@datatable');
+
         //Absensi Guru
         Route::get('/absensiguru', 'AbsensiGuruController@index');
         Route::get('/absensigurutable', 'AbsensiGuruController@datatable');

@@ -124,7 +124,7 @@
               <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/pegawai') || Request::is('admin/pegawai/*') ? 'active' : '' }}"
                   href="{{url('admin/pegawai')}}">Data Pegawai<span class="d-none">Setting</span></a></li>
-              
+
                   <li class="nav-item"> <a
                     class="nav-link {{Request::is('admin/dinas-pendidikan') || Request::is('admin/dinas-pendidikan/*') ? 'active' : '' }}"
                     href="{{url('admin/dinas-pendidikan')}}">Dinas Pendidikan<span class="d-none">Setting</span></a></li>
@@ -220,7 +220,7 @@
           </a>
         </li>
 
-        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? ' active' : '' )) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? ' active' : '' || Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? ' active' : '' )) }}">
           <a class="nav-link" data-toggle="collapse" href="#absensi" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Absensi</span>
             <i class="menu-arrow"></i>
@@ -233,6 +233,7 @@
               @endif
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') ? 'active' : '' }}" href="{{url('admin/absensiguru')}}">Absensi Guru<span class="d-none">Absensi Guru</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? 'active' : '' }}" href="{{url('admin/absensipegawai')}}">Absensi Pegawai<span class="d-none">Absensi Pegawai</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? 'active' : '' }}" href="{{url('admin/absensikepalasekolah')}}">Absensi Kepala Sekolah<span class="d-none">Absensi Kepala Sekolah</span></a></li>
             </ul>
           </div>
         </li>
@@ -274,7 +275,7 @@
             <i class="mdi mdi-worker menu-icon"></i>
           </a>
         </li> --}}
-        
+
         <li class="nav-item {{Request::is('admin/ekstrakulikuler') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/ekstrakulikuler')}}">
             <span class="menu-title">Ekstrakulikuler</span>
@@ -332,7 +333,7 @@
             </ul>
           </div>
         </li>
-        
+
         <li class="nav-item {{Request::is('admin/jadwal-sekolah') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/jadwal-sekolah')}}">
             <span class="menu-title">Jadwal Sekolah</span>
