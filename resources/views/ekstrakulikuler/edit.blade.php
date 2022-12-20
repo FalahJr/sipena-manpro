@@ -52,16 +52,23 @@
               </td>
             </tr>
             <tr>
-              <td>Jam Selesai <span style="color:red;">*</span></td>
+              <td>Jadwal Hari <span style="color:red;">*</span></td>
               <td>
-                <input type="time" class="form-control form-control-sm inputtext @if($errors->has('jam_selesai')) is-invalid @endif jam_selesai" value="{{$data->jam_selesai}}" name="jam_selesai">
+                <input type="text" class="form-control form-control-sm inputtext @if($errors->has('jadwal_hari')) is-invalid @endif jadwal_hari" value="{{$data->jadwal_hari}}" name="jadwal_hari">
               </td>
             </tr>
             <tr>
-              <td>Pelaksana<span style="color:red;">*</span></td>
+              <td>Guru Penanggung Jawab<span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext @if($errors->has('guru_id')) is-invalid @endif" value="{{$data->guru_id}}" name="guru_id">
-                  <option disabled selected value>Pilih</option>
+                  <!-- <option disabled selected value="{{$data->guru_id}}">{{$data->guru_id}}</option> -->
+                  @foreach($teacherChoice as $teacherChoices)
+                  @if($teacherChoices->id == $data->guru_id)
+                  <option  value="<?= $data->guru_id ?>"  selected disabled >
+                      <?= $teacherChoices->nama_lengkap ?>
+                    </option>
+                    @endif
+                    @endforeach
                   @foreach($teachers as $teacher)
                     <option value="<?= $teacher->id ?>" @if($teacher->id == $data->guru_id) selected @endif>
                       <?= $teacher->nama_lengkap ?>
