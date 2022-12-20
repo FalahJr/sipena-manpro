@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<!-- set the viewport width and initial-scale on mobile devices -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>iWak Store</title>
+	<title>Sipena</title>
 
 	<link rel="shortcut icon" href="{{asset('assets/iwak.jpeg')}}">
 	<!-- include the site stylesheet -->
@@ -93,7 +93,7 @@
 									<!-- mt logo start here -->
 									<div class="mt-logo"><a href="{{url('/')}}">
 											<b>
-												<h4 style="color:#F0C441;">iWak Store</h4>
+												<h4 style="color:#F0C441;">Sipena</h4>
 											</b>
 											<!-- <img src="images/mt-logo.png" alt="schon"> -->
 										</a></div>
@@ -327,7 +327,7 @@
 									<!-- F Widget About of the Page -->
 									<div class="f-widget-about">
 										<div class="logo">
-											<a href="{{url('/')}}">iWak</a>
+											<a href="{{url('/')}}">Sipena</a>
 										</div>
 										<p class="desctext"></p>
 
@@ -380,7 +380,7 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6" style="color: #F0C441">
-									<p>© <a href="index.html" style="color: #F0C441">iWak.</a> - All rights Reserved</p>
+									<p>© <a href="index.html" style="color: #F0C441">Sipena.</a> - All rights Reserved</p>
 								</div>
 								{{-- <div class="col-xs-12 col-sm-6 text-right">
 								<div class="bank-card">

@@ -134,6 +134,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/jadwal-sekolah/hapus/{id}', 'JadwalSekolahController@hapus');
         Route::get('/jadwal-sekolah/edit/{id}', 'JadwalSekolahController@edit');
 
+        //PPDB
+        Route::get('/ppdb/list', 'SiswaController@ppdbindex');
+        Route::get('/ppdb/table', 'SiswaController@datatablePpdb');
+        
+        Route::get('/ppdb/acc/{id}', 'SiswaController@accPpdb');
+        Route::get('/ppdb/tolak/{id}', 'SiswaController@tolakPpdb');
+        
         //Berita Sekolah
         Route::get('/berita-sekolah', 'BeritaSekolahController@index');
         Route::post('/berita-sekolah/simpan', 'BeritaSekolahController@simpan');

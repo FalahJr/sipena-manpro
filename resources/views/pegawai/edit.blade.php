@@ -53,7 +53,7 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/jadwal-pembelajaran/update')}}" method="POST">
+          <form action="{{url('admin/pegawai/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
             <td>Nama Lengkap <span style="color:red;">*</span></td>
@@ -97,17 +97,13 @@
             </td>
           </tr>
           <tr>
-            <td>Image</td>
+            <td>Foto</td>
+            <br>
+            <img src="{{asset($data->profil_picture)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
             <td>
               <input type="file" class="form-control form-control-sm profil_picture" name="image" accept="image/*">
             </td>
           </tr>
-          {{-- <tr>
-            <td>Image</td>
-            <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="profile_picture" accept="image/*">
-            </td>
-          </tr> --}}
           <!-- <tr>
             <td align="center" colspan="2">
               <div class="col-md-8 col-sm-6 col-xs-12 image-holder" id="image-holder">

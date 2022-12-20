@@ -1,7 +1,6 @@
 @extends('main')
-@section('content')
+@section('content')  
 
-@include('siswa.tambah')
 <style type="text/css">
 
 </style>
@@ -20,11 +19,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Siswa</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                      {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-                      {{-- @endif --}}
-                    </div>
+                    
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
@@ -39,10 +34,9 @@
                                 <th>Alamat</th>
                                 <th>Agama</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Osis</th>
+                                <!-- <th>Osis</th> -->
                                 <th>Tanggal Daftar</th>
-                                <th>Kelas</th>
-                                <th>Kartu Digital</th>
+                                <!-- <th>Kelas</th> -->
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -64,7 +58,7 @@
 @section('extra_script')
 <script>
 
-baseUrlChange += "/admin/siswa";
+baseUrlChange += "/admin/ppdb/list";
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -78,7 +72,7 @@ var table = $('#table-data').DataTable({
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('admin/siswa/table') }}',
+            url:'{{ url('admin/ppdb/table') }}',
         },
         columnDefs: [
 
@@ -130,14 +124,14 @@ var table = $('#table-data').DataTable({
                  targets: 11,
                  className: 'center'
               },
-              {
-                 targets: 12,
-                 className: 'center'
-              },
-              {
-                 targets: 13,
-                 className: 'center'
-              },
+              // {
+              //    targets: 12,
+              //    className: 'center'
+              // },
+              // {
+              //    targets: 13,
+              //    className: 'center'
+              // },
               // {
               //    targets: 14,
               //    className: 'center'
@@ -155,10 +149,10 @@ var table = $('#table-data').DataTable({
           {data: 'alamat', name: 'alamat'},
           {data: 'agama', name: 'agama'},
           {data: 'jenis_kelamin', name: 'jenis_kelamin'},
-          {data: 'osis', name: 'osis'},
+          // {data: 'osis', name: 'osis'},
           {data: 'tanggal_daftar', name: 'tanggal_daftar'},
-          {data: 'kelas', name: 'kelas'},
-          {data: 'kartu_digital', name: 'kartu_digital'},
+          // {data: 'kelas', name: 'kelas'},
+          // {data: 'kartu_digital', name: 'kartu_digital'},
           {data: 'aksi', name: 'aksi'},
         ]
   });

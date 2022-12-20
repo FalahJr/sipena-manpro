@@ -220,7 +220,7 @@
           </a>
         </li>
 
-        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? ' active' : '' || Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? ' active' : '' )) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') || Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? ' active' : '' )) }}">
           <a class="nav-link" data-toggle="collapse" href="#absensi" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Absensi</span>
             <i class="menu-arrow"></i>
@@ -354,6 +354,13 @@
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ? 'active' : '' }}" href="{{url('admin/kategori-keuangan')}}">Kategori Keuangan<span class="d-none">Transaksi Kantin</span></a></li>
             </ul>
           </div>
+        </li>
+        <li class="nav-item {{Request::is('admin/ppdb/list') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('admin/ppdb/list')}}">
+            <span class="menu-title">PPDB</span>
+            
+            <i class="mdi mdi-calendar menu-icon"></i>
+          </a>
         </li>
 
       </ul>

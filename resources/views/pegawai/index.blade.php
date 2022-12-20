@@ -30,6 +30,7 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
+                                <th>Foto</th>
                                 <th>Nama Lengkap</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Phone</th>
@@ -105,6 +106,8 @@ var table = $('#table-data').DataTable({
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           // {data: 'image', name: 'image'},
+          {data: 'foto_profil', name: 'foto_profil'},
+
           {data: 'nama_lengkap', name: 'nama_lengkap'},
           {data: 'tanggal_lahir', name: 'tanggal_lahir'},
           {data: 'phone', name: 'phone'},

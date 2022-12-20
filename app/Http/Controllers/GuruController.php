@@ -51,7 +51,11 @@ class GuruController extends Controller
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })
-      ->rawColumns(['aksi', 'image'])
+      ->addColumn('foto_profil', function ($data) {
+        $url= asset($data->profil_picture);
+        return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
+      })
+      ->rawColumns(['aksi', 'foto_profil'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -280,8 +284,45 @@ class GuruController extends Controller
       'tanggal_lahir' => 'required|max:100',
       'jk' => 'required|max:2',
     ]);
+
+    $imgPath = null;
+    $tgl = Carbon::now('Asia/Jakarta');
+    $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+    $dir = 'image/uploads/Guru/' . $request->id;
+    $childPath = $dir . '/';
+    $path = $childPath;
+
+    $file = $request->file('image');
+    $name = null;
     $newData = request()->except(['_token','image']);
+
+    if ($file != null) {
+      $this->deleteDir($dir);
+      $name = $folder . '.' . $file->getClientOriginalExtension();
+      if (!File::exists($path)) {
+        if (File::makeDirectory($path, 0777, true)) {
+          if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
+          } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+          } else {
+            compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
+          }
+          $file->move($path, $name);
+          $imgPath = $childPath . $name;
+        } else
+          $imgPath = null;
+      } else {
+        return 'already exist';
+      }
+      $newData += ["profil_picture"=>$imgPath];
+      // DB::table("siswa")->where('id',$req->id)->update($newData); 
     $data = DB::table("guru")->where('id',$request->id)->update($newData);
+
+    }else{
+      // DB::table("siswa")->where('id',$req->id)->update($newData);
+    $data = DB::table("guru")->where('id',$request->id)->update($newData);
+
+     }
+
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
