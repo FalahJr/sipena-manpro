@@ -33,6 +33,9 @@ Route::middleware('api')->group(function () {
     Route::get('/listabsensipegawai', 'AbsensiPegawaiController@getAbsensiPegawaiJson');
     Route::post('/simpanabsensipegawai', 'AbsensiPegawaiController@simpan');
 
+    //Kepala sekolah
+    Route::get('/iistkepalasekolah', 'KepalaSekolahController@getKepalaSekolahJson');
+
     //Absensi Kepala Sekolah
     Route::get('/totalabsenkepalasekolah', 'AbsensiKepalaSekolahController@getTotalKehadiran');
     Route::get('/listabsensikepalasekolah', 'AbsensiKepalaSekolahController@getAbsensiKepalaSekolahJson');

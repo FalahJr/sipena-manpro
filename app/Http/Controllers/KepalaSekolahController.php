@@ -29,9 +29,16 @@ class KepalaSekolahController extends Controller
     return view('kepala-sekolah.index');
   }
 
+  public function getKepalaSekolahJson() {
+    $data = DB::table('kepala_sekolah')
+    ->get()->toArray();
+
+    return response()->json($data);
+  }
+
   public function datatable()
   {
-    $data = DB::table('kepala_sekolah')     
+    $data = DB::table('kepala_sekolah')
     ->get();
 
 
@@ -108,7 +115,7 @@ class KepalaSekolahController extends Controller
             "saldo" => 0,
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
-        
+
           DB::table("kepala_sekolah")->insert([
             "id"=>$maxWaliMurid,
             "user_id" => $max,
@@ -119,10 +126,10 @@ class KepalaSekolahController extends Controller
             "phone" => $req->phone,
             "foto_profil" => $imgPath,
           ]);
-        
+
           DB::commit();
 
-        
+
 
         // }
         return response()->json(["status" => 1]);
@@ -137,7 +144,7 @@ class KepalaSekolahController extends Controller
     $dinas = DB::table("kepala_sekolah")
     ->where('id',$id)
     ->first();
-    
+
     DB::table("kepala_sekolah")
         ->where('id',$id)
         ->delete();
@@ -173,7 +180,7 @@ class KepalaSekolahController extends Controller
     $data = DB::table("kepala_sekolah")->where("id", $id)->first();
     // dd($data);
     return view("kepala-sekolah.edit", compact('data'));
-    
+
   }
 
   public function update(Request $req)
@@ -212,7 +219,7 @@ class KepalaSekolahController extends Controller
         return 'already exist';
       }
       $newData += ["foto_profil"=>$imgPath];
-      DB::table("kepala_sekolah")->where('id',$req->id)->update($newData); 
+      DB::table("kepala_sekolah")->where('id',$req->id)->update($newData);
     }else{
       DB::table("kepala_sekolah")->where('id',$req->id)->update($newData);
      }
@@ -221,10 +228,10 @@ class KepalaSekolahController extends Controller
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-    
+
   }
 
-  
+
 
   public function deleteDir($dirPath)
   {
