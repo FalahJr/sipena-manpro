@@ -153,6 +153,7 @@ class AbsensiSiswaController extends Controller
 
       $cekabsen = DB::table("siswa_absensi")
                 ->where("siswa_id", $req->siswa_id)
+                ->where("jadwal_pembelajaran_id", $req->jadwal_pembelajaran_id)
                 ->where('created_at', 'like', '%'.Carbon::now()->format('Y-m-d').'%')
                 ->first();
 
