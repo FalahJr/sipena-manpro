@@ -43,13 +43,22 @@ class loginController extends Controller
               $user->data = $cekdata;
             } else if($user->roleid == 3) {
               $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
-              $ceksiswa = DB::table("siswa")->where("wali_murid_id", $cekdata->id)->first();
+              $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as? kelas")->where("wali_murid_id", $cekdata->id)->first();
 
               if($ceksiswa != null) {
+                $cekkelas = DB::table("kelas")->where("id", $ceksiswa->kelas_id)->first();
+
                 $user->siswa = $ceksiswa;
+
+                if($cekkelas != null) {
+                  $user->siswa->kelas = $cekkelas;
+                } else {
+                  $user->siswa->kelas = $oVal;
+                }
               } else {
                 $user->siswa = $oVal;
               }
+
               $user->data = $cekdata;
             } else if($user->roleid == 4) {
                 $cekdata = DB::table("guru")->select("guru.*", "guru.created_at as kelas", "guru.created_at as mapel")->where('user_id', $user->id)->first();
@@ -112,14 +121,22 @@ class loginController extends Controller
                 $user->data = $cekdata;
             } else if($user->roleid == 3) {
                 $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
-                $ceksiswa = DB::table("siswa")->where("wali_murid_id", $cekdata->id)->first();
+                $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as? kelas")->where("wali_murid_id", $cekdata->id)->first();
 
                 if($ceksiswa != null) {
+                  $cekkelas = DB::table("kelas")->where("id", $ceksiswa->kelas_id)->first();
+
                   $user->siswa = $ceksiswa;
+
+                  if($cekkelas != null) {
+                    $user->siswa->kelas = $cekkelas;
+                  } else {
+                    $user->siswa->kelas = $oVal;
+                  }
                 } else {
                   $user->siswa = $oVal;
                 }
-                
+
                 $user->data = $cekdata;
             } else if($user->roleid == 4) {
                 $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
