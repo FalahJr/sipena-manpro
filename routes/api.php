@@ -110,7 +110,7 @@ Route::middleware('api')->group(function () {
     Route::get('/kembali-buku/acc', 'Perpustakaan\KembaliBukuController@accKembali');
     Route::get('/pinjam-buku/acc', 'Perpustakaan\PinjamBukuController@accPinjam');
     Route::delete('/pinjam-buku/{id}', 'Perpustakaan\PinjamBukuController@delete');
-    Route::post('/sumbang-buku', 'Perpustakaan\SumbangBukuController@insertData');
+    Route::post('/sumbang-buku', 'Perpustakaan\SumbangBukuController@simpan');
     Route::post('/katalog-buku', 'Perpustakaan\KatalogBukuController@insertOrUpdate');
     Route::delete('/sumbang-buku/{id}', 'Perpustakaan\SumbangBukuController@delete');
     Route::delete('/katalog-buku/{id}', 'Perpustakaan\KatalogBukuController@delete');

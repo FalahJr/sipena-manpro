@@ -185,10 +185,8 @@ class JadwalPembelajaranController extends Controller
           }
         }   
 
-        $datas = (object) array($this->hari_ini() => $jadwalHari);
-
         if($datas){
-          return response()->json(["status" => 1, "data"=>$datas]);
+          return response()->json(["status" => 1, "data"=>$jadwalHari]);
         }else{
           return response()->json(["status" => 2, "message"=>"data tidak ditemukan"]);
         }

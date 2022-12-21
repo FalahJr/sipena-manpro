@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Katalog Buku</h4>
+        <h4 class="modal-title">Form Sumbang Buku</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -81,7 +81,7 @@
           <tr>
             <td>Foto</td>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="foto" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
             </td>
           </tr>
 

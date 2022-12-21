@@ -297,14 +297,6 @@ class SumbangBukuController extends Controller
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }
   }
-  public function insertData(Request $req){
-    if($req){
-      $this->simpan($req);
-      return response()->json(["status"=>1]);
-    }else{
-      return response()->json(["status"=>2,"message","isi semua input"]);
-    }
-  }
   public function update(Request $req)
   {
     $this->validate($req,[

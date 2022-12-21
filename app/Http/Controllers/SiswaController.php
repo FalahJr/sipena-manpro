@@ -259,13 +259,17 @@ public function osisdatatable()
   public function getPpdb(Request $req){
     try{
       if($req->id){
-        $data = DB::table('user')
-        ->where("id",$req->id)
-        ->where("is_active","N")
+        $data = DB::table('siswa')
+        ->join("user","user.id","siswa.user_id")
+        ->select("siswa.*","user.*")
+        ->where("siswa.id",$req->id)
+        ->where("user.is_active","N")
         ->get();
       }else{
-        $data = DB::table('user')
-        ->where("is_active","N")
+        $data = DB::table('siswa')
+        ->join("user","user.id","siswa.user_id")
+        ->select("siswa.*","user.*")
+        ->where("user.is_active","N")
         ->get();
       }
 
