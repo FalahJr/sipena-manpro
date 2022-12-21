@@ -22,6 +22,11 @@ class NotifikasiController extends Controller{
         return response()->json(["status"=>1,"data"=>$data]);
     }
 
+    static function getNotif($userid) {
+        $data = DB::table('notifikasi')->where('user_id', $userid)->get();
+        return response()->json(["status"=>1,"data"=>$data]);
+    }
+
     static function count_notifikasi(Request $req) {
         $totalNotifikasi = DB::table('notifikasi')->where('user_id', $req->user_id)->where('is_seen', "N")->count();
         return response()->json(["status"=>1,"data"=>$totalNotifikasi]);

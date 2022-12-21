@@ -125,6 +125,45 @@ class EkstrakulikulerController extends Controller
     return back()->with(['success' => 'Data berhasil diupdate']);
   }
 
+  public function getData(Request $req){
+    try{
+      if($req->guru_id){
+      $data = DB::table("ekstrakulikuler")->where("guru_id",$req->guru_id)->get();
+      }else{
+      $data = DB::table("ekstrakulikuler")->get();
+      }
+    return response()->json(['status' => 1, 'data'=>$data]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
+  public function insertOrUpdate(Request $req){
+    if($req->id){
+      $this->update($req);
+      return response()->json(["status" => 1]);
+    }else{
+      $this->simpan($req);
+      return response()->json(["status" => 1]);
+    }
+  }
+
+  public function delete($id){
+    if($id){
+      $data = DB::table("ekstrakulikuler")
+      ->where('id',$id)
+      ->delete();
+      if($data){
+        return response()->json(["status" => 1,"message"=>"data berhasil dihapus"]);
+      }else{
+        return response()->json(["status" => 2,"message"=>"data tidak ditemukan"]);
+      }
+    }
+    return response()->json(["status" => 2,"message"=>"masukkan url id"]);
+  }
+
+
   public static function cekemail($username, $id = null)
   {
 

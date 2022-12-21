@@ -42,8 +42,9 @@ class SiswaController extends Controller
   public function osisindex()
   {
     // $classes = DB::table('kelas')->get();
-    // $studentGuardians = DB::table('wali_murid')->get();
-    return view('anggota-osis.index');
+    // $studentGuardians = DB::table('wali_murid')->get(); 
+    $students = DB::table('siswa')->join("user","user.id","=","siswa.user_id")->select("siswa.*","user.is_active")->where("user.is_active","Y")->whereNull("tanggal_daftar_osis")->get(); 
+    return view('anggota-osis.index',compact('students'));
   }
 
   public function calonosisindex()
@@ -384,6 +385,10 @@ public function osisdatatable()
       }
   }
 
+  public function tambahAnggotaOsis(Request $req){
+    $siswa = DB::table("siswa")->where("id",$req->id)->update(["tanggal_daftar_osis"=>date("Y-m-d"),"is_osis"=>"Y"]);
+    return response()->json(["status" => 1]);
+  }
 
   public function hapus($id)
   {

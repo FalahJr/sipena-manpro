@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //siswa
         Route::get('/anggota-osis', 'SiswaController@osisindex');
+        Route::post('/anggota-osis/tambah', 'SiswaController@tambahAnggotaOsis');
         Route::get('/anggota-osis/table', 'SiswaController@osisdatatable');
         Route::get('/anggota-osis/keluar/{id}', 'SiswaController@osiskeluar');
         Route::get('/calon-osis', 'SiswaController@calonosisindex');

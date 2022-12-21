@@ -1,6 +1,14 @@
 @extends('main')
 @section('content')
-
+@include("anggota-osis.tambah")
+<style type="text/css">
+  .dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+.dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+  </style>
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
@@ -8,22 +16,26 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">anggota osis</li>
+          <li class="breadcrumb-item active" aria-current="page">Anggota Osis</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Data Anggota Osis</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
+                      <div class="col-12 col-md-5">
+                        <h4 class="card-title">Data Anggota Osis</h4>
+                      </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <a href="{{url('admin/calon-osis')}}" class="btn btn-success">Permintaan Daftar OSIS</a>
-                      {{-- <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Anggota Osis</button> --}}
-
+                      <div class="col-12 col-md-5 p-0 text-right">
+                        
+                        <a href="{{url('admin/calon-osis')}}" class="btn btn-success">Permintaan Daftar OSIS</a>
+                        <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Angota Osis</button>
+                      </div>
                       {{-- @endif --}}
-                      
                     </div>
+
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
@@ -111,52 +123,6 @@ var table = $('#table-data').DataTable({
         ]
   });
 
-  $('#simpan').click(function(){
-
-    var formdata = new FormData();
-    formdata.append('image', $('.uploadGambar')[0].files[0]);
-  $.ajax({
-    type: "post",
-    url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
-    data: formdata,
-    processData: false, //important
-    contentType: false,
-    cache: false,
-    success:function(data){
-      if (data.status == 1) {
-        iziToast.success({
-            icon: 'fa fa-save',
-            message: 'Data Saved Successfully!',
-        });
-        reloadall();
-      }else if(data.status == 2){
-        iziToast.warning({
-            icon: 'fa fa-info',
-            message: 'Data failed to save!, Check your data and connection!',
-        });
-        console.log(data.message);
-      }else if (data.status == 3){
-        iziToast.success({
-            icon: 'fa fa-save',
-            message: 'Data Modified Successfully!',
-        });
-        reloadall();
-      }else if (data.status == 4){
-        iziToast.warning({
-            icon: 'fa fa-info',
-            message: 'Data Failed to Change!',
-        });
-      } else if (data.status == 7) {
-        iziToast.warning({
-            icon: 'fa fa-info',
-            message: data.message,
-        });
-      }
-
-    }
-  });
-  })
-
   //show pop up jika data berhasil di hapus
   if("{{Session::has('success')}}"){
     iziToast.success({
@@ -187,6 +153,52 @@ var table = $('#table-data').DataTable({
       // table1.ajax.reload();
       table.ajax.reload();
     }
+
+
+    $('#simpan').click(function(){
+var formdata = new FormData();
+// formdata.append('image', $('.uploadGambar')[0].files[0]);
+console.log("apin");
+
+$.ajax({
+  type: "post",
+  url: '/admin/anggota-osis/tambah?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
+  processData: false, //important
+  contentType: false,
+  cache: false,
+  success:function(data){
+    if (data.status == 1) {
+      iziToast.success({
+          icon: 'fa fa-save',
+          message: 'siswa berhasil menjadi osis!',
+      });
+      reloadall();
+    }else if(data.status == 2){
+      iziToast.warning({
+          icon: 'fa fa-info',
+          message: 'Data failed to save!, Check your data and connection!',
+      });
+    }else if (data.status == 3){
+      iziToast.success({
+          icon: 'fa fa-save',
+          message: 'Data Modified Successfully!',
+      });
+      reloadall();
+    }else if (data.status == 4){
+      iziToast.warning({
+          icon: 'fa fa-info',
+          message: 'Data Failed to Change!',
+      });
+    } else if (data.status == 7) {
+      iziToast.warning({
+          icon: 'fa fa-info',
+          message: data.message,
+      });
+    }
+
+  }
+});
+})
 
     $(".uploadGambar").on('change', function () {
             $('.save').attr('disabled', false);

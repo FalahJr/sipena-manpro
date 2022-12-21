@@ -34,6 +34,7 @@
                                 <th>Wali Murid</th>
                                 <th>NISN</th>
                                 <th>Nama Lengkap</th>
+                                <!-- <th>Email</th> -->
                                 <th>Tempat, Tanggal Lahir</th>
                                 <th>Telepone</th>
                                 <th>Alamat</th>
