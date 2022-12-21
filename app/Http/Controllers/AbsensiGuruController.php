@@ -52,7 +52,7 @@ class AbsensiGuruController extends Controller
         return response()->json($data);
     }
 
-    public static function getAbsensiKepalaSekolahJson() {
+    public static function getAbsensiGuruJson() {
       $data = AbsensiGuruController::getAbsensiGuru();
 
       return response()->json($data);
