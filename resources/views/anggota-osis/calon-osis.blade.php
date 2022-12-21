@@ -1,6 +1,13 @@
 @extends('main')
 @section('content')
-
+<style type="text/css">
+  .dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+.dataTables_filter label {
+      margin-bottom: 1.4rem !important;
+  }
+  </style>
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
@@ -8,21 +15,25 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">anggota osis</li>
+          <li class="breadcrumb-item"></i>&nbsp;<a href="{{url('/admin/anggota-osis')}}">Anggota Osis</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Daftar Anggota Osis</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Data Anggota Osis</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                      {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <a href="{{url('admin/anggota-osis')}}" class="btn btn-success">Anggota OSIS</a>
-                      {{-- <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button> --}}
 
+                    <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
+                      <div class="col-12 col-md-5">
+                        <h4 class="card-title">Permintaan Daftar Anggota Osis</h4>
+                      </div>
+                      {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
+                      <div class="col-12 col-md-5 p-0 text-right">
+                      <a href="{{url('admin/anggota-osis')}}" class="btn btn-success">Anggota OSIS</a>
+
+                      </div>
                       {{-- @endif --}}
-                      
                     </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
