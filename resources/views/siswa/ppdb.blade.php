@@ -1,7 +1,6 @@
 @extends('main')
-@section('content')
+@section('content')  
 
-@include('pegawai.tambah')
 <style type="text/css">
 
 </style>
@@ -12,29 +11,32 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Pegawai</li>
+          <li class="breadcrumb-item active" aria-current="page">siswa</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Pegawai</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                      {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-                      {{-- @endif --}}
-                    </div>
+                    <h4 class="card-title">Siswa</h4>
+                    
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
                                 <th>Foto</th>
+                                <th>Wali Murid</th>
+                                <th>NISN</th>
                                 <th>Nama Lengkap</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Phone</th>
+                                <th>Tempat, Tanggal Lahir</th>
+                                <th>Telepone</th>
                                 <th>Alamat</th>
+                                <th>Agama</th>
+                                <th>Jenis Kelamin</th>
+                                <!-- <th>Osis</th> -->
+                                <th>Tanggal Daftar</th>
+                                <!-- <th>Kelas</th> -->
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -56,7 +58,7 @@
 @section('extra_script')
 <script>
 
-baseUrlChange += "/admin/pegawai";
+baseUrlChange += "/admin/ppdb/list";
 
 var table = $('#table-data').DataTable({
         processing: true,
@@ -70,7 +72,7 @@ var table = $('#table-data').DataTable({
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('admin/pegawai/table') }}',
+            url:'{{ url('admin/ppdb/table') }}',
         },
         columnDefs: [
 
@@ -98,68 +100,107 @@ var table = $('#table-data').DataTable({
                  targets: 5,
                  className: 'center'
               },
+              {
+                 targets: 6,
+                 className: 'center'
+              },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
+              {
+                 targets: 8,
+                 className: 'center'
+              },
+              {
+                 targets: 9,
+                 className: 'center'
+              },
+              {
+                 targets: 10,
+                 className: 'center'
+              },
+              {
+                 targets: 11,
+                 className: 'center'
+              },
               // {
-              //    targets: 6,
+              //    targets: 12,
+              //    className: 'center'
+              // },
+              // {
+              //    targets: 13,
+              //    className: 'center'
+              // },
+              // {
+              //    targets: 14,
               //    className: 'center'
               // },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          // {data: 'image', name: 'image'},
           {data: 'foto_profil', name: 'foto_profil'},
-
+          {data: 'wali_murid', name: 'wali_murid'},
+          {data: 'nisn', name: 'nisn'},
           {data: 'nama_lengkap', name: 'nama_lengkap'},
-          {data: 'tanggal_lahir', name: 'tanggal_lahir'},
+          // {data: 'email', name: 'email'},
+          {data: 'tempat_tanggal_lahir', name: 'tempat_tanggal_lahir'},
           {data: 'phone', name: 'phone'},
-          {data: 'address', name: 'address'},
+          {data: 'alamat', name: 'alamat'},
+          {data: 'agama', name: 'agama'},
+          {data: 'jenis_kelamin', name: 'jenis_kelamin'},
+          // {data: 'osis', name: 'osis'},
+          {data: 'tanggal_daftar', name: 'tanggal_daftar'},
+          // {data: 'kelas', name: 'kelas'},
+          // {data: 'kartu_digital', name: 'kartu_digital'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
 
-    $('#simpan').click(function(){
+  $('#simpan').click(function(){
 
     var formdata = new FormData();
     formdata.append('image', $('.uploadGambar')[0].files[0]);
-
-    $.ajax({
-      type: "post",
-      url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal .inputtext').serialize(),
-      data: formdata,
-      processData: false, //important
-      contentType: false,
-      cache: false,
-      success:function(data){
-        if (data.status == 1) {
-          iziToast.success({
-              icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
-          });
-          reloadall();
-        }else if(data.status == 2){
-          iziToast.warning({
-              icon: 'fa fa-info',
-              message: 'Data failed to save!, Check your data and connection!',
-          });
-        }else if (data.status == 3){
-          iziToast.success({
-              icon: 'fa fa-save',
-              message: 'Data Modified Successfully!',
-          });
-          reloadall();
-        }else if (data.status == 4){
-          iziToast.warning({
-              icon: 'fa fa-info',
-              message: 'Data Failed to Change!',
-          });
-        } else if (data.status == 7) {
-          iziToast.warning({
-              icon: 'fa fa-info',
-              message: data.message,
-          });
-        }
-
+  $.ajax({
+    type: "post",
+    url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
+    data: formdata,
+    processData: false, //important
+    contentType: false,
+    cache: false,
+    success:function(data){
+      if (data.status == 1) {
+        iziToast.success({
+            icon: 'fa fa-save',
+            message: 'Data Saved Successfully!',
+        });
+        reloadall();
+      }else if(data.status == 2){
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: 'Data failed to save!, Check your data and connection!',
+        });
+        console.log(data.message);
+      }else if (data.status == 3){
+        iziToast.success({
+            icon: 'fa fa-save',
+            message: 'Data Modified Successfully!',
+        });
+        reloadall();
+      }else if (data.status == 4){
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: 'Data Failed to Change!',
+        });
+      } else if (data.status == 7) {
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: data.message,
+        });
       }
-    });
+
+    }
+  });
   })
 
   //show pop up jika data berhasil di hapus

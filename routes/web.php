@@ -135,6 +135,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/jadwal-sekolah/hapus/{id}', 'JadwalSekolahController@hapus');
         Route::get('/jadwal-sekolah/edit/{id}', 'JadwalSekolahController@edit');
 
+        //PPDB
+        Route::get('/ppdb/list', 'SiswaController@ppdbindex');
+        Route::get('/ppdb/table', 'SiswaController@datatablePpdb');
+
+        Route::get('/ppdb/acc/{id}', 'SiswaController@accPpdb');
+        Route::get('/ppdb/tolak/{id}', 'SiswaController@tolakPpdb');
+
         //Berita Sekolah
         Route::get('/berita-sekolah', 'BeritaSekolahController@index');
         Route::post('/berita-sekolah/simpan', 'BeritaSekolahController@simpan');
@@ -288,12 +295,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit-kategori-keuangan', 'KategoriKeuanganController@edit');
         Route::get('/hapus-kategori-keuangan', 'KategoriKeuanganController@hapus');
 
-          //  Keuangan
-          Route::get('/data-keuangan', 'KeuanganController@index');
-          Route::get('/data-keuangan-table', 'KeuanganController@datatable');
-          Route::post('/simpan-data-keuangan', 'KeuanganController@simpan');
-          Route::get('/edit-data-keuangan', 'KeuanganController@edit');
-          Route::get('/hapus-data-keuangan', 'KeuanganController@hapus');
+        //  Keuangan
+        Route::get('/data-keuangan', 'KeuanganController@index');
+        Route::get('/data-keuangan-table', 'KeuanganController@datatable');
+        Route::post('/simpan-data-keuangan', 'KeuanganController@simpan');
+        Route::get('/edit-data-keuangan', 'KeuanganController@edit');
+        Route::get('/hapus-data-keuangan', 'KeuanganController@hapus');
 
         //Mutasi Siswa
         Route::get('/mutasisiswa', 'MutasiSiswaController@index');
@@ -309,6 +316,10 @@ Route::group(['middleware' => 'auth'], function () {
         //Absensi Pegawai
         Route::get('/absensipegawai', 'AbsensiPegawaiController@index');
         Route::get('/absensipegawaitable', 'AbsensiPegawaiController@datatable');
+
+        //Absensi Kepala Sekolah
+        Route::get('/absensikepalasekolah', 'AbsensiKepalaSekolahController@index');
+        Route::get('/absensikepalasekolahtable', 'AbsensiKepalaSekolahController@datatable');
 
         //Absensi Guru
         Route::get('/absensiguru', 'AbsensiGuruController@index');

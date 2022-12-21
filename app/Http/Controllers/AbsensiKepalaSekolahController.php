@@ -20,13 +20,13 @@ use File;
 
 use Yajra\Datatables\Datatables;
 
-class AbsensiGuruController extends Controller
+class AbsensiKepalaSekolahController extends Controller
 {
-    public static function getAbsensiGuru()
+    public static function getAbsensiKepalaSekolah()
     {
-        $data = DB::table("guru_absensi")
-            ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
-            ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
+        $data = DB::table("kepala_sekolah_absensi")
+            ->join("kepala_sekolah", "kepala_sekolah.id", '=', 'kepala_sekolah_absensi.kepala_sekolah_id')
+            ->select("kepala_sekolah.*", "kepala_sekolah_absensi.*", "kepala_sekolah.id as terlambat")
             ->get()->toArray();
 
             foreach ($data as $key => $value) {
@@ -44,26 +44,27 @@ class AbsensiGuruController extends Controller
     }
 
     public static function getTotalKehadiran(Request $req) {
-      $data = DB::table("guru_absensi")
-          ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
-          ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
-          ->count();
+        $data = DB::table("kepala_sekolah_absensi")
+            ->join("kepala_sekolah", "kepala_sekolah.id", '=', 'kepala_sekolah_absensi.kepala_sekolah_id')
+            ->select("kepala_sekolah.*", "kepala_sekolah_absensi.*")
+            ->where("kepala_sekolah_absensi.kepala_sekolah_id", $req->id)
+            ->count();
 
         return response()->json($data);
     }
 
     public static function getAbsensiKepalaSekolahJson() {
-      $data = AbsensiGuruController::getAbsensiGuru();
+      $data = AbsensiKepalaSekolahController::getAbsensiKepalaSekolah();
 
       return response()->json($data);
     }
 
     public function index() {
-      return view('absenguru.index');
+      return view('absenkepalasekolah.index');
     }
 
     public function datatable() {
-      $data = AbsensiGuruController::getAbsensiGuru();
+      $data = AbsensiKepalaSekolahController::getAbsensiKepalaSekolah();
 
         return Datatables::of($data)
           ->addColumn("image", function($data) {
@@ -79,15 +80,15 @@ class AbsensiGuruController extends Controller
               return '<span class="badge badge-success"> Tidak </span>';
             }
           })
-          ->addColumn('waktu', function ($data) {
-            return convertNameDayIdn(Carbon::parse($data->waktu)->format('l, d M Y H:i:s'));
-          })
           ->addColumn('izin', function ($data) {
             if($data->is_izin === "Y") {
               return '<span class="badge badge-success"> Ya </span>';
             } else {
               return '<span class="badge badge-danger"> Tidak </span>';
             }
+          })
+          ->addColumn('waktu', function ($data) {
+            return convertNameDayIdn(Carbon::parse($data->waktu)->format('l, d M Y H:i:s'));
           })
           ->rawColumns(['terlambat', 'image', 'valid', 'izin'])
           ->addIndexColumn()
@@ -97,27 +98,27 @@ class AbsensiGuruController extends Controller
     public function simpan(Request $req) {
       $now = convertNameDayIdn(Carbon::now()->format('l'));
 
-      $cekabsen = DB::table("guru_absensi")
-                ->where("guru_id", $req->pegawai_id)
+      $cekabsen = DB::table("kepala_sekolah_absensi")
+                ->where("kepala_sekolah_id", $req->pegawai_id)
                 ->where('waktu', 'like', '%'.Carbon::now()->format('Y-m-d').'%')
                 ->first();
 
       if($now == "Sabtu" || $now == "Minggu") {
         return response()->json(["status" => 7, "message" => "Sabtu & Minggu Libur!"]);
       } else if($cekabsen != null) {
-        return response()->json(["status" => 7, "message" => "Guru sudah absen hari ini!"]);
+        return response()->json(["status" => 7, "message" => "Pegawai sudah absen hari ini!"]);
       }
 
       if ($req->id == null) {
         DB::beginTransaction();
         try {
 
-          $max = DB::table("guru_absensi")->max('id') + 1;
+          $max = DB::table("kepala_sekolah_absensi")->max('id') + 1;
 
           $imgPath = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/guru_absensi/' . $max;
+          $dir = 'image/uploads/kepala_sekolah_absensi/' . $max;
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -138,16 +139,16 @@ class AbsensiGuruController extends Controller
               }
           }
 
-          DB::table("guru_absensi")
+          DB::table("kepala_sekolah_absensi")
               ->insert([
               "id" => $max,
-              "guru_id" => $req->guru_id,
+              "kepala_sekolah_id" => $req->kepala_sekolah_id,
               "foto" => $imgPath,
               "waktu" => Carbon::now('Asia/Jakarta'),
             ]);
 
             if($req->is_izin) {
-              DB::table("guru_absensi")
+              DB::table("pegawai_absensi")
                 ->where("id", $max)
                 ->update([
                   "is_izin" => $req->is_izin,
@@ -169,7 +170,7 @@ class AbsensiGuruController extends Controller
           $imgPath = null;
           $tgl = carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/guru_absensi/' . $req->id;
+          $dir = 'image/uploads/kepala_sekolah_absensi/' . $req->id;
           $childPath = $dir . '/';
           $path = $childPath;
 
@@ -190,16 +191,16 @@ class AbsensiGuruController extends Controller
               }
           }
 
-          DB::table("guru_absensi")
+          DB::table("kepala_sekolah_absensi")
               ->where('id', $req->id)
               ->update([
-                "guru_id" => $req->pegawai_id,
+                "kepala_sekolah_id" => $req->kepala_sekolah_id,
                 "foto" => $imgPath,
                 "waktu" => Carbon::now('Asia/Jakarta'),
             ]);
 
             if($req->is_izin) {
-              DB::table("guru_absensi")
+              DB::table("kepala_sekolah_absensi")
                 ->where("id", $req->id)
                 ->update([
                   "is_izin" => $req->is_izin,

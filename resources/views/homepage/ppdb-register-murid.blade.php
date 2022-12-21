@@ -130,12 +130,12 @@
                                         <label for="email">Password</label>
                                     </div>
                                 </div> -->
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                     <div class="form-floating">
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
                                         <label for="email">Email</label>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Subject">
@@ -163,8 +163,8 @@
                                     <div class="">
                                     <select class="form-control jk" id="agama" name="agama">
                 <option value="" selected>- Pilih Agama-</option>
-                <option value="L"> Islam </option>
-                <option value="P"> Kristen </option>
+                <option value="Islam"> Islam </option>
+                <option value="Kristen"> Kristen </option>
                 <option value="Katholik"> Katholik</option>
                 <option value="Budha"> Budha</option>
                 <option value="Hindu"> Hindu</option>

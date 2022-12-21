@@ -128,12 +128,12 @@
                                         <label for="email">Password</label>
                                     </div>
                                 </div> -->
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                     <div class="form-floating">
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
                                         <label for="email">Email</label>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Subject">

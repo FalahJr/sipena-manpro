@@ -27,8 +27,16 @@ class SiswaController extends Controller
   public function index()
   {
     $classes = DB::table('kelas')->get();
-    $studentGuardians = DB::table('wali_murid')->get(); 
+    $studentGuardians = DB::table('wali_murid')->get();
     return view('siswa.index', compact('classes','studentGuardians'));
+  }
+
+
+  public function getSiswaByKelas(Request $req)
+  {
+    $siswa = DB::table('siswa')->where("kelas_id", $req->kelas_id)->get();
+
+    return response()->json($siswa);
   }
 
   public function osisindex()
@@ -42,10 +50,15 @@ class SiswaController extends Controller
   public function calonosisindex()
   {
     // $classes = DB::table('kelas')->get();
-    // $studentGuardians = DB::table('wali_murid')->get(); 
+    // $studentGuardians = DB::table('wali_murid')->get();
     return view('anggota-osis.calon-osis');
   }
 
+  public function ppdbindex()
+  {
+
+    return view('siswa.ppdb');
+  }
   public function datatable()
   {
     $data = DB::table('siswa')
@@ -77,16 +90,72 @@ class SiswaController extends Controller
       })
       ->addColumn('osis',function($data){
         if($data->is_osis == "Y"){
-          return '<div class="badge badge-secondary text-dark badge-lg">'.
+          return '<div class="badge badge-success text-light badge-lg pt-2">'.
           '<label class="fa fa-check"></label></div>';
         }else{
-          return '<div class="badge badge-secondary text-dark badge-lg">'.
+          return '<div class="badge badge-danger text-light badge-lg pt-2">'.
           '<label class="fa fa-close"></label></div>';
         }
       })
       ->rawColumns(['aksi', 'foto_profil', 'kartu_digital', 'osis'])
       ->addIndexColumn()
       ->make(true);
+  }
+
+  public function datatablePpdb()
+  {
+    $data = DB::table('siswa')
+          ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
+          ->join('user','user.id','=','siswa.user_id')
+          ->select("siswa.*","wali_murid.nama_lengkap as wali_murid","user.is_active as is_active",)
+          ->where("user.is_active","N")
+          ->get();
+    return Datatables::of($data)
+      ->addColumn('aksi', function ($data) {
+        return  '<div class="btn-group">' .
+          '<a href="acc/' . $data->user_id . '" class="btn btn-success btn-lg pt-2">'.
+          '<label class="fa fa-check"></label></a>' .
+          '<a href="tolak/'.$data->user_id.'" class="btn btn-danger btn-lg pt-2" title="hapus">' .
+          '<label class="fa fa-close"></label></a>' .
+          '</div>';
+      })
+      ->addColumn('foto_profil', function ($data) {
+        $url= asset($data->foto_profil);
+        return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
+      })
+      ->addColumn('tempat_tanggal_lahir',function($data){
+        return $data->tempat_lahir.", ".$data->tanggal_lahir;
+      })
+      ->rawColumns(['aksi', 'foto_profil'])
+      ->addIndexColumn()
+      ->make(true);
+  }
+
+  public function accPpdb($id)
+  {
+
+    $data = DB::table("user")->where('id', $id)->update(['is_active' => "Y"]);
+
+    return back()->with(['success' => 'Siswa Berhasil Diterima']);
+
+
+  }
+
+  public function tolakPpdb($id)
+  {
+
+    DB::table("siswa")
+      ->where('user_id', $id)
+      ->delete();
+
+    DB::table("user")
+      ->where('id', $id)
+      ->delete();
+
+
+    return back()->with(['success' => 'Siswa Berhasil Ditolak']);
+
+
   }
 public function osisdatatable()
   {
@@ -160,7 +229,7 @@ public function osisdatatable()
           ->where("siswa.is_osis","N")
           ->whereNotNull("siswa.tanggal_daftar_osis")
           ->get();
-    return response()->json(["status" => 1,"data"=>$data]); 
+    return response()->json(["status" => 1,"data"=>$data]);
   }
   public function listAnggota(){
     $data = DB::table('siswa')
@@ -170,7 +239,7 @@ public function osisdatatable()
     ->where("user.is_active","Y")
     ->where("siswa.is_osis","Y")
     ->get();
-    return response()->json(["status" => 1,"data"=>$data]); 
+    return response()->json(["status" => 1,"data"=>$data]);
   }
 
   public function ppdb(Request $req){
@@ -181,7 +250,7 @@ public function osisdatatable()
       }else{
         $data = DB::table("ppdb")->update(["is_active"=>"N"]);
       }
-      return response()->json(["status" => 1,"message"=>"ppdb berhasil ditambahkan"]);
+      return response()->json(["status" => 1,"message"=>"ppdb berhasil diaktifkan"]);
     }else{
       return response()->json(["status" => 2,"message"=>"data ppdb tidak ada"]);
     }
@@ -190,12 +259,12 @@ public function osisdatatable()
   public function getPpdb(Request $req){
     try{
       if($req->id){
-        $data = DB::table('siswa')
+        $data = DB::table('user')
         ->where("id",$req->id)
         ->where("is_active","N")
         ->get();
       }else{
-        $data = DB::table('siswa')
+        $data = DB::table('user')
         ->where("is_active","N")
         ->get();
       }
@@ -208,7 +277,7 @@ public function osisdatatable()
 
   public function APIAccPermintaan(Request $req){
     if($req->id){
-    $siswa= DB::table("siswa")->where("id",$req->id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
+    $siswa= DB::table("siswa")->where("id",$req->id)->update(["is p_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
     if($siswa){
       $siswa= DB::table("siswa")->where("id",$req->id)->first();
       Notifikasi::push_notifikasi($siswa->user_id,"Berhasil Daftar OSIS","Selamat anda telah menjadi OSIS, sekarang anda dapat melakukan kegiatan osis dan menambahkan kegiatan osis");
@@ -281,7 +350,7 @@ public function osisdatatable()
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
           $linkCode = url('/generatekartudigital?id='.$maxSiswa);
-        
+
           DB::table("siswa")->insert([
             "id"=>$maxSiswa,
             "user_id" => $max,
@@ -303,10 +372,10 @@ public function osisdatatable()
             "is_osis" => 'N',
             "tanggal_daftar" => $req->tanggal_daftar,
           ]);
-        
+
           DB::commit();
 
-        
+
 
         // }
         return response()->json(["status" => 1]);
@@ -337,7 +406,7 @@ public function osisdatatable()
   public function edit($id)
   {
     $classes = DB::table('kelas')->get();
-    $studentGuardians = DB::table('wali_murid')->get(); 
+    $studentGuardians = DB::table('wali_murid')->get();
     $data = DB::table("siswa")->where("id", $id)->first();
     // dd($data);
     return view("siswa.edit", compact('data','classes','studentGuardians'));
@@ -387,7 +456,7 @@ public function osisdatatable()
         return 'already exist';
       }
       $newData += ["foto_profil"=>$imgPath];
-      DB::table("siswa")->where('id',$req->id)->update($newData); 
+      DB::table("siswa")->where('id',$req->id)->update($newData);
     }else{
       DB::table("siswa")->where('id',$req->id)->update($newData);
      }
@@ -395,7 +464,7 @@ public function osisdatatable()
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-    
+
   }
 
   public static function cekemail($username, $id = null)
