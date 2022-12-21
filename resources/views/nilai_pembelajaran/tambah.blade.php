@@ -60,6 +60,7 @@
               <td>Semester <span style="color:red;">*</span></td>
               <td>
                 <select class="form-control form-control-sm inputtext" name="semester">
+                  <option disabled selected value>Pilih</option>
                   <option value="Ganjil">Ganjil</option>
                   <option value="Genap">Genap</option>
                   </select>

@@ -53,10 +53,15 @@ Route::middleware('api')->group(function () {
     //Berita kelas/sekolah
     Route::get('/berita', 'BeritaKelasController@getData');
 
-    //Kegitan kelas/sekolah
+    //Kegiatan Osis
     Route::post('/kegiatan-osis', 'KegiatanOsisController@insertOrUpdate');
     Route::get('/kegiatan-osis', 'KegiatanOsisController@getData');
     Route::delete('/kegiatan-osis/{id}', 'KegiatanOsisController@delete');
+
+    //Ekstrakulikuler
+    Route::post('/ekstrakulikuler', 'EkstrakulikulerController@insertOrUpdate');
+    Route::get('/ekstrakulikuler', 'EkstrakulikulerController@getData');
+    Route::delete('/ekstrakulikuler/{id}', 'EkstrakulikulerController@delete');
 
     //Fasilitas Sekolah
     Route::post('/list-fasilitas', 'Fasilitas\ListFasilitasController@simpan');
