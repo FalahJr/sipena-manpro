@@ -261,14 +261,14 @@ public function osisdatatable()
       if($req->id){
         $data = DB::table('siswa')
         ->join("user","user.id","siswa.user_id")
-        ->select("siswa.*","user.*")
+        ->select("siswa.*","user.is_active")
         ->where("siswa.id",$req->id)
         ->where("user.is_active","N")
         ->get();
       }else{
         $data = DB::table('siswa')
         ->join("user","user.id","siswa.user_id")
-        ->select("siswa.*","user.*")
+        ->select("siswa.*","user.is_active")
         ->where("user.is_active","N")
         ->get();
       }
