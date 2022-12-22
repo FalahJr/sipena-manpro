@@ -114,13 +114,26 @@ class BeritaKelasController extends Controller
     try{
       if($req->id){
         DB::table("berita")->where("id",$req->id)->increment("total_views",1);
-        $data = DB::table('berita')->where("id",$req->id)
-        ->first();
+        if($req->kategori == "kelas"){
+          $data = DB::table('berita')
+          ->join("kelas","kelas.id","=","berita.kelas_id")
+          ->select("berita.*","kelas.nama as kelas_nama")
+          ->where("berita.id",$req->id)
+          ->whereNotNull('kelas_id')
+          ->first();
+        }else{
+          $data = DB::table('berita')->where("id",$req->id)
+          ->whereNull('kelas_id')
+          ->first();
+        }
         return response()->json(["status" => 1, "data"=>$data]);
       }
 
       if($req->kategori == "kelas"){
-        $data = DB::table('berita')->whereNotNull('kelas_id')
+        $data = DB::table('berita')
+        ->join("kelas","kelas.id","=","berita.kelas_id")
+        ->select("berita.*","kelas.nama as kelas_nama")
+        ->whereNotNull('kelas_id')
         ->get();
       }else if($req->kategori == "sekolah"){
         $data = DB::table('berita')->whereNull('kelas_id')

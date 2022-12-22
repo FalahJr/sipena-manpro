@@ -154,4 +154,10 @@ Route::middleware('api')->group(function () {
     //List siswa by id
     Route::get('/listsiswabykelas', 'SiswaController@getSiswaByKelas');
 
+    //getpembinaosis
+    Route::get('/pembina-osis', 'EkstrakulikulerController@getPembina');
+
+    //set Nilai Rata
+    Route::get('/nilai-pembelajaran/set-rata', 'NilaiPembelajaranController@setRata');
+
 });
