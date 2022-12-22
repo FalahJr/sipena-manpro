@@ -90,6 +90,75 @@ class DompetDigitalController extends Controller
         return $data;
     }
 
+    public static function getDompetDigitalku($id)
+    {
+        $data = DB::table("user")
+            ->join("role", "role.id", '=', "user.role_id")
+            ->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as role", "user.created_at as nama_lengkap")
+            ->where("user.id", $id)
+            ->first();
+
+          foreach ($data as $key => $value) {
+            if($value->saldo == null) {
+              $value->saldo = 0;
+            }
+
+            if($value->roleid == 1) {
+                $value->nama_lengkap = $value->username;
+            } else if($value->roleid == 2) {
+                $cekdata = DB::table("siswa")->where('user_id', $value->id)->first();
+
+                if($cekdata == null) {
+                  $value->nama_lengkap = "-";
+                } else {
+                  $value->nama_lengkap = $cekdata->nama_lengkap;
+                }
+            } else if($value->roleid == 3) {
+                $cekdata = DB::table("wali_murid")->where('user_id', $value->id)->first();
+
+                if($cekdata == null) {
+                  $value->nama_lengkap = "-";
+                } else {
+                  $value->nama_lengkap = $cekdata->nama_lengkap;
+                }
+            } else if($value->roleid == 4) {
+                $cekdata = DB::table("guru")->where('user_id', $value->id)->first();
+
+                if($cekdata == null) {
+                  $value->nama_lengkap = "-";
+                } else {
+                  $value->nama_lengkap = $cekdata->nama_lengkap;
+                }
+            } else if($value->roleid == 5) {
+                $cekdata = DB::table("pegawai")->where('user_id', $value->id)->first();
+
+                if($cekdata == null) {
+                  $value->nama_lengkap = "-";
+                } else {
+                  $value->nama_lengkap = $cekdata->nama_lengkap;
+                }
+            } else if($value->roleid == 6) {
+                $cekdata = DB::table("kepala_sekolah")->where('user_id', $value->id)->first();
+
+                if($cekdata == null) {
+                  $value->nama_lengkap = "-";
+                } else {
+                  $value->nama_lengkap = $cekdata->nama_lengkap;
+                }
+            } else if($value->roleid == 7) {
+                $cekdata = DB::table("dinas_pendidikan")->where('user_id', $value->id)->first();
+
+                if($cekdata == null) {
+                  $value->nama_lengkap = "-";
+                } else {
+                  $value->nama_lengkap = $cekdata->nama_lengkap;
+                }
+            }
+          }
+
+        return $data;
+    }
+
     public static function getDompetDigitalJson() {
       $data = DompetDigitalController::getDompetDigital();
 
@@ -100,8 +169,30 @@ class DompetDigitalController extends Controller
       return view('dompetdigital.index');
     }
 
+    public function digitalku() {
+      return view('dompetdigital.digitalku');
+    }
+
     public function datatable() {
       $data = DompetDigitalController::getDompetDigital();
+
+        return Datatables::of($data)
+          ->addColumn('aksi', function ($data) {
+            return  '<div class="btn-group">'.
+                     '<button type="button" onclick="topup('.$data->id.')" class="btn btn-success btn-lg" title="topup">'.
+                     '<label class="fa fa-plus"></label></button>'.
+                  '</div>';
+          })
+          ->addColumn('saldo', function ($data) {
+            return FormatRupiahFront($data->saldo);
+          })
+          ->rawColumns(['aksi'])
+          ->addIndexColumn()
+          ->make(true);
+    }
+
+    public function datatableku() {
+      $data = DompetDigitalController::getDompetDigitalku();
 
         return Datatables::of($data)
           ->addColumn('aksi', function ($data) {

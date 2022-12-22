@@ -68,6 +68,8 @@
                         <!-- <a href="#contact" class="nav-item nav-link">Contact</a> -->
                     </div>
                     <a href="{{ route('registerWalimurid') }}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Info PPDB</a>
+
+                    <a href="{{ route('logindashboard') }}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Login Dashboard</a>
                 </div>
             </nav>
 

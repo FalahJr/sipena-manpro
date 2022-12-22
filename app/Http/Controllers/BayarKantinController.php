@@ -30,13 +30,16 @@ class BayarKantinController extends Controller
 {
   public function index()
   {
+    $pegawai = DB::table('pegawai')->where("user_id", Auth::user()->id)->first();
+
     $items = DB::table('pegawai')->where('is_kantin','Y')->get();
-    return view('kantin.index',compact('items'));
+    return view('kantin.index',compact('items','pegawai'));
   }
 
   public function datatable()
   {
     $data = DB::table('kantin')->get();
+    $pegawai = DB::table('pegawai')->where("user_id", Auth::user()->id)->first();
 
 
     // return $data;
@@ -49,11 +52,14 @@ class BayarKantinController extends Controller
     //   })
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
+        // @if($pegawai->is_kantin == "Y") .
+
           '<a href="bayar-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/bayar-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="bayar-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+        // @endif .
           '<label class="fa fa-trash"></label></a>' .
-          '<a href="/admin/bayar-kantin/'.$data->id.'" class="btn btn-success btn-lg" title="toBayar">Bayar Kantin</a>' .
+          '<a href="bayar-kantin/'.$data->id.'" class="btn btn-success btn-lg" title="toBayar">Bayar Kantin</a>' .
           '</div>';
       })->addColumn('foto', function ($data) {
         $url= asset($data->foto);

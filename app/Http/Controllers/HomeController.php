@@ -48,14 +48,35 @@ class HomeController extends Controller
        //    }
        // }
 
-       $useronline = DB::table("user")->where("is_login", 'Y')->count();
+      //  $useronline = DB::table("user")->where("is_login", 'Y')->count();
 
-       $alluser = DB::table("user")->count();
+      //  $alluser = DB::table("user")->count();
+      // $pegawai = DB::table('pegawai')->where("user_id", Auth::user()->id)->first();
+
 
       //  $alltoko = DB::table("user")->where("is_login", 'Y')->count();
 
-       return view("home", compact('useronline', 'alluser'));
+       return view("home");
      }
+
+    //  public function main() {
+
+    //   // $cekuseronline = DB::table("account")->where("islogin", 'Y')->get();
+
+    //   // foreach ($cekuseronline as $key => $value) {
+    //   //    if (Carbon::now()->diffInMinutes($value->last_online) == 120) {
+    //   //        DB::table('account')->update(['islogin'=>'N']);
+    //   //    }
+    //   // }
+    //   // Auth::user()->role != 'admin'
+    //   $pegawai = DB::table('pegawai')->where("user_id", Auth::user()->id)->first();
+
+    //   // $alluser = DB::table("user")->count();
+
+    //  //  $alltoko = DB::table("user")->where("is_login", 'Y')->count();
+
+    //   return view("layouts._sidebar", compact('pegawai'));
+    // }
 
     public function logout(){
         Session::flush();

@@ -10,6 +10,13 @@
       margin-bottom: 1.4rem !important;
   }
   </style>
+
+<?php
+// use Illuminate\Support\Facades\DB;
+
+// $pegawai = DB::table('pegawai')->where("user_id", Auth::user()->id)->first();
+
+?>
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
@@ -28,10 +35,11 @@
                       <div class="col-12 col-md-3 pl-0">
                         <h4 class="card-title">Data List Kantin</h4>
                       </div>
-                      {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
+                      @if($pegawai->is_kantin == "Y") 
                       <div class="col-12 col-md-5 p-0 text-right">
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kantin</button>
                       </div>
+                      @endif
                       </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">

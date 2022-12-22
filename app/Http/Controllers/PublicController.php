@@ -76,7 +76,7 @@ class PublicController extends Controller
           $imgPath = null;
           $tgl = Carbon::now('Asia/Jakarta');
           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $dir = 'image/uploads/User/' . $max;
+          $dir = 'image/uploads/Walimurid/' . $maxWaliMurid;
           $childPath = $dir . '/';
           $path = $childPath;
   
@@ -116,7 +116,6 @@ class PublicController extends Controller
               "id"=>$maxWaliMurid,
               "user_id" => $max,
               "nama_lengkap" => $req->nama_lengkap,
-              "email" => $req->email,
               "tempat_lahir" => $req->tempat_lahir,
               "tanggal_lahir" => $req->tanggal_lahir,
               "jenis_kelamin" => $req->jk,
@@ -164,7 +163,7 @@ class PublicController extends Controller
       $imgPath = null;
       $tgl = Carbon::now('Asia/Jakarta');
       $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-      $dir = 'image/uploads/User/' . $max;
+      $dir = 'image/uploads/Walimurid/' . $max;
       $childPath = $dir . '/';
       $path = $childPath;
 
