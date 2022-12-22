@@ -62,11 +62,11 @@ class NilaiPembelajaranController extends Controller
       })->addColumn('is_show', function ($data) {
         if($data->is_show == "Y")
         return '<div class="btn-group">' .
-        '<a href="/admin/nilai-pembelajaran/unacc?kelas_id='.$data->kelas_id.'&semester='.$data->semester.'" class="btn btn-warning btn-lg" title="hapus">' .
+        '<a href="/admin/nilai-pembelajaran/unacc?id='.$data->id.'&ulangan_harian='.$data->ulangan_harian.'&nilai_tugas='.$data->nilai_tugas.'&nilai_uts='.$data->nilai_uts.'&nilai_uas='.$data->nilai_uas.'" class="btn btn-warning btn-lg" title="hapus">' .
         'Batalkan</a></div>';
         else
         return '<div class="btn-group">' .
-        '<a href="/admin/nilai-pembelajaran/acc?kelas_id='.$data->kelas_id.'&semester='.$data->semester.'" class="btn btn-success btn-lg" title="hapus">' .
+        '<a href="/admin/nilai-pembelajaran/acc?id='.$data->id.'&ulangan_harian='.$data->ulangan_harian.'&nilai_tugas='.$data->nilai_tugas.'&nilai_uts='.$data->nilai_uts.'&nilai_uas='.$data->nilai_uas.'"class="btn btn-success btn-lg" title="hapus">' .
         'ACC Sekarang</a></div>';
       })
       ->rawColumns(['aksi',"is_show"])
@@ -76,7 +76,6 @@ class NilaiPembelajaranController extends Controller
   public function simpan(Request $req)
   {
       try {
-        $nilai_rata = ($req->ulangan_harian+$req->nilai_tugas+$req->nilai_uts+$req->nilai_uas)/4;
         DB::table("nilai_pembelajaran")
         ->insert([
           "kelas_id" => $req->kelas_id,
@@ -87,7 +86,7 @@ class NilaiPembelajaranController extends Controller
           "nilai_tugas" => $req->nilai_tugas,
           "nilai_uts" => $req->nilai_uts,
           "nilai_uas" => $req->nilai_uas,
-          "nilai_rata" => $nilai_rata,
+          "nilai_rata" => 0,
           "created_at" => Carbon::now('Asia/Jakarta'),
         ]);
 
@@ -117,17 +116,16 @@ class NilaiPembelajaranController extends Controller
   public function accOrUnacc(Request $req,$tipe){
     try{
       if($tipe == "acc"){
+        $nilai_rata = ($req->ulangan_harian+$req->nilai_tugas+$req->nilai_uts+$req->nilai_uas)/4;
       DB::table("nilai_pembelajaran")
-      ->where("kelas_id",$req->kelas_id)
-      ->where("semester",$req->semester)
-      ->update(["is_show"=>"Y"]);
+      ->where("id",$req->id)
+      ->update(["is_show"=>"Y","nilai_rata"=>$nilai_rata]);
 
       return back()->with(['success' => 'berhasil di acc']);
       }else{
         DB::table("nilai_pembelajaran")
-        ->where("kelas_id",$req->kelas_id)
-        ->where("semester",$req->semester)
-        ->update(["is_show"=>"N"]);
+        ->where("id",$req->id)
+        ->update(["is_show"=>"N","nilai_rata"=>0]);
   
         return back()->with(['success' => 'berhasil diupdate']);
       }
@@ -137,6 +135,19 @@ class NilaiPembelajaranController extends Controller
     }
   }
 
+  public function setRata(Request $req){
+    try{
+      $nilai_pembelajaran = DB::table("nilai_pembelajaran")
+      ->where("id",$req->id)->first();
+      $nilai_rata = ($nilai_pembelajaran->ulangan_harian+$nilai_pembelajaran->nilai_tugas+$nilai_pembelajaran->nilai_uts+$nilai_pembelajaran->nilai_uas)/4;
+      DB::table("nilai_pembelajaran")
+      ->where("id",$req->id)->update(["nilai_rata"=>$nilai_rata]);;
+      return response()->json(["status" => 1, "message" => "berasil diubah"]);
+    } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
 
   public function hapus($id)
   {
