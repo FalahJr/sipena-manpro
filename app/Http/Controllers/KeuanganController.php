@@ -46,8 +46,8 @@ class KeuanganController extends Controller
         return $data;
     }
 
-    public static function getKeuanganJson() {
-      $data = KeuanganController::getKeuangan();
+    public static function getKeuanganJson(Request $req) {
+      $data = KeuanganController::getKeuangan($req->siswa_id);
 
       return response()->json($data);
     }
