@@ -8,7 +8,7 @@ Route::get('/login', function () {
         return redirect()->route('homeadmin');
     }
 }
-);
+)->name('logindashboard');
 
 
 // Route::get('/', function () {

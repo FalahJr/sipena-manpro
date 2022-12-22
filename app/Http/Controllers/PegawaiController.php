@@ -127,7 +127,7 @@ class PegawaiController extends Controller
             "id" => $max,
             "username" => $req->username,
             "password" => $req->password,
-            "role_id" => 4,
+            "role_id" => 5,
             "is_active" => 'Y',
             "saldo" => 0,
             "created_at" => Carbon::now('Asia/Jakarta'),
