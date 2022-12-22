@@ -27,6 +27,7 @@ class KeuanganController extends Controller
         $data = DB::table("keuangan")
         ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
         ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+        ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama")
         ->get()->toArray();
 
         return $data;
