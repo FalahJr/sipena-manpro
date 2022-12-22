@@ -24,7 +24,10 @@ class KeuanganController extends Controller
 {
     public static function getKeuangan()
     {
-        $data = DB::table("keuangan")->get()->toArray();
+        $data = DB::table("keuangan")
+        ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
+        ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+        ->get()->toArray();
 
         return $data;
     }
