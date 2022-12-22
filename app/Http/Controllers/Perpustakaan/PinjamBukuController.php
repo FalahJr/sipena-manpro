@@ -306,7 +306,7 @@ class PinjamBukuController extends Controller
             ->delete();
 
             $user_id = DB::table("perpus_peminjaman")
-            ->where('id',$id)->first();
+            ->where('id',$id)->first()->user_id;
             Notifikasi::push_notifikasi($user_id,"Gagal Pinjam Buku","Peminjaman buku tidak diacc oleh pagawai perpus harap mencoba meminjam buku lain");
 
             DB::table("perpus_peminjaman")
