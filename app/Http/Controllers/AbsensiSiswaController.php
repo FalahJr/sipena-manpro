@@ -22,92 +22,44 @@ use Yajra\Datatables\Datatables;
 
 class AbsensiSiswaController extends Controller
 {
-    public static function getAbsensiSiswa($kelasid = null, $tanggal = null, $siswaid = null)
+    public static function getAbsensiSiswa($kelasid = null, $tanggal = null)
     {
         if($kelasid != null && $tanggal != null) {
-              if($siswaid == null) {
-                $data = DB::table("siswa_absensi")
-                    ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                    ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                    ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                    ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                    ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->where("siswa.kelas_id", $kelasid)
-                    ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
-                    ->get()->toArray();
-              } else {
-                $data = DB::table("siswa_absensi")
-                    ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                    ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                    ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                    ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                    ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->where("siswa.kelas_id", $kelasid)
-                    ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
-                    ->where("siswa_absensi.siswa_id", $siswaid)
-                    ->get()->toArray();
-              }
+          $data = DB::table("siswa_absensi")
+              ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
+              ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
+              ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
+              ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
+              ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
+              ->where("siswa.kelas_id", $kelasid)
+              ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
+              ->get()->toArray();
         } else if($kelasid != null && $tanggal == null) {
-              if($siswaid == null) {
-                $data = DB::table("siswa_absensi")
-                    ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                    ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                    ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                    ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                    ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->where("siswa.kelas_id", $kelasid)
-                    ->get()->toArray();
-              } else {
-                $data = DB::table("siswa_absensi")
-                    ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                    ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                    ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                    ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                    ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->where("siswa.kelas_id", $kelasid)
-                    ->where("siswa_absensi.siswa_id", $siswaid)
-                    ->get()->toArray();
-              }
+          $data = DB::table("siswa_absensi")
+              ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
+              ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
+              ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
+              ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
+              ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
+              ->where("siswa.kelas_id", $kelasid)
+              ->get()->toArray();
         } else if($kelasid == null && $tanggal != null) {
-              if($siswaid == null) {
-                $data = DB::table("siswa_absensi")
-                    ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                    ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                    ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                    ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                    ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
-                    ->get()->toArray();
-              } else {
-                $data = DB::table("siswa_absensi")
-                    ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                    ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                    ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                    ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                    ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
-                    ->where("siswa_absensi.siswa_id", $siswaid)
-                    ->get()->toArray();
-              }
+          $data = DB::table("siswa_absensi")
+              ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
+              ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
+              ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
+              ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
+              ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
+              ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
+              ->get()->toArray();
         } else {
-          if($siswaid == null) {
-            $data = DB::table("siswa_absensi")
-                ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                ->get()->toArray();
-          } else {
-            $data = DB::table("siswa_absensi")
-                ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
-                ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
-                ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
-                ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
-                ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                ->where("siswa_absensi.siswa_id", $siswaid)
-                ->get()->toArray();
-          }
+          $data = DB::table("siswa_absensi")
+              ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
+              ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
+              ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
+              ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
+              ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
+              ->get()->toArray();
         }
 
         return $data;
@@ -135,8 +87,8 @@ class AbsensiSiswaController extends Controller
         return response()->json($count);
     }
 
-    public static function getAbsensiSiswaJson(Request $req) {
-      $data = AbsensiSiswaController::getAbsensiSiswa($req->kelasid, $req->tanggal, $req->siswaid);
+    public static function getMutasiSiswaJson(Request $req) {
+      $data = AbsensiSiswaController::getAbsensiSiswa($req->kelasid, $req->tanggal);
 
       return response()->json($data);
     }
