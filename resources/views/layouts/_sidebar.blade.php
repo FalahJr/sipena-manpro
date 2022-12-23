@@ -282,7 +282,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
         @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5)
         @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty())
 
-        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') || Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? ' active' : '' || Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? ' active' : '' )) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') || Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? ' active' : '' || Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya') ? ' active' : '' || Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? ' active' : '' )) }}">
           <a class="nav-link" data-toggle="collapse" href="#absensi" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Absensi</span>
             <i class="menu-arrow"></i>
@@ -296,6 +296,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
               @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') ? 'active' : '' }}" href="{{url('admin/absensiguru')}}">Absensi Guru<span class="d-none">Absensi Guru</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya') ? 'active' : '' }}" href="{{url('admin/absensipegawaisaya')}}">Absensi Pegawai Saya<span class="d-none">Absensi Pegawai Saya</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? 'active' : '' }}" href="{{url('admin/absensipegawai')}}">Absensi Pegawai<span class="d-none">Absensi Pegawai</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? 'active' : '' }}" href="{{url('admin/absensikepalasekolah')}}">Absensi Kepala Sekolah<span class="d-none">Absensi Kepala Sekolah</span></a></li>
               @endif

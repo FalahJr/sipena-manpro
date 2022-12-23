@@ -22,12 +22,26 @@ use Yajra\Datatables\Datatables;
 
 class AbsensiPegawaiController extends Controller
 {
-    public static function getAbsensiPegawai()
+    public static function getAbsensiPegawai($userid = null)
     {
-        $data = DB::table("pegawai_absensi")
-            ->join("pegawai", "pegawai.id", '=', 'pegawai_absensi.pegawai_id')
-            ->select("pegawai.*", "pegawai_absensi.*", "pegawai_absensi.id as terlambat")
-            ->get()->toArray();
+            if($userid == null) {
+              $data = DB::table("pegawai_absensi")
+                  ->join("pegawai", "pegawai.id", '=', 'pegawai_absensi.pegawai_id')
+                  ->select("pegawai.*", "pegawai_absensi.*", "pegawai_absensi.id as terlambat")
+                  ->get()->toArray();
+            } else {
+              if($user->roleid == 5) {
+                  $cekdata = DB::table("pegawai")->where('user_id', $userid)->first();
+
+                  if($cekdata != null) {
+                    $data = DB::table("pegawai_absensi")
+                        ->join("pegawai", "pegawai.id", '=', 'pegawai_absensi.pegawai_id')
+                        ->select("pegawai.*", "pegawai_absensi.*", "pegawai_absensi.id as terlambat")
+                        ->where("pegawai.id" $cekdata->id)
+                        ->get()->toArray();
+                  }
+              }
+            }
 
             foreach ($data as $key => $value) {
               $waktu = Carbon::parse($value->waktu)->format('H:i:s');
@@ -63,8 +77,12 @@ class AbsensiPegawaiController extends Controller
       return view('absenpegawai.index');
     }
 
-    public function datatable() {
-      $data = AbsensiPegawaiController::getAbsensiPegawai();
+    public function indexsaya() {
+      return view('absenpegawaissaya.index');
+    }
+
+    public function datatable(Request $req) {
+      $data = AbsensiPegawaiController::getAbsensiPegawai($req->id);
 
         return Datatables::of($data)
           ->addColumn("image", function($data) {
