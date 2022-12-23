@@ -74,9 +74,9 @@ class TransaksiController extends Controller
       })
       ->addColumn('is_lunas',function($data){
         if($data->is_lunas == "Y"){
-          return "<span class='badge badge-success badge-lg'>SUCCESS</span>";
+          return "<span class='badge badge-success badge-lg'>BERHASIL</span>";
         }else{
-          return "<span class='badge badge-warning badge-lg'>PENDING</span>";
+          return "<span class='badge badge-warning badge-lg'>PROSES</span>";
         }
       })
       ->addColumn('pegawai_id',function($data){

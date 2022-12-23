@@ -32,7 +32,7 @@
                                 <th>Nominal</th>
                                 <th>Bukti Transfer</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

@@ -25,11 +25,12 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
-                      <div class="col-12 col-md-3">
+                      <div class="col-12 col-md-4">
                         <h4 class="card-title">Data Jadwal Peminjaman Fasilitas</h4>
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
+                        
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button>
                       </div>
                       {{-- @endif --}}
@@ -44,7 +45,7 @@
                                 <th>Waktu</th>
                                 <th>Tanggal</th>
                                 <th>ACC Pegawai</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 
@@ -109,7 +110,9 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 6,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y" )->get()->isNotEmpty() == 1 ? true : false)}}
+
               },
             ],
         "columns": [

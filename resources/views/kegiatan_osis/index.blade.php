@@ -44,7 +44,7 @@
                                 <th>Tanggal</th>
                                 <th>Pelaksana</th>
                                 {{-- <th>Status</th> --}}
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

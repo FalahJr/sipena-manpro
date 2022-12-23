@@ -2,6 +2,7 @@
 @section('content')
 
 @include('berita_sekolah.tambah')
+@include('berita_sekolah.show')
 <style type="text/css">
   .dataTables_filter label {
       margin-bottom: 1.4rem !important;
@@ -9,6 +10,13 @@
 .dataTables_filter label {
       margin-bottom: 1.4rem !important;
   }
+  table.dataTable tbody tr td {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+#showBerita .form-control[readonly]{
+background-color: white !important;
+}
   </style>
 <!-- partial -->
 <div class="content-wrapper">
@@ -40,9 +48,9 @@
                                 <th>No</th>
                                 <th>Foto</th>
                                 <th>Judul</th>
-                                <th>Deskripsi</th>
+                                <th  style="width: 30%">Deskripsi</th>
                                 <th>Total Dilihat</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 
@@ -103,7 +111,7 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 5,
-                 className: 'center'
+                 className: 'center',
               },
               // {
               //    targets: 6,
@@ -174,7 +182,19 @@ var table = $('#table-data').DataTable({
   message: "{{Session::get('success')}}",
   });
   }
-
+     // aksi ajax jika tombol edit di klik
+     $('body').on('click', '.showDetail', function () {
+        var beritaId = $(this).data('id');
+        $.get(baseUrlChange + '/show/' + beritaId, function (
+        data) {
+            $('#showBerita').modal('show');
+            $('.judul').val(data.data.judul);
+            $('.deskripsi').val(data.data.deskripsi);
+            $('.total_views').val(data.data.total_views);
+            $('.fotoBerita').attr("src",window.location.origin+'/'+data.data.foto);
+            table.ajax.reload();
+        });
+    });
     function showcreate() {
       $('.table_modal :input').val("");
       $('.image-holder').empty();

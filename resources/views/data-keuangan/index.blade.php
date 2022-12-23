@@ -32,7 +32,7 @@
                                 <th>Kategori Keuangan</th>
                                 <th>Keterangan</th>
                                 <th>Nominal</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

@@ -32,10 +32,10 @@
                                 <th>Foto</th>
                                 <th>Nama Lengkap</th>
                                 <th>Tanggal Lahir</th>
-                                <th>Telepone</th>
+                                <th>Telepon</th>
                                 <th>Alamat</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

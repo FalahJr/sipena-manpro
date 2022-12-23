@@ -29,7 +29,15 @@ class BeritaKelasController extends Controller
     $items = DB::table('kelas')->get();
     return view('berita_kelas.index',compact('items'));
   }
-
+  public function show($id){
+    DB::table("berita")->where("id",$id)->increment("total_views",1);
+    $data = DB::table("berita")
+    ->join("kelas","kelas.id","=","berita.kelas_id")
+    ->select("berita.*","kelas.nama as namaKelas")
+    ->where("berita.id",$id)
+    ->first();
+    return response()->json(['data'=>$data]);
+  }
   public function datatable()
   {
     $data = DB::table('berita')->whereNotNull('kelas_id')
@@ -45,21 +53,30 @@ class BeritaKelasController extends Controller
     //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
     //   })
       ->addColumn('aksi', function ($data) {
-        return  '<div class="btn-group">' .
-          '<a href="berita-kelas/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
-          '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/berita-kelas/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
-          '<label class="fa fa-trash"></label></a>' .
-          '</div>';
+        $showBerita = '<div class="btn-group">' .
+        '<a href="javascript:void(0)" data-id="'.$data->id.'" class="showDetail btn btn-secondary btn-lg" title="detail berita"><label class="fa fa-eye"></label></a>'.
+        '</div>';
+        $full = '<div class="btn-group">' .
+        '<a href="berita-kelas/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+        '<label class="fa fa-pencil-alt"></label></a>' .
+        '<a href="/admin/berita-kelas/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+        '<label class="fa fa-trash"></label></a>' .
+        '<a href="javascript:void(0)" data-id="'.$data->id.'" class="showDetail btn btn-secondary btn-lg" title="detail berita"><label class="fa fa-eye"></label></a>'.
+        '</div>';
+        return Auth::user()->role_id == 1 ? $full : $showBerita;
+        
       })->addColumn('foto', function ($data) {
         $url= asset($data->foto);
         return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
+      })
+      ->addColumn('deskripsi',function($data){
+        return substr($data->deskripsi,0,80).'...';
       })
       ->addColumn('kelas', function ($data) {
         $kelas = DB::table('kelas')->where('id',$data->kelas_id)->first();
         return $kelas->nama;
       })
-      ->rawColumns(['aksi', 'foto','kelas'])
+      ->rawColumns(['aksi', 'foto','kelas','deskripsi'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -167,7 +184,6 @@ class BeritaKelasController extends Controller
   {
     $this->validate($req,[
       'judul' => 'required|max:255',
-      'deskripsi' => 'required|max:255',
     ]);
     $imgPath = null;
     $tgl = Carbon::now('Asia/Jakarta');
@@ -182,9 +198,9 @@ class BeritaKelasController extends Controller
       $name = $folder . '.' . $file->getClientOriginalExtension();
       $file->move($path, $name);
       $imgPath = $childPath . $name;
-      $data->update(['judul'=>$req->judul,'deskripsi'=>$req->deskripsi,'id_kelas'=>$req->id_kelas,'foto'=>$imgPath]);
+      $data->update(['judul'=>$req->judul,'deskripsi'=>$req->deskripsi,'kelas_id'=>$req->kelas_id,'foto'=>$imgPath]);
     } else {
-      $data->update(['judul'=>$req->judul,'deskripsi'=>$req->deskripsi,'id_kelas'=>$req->id_kelas]);
+      $data->update(['judul'=>$req->judul,'deskripsi'=>$req->deskripsi,'kelas_id'=>$req->kelas_id]);
     }
 
     // dd($data);

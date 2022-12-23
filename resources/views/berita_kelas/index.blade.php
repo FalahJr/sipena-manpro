@@ -2,6 +2,7 @@
 @section('content')
 
 @include('berita_kelas.tambah')
+@include('berita_kelas.show')
 <style type="text/css">
   .dataTables_filter label {
       margin-bottom: 1.4rem !important;
@@ -9,6 +10,13 @@
 .dataTables_filter label {
       margin-bottom: 1.4rem !important;
   }
+  table.dataTable tbody tr td {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+#showBerita .form-control[readonly]{
+background-color: white !important;
+}
   </style>
 <!-- partial -->
 <div class="content-wrapper">
@@ -34,16 +42,16 @@
                       </div>
                       </div>
                     <div class="table-responsive">
-        				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
+        				        <table class="table table_status table-hover display no-wrap" id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
                                 <th>Foto</th>
                                 <th>Judul</th>
-                                <th>Deskripsi</th>
+                                <th style="width: 30%">Deskripsi</th>
                                 <th>Total Dilihat</th>
                                 <th>Kelas</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 
@@ -96,7 +104,7 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 3,
-                 className: 'center'
+                 className: 'center',
               },
               {
                  targets: 4,
@@ -108,7 +116,7 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 6,
-                 className: 'center'
+                 className: 'center',
               },
             ],
         "columns": [
@@ -169,6 +177,8 @@ var table = $('#table-data').DataTable({
     });
   })
 
+
+
   //show pop up jika data berhasil di hapus
   if("{{Session::has('success')}}"){
     iziToast.success({
@@ -176,6 +186,22 @@ var table = $('#table-data').DataTable({
   message: "{{Session::get('success')}}",
   });
   }
+
+     // aksi ajax jika tombol edit di klik
+     $('body').on('click', '.showDetail', function () {
+        var beritaId = $(this).data('id');
+        $.get(baseUrlChange + '/show/' + beritaId, function (
+          data) {
+            $('#showBerita').modal('show');
+            $('.judul').val(data.data.judul);
+            $('.deskripsi').html(data.data.deskripsi);
+            $('.total_views').val(data.data.total_views);
+            $('.namaKelas').val(data.data.namaKelas);
+            $('.fotoBerita').attr("src",window.location.origin+'/'+data.data.foto);
+            table.ajax.reload();
+
+        });
+    });
 
     function showcreate() {
       $('.table_modal :input').val("");

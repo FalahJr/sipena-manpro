@@ -73,7 +73,7 @@ class KembaliBukuController extends Controller
         return $employee;
       }else{
         return '<span class="badge badge-warning">'.
-        'PENDING</span>';
+        'PROSES</span>';
         }
       })->addColumn('user', function ($data) {
         $user = DB::table("user")->where("id", $data->user_id)->first();

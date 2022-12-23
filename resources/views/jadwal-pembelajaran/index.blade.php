@@ -36,7 +36,7 @@
                   <th>Hari</th>
                   <th>Waktu Mulai</th>
                   <th>Waktu Akhir</th>
-                  <th>Action</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
 

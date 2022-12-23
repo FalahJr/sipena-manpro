@@ -43,7 +43,7 @@
                                 <th>QRCode</th>
                                 <th>Pegawai</th>
                                 <th>Tanggal</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

@@ -10,6 +10,9 @@
 .dataTables_filter label {
       margin-bottom: 1.4rem !important;
   }
+  #showBook .form-control[readonly]{
+background-color: white !important;
+}
   </style>
 <!-- partial -->
 <div class="content-wrapper">
@@ -47,7 +50,7 @@
                                 <th>Total Denda</th>
                                 <th>Tanggal Dikembalikan</th>
                                 <th>Dikonfirmasi Pegawai</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

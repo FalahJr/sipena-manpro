@@ -31,7 +31,7 @@
                                 <th>Nama User</th>
                                 <th>Role</th>
                                 <th>Saldo</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

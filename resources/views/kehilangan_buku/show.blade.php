@@ -14,25 +14,25 @@
             <tr>
               <td>Judul</td>
               <td>
-                <input type="text" class="form-control form-control-sm inputtext judul" name="judul">
+                <input type="text" class="form-control form-control-sm inputtext judul" readonly name="judul">
               </td>
             </tr>
             <tr>
               <td>Author</td>
               <td>
-                <input type="text" class="form-control form-control-sm inputtext author" name="author">
+                <input type="text" class="form-control form-control-sm inputtext author" readonly name="author">
               </td>
             </tr>
             <tr>
               <td>Bahasa</td>
               <td>
-                <input type="text" class="form-control form-control-sm inputtext bahasa" name="bahasa">
+                <input type="text" class="form-control form-control-sm inputtext bahasa" readonly name="bahasa">
               </td>
             </tr>
             <tr>
               <td>Total Halaman</td>
               <td>
-                <input type="text" class="form-control form-control-sm inputtext total_halaman" name="total_halaman">
+                <input type="text" class="form-control form-control-sm inputtext total_halaman" readonly name="total_halaman">
               </td>
             </tr>    
             <tr>

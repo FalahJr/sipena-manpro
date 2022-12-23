@@ -51,7 +51,7 @@
                                 <th>Pegawai Kantin</th>
                                 <th>Saldo Kantin</th>
                                 <th>QrCode</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

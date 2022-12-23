@@ -41,7 +41,7 @@
                                 <th>Nama</th>
                                 <th>Harga</th>
                                 <th>Dibuat Oleh</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

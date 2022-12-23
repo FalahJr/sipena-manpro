@@ -14,6 +14,7 @@
             <div class="alert alert-warning" role="alert">
             Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
             </div>
+            @if(Auth::user()->role_id==1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y" )->get()->isNotEmpty())
             <tr>
               <td>Dipinjam Oleh <span style="color:red;">*</span></td>
               <td>
@@ -28,6 +29,7 @@
                   </select>
               </td>
             </tr>
+            @endif
             <tr>
               <td>Fasilitas <span style="color:red;">*</span></td>
               <td>
@@ -60,6 +62,7 @@
                 <input type="date" class="form-control form-control-sm inputtext tanggal" name="tanggal">
               </td>
             </tr>
+            @if(Auth::user()->role_id==1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y" )->get()->isNotEmpty())
             <tr>
               <td>Dikonfirmasi Oleh<span style="color:red;">*</span></td>
               <td>
@@ -73,6 +76,7 @@
                   </select>
               </td>
             </tr>
+            @endif
           </table>
         </div>
         <div class="modal-footer">

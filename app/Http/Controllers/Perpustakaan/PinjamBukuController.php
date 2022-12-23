@@ -70,7 +70,7 @@ class PinjamBukuController extends Controller
         return $employee;
       }else{
         return '<span class="badge badge-warning">'.
-        'PENDING</span>';
+        'PROSES</span>';
         }
       })
       ->addColumn('user', function ($data) {
@@ -357,11 +357,10 @@ class PinjamBukuController extends Controller
     
     $items = DB::table("perpus_katalog")->get();
     $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
-    $employee_id = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->id;
     $users = DB::table("user")->get();
     $user_id = DB::table("user")->where("id",$data->user_id)->first()->id;
     // dd($data);
-    return view("pinjam_buku.edit", compact('data','books','items','employees','users','user_id','employee_id'));
+    return view("pinjam_buku.edit", compact('data','books','items','employees','users','user_id'));
     
   }
 
@@ -369,7 +368,6 @@ class PinjamBukuController extends Controller
   {
     $this->validate($req,[
       'user_id' => 'required|max:11',
-      'pegawai_id' => 'required|max:11',
       'perpus_katalog_id' => 'required|max:3',
       'tanggal_peminjaman' => 'required|max:255',
       'tanggal_pengembalian' => 'required|max:255',
@@ -382,7 +380,14 @@ class PinjamBukuController extends Controller
       ]);
     }
 
-    DB::table("perpus_peminjaman")->where("id",$req->id)->update(['user_id'=>$req->user_id,'pegawai_id'=>$req->pegawai_id,'tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian]);
+    if($req->pegawai_id){
+
+      DB::table("perpus_peminjaman")->where("id",$req->id)->update(['user_id'=>$req->user_id,'pegawai_id'=>$req->pegawai_id,'tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian]);
+    }else{
+
+      DB::table("perpus_peminjaman")->where("id",$req->id)->update(['user_id'=>$req->user_id,'tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian]);
+    }
+
     
     return back()->with(['success' => 'Data berhasil diupdate']);
 
