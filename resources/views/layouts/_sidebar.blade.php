@@ -290,7 +290,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
           </a>
           <div class="collapse {{((Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? ' show' : '' ))}}" id="absensi">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswasaya') ? 'active' : '' }}" href="{{url('admin/absensisiswasaya')}}">Absensi Siswa Saya<span class="d-none">Absensi Siswa Saya</span></a></li>
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? 'active' : '' }}" href="{{url('admin/absensisiswasaya')}}">Absensi Siswa Saya<span class="d-none">Absensi Siswa Saya</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
 
               @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)

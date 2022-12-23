@@ -117,7 +117,7 @@ class AbsensiSiswaController extends Controller
     }
 
     public function datatable(Request $req) {
-      $data = AbsensiSiswaController::getAbsensiSiswa($req->id);
+      $data = AbsensiSiswaController::getAbsensiSiswa(null, null, $req->id);
 
         return Datatables::of($data)
           ->addColumn("image", function($data) {
