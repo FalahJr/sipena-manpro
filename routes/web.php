@@ -315,9 +315,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/absensisiswa', 'AbsensiSiswaController@index');
         Route::get('/absensisiswatable', 'AbsensiSiswaController@datatable');
 
+        //Absensi Siswa Saya
+        Route::get('/absensisiswasaya', 'AbsensiSiswaController@indexsaya');
+
         //Absensi Pegawai
         Route::get('/absensipegawai', 'AbsensiPegawaiController@index');
         Route::get('/absensipegawaitable', 'AbsensiPegawaiController@datatable');
+
+        //Absensi Pegawai Saya
+        Route::get('/absensipegawaisaya', 'AbsensiPegawaiController@indexsaya');
 
         //Absensi Kepala Sekolah
         Route::get('/absensikepalasekolah', 'AbsensiKepalaSekolahController@index');
@@ -331,6 +337,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dompetdigital', 'DompetDigitalController@index');
         Route::get('/dompetdigitaltable', 'DompetDigitalController@datatable');
         Route::post('/topupdompetdigital', 'DompetDigitalController@topup');
+
+        //Dompet Digital
+        Route::get('/dompetdigitalsaya', 'DompetDigitalController@indexsaya');
 
         //Approve Dompet Digital
         Route::get('/approvedompetdigital', 'ApproveDompetDigitalController@index');
