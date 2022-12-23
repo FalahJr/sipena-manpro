@@ -123,9 +123,9 @@ class ApproveDompetDigitalController extends Controller
             if($data->is_approve == "Y") {
               return '<span class="badge badge-success"> Diterima </span>';
             } else if($data->is_approve == "N") {
-              return '<span class="badge badge-success"> Ditolak </span>';
+              return '<span class="badge badge-danger"> Ditolak </span>';
             } else {
-              return '<span class="badge badge-success"> Belum Diproses </span>';
+              return '<span class="badge badge-warning"> Belum Diproses </span>';
             }
           })
           ->addColumn("image", function($data) {

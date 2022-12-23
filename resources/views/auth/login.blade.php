@@ -48,7 +48,7 @@
           </div> --}}
 
           <span class="login100-form-title p-b-34 p-t-27">
-            SIPENA Login
+            MASUK SIPENA
           </span>
 
           <div class="wrap-input100 validate-input" data-validate = "Enter Username">
@@ -68,7 +68,7 @@
 
           <div class="container-login100-form-btn">
             <button type="submit" class="login100-form-btn">
-              Login
+              Masuk
             </button>
           </div>
 

@@ -84,10 +84,10 @@
       targets: 2,
       className: 'center'
     },
-    // {
-    //    targets: 6,
-    //    className: 'center'
-    // },
+    {
+       targets: 3,
+       className: 'center'
+    },
   ],
     "columns": [
     { data: 'DT_Row_Index', name: 'DT_Row_Index' },

@@ -26,7 +26,7 @@
                       {{-- @endif --}}
                     </div>
                     <div class="table-responsive">
-        				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
+        				        <table class="table table_status table-hover display nowrap" width="100%" id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
@@ -36,7 +36,7 @@
                                 <th>Nama Lengkap</th>
                                 <!-- <th>Email</th> -->
                                 <th>Tempat, Tanggal Lahir</th>
-                                <th>Telepone</th>
+                                <th>Telepon</th>
                                 <th>Alamat</th>
                                 <th>Agama</th>
                                 <th>Jenis Kelamin</th>
@@ -44,7 +44,7 @@
                                 <th>Tanggal Daftar</th>
                                 <th>Kelas</th>
                                 <th>Kartu Digital</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 
@@ -75,6 +75,7 @@ var table = $('#table-data').DataTable({
         paging: true,
         dom: 'Bfrtip',
         title: '',
+        "autoWidth": false,
         buttons: [
             // 'copy', 'csv', 'excel', 'pdf', 'print'
         ],

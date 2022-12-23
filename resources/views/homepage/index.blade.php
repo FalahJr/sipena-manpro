@@ -454,13 +454,13 @@
         
 
         <!-- Footer Start -->
-        <div class="container-fluid bg-primary text-body footer wow fadeIn" data-wow-delay="0.1s">
+        <div class="container-fluid bg-primary footer text-dark wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5 px-lg-5">
                 <div class="row g-5">
-                    <div class="col-md-4 col-lg-4">
+                    <div class="col-md-4 col-lg-4 mt-3">
                         <p class="section-title  h5">
                           <!-- Address<span></span> -->
-                    <img src="{{asset('assets/sipenahorz.png')}}" alt="Logo" width="50%">
+                    <img src="{{asset('assets/sipenahorz.png')}}" class="mt-0" alt="Logo" width="50%">
 
                         </p>
                         <p>Sipena merupakan aplikasi berbasis website dan aplikasi android yang dibuat oleh perusahaan FiveCods. dan Star7 yang dapat memudahkan pengguna untuk mengakses segala kebutuhan yang ada dalam lingkungan  sekolah.</p>
@@ -471,23 +471,23 @@
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                         </div> -->
                     </div>
-                    <div class="col-md-4 col-lg-4 ">
-                        <p class="section-title text-body h5 mb-4">Quick Link<span></span></p>
-                        <a class="btn btn-link text-body" href="">PPDB</a>
-                        <a class="btn btn-link text-body" href="">Tentang</a>
-                        <a class="btn btn-link text-body" href="">Privacy Policy</a>
-                        <a class="btn btn-link text-body" href="">Terms & Conditions</a>
+                    <div class="col-md-4 col-lg-4 offset-lg-1">
+                        <p class="section-title text-dark h5 mb-4">Quick Link<span></span></p>
+                        <a class="btn btn-link text-dark" href="">PPDB</a>
+                        <a class="btn btn-link text-dark" href="">Tentang</a>
+                        <a class="btn btn-link text-dark" href="">Privacy Policy</a>
+                        <a class="btn btn-link text-dark" href="">Terms & Conditions</a>
                     </div>
-                    <div class="col-md-4 col-lg-4">
-                      <p class="section-title text-body h5 mb-4">Alamat<span></span></p>
+                    <div class="col-md-3 col-lg-3">
+                      <p class="section-title text-dark h5 mb-4">Alamat<span></span></p>
                       <p><i class="fa fa-map-marker-alt me-3"></i>Jl. Ketintang, Ketintang, Kec. Gayungan, Kota Surabaya, Jawa Timur 60231</p>
                       <p><i class="fa fa-phone-alt me-3"></i>(031) 8280009</p>
                       <!-- <p><i class="fa fa-envelope me-3"></i>info@example.com</p> -->
                       <div class="d-flex pt-2">
-                          <a class="btn btn-outline-light btn-social text-body" href=""><i class="fab fa-twitter"></i></a>
-                          <a class="btn btn-outline-light btn-social text-body" href=""><i class="fab fa-facebook-f"></i></a>
-                          <a class="btn btn-outline-light btn-social text-body" href=""><i class="fab fa-instagram"></i></a>
-                          <a class="btn btn-outline-light btn-social text-body" href=""><i class="fab fa-linkedin-in"></i></a>
+                          <a class="btn btn-outline-light btn-social text-dark" href=""><i class="fab fa-twitter"></i></a>
+                          <a class="btn btn-outline-light btn-social text-dark" href=""><i class="fab fa-facebook-f"></i></a>
+                          <a class="btn btn-outline-light btn-social text-dark" href=""><i class="fab fa-instagram"></i></a>
+                          <a class="btn btn-outline-light btn-social text-dark" href=""><i class="fab fa-linkedin-in"></i></a>
                       </div>
                   </div>
 
@@ -507,7 +507,7 @@
                         <div class="col-md-12 text-center text-md-center mb-3 mb-md-0">
                             <!-- &copy; <a class="border-bottom" href="#">SIPENA</a>, All Right Reserved.  -->
 							
-							Designed By <a class="border-bottom text-body" href="">FiveCods & Star7</a>
+							Designed By <a class="text-dark" href="">FiveCods & Star7</a>
                            
                         </div>
 

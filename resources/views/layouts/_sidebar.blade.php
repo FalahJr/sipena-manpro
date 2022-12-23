@@ -71,10 +71,9 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
 
 
       <!-- @if(Auth::user()->role_id != 'admin') -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown"
           aria-expanded="false">
-          {{-- <img src="{{asset('assets/image/faces1.jpg')}}" alt="image"> --}}
           <span class="d-lg-inline">{{Auth::user()->fullname}}</span>
         </a>
         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
@@ -85,7 +84,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
           </a>
 
         </div>
-      </li>
+      </li> --}}
       <!-- @endif -->
       <!-- @if(Auth::user()->role == 'admin') -->
       <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
@@ -245,7 +244,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
 
            
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') ? 'active' : '' }}" href="{{url('admin/dompetdigital')}}">List Dompet Digital<span class="d-none">List Dompet Digital</span></a></li>
-              @if(Auth::user()->role_id == 1) )
+              @if(Auth::user()->role_id == 1) 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? 'active' : '' }}" href="{{url('admin/approvedompetdigital')}}">Permintaan Top Up<span class="d-none">Permintaan Top Up</span></a></li>
               @endif
             </ul>
@@ -272,7 +271,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
 
         <li class="nav-item {{Request::is('admin/withdraw') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/withdraw')}}">
-            <span class="menu-title">Withdraw Kantin</span>
+            <span class="menu-title">Pengajuan Kantin</span>
             {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
             <i class="mdi mdi-wallet menu-icon"></i>
           </a>

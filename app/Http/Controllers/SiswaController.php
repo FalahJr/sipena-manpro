@@ -70,10 +70,10 @@ class SiswaController extends Controller
           ->get();
     return Datatables::of($data)
       ->addColumn('aksi', function ($data) {
-        return  '<div class="btn-group">' .
+        return  '<div class="btn-group border-0">' .
           '<a href="siswa/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/siswa/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="/admin/siswa/hapus/'.$data->id.'" class="btn btn-danger btn-lg ml-2" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })
@@ -90,10 +90,10 @@ class SiswaController extends Controller
       })
       ->addColumn('osis',function($data){
         if($data->is_osis == "Y"){
-          return '<div class="badge badge-success text-light badge-lg pt-2">'.
+          return '<div class="text-success badge-lg pt-2">'.
           '<label class="fa fa-check"></label></div>';
         }else{
-          return '<div class="badge badge-danger text-light badge-lg pt-2">'.
+          return '<div class="text-warning badge-lg pt-2">'.
           '<label class="fa fa-close"></label></div>';
         }
       })
