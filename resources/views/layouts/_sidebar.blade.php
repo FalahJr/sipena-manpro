@@ -292,11 +292,11 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? 'active' : '' }}" href="{{url('admin/absensisiswasaya')}}">Absensi Siswa Saya<span class="d-none">Absensi Siswa Saya</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
-
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya') ? 'active' : '' }}" href="{{url('admin/absensipegawaisaya')}}">Absensi Pegawai Saya<span class="d-none">Absensi Pegawai Saya</span></a></li>
+              
               @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') ? 'active' : '' }}" href="{{url('admin/absensiguru')}}">Absensi Guru<span class="d-none">Absensi Guru</span></a></li>
-              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya') ? 'active' : '' }}" href="{{url('admin/absensipegawaisaya')}}">Absensi Pegawai Saya<span class="d-none">Absensi Pegawai Saya</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') ? 'active' : '' }}" href="{{url('admin/absensipegawai')}}">Absensi Pegawai<span class="d-none">Absensi Pegawai</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? 'active' : '' }}" href="{{url('admin/absensikepalasekolah')}}">Absensi Kepala Sekolah<span class="d-none">Absensi Kepala Sekolah</span></a></li>
               @endif
