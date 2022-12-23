@@ -78,7 +78,7 @@ class AbsensiPegawaiController extends Controller
     }
 
     public function indexsaya() {
-      return view('absenpegawaissaya.index');
+      return view('absenpegawaisaya.index');
     }
 
     public function datatable(Request $req) {
