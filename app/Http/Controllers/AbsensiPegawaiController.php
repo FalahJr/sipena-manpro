@@ -30,8 +30,9 @@ class AbsensiPegawaiController extends Controller
                   ->select("pegawai.*", "pegawai_absensi.*", "pegawai_absensi.id as terlambat")
                   ->get()->toArray();
             } else {
+              $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $userid)->join("role", "role.id", '=', "user.role_id")->first();
               if($user->roleid == 5) {
-                  $cekdata = DB::table("pegawai")->where('user_id', $userid)->first();
+                  $cekdata = DB::table("pegawai")->where('user_id', $user->id)->first();
 
                   if($cekdata != null) {
                     $data = DB::table("pegawai_absensi")
