@@ -37,7 +37,7 @@ class AbsensiPegawaiController extends Controller
                     $data = DB::table("pegawai_absensi")
                         ->join("pegawai", "pegawai.id", '=', 'pegawai_absensi.pegawai_id')
                         ->select("pegawai.*", "pegawai_absensi.*", "pegawai_absensi.id as terlambat")
-                        ->where("pegawai.id" $cekdata->id)
+                        ->where("pegawai.id", $cekdata->id)
                         ->get()->toArray();
                   }
               }
