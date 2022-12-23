@@ -22,12 +22,20 @@ use Yajra\Datatables\Datatables;
 
 class DompetDigitalController extends Controller
 {
-    public static function getDompetDigital()
+    public static function getDompetDigital($iduser = null)
     {
-        $data = DB::table("user")
-            ->join("role", "role.id", '=', "user.role_id")
-            ->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as role", "user.created_at as nama_lengkap")
-            ->get()->toArray();
+          if($iduser == null) {
+            $data = DB::table("user")
+                ->join("role", "role.id", '=', "user.role_id")
+                ->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as role", "user.created_at as nama_lengkap")
+                ->get()->toArray();
+          } else {
+            $data = DB::table("user")
+                ->join("role", "role.id", '=', "user.role_id")
+                ->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as role", "user.created_at as nama_lengkap")
+                ->where("user.id", $iduser)
+                ->get()->toArray();
+          }
 
           foreach ($data as $key => $value) {
             if($value->saldo == null) {
@@ -169,12 +177,16 @@ class DompetDigitalController extends Controller
       return view('dompetdigital.index');
     }
 
+    public function indexsaya() {
+      return view('dompetdigitalsaya.index');
+    }
+
     public function digitalku() {
       return view('dompetdigital.digitalku');
     }
 
-    public function datatable() {
-      $data = DompetDigitalController::getDompetDigital();
+    public function datatable(Request $req) {
+      $data = DompetDigitalController::getDompetDigital($req->id);
 
         return Datatables::of($data)
           ->addColumn('aksi', function ($data) {

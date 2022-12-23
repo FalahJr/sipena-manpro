@@ -22,7 +22,7 @@ use Yajra\Datatables\Datatables;
 
 class AbsensiSiswaController extends Controller
 {
-    public static function getAbsensiSiswa($kelasid = null, $tanggal = null)
+    public static function getAbsensiSiswa($kelasid = null, $tanggal = null, $userid = null)
     {
         if($kelasid != null && $tanggal != null) {
           $data = DB::table("siswa_absensi")
@@ -52,6 +52,21 @@ class AbsensiSiswaController extends Controller
               ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
               ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
               ->get()->toArray();
+        } else if($userid != null) {
+          $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $req->id)->join("role", "role.id", '=', "user.role_id")->first();
+
+          if($user->roleid == 2) {
+              if($cekdata != null) {
+                $data = DB::table("siswa_absensi")
+                    ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
+                    ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
+                    ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
+                    ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
+                    ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
+                    ->where('siswa.id', $cekdata->id)
+                    ->get()->toArray();
+              }
+          }
         } else {
           $data = DB::table("siswa_absensi")
               ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
@@ -97,8 +112,12 @@ class AbsensiSiswaController extends Controller
       return view('absensisiswa.index');
     }
 
-    public function datatable() {
-      $data = AbsensiSiswaController::getAbsensiSiswa();
+    public function indexsaya() {
+      return view('absensisiswasaya.index');
+    }
+
+    public function datatable(Request $req) {
+      $data = AbsensiSiswaController::getAbsensiSiswa($req->id);
 
         return Datatables::of($data)
           ->addColumn("image", function($data) {
