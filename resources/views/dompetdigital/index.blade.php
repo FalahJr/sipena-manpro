@@ -60,7 +60,7 @@ var table = $('#table-data').DataTable({
         dom: 'Bfrtip',
         title: '',
         buttons: [
-           'pdf', 'print'
+          'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
             url:'{{ url('/admin/dompetdigitaltable') }}',
