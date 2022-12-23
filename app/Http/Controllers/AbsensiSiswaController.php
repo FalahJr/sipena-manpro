@@ -53,7 +53,7 @@ class AbsensiSiswaController extends Controller
               ->where('siswa_absensi.created_at', 'like', '%' . $tanggal . '%')
               ->get()->toArray();
         } else if($userid != null) {
-          $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $req->id)->join("role", "role.id", '=', "user.role_id")->first();
+          $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $userid)->join("role", "role.id", '=', "user.role_id")->first();
 
           if($user->roleid == 2) {
               if($cekdata != null) {
