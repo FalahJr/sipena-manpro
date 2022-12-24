@@ -78,6 +78,10 @@ class AbsensiKepalaSekolahController extends Controller
       return view('absenkepalasekolah.index');
     }
 
+    public function indexsaya() {
+      return view('absenkepalasekolahsaya.index');
+    }
+
     public function datatable(Request $req) {
       $data = AbsensiKepalaSekolahController::getAbsensiKepalaSekolah($req->id);
 
