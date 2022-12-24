@@ -24,25 +24,25 @@ class AbsensiGuruController extends Controller
 {
     public static function getAbsensiGuru($userid = null)
     {
-        if($userid == null) {
-          $data = DB::table("guru_absensi")
-              ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
-              ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
-              ->get()->toArray();
-        } else {
-          $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $userid)->join("role", "role.id", '=', "user.role_id")->first();
-          if($user->roleid == 4) {
-              $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
+            if($userid == null) {
+              $data = DB::table("guru_absensi")
+                  ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
+                  ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
+                  ->get()->toArray();
+            } else {
+              $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $userid)->join("role", "role.id", '=', "user.role_id")->first();
+              if($user->roleid == 4) {
+                  $cekdata = DB::table("guru")->where('user_id', $user->id)->first();
 
-              if($cekdata != null) {
-                $data = DB::table("guru_absensi")
-                    ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
-                    ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
-                    ->where("guru.id", $cekdata->id)
-                    ->get()->toArray();
+                  if($cekdata != null) {
+                    $data = DB::table("guru_absensi")
+                        ->join("guru", "guru.id", '=', 'guru_absensi.guru_id')
+                        ->select("guru.*", "guru_absensi.*", "guru_absensi.id as terlambat")
+                        ->where("guru.id", $cekdata->id)
+                        ->get()->toArray();
+                  }
               }
-          }
-        }
+            }
 
             foreach ($data as $key => $value) {
               $waktu = Carbon::parse($value->waktu)->format('H:i:s');
