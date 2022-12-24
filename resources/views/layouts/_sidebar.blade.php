@@ -288,12 +288,13 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
-          <div class="collapse {{((Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? ' show' : '' ))}}" id="absensi">
+          <div class="collapse {{((Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? ' show' : '' || Request::is('admin/absensigurusaya/*') || Request::is('admin/absensigurusaya') ? ' show' : '' ))}}" id="absensi">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? 'active' : '' }}" href="{{url('admin/absensisiswasaya')}}">Absensi Siswa Saya<span class="d-none">Absensi Siswa Saya</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya') ? 'active' : '' }}" href="{{url('admin/absensipegawaisaya')}}">Absensi Pegawai Saya<span class="d-none">Absensi Pegawai Saya</span></a></li>
-              
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensigurusaya/*') || Request::is('admin/absensigurusaya') ? 'active' : '' }}" href="{{url('admin/absensigurusaya')}}">Absensi Guru Saya<span class="d-none">Absensi Guru Saya</span></a></li>
+
               @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') ? 'active' : '' }}" href="{{url('admin/absensiguru')}}">Absensi Guru<span class="d-none">Absensi Guru</span></a></li>

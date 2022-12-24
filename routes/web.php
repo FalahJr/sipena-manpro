@@ -331,6 +331,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/absensiguru', 'AbsensiGuruController@index');
         Route::get('/absensigurutable', 'AbsensiGuruController@datatable');
 
+        //Absensi Guru Saya
+        Route::get('/absensigurusaya', 'AbsensiGuruController@indexsaya');
+
         //Dompet Digital
         Route::get('/dompetdigital', 'DompetDigitalController@index');
         Route::get('/dompetdigitaltable', 'DompetDigitalController@datatable');
