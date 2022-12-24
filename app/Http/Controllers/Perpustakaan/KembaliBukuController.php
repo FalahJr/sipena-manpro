@@ -73,7 +73,7 @@ class KembaliBukuController extends Controller
         return $employee;
       }else{
         return '<span class="badge badge-warning">'.
-        'PENDING</span>';
+        'PROSES</span>';
         }
       })->addColumn('user', function ($data) {
         $user = DB::table("user")->where("id", $data->user_id)->first();
@@ -338,12 +338,11 @@ class KembaliBukuController extends Controller
       $i++;
     }
     $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
-    $employee_id = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->id;
     $users = DB::table("user")->get();
     $user_id = DB::table("user")->where("id",$data->user_id)->first()->id;
     $items = DB::table("perpus_katalog")->get();
     // dd($data);
-    return view("kembali_buku.edit", compact('data','books','items','employees','employee_id','users','user_id'));
+    return view("kembali_buku.edit", compact('data','books','items','employees','users','user_id'));
     
   }
 
@@ -353,7 +352,6 @@ class KembaliBukuController extends Controller
       'perpus_katalog_id' => 'required|max:3',
       'tanggal_peminjaman' => 'required|max:255',
       'tanggal_pengembalian' => 'required|max:255',
-      'pegawai_id' => 'required|max:255',
       'tanggal_dikembalikan' => 'required'
     ]);
     DB::table("perpus_peminjaman_katalog")->where('perpus_peminjaman_id',$req->id)->delete();

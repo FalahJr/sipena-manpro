@@ -12,8 +12,7 @@
         <div class="row">
           <table class="table table_modal">
             <div class="alert alert-warning" role="alert">
-              Silahkan isi semua data yang bertanda<span style="color:red;">*</span><br>
-              <br>QRCode akan dibuat setelah menambahkan data kantin
+              QRCode akan dibuat setelah menambahkan data kantin
             </div>
           <tr>
             <td>Nama Kantin <span style="color:red;">*</span></td>

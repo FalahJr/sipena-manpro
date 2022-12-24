@@ -43,7 +43,7 @@
                   <th>Kegiatan</th>
                   <th>Jam Mulai</th>
                   <th>Jam Selesai</th>
-                  <th>Action</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
 

@@ -43,7 +43,7 @@
                                 <th>Waktu Mulai</th>
                                 <th>Jadwal Hari</th>
                                 <th>Guru Penanggung Jawab</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

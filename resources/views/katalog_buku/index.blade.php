@@ -45,7 +45,7 @@
                                 <th>Bahasa</th>
                                 <th>Total Halaman</th>
                                 <th>Dibuat Oleh</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

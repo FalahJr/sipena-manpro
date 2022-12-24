@@ -28,7 +28,7 @@
                               <tr>
                                 <th style="width:15px">No</th>
                                 <th>Nama Kategori</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

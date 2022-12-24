@@ -29,7 +29,7 @@
                                 <th>Total Harga</th>
                                 <th>Tanggal Pembelian</th>
                                 <th>Metode Pembayaran</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
-          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/berita-sekolah')}}">Berita Sekolah</a></li>
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/berita-kelas')}}">Berita Kelas</a></li>
           <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
         </ol>
       </nav>
@@ -14,14 +14,11 @@
         <div class="card">
           <div class="card-body">
             
-           <h4 class="card-title">Edit Berita Sekolah</h4>
+           <h4 class="card-title">Edit Berita Kelas</h4>
            
                     <!-- Modal -->
     <!-- Modal content-->
     <div class="row">
-      <div class="alert alert-warning" role="alert">
-        Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
-        </div>
         
     </div>
     <div class="row">
@@ -37,7 +34,7 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/berita-sekolah/update')}}" method="POST" enctype="multipart/form-data">
+          <form action="{{url('admin/berita-kelas/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
             <td>Judul <span style="color:red;">*</span></td>

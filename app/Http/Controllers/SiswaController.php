@@ -73,7 +73,7 @@ class SiswaController extends Controller
         return  '<div class="btn-group border-0">' .
           '<a href="siswa/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/siswa/hapus/'.$data->id.'" class="btn btn-danger btn-lg ml-2" title="hapus">' .
+          '<a href="/admin/siswa/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })

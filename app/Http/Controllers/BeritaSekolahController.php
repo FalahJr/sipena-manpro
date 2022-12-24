@@ -28,7 +28,11 @@ class BeritaSekolahController extends Controller
   {
     return view('berita_sekolah.index');
   }
-
+  public function show($id){
+    DB::table("berita")->where("id",$id)->increment("total_views",1);
+    $data = DB::table("berita")->where("id",$id)->first();
+    return response()->json(['data'=>$data]);
+  }
   public function datatable()
   {
     $data = DB::table('berita')->whereNull('kelas_id')
@@ -43,17 +47,26 @@ class BeritaSekolahController extends Controller
     //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
     //   })
       ->addColumn('aksi', function ($data) {
-        return  '<div class="btn-group">' .
-          '<a href="berita-sekolah/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
-          '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/berita-sekolah/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
-          '<label class="fa fa-trash"></label></a>' .
-          '</div>';
+        $showBerita = '<div class="btn-group">' .
+        '<a href="javascript:void(0)" data-id="'.$data->id.'" class="showDetail btn btn-secondary btn-lg" title="detail berita"><label class="fa fa-eye"></label></a>'.
+        '</div>';
+        $full = '<div class="btn-group">' .
+        '<a href="berita-sekolah/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+        '<label class="fa fa-pencil-alt"></label></a>' .
+        '<a href="/admin/berita-sekolah/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+        '<label class="fa fa-trash"></label></a>' .
+        '<a href="javascript:void(0)" data-id="'.$data->id.'" class="showDetail btn btn-secondary btn-lg" title="detail berita"><label class="fa fa-eye"></label></a>'.
+        '</div>';
+        return Auth::user()->role_id == 1 ? $full : $showBerita;
+
       })->addColumn('foto', function ($data) {
         $url= asset($data->foto);
         return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
       })
-      ->rawColumns(['aksi', 'foto'])
+      ->addColumn('deskripsi',function($data){
+        return substr($data->deskripsi,0,80).'...';
+      })
+      ->rawColumns(['aksi', 'foto','deskripsi'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -115,7 +128,6 @@ class BeritaSekolahController extends Controller
   {
     $this->validate($req,[
       'judul' => 'required|max:255',
-      'deskripsi' => 'required|max:255',
     ]);
     $imgPath = null;
     $tgl = Carbon::now('Asia/Jakarta');

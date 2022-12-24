@@ -71,7 +71,7 @@ class SumbangBukuController extends Controller
         return $employee;
       }else{
         return '<span class="badge badge-warning">'.
-        'PENDING</span>';
+        'PROSES</span>';
         }
       })
       ->rawColumns(['aksi', 'foto','user','kategori','pegawai'])

@@ -32,7 +32,7 @@
                                 <th>Saldo Penjualan</th>
                                 <th>Nominal Penarikan</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

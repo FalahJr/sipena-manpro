@@ -108,7 +108,37 @@ class ListController extends Controller
         return response()->json(["status" => 7, "message" => $e]);
       }
   }
+  public function getData(){
+    $data = DB::table('koperasi_list')->get();
+    return response()->json(["status" => 1,"data"=>$data]);
+  }
+  public function insertOrUpdate(Request $req){
+    try{
+      if($req->id){
+        $this->update($req);
+        return response()->json(["status" => 1,"message"=>"berhasil diubah"]);
+      }else{
+        $this->simpan($req);
+        return response()->json(["status" => 1,"message"=>"berhasil dibuat"]);
+      }
 
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+  public function delete($id){
+    try{
+      $data = DB::table("koperasi_list")
+      ->where('id',$id);
+      if(!$data->first()){
+        return response()->json(["status" => 2, "message" => "data tidak ditemukan"]);
+      }
+    $data->delete();
+    return response()->json(["status" => 1, "message" => "data berhasil dihapus"]);
+  }catch(\Exception $e){
+    return response()->json(["status" => 2, "message" => $e->getMessage()]);
+  }
+  }
   public function hapus($id)
   {
     DB::table("koperasi_list")

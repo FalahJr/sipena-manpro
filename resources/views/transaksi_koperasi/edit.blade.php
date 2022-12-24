@@ -18,12 +18,7 @@
            
                     <!-- Modal -->
     <!-- Modal content-->
-    <div class="row">
-      <div class="alert alert-warning" role="alert">
-        Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
-        </div>
-        
-    </div>
+
     <div class="row">
       @if ($errors->any())
       <div class="alert alert-danger">
@@ -53,10 +48,10 @@
                 <td>
                   <select class="form-control form-control-sm inputtext walikelas" name="is_lunas">
                       <option value="N" @if($data->is_lunas == "N") selected @endif>
-                      PENDING
+                      PROSES
                       </option>
                       <option value="Y" @if($data->is_lunas == "Y") selected @endif>
-                        SUCCESS
+                        LUNAS
                       </option>
                     </select>
                 </td>

@@ -30,14 +30,14 @@
                                 <th>NISN</th>
                                 <th>Nama Lengkap</th>
                                 <th>Tempat, Tanggal Lahir</th>
-                                <th>Telepone</th>
+                                <th>Telepon</th>
                                 <th>Alamat</th>
                                 <th>Agama</th>
                                 <th>Jenis Kelamin</th>
                                 <!-- <th>Osis</th> -->
                                 <th>Tanggal Daftar</th>
                                 <!-- <th>Kelas</th> -->
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

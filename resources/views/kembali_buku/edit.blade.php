@@ -17,13 +17,7 @@
            <h4 class="card-title">Edit Kembali Buku</h4>
            
                     <!-- Modal -->
-    <!-- Modal content-->
-    <div class="row">
-      <div class="alert alert-warning" role="alert">
-        Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
-        </div>
-        
-    </div>
+
     <div class="row">
       @if ($errors->any())
       <div class="alert alert-danger">
@@ -100,7 +94,7 @@
               <select class="form-control form-control-sm inputtext" name="pegawai_id">
                 <option disabled selected value>Pilih</option>
                 @foreach($employees as $employee)
-                  <option value="<?= $employee->id ?>" @if($employee->id == $employee_id) selected @endif>
+                  <option value="<?= $employee->id ?>" @if($employee->id == $data->pegawai_id) selected @endif>
                     <?= $employee->nama_lengkap ?>
                   </option>
                   @endforeach

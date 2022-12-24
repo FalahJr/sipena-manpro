@@ -33,7 +33,7 @@
                   <th>No</th>
                   <th>Nama</th>
                   <th>Walikelas</th>
-                  <th>Action</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
 

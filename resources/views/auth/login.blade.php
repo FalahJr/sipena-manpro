@@ -59,10 +59,10 @@
             @endif
           </div>
           <div class="wrap-input100 validate-input" data-validate="Enter password">
-            <input required="" class="input100" autocomplete="off" value="" type="password" name="password" id="password" placeholder="Password">
+            <input required="" class="input100" autocomplete="off" value="" type="password" name="password" id="password" placeholder="Kata Sandi">
             <span class="focus-input100" data-placeholder="&#xf191;"></span>
             @if (session('password'))
-            <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
+            <div class="red"  style="color: red"><b>Kata Sandi Yang Anda Masukan Salah</b></div>
             @endif
           </div>
 
