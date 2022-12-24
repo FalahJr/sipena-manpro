@@ -12,8 +12,7 @@
         <div class="row">
           <table class="table table_modal">
             <div class="alert alert-warning" role="alert">
-              1. Silahkan isi semua data yang bertanda<span style="color:red;">*</span><br>
-              2. Maksimal peminjaman 3 buku
+              1. Maksimal peminjaman 3 buku
             </div>
             <tr>
               <td>Peminjam<span style="color:red;">*</span></td>

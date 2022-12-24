@@ -12,8 +12,7 @@
         <div class="row">
           <table class="table table_modal">
             <div class="alert alert-warning" role="alert">
-              1. Silahkan isi semua data yang bertanda<span style="color:red;">*</span><br>
-              2. Calon osis adalah siswa yang belom menjadi anggota osis
+             Calon osis adalah siswa yang belom menjadi anggota osis
             </div>
             <tr>
               <td>Calon Osis<span style="color:red;">*</span></td>
