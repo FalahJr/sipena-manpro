@@ -31,7 +31,7 @@
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button>
-                      </div>
+                     </div>
                       {{-- @endif --}}
                     </div>
                     <div class="table-responsive">
@@ -41,7 +41,7 @@
                                 <th>No</th>
                                 <th>Nama Fasilitas</th>
                                 <th>Dibuat Tanggal</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 
@@ -91,6 +91,10 @@ var table = $('#table-data').DataTable({
               {
                  targets: 2,
                  className: 'center'
+              },
+              {
+                 targets: 3,
+                 className: 'center',
               },
             ],
         "columns": [

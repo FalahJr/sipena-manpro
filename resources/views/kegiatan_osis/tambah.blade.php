@@ -11,9 +11,7 @@
       <div class="modal-body">
         <div class="row">
           <table class="table table_modal">
-            <div class="alert alert-warning" role="alert">
-            Silahkan isi semua data yang bertanda<span style="color:red;">*</span>
-            </div>
+
             <tr>
               <td>Kegiatan <span style="color:red;">*</span></td>
               <td>

@@ -21,7 +21,7 @@ use Session;
 use DB;
 
 use File;
-
+use LengthException;
 use Yajra\Datatables\Datatables;
 
 use Response;
@@ -62,7 +62,7 @@ class TransaksiController extends Controller
         ->get();
         $penjualan = null;
         foreach($items as $item){
-          $penjualan .= $item->nama .' || '. $item->harga .' x '. $item->jumlah_pembelian .' = '.$item->total_harga .'<br>';
+          $penjualan .= $item->nama .' || '. $item->harga .' x '. $item->jumlah_pembelian .' = '.$item->total_harga .'<br><br>';
         }
         return $penjualan;
       })
@@ -74,9 +74,9 @@ class TransaksiController extends Controller
       })
       ->addColumn('is_lunas',function($data){
         if($data->is_lunas == "Y"){
-          return "<span class='badge badge-success badge-lg'>SUCCESS</span>";
+          return "<span class='badge badge-success badge-lg'>LUNAS</span>";
         }else{
-          return "<span class='badge badge-warning badge-lg'>PENDING</span>";
+          return "<span class='badge badge-warning badge-lg'>PROSES</span>";
         }
       })
       ->addColumn('pegawai_id',function($data){
@@ -158,6 +158,7 @@ class TransaksiController extends Controller
           "id" => $transaksiId,
           "pegawai_id" => $req->pegawai_id,
           "total_pembayaran" => $totalPembayaran,
+          "tanggal" => date("Y-m-d"),
         ]);
 
 
@@ -191,15 +192,56 @@ class TransaksiController extends Controller
     }
   }
 
+  public function delete($id){
+    try{
+      $data = DB::table("koperasi_penjualan")
+      ->where('id',$id);
+      if(!$data->first()){
+        return response()->json(["status" => 2, "message" => "data tidak ditemukan"]);
+      }
+      
+      DB::table("koperasi_transaksi")
+      ->where('id',$data->first()->koperasi_transaksi_id)
+      ->decrement("total_pembayaran",$data->first()->total_harga);
+
+      $penjualan = DB::table("koperasi_penjualan")
+      ->where('koperasi_transaksi_id',$data->first()->koperasi_transaksi_id)->count();
+
+      if($penjualan == 1){
+        DB::table("koperasi_transaksi")->where("id",$data->first()->koperasi_transaksi_id)->delete();
+      }
+      $data->delete();
+
+    return response()->json(["status" => 1, "message" => "data berhasil dihapus"]);
+  }catch(\Exception $e){
+    return response()->json(["status" => 2, "message" => $e->getMessage()]);
+  }
+  }
+
+  public function listPembelian(){
+  try{
+    $data = DB::table("koperasi_penjualan")
+    ->join("koperasi_transaksi","koperasi_transaksi.id","=","koperasi_penjualan.koperasi_transaksi_id")
+    ->join("koperasi_list","koperasi_list.id","=","koperasi_penjualan.koperasi_list_id")
+    ->select("koperasi_penjualan.*","koperasi_transaksi.is_lunas","koperasi_list.nama as nama_barang","koperasi_list.harga as harga_barang")
+    ->where("koperasi_transaksi.is_lunas","Y")
+    ->get();
+    return response()->json(["status"=>1,"data"=>$data]); 
+  }catch(\Exception $e){
+    return response()->json(["status"=>2,"message"=>$e->getMessage()]);
+  }
+  }
+
   public function hapus($id)
   {
-    DB::table("koperasi_list")
-    ->where('kantin_id',$id)
-    ->delete();
-    
-    DB::table("koperasi_list")
-        ->where('id',$id)
+        
+    DB::table("koperasi_penjualan")
+        ->where('koperasi_transaksi_id',$id)
         ->delete();
+
+    DB::table("koperasi_transaksi")
+    ->where('id',$id)
+    ->delete();
 
       return back()->with(['success' => 'Data berhasil dihapus']);
   }
@@ -222,8 +264,37 @@ class TransaksiController extends Controller
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
+  }
+  
+  public function APIupdate(Request $req){
+  try{
+    $data = DB::table("koperasi_penjualan")->where("id",$req->id);
+    if(!$data->first()){
+      return response()->json(["status"=>2,"message"=>"data tidak ditemukan"]);
+    }
 
-    
+    $req->harga_barang = DB::table("koperasi_penjualan")
+    ->join("koperasi_list","koperasi_list.id","=","koperasi_penjualan.koperasi_list_id")
+    ->select("koperasi_penjualan.*","koperasi_list.harga as harga_barang")
+    ->where("koperasi_penjualan.id",$req->id)
+    ->first()->harga_barang;
+
+    $data->update([
+      "koperasi_list_id"=>$req->koperasi_list_id,
+      "jumlah_pembelian"=>$req->jumlah_pembelian,
+      "total_harga"=>$req->jumlah_pembelian*$req->harga_barang,
+    ]);
+    $items = DB::table("koperasi_penjualan")->where("koperasi_transaksi_id",$data->first()->koperasi_transaksi_id)->get();
+    $totalPembayaran = 0;
+    foreach($items as $item){
+      $totalPembayaran += $item->total_harga;
+    }
+    DB::table("koperasi_transaksi")->where("id",$data->first()->koperasi_transaksi_id)->update(["total_pembayaran"=>$totalPembayaran]);
+
+    return response()->json(["status"=>1,"message"=>"berhasil diubah"]);
+  }catch(\Exception $e){
+    return response()->json(["status"=>2,"message"=>$e->getMessage()]);
+  }
   }
 
   public static function cekemail($username, $id = null)

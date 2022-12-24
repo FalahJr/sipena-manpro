@@ -31,7 +31,7 @@
                                 <th>Nama User</th>
                                 <th>Role</th>
                                 <th>Saldo</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 
@@ -60,7 +60,7 @@ var table = $('#table-data').DataTable({
         dom: 'Bfrtip',
         title: '',
         buttons: [
-           'pdf', 'print'
+          'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
             url:'{{ url('/admin/dompetdigitaltable') }}',

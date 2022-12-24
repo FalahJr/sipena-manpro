@@ -41,7 +41,7 @@
                                 <th>Jumlah Buku</th>
                                 <th>Dibuat Tanggal</th>
                                 <th>Dibuat Oleh</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

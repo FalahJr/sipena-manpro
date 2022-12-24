@@ -149,6 +149,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/berita-sekolah/table', 'BeritaSekolahController@datatable');
         Route::post('/berita-sekolah/update', 'BeritaSekolahController@update');
         Route::get('/berita-sekolah/edit/{id}', 'BeritaSekolahController@edit');
+        Route::get('/berita-sekolah/show/{id}', 'BeritaSekolahController@show');
 
         //Berita Kelas
         Route::get('/berita-kelas', 'BeritaKelasController@index');
@@ -157,6 +158,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/berita-kelas/table', 'BeritaKelasController@datatable');
         Route::post('/berita-kelas/update', 'BeritaKelasController@update');
         Route::get('/berita-kelas/edit/{id}', 'BeritaKelasController@edit');
+        Route::get('/berita-kelas/show/{id}', 'BeritaKelasController@show');
 
         //Bayar QRCode
         Route::get('/bayar-kantin', 'BayarKantinController@index');

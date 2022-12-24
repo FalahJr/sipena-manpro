@@ -29,7 +29,7 @@
                                 <th style="width:15px">No</th>
                                 <th>Nama Siswa</th>
                                 <th>Kelas</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

@@ -73,6 +73,16 @@
 .checked {
   color: orange;
 }
+.card-body table tbody td .btn-group a.btn{
+  margin: 0 4px;
+  border-radius: 4px !important;
+}
+.card-body table tbody td .btn-group a.btn label{
+  margin: 4px;
+}
+.card-body table tbody td .btn-group{
+  border: none;
+}
 small.text-muted {
   position: absolute;
   right: 0;

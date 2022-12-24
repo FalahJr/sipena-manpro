@@ -35,7 +35,7 @@
                                 <th>Tanggal Lahir</th>
                                 <th>Phone</th>
                                 <th>Alamat</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 

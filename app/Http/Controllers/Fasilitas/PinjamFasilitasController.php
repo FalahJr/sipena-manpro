@@ -40,7 +40,10 @@ class PinjamFasilitasController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('peminjaman_fasilitas_jadwal')->get();
+    $userLogin = Auth::user();
+    $admin = DB::table('peminjaman_fasilitas_jadwal')->get();
+    $byId = DB::table('peminjaman_fasilitas_jadwal')->where("user_id",$userLogin->id)->get();
+    $data = $userLogin->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y" )->get()->isNotEmpty() ? $admin : $byId;
 
     // return $data;
     // $xyzab = collect($data);
@@ -77,7 +80,7 @@ class PinjamFasilitasController extends Controller
         return $employee;
       }else{
         return '<span class="badge badge-warning">'.
-        'PENDING</span>';
+        'PROSES</span>';
         }
       })
       ->rawColumns(['aksi','user','fasilitas','waktu','tanggal','acc'])
@@ -87,15 +90,28 @@ class PinjamFasilitasController extends Controller
   public function simpan(Request $req)
   {
       try {
-        DB::table("peminjaman_fasilitas_jadwal")
-        ->insert([
-          "peminjaman_fasilitas_id" => $req->peminjaman_fasilitas_id,
-          "jam_mulai" => $req->jam_mulai,
-          "jam_selesai" => $req->jam_selesai,
-          "pegawai_id" => $req->pegawai_id,
-          "user_id" => $req->user_id,
-          "tanggal" => Carbon::now('Asia/Jakarta'),
-        ]);
+        if($req->pegawai_id){
+          DB::table("peminjaman_fasilitas_jadwal")
+          ->insert([
+            "peminjaman_fasilitas_id" => $req->peminjaman_fasilitas_id,
+            "jam_mulai" => $req->jam_mulai,
+            "jam_selesai" => $req->jam_selesai,
+            "pegawai_id" => $req->pegawai_id,
+            "user_id" => $req->user_id,
+            "tanggal" => Carbon::now('Asia/Jakarta'),
+          ]);
+        }else{
+          $req->user_id = Auth::user()->id; 
+          DB::table("peminjaman_fasilitas_jadwal")
+          ->insert([
+            "peminjaman_fasilitas_id" => $req->peminjaman_fasilitas_id,
+            "jam_mulai" => $req->jam_mulai,
+            "jam_selesai" => $req->jam_selesai,
+            "user_id" => $req->user_id,
+            "tanggal" => Carbon::now('Asia/Jakarta'),
+          ]);
+        }
+
 
           DB::commit();
 
