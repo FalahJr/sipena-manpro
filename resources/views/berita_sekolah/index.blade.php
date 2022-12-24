@@ -38,7 +38,7 @@ background-color: white !important;
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
-                        @if(Auth::user()->role_id == 1)
+                        @if(Auth::user()->role_id == 1 || DB::table("siswa")->where("user_id",Auth::user()->id)->where("is_osis","Y")->get()->isNotEmpty())
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Berita</button>
                         @endif
                       </div>

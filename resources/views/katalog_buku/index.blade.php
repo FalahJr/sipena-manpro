@@ -27,8 +27,11 @@
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
+                        @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty())
                         <a href="{{url('/admin/kategori-buku')}}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kategori Buku</a>
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Katalog</button>
+                        @endif
+
                       </div>
                       {{-- @endif --}}
                     </div>
@@ -116,7 +119,11 @@ var table = $('#table-data').DataTable({
                  className: 'center'
               },{
                  targets: 8,
-                 className: 'center'
+                 className: 'center',
+              },{
+                 targets: 9,
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
             ],
         "columns": [

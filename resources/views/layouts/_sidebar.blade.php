@@ -295,8 +295,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
 
         <!-- @endif -->
 
-        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4)
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty())
+        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 4 || DB::table('pegawai')->where("user_id",Auth::user()->id)->where("is_perpus","Y")->orWhere("is_tata_usaha","Y")->get()->isNotEmpty() || DB::table('guru')->where("user_id",Auth::user()->id)->get()->isNotEmpty())
 
         <li class="nav-item {{ ( ( Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') || Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') || Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') || Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') || Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku')) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#perpustakaan" aria-expanded="false" aria-controls="ui-basic">
@@ -314,7 +313,6 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
             </ul>
           </div>
         </li>
-        @endif
         @endif
 
         @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 4)
@@ -357,9 +355,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
         @endif
         @endif
 
-        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 2 || Auth::user()->role_id == 4)
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty() && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y")->get()->isEmpty()&& DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isEmpty())
-
+        @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isNotEmpty() || DB::table("siswa")->where("user_id",Auth::user()->id)->where("is_osis","Y")->get()->isNotEmpty() || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_mapel","Y")->get()->isNotEmpty() || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_walikelas","Y")->get()->isNotEmpty() )
         <li class="nav-item {{ ( ( Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') || Request::is('admin/pinjam-fasilitas/*') || Request::is('admin/pinjam-fasilitas') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#pinjam-fasilitas" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Peminjaman Fasilitas</span>
@@ -375,7 +371,6 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
             </ul>
           </div>
         </li>
-        @endif
         @endif
 
         @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 7 || Auth::user()->role_id == 3 || Auth::user()->role_id == 4 )
@@ -476,7 +471,8 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
           <div class="collapse {{( ( Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') || Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ) ? ' show' : '' ) }}" id="keuangan">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') ? 'active' : '' }}" href="{{url('admin/data-keuangan')}}">Data Keuangan<span class="d-none">Data Keuangan</span></a></li>
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","N")->get()->isEmpty() && Auth::user()->role_id != 7 && Auth::user()->role_id != 3 && Auth::user()->role_id != 6)
+
+        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isEmpty() || Auth::user()->role_id == 1)
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ? 'active' : '' }}" href="{{url('admin/kategori-keuangan')}}">Kategori Keuangan<span class="d-none">Kategori Keuangan</span></a></li>
               @endif

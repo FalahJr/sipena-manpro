@@ -111,8 +111,7 @@ var table = $('#table-data').DataTable({
               {
                  targets: 6,
                  className: 'center',
-                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y" )->get()->isNotEmpty() == 1 ? true : false)}}
-
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y" )->get()->isNotEmpty() ? true : false)}}
               },
             ],
         "columns": [

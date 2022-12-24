@@ -73,11 +73,11 @@
 .checked {
   color: orange;
 }
-.card-body table tbody td .btn-group a.btn{
+.card-body table tbody td .btn-group .btn{
   margin: 0 4px;
   border-radius: 4px !important;
 }
-.card-body table tbody td .btn-group a.btn label{
+.card-body table tbody td .btn-group .btn label{
   margin: 4px;
 }
 .card-body table tbody td .btn-group{

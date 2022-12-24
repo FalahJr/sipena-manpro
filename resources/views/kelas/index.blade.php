@@ -84,6 +84,10 @@
       targets: 2,
       className: 'center'
     },
+    {
+      targets: 3,
+      className: 'center'
+    },
     // {
     //    targets: 6,
     //    className: 'center'

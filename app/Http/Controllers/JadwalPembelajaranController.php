@@ -103,10 +103,10 @@ class JadwalPembelajaranController extends Controller
               array_push($kamis, $data);
             }
             if($data->jadwal_hari == "Jumat"){
-              array_push($Jumat, $data);
+              array_push($jumat, $data);
             }
             if($data->jadwal_hari == "Sabtu"){
-              array_push($Sabtu, $data);
+              array_push($sabtu, $data);
             }
         }   
         $datas = (object) array('Senin' => $senin,'Selasa' => $selasa,'Rabu' => $rabu,'Kamis' => $kamis,'Jumat' => $jumat,'Sabtu' => $sabtu);
