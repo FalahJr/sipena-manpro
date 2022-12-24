@@ -117,6 +117,7 @@ Route::middleware('api')->group(function () {
     Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@accSumbang');
     Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@getData');
     Route::post('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@APIinsertData');
+
     //Kantin
     Route::post('/bayar-koperasi', 'Koperasi\TransaksiController@APIbayar');
     Route::post('/bayar-kantin', 'BayarKantinController@APIbayar');
@@ -126,6 +127,14 @@ Route::middleware('api')->group(function () {
     Route::get('/transaksi-koperasi', 'Koperasi\TransaksiController@getData');
     Route::post('/transaksi-kantin', 'TransaksiKantinController@APIupdate');
     Route::delete('/transaksi-kantin/{id}', 'TransaksiKantinController@delete');
+
+    // list koperasi
+    Route::post('/list-koperasi', 'Koperasi\ListController@insertOrUpdate');
+    Route::delete('/list-koperasi/{id}', 'Koperasi\ListController@delete');
+    Route::get('/list-koperasi', 'Koperasi\ListController@getData');
+    Route::get('/list-pembelian', 'Koperasi\TransaksiController@listPembelian');
+    Route::delete('/list-pembelian/{id}', 'Koperasi\TransaksiController@delete');
+    Route::post('/list-pembelian', 'Koperasi\TransaksiController@APIupdate');
 
     //OSIS
     Route::get('/calon-osis/daftar', 'SiswaController@APIDaftarOsis');

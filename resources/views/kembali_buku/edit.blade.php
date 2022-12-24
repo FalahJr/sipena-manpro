@@ -100,7 +100,7 @@
               <select class="form-control form-control-sm inputtext" name="pegawai_id">
                 <option disabled selected value>Pilih</option>
                 @foreach($employees as $employee)
-                  <option value="<?= $employee->id ?>" @if($employee->id == $employee_id) selected @endif>
+                  <option value="<?= $employee->id ?>" @if($employee->id == $data->pegawai_id) selected @endif>
                     <?= $employee->nama_lengkap ?>
                   </option>
                   @endforeach

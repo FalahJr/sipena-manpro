@@ -440,11 +440,10 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') ? 'active' : '' }}" href="{{url('admin/list-koperasi')}}">List Barang<span class="d-none">List Barang</span></a></li>
 
-        @if(Auth::user()->role_id != 6 && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_koperasi","N")->get()->isEmpty() &&  Auth::user()->role_id == 4)
-
+        {{-- @if(Auth::user()->role_id = 6 && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_koperasi","N")->get()->isEmpty() &&  Auth::user()->role_id == 4) --}}
+            @if(Auth::user()->role_id = 5 || Auth::user()->role_id == 1)
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ? 'active' : '' }}" href="{{url('admin/transaksi-koperasi')}}">Transaksi Koperasi<span class="d-none">Transaksi Koperasi</span></a></li>
               @endif
-
             </ul>
           </div>
         </li>

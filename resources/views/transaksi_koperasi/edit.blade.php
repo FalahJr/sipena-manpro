@@ -53,10 +53,10 @@
                 <td>
                   <select class="form-control form-control-sm inputtext walikelas" name="is_lunas">
                       <option value="N" @if($data->is_lunas == "N") selected @endif>
-                      PENDING
+                      PROSES
                       </option>
                       <option value="Y" @if($data->is_lunas == "Y") selected @endif>
-                        SUCCESS
+                        LUNAS
                       </option>
                     </select>
                 </td>
