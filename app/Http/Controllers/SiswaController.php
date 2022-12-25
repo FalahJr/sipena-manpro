@@ -46,6 +46,13 @@ class SiswaController extends Controller
     return response()->json($siswa);
   }
 
+  public function getSiswa()
+  {
+    $siswa = DB::table('siswa')->get();
+
+    return response()->json($siswa);
+  }
+
   public function osisindex()
   {
     // $classes = DB::table('kelas')->get();
