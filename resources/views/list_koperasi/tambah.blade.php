@@ -24,6 +24,7 @@
               <input type="text" class="form-control form-control-sm inputtext harga" name="harga">
             </td>
           </tr>
+          @if(Auth::user()->role_id == 1)
           <tr>
             <td>Ditambahkan Pegawai <span style="color:red;">*</span></td>
             <td>
@@ -37,6 +38,7 @@
                 </select>
             </td>
           </tr>
+          @endif
           </table>
         </div>
         <div class="modal-footer">
