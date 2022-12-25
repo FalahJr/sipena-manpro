@@ -85,7 +85,7 @@ Route::middleware('api')->group(function () {
     //Raport/Nilai Pembelajaran
     Route::get('/nilai-pembelajaran', 'NilaiPembelajaranController@getData');
     Route::post('/nilai-pembelajaran', 'NilaiPembelajaranController@insertOrUpdate');
-    Route::get('/nilai-pembelajaran/acc', 'NilaiPembelajaranController@accNilai');
+    Route::get('/nilai-pembelajaran/acc', 'NilaiPembelajaranController@APIaccNilai');
 
     //Kelas
     Route::get('/kelas', 'KelasController@getData');

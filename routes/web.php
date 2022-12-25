@@ -291,6 +291,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/nilai-pembelajaran/hapus/{id}', 'NilaiPembelajaranController@hapus');
         Route::get('/nilai-pembelajaran/edit/{id}', 'NilaiPembelajaranController@edit');
         Route::get('/nilai-pembelajaran/{tipe}', 'NilaiPembelajaranController@accOrUnacc');
+        Route::get('/nilai-pembelajaran/cetak/raport', 'NilaiPembelajaranController@accNilai');
 
         //Kartu Figital
         Route::get('/kartudigital', 'KartuDigitalController@index');
