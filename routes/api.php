@@ -179,9 +179,9 @@ Route::middleware('api')->group(function () {
     Route::get('/listsiswa', 'SiswaController@getSiswa');
 
     //List Guru
-    Route::get('/listguru', 'SiswaController@getGuru');
+    Route::get('/listguru', 'GuruController@getGuru');
 
     //List Pegawai
-    Route::get('/listpegawai', 'SiswaController@getPegawai');
+    Route::get('/listpegawai', 'PegawaiController@getPegawai');
 
 });
