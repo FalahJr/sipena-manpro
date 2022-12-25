@@ -78,7 +78,7 @@ Route::middleware('api')->group(function () {
 
     //Pinjam Fasilitas Sekolah
     Route::post('/pinjam-fasilitas', 'Fasilitas\PinjamFasilitasController@ajukanPeminjaman');
-    Route::post('/pinjam-fasilitas/acc', 'Fasilitas\PinjamFasilitasController@accPeminjaman');
+    Route::post('/pinjam-fasilitas/acc', 'Fasilitas\PinjamFasilitasController@APIaccPeminjaman');
     Route::get('/pinjam-fasilitas', 'Fasilitas\PinjamFasilitasController@getData');
     Route::delete('/pinjam-fasilitas/{id}', 'Fasilitas\PinjamFasilitasController@delete');
 

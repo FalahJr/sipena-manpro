@@ -275,6 +275,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/list-fasilitas/simpan', 'Fasilitas\ListFasilitasController@simpan');
         Route::get('/list-fasilitas/hapus/{id}', 'Fasilitas\ListFasilitasController@hapus');
         Route::get('/list-fasilitas/edit/{id}', 'Fasilitas\ListFasilitasController@edit');
+        Route::get('/pinjam-fasilitas/acc', 'Fasilitas\PinjamFasilitasController@accPeminjaman');
 
         Route::get('/pinjam-fasilitas', 'Fasilitas\PinjamFasilitasController@index');
         Route::get('/pinjam-fasilitas/table', 'Fasilitas\PinjamFasilitasController@datatable');

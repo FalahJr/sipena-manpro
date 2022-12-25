@@ -76,11 +76,15 @@ class PinjamFasilitasController extends Controller
       })
       ->addColumn('acc', function ($data) {
         if($data->pegawai_id){
-        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
-        return $employee;
-      }else{
-        return '<span class="badge badge-warning">'.
-        'PROSES</span>';
+          $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
+          return $employee;
+        }else{
+          $pegawai = DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->first();
+          if($pegawai){
+            return '<a href="' . url('admin/pinjam-fasilitas/acc?&id='.$data->id). '" class="badge badge-warning p-2 badge-lg">ACC Sekarang</a>';
+          }else{
+            return '<span class="badge badge-warning p-2 badge-lg">PROSES</span>';
+          }
         }
       })
       ->rawColumns(['aksi','user','fasilitas','waktu','tanggal','acc'])
@@ -225,7 +229,7 @@ class PinjamFasilitasController extends Controller
     }
   }
 
-  public function accPeminjaman(Request $req){
+  public function APIaccPeminjaman(Request $req){
     try {
       $data = DB::table("peminjaman_fasilitas_jadwal")
       ->where("id",$req->id)
@@ -242,6 +246,27 @@ class PinjamFasilitasController extends Controller
       }else{
       return response()->json(["status" => 2,"message" => "data sudah di acc atau id tidak ditemukan"]);
       }
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
+  public function accPeminjaman(Request $req){
+    try {
+      $req->pegawai_id = DB::table("pegawai")->where("user_id",Auth::user()->id)->first()->id;
+
+      DB::table("peminjaman_fasilitas_jadwal")
+      ->where("id",$req->id)
+      ->update([
+        "pegawai_id" => $req->pegawai_id,
+      ]);
+
+      DB::commit();
+        $user_id = DB::table("peminjaman_fasilitas_jadwal")
+        ->where("id",$req->id)->first()->user_id;
+        Notifikasi::push_notifikasi($user_id,"Pinjam Fasilitas","Peminjaman fasilitas berhasil di konfirmasi kamu bisa menggunakan fasilitas sekolah");
+        return back()->with(['success' => 'berhasil di ACC']);
     } catch (\Exception $e) {
       DB::rollback();
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
@@ -291,7 +316,7 @@ class PinjamFasilitasController extends Controller
 
     $data = DB::table("peminjaman_fasilitas_jadwal")->where('id',$req->id);
     $data->update(['peminjaman_fasilitas_id'=>$req->peminjaman_fasilitas_id,'jam_mulai'=>$req->jam_mulai,'jam_selesai'=>$req->jam_selesai,'pegawai_id'=>$req->pegawai_id,'user_id'=>$req->user_id]);
-    return back()->with(['success' => 'Data berhasil diupdate']);
+    return back()->with(['success' => 'Data berhasil diubah']);
   }
 
   public static function cekemail($username, $id = null)
