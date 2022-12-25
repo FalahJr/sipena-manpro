@@ -335,9 +335,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/absensikepalasekolah', 'AbsensiKepalaSekolahController@index');
         Route::get('/absensikepalasekolahtable', 'AbsensiKepalaSekolahController@datatable');
 
+        //Absensi Kepala Sekolah Saya
+        Route::get('/absensikepalasekolahsaya', 'AbsensiKepalaSekolahController@indexsaya');
+
         //Absensi Guru
         Route::get('/absensiguru', 'AbsensiGuruController@index');
         Route::get('/absensigurutable', 'AbsensiGuruController@datatable');
+
+        //Absensi Guru Saya
+        Route::get('/absensigurusaya', 'AbsensiGuruController@indexsaya');
 
         //Dompet Digital
         Route::get('/dompetdigital', 'DompetDigitalController@index');

@@ -22,12 +22,27 @@ use Yajra\Datatables\Datatables;
 
 class AbsensiKepalaSekolahController extends Controller
 {
-    public static function getAbsensiKepalaSekolah()
+    public static function getAbsensiKepalaSekolah($userid = null)
     {
-        $data = DB::table("kepala_sekolah_absensi")
-            ->join("kepala_sekolah", "kepala_sekolah.id", '=', 'kepala_sekolah_absensi.kepala_sekolah_id')
-            ->select("kepala_sekolah.*", "kepala_sekolah_absensi.*", "kepala_sekolah.id as terlambat")
-            ->get()->toArray();
+          if($userid == null) {
+            $data = DB::table("kepala_sekolah_absensi")
+              ->join("kepala_sekolah", "kepala_sekolah.id", '=', 'kepala_sekolah_absensi.kepala_sekolah_id')
+              ->select("kepala_sekolah.*", "kepala_sekolah_absensi.*", "kepala_sekolah.id as terlambat")
+              ->get()->toArray();
+          } else {
+            $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $userid)->join("role", "role.id", '=', "user.role_id")->first();
+            if($user->roleid == 6) {
+                $cekdata = DB::table("kepala_sekolah")->where('user_id', $user->id)->first();
+
+                if($cekdata != null) {
+                  $data = DB::table("kepala_sekolah_absensi")
+                    ->join("kepala_sekolah", "kepala_sekolah.id", '=', 'kepala_sekolah_absensi.kepala_sekolah_id')
+                    ->select("kepala_sekolah.*", "kepala_sekolah_absensi.*", "kepala_sekolah.id as terlambat")
+                    ->where("kepala_sekolah.id", $cekdata->id)
+                    ->get()->toArray();
+                }
+            }
+          }
 
             foreach ($data as $key => $value) {
               $waktu = Carbon::parse($value->waktu)->format('H:i:s');
@@ -63,8 +78,12 @@ class AbsensiKepalaSekolahController extends Controller
       return view('absenkepalasekolah.index');
     }
 
-    public function datatable() {
-      $data = AbsensiKepalaSekolahController::getAbsensiKepalaSekolah();
+    public function indexsaya() {
+      return view('absenkepalasekolahsaya.index');
+    }
+
+    public function datatable(Request $req) {
+      $data = AbsensiKepalaSekolahController::getAbsensiKepalaSekolah($req->id);
 
         return Datatables::of($data)
           ->addColumn("image", function($data) {

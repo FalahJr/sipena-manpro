@@ -20,19 +20,19 @@
           <tr>
             <td>Nama Kategori</td>
             <input type="hidden" class="form-control form-control-sm id" name="id">
-
-          </tr>
-          <tr>
             <td>
               <input type="text" class="form-control form-control-sm" name="nama_kategori" id="nama_kategori" >
             </td>
           </tr>
-          
+          <!-- <tr>
+           
+          </tr>
+           -->
           </table>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" id="simpan" type="button">Process</button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" id="simpan" type="button">Simpan</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
         </div>
       </div>
       </div>

@@ -47,7 +47,7 @@ class WaliMuridController extends Controller
         return  '<div class="btn-group">' .
           '<a href="wali-murid/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/wali-murid/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="wali-murid/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })->addColumn('foto_profil', function ($data) {
@@ -84,8 +84,8 @@ class WaliMuridController extends Controller
           $name = $folder . '.' . $file->getClientOriginalExtension();
           if (!File::exists($path)) {
             if (File::makeDirectory($path, 0777, true)) {
-              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
-              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg' || $_FILES['image']['type'] == 'image/png') {
+              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg' || $_FILES['image']['type'] == 'image/png') {
               } else {
                 compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
               }
@@ -205,8 +205,8 @@ class WaliMuridController extends Controller
       $name = $folder . '.' . $file->getClientOriginalExtension();
       if (!File::exists($path)) {
         if (File::makeDirectory($path, 0777, true)) {
-          if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
-          } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+          if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg' || $_FILES['image']['type'] == 'image/png') {
+          } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg'|| $_FILES['image']['type'] == 'image/png') {
           } else {
             compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
           }

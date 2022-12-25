@@ -11,14 +11,14 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Absensi Pegawai</li>
+          <li class="breadcrumb-item active" aria-current="page">Absensi Pegawai Saya</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Absensi Pegawai</h4>
+                    <h4 class="card-title">Absensi Pegawai Saya</h4>
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 15px;text-align:right"> -->
                       <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button> -->
                     <!-- </div> -->

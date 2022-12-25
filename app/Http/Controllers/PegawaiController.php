@@ -93,8 +93,8 @@ class PegawaiController extends Controller
           $name = $folder . '.' . $file->getClientOriginalExtension();
           if (!File::exists($path)) {
             if (File::makeDirectory($path, 0777, true)) {
-              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
-              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg' || $_FILES['image']['type'] == 'image/png') {
+              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg' || $_FILES['image']['type'] == 'image/png') {
               } else {
                 compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
               }
@@ -136,6 +136,7 @@ class PegawaiController extends Controller
           DB::table("pegawai")->insert([
             "id"=>$maxpegawai,
             "user_id" => $max,
+            "profil_picture"=>$imgPath,
             "nama_lengkap" => $req->nama_lengkap,
             "tanggal_lahir" => $req->tgl_lahir,
             "phone" => $req->no_hp,
@@ -185,8 +186,8 @@ class PegawaiController extends Controller
           $name = $folder . '.' . $file->getClientOriginalExtension();
           if (!File::exists($path)) {
             if (File::makeDirectory($path, 0777, true)) {
-              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
-              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+              if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg' || $_FILES['image']['type'] == 'image/png') {
+              } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg' || $_FILES['image']['type'] == 'image/png') {
               } else {
                 compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
               }
@@ -319,8 +320,8 @@ class PegawaiController extends Controller
       $name = $folder . '.' . $file->getClientOriginalExtension();
       if (!File::exists($path)) {
         if (File::makeDirectory($path, 0777, true)) {
-          if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
-          } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
+          if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg' || $_FILES['image']['type'] == 'image/png') {
+          } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg' || $_FILES['image']['type'] == 'image/png') {
           } else {
             compressImage($_FILES['image']['type'], $_FILES['image']['tmp_name'], $_FILES['image']['tmp_name'], 75);
           }

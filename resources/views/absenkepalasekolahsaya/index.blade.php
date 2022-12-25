@@ -11,14 +11,14 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Absensi Siswa Saya</li>
+          <li class="breadcrumb-item active" aria-current="page">Absensi Kepala Sekolah Saya</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Absensi Siswa Saya</h4>
+                    <h4 class="card-title">Absensi Kepala Sekolah Saya</h4>
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 15px;text-align:right"> -->
                       <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button> -->
                     <!-- </div> -->
@@ -27,14 +27,10 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th style="width:15px">No</th>
-                                <th>Mata Pelajaran</th>
-                                <th>Kelas</th>
-                                <th>Siswa</th>
+                                <th>Pegawai</th>
                                 <th>Foto</th>
-                                <th>Jadwal</th>
                                 <th>Jam Absen</th>
                                 <th>Terlambat</th>
-                                <th>Valid</th>
                                 <th>Izin</th>
                                 <th>Alasan</th>
                                 <th>Keterangan</th>
@@ -69,7 +65,7 @@ var table = $('#table-data').DataTable({
             'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('/admin/absensisiswatable') }}?id={{Auth::user()->id}}',
+            url:'{{ url('/admin/absensikepalasekolahtable') }}?id={{Auth::user()->id}}',
         },
         columnDefs: [
 
@@ -105,33 +101,13 @@ var table = $('#table-data').DataTable({
                  targets: 7,
                  className: 'center'
               },
-              {
-                 targets: 8,
-                 className: 'center'
-              },
-              {
-                 targets: 5,
-                 className: 'center'
-              },
-              {
-                 targets: 6,
-                 className: 'center'
-              },
-              {
-                 targets: 7,
-                 className: 'center'
-              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          {data: 'mapelnama', name: 'mapelnama'},
-          {data: 'kelasnama', name: 'kelasnama'},
           {data: 'nama_lengkap', name: 'nama_lengkap'},
           {data: 'image', name: 'image'},
-          {data: 'jadwal', name: 'jadwal  '},
-          {data: 'created_at', name: 'created_at'},
+          {data: 'waktu', name: 'waktu  '},
           {data: 'terlambat', name: 'terlambat'},
-          {data: 'valid', name: 'valid'},
           {data: 'izin', name: 'izin'},
           {data: 'alasan_izin', name: 'alasan_izin'},
           {data: 'keterangan_izin', name: 'keterangan_izin'},

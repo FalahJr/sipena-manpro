@@ -22,18 +22,26 @@ use Yajra\Datatables\Datatables;
 
 class MutasiSiswaController extends Controller
 {
-    public static function getMutasiSiswa()
+    public static function getMutasiSiswa($siswaid = null)
     {
-        $data = DB::table("siswa_mutasi")
-            ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
-            ->select("siswa.*", "siswa_mutasi.*", "siswa_mutasi.id as id", "siswa.id as siswaid")
-            ->get()->toArray();
+        if($siswaid == null) {
+          $data = DB::table("siswa_mutasi")
+              ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
+              ->select("siswa.*", "siswa_mutasi.*", "siswa_mutasi.id as id", "siswa.id as siswaid")
+              ->get()->toArray();
+        } else {
+          $data = DB::table("siswa_mutasi")
+              ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
+              ->select("siswa.*", "siswa_mutasi.*", "siswa_mutasi.id as id", "siswa.id as siswaid")
+              ->where("siswa.id", $siswaid)
+              ->get()->toArray();
+        }
 
         return $data;
     }
 
-    public static function getMutasiSiswaJson() {
-      $data = MutasiSiswaController::getMutasiSiswa();
+    public static function getMutasiSiswaJson(Request $req) {
+      $data = MutasiSiswaController::getMutasiSiswa($req->siswa_id);
 
       return response()->json($data);
     }
