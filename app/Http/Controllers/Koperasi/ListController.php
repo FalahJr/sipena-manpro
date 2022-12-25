@@ -92,7 +92,9 @@ class ListController extends Controller
   public function simpan(Request $req)
   {
       try {
-      
+      if(DB::table("pegawai")->where("is_koperasi","Y")->where("user_id",Auth::user()->id)->get()->isNotEmpty()){
+        $req->pegawai_id =  DB::table("pegawai")->where("user_id",Auth::user()->id)->first()->id;
+      }
         DB::table("koperasi_list")
         ->insert([
           "nama" => $req->nama,

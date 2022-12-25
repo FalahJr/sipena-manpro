@@ -418,10 +418,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
         @endif
         @endif
 
-        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4)
-
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty() && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isEmpty())
-
+        @if(Auth::user()->role_id != 7 && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isEmpty() && DB::table("wali_murid")->where("user_id",Auth::user()->id)->get()->isEmpty())
         <li class="nav-item {{ ( ( Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') || Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#koperasi" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Koperasi Sekolah</span>
@@ -430,17 +427,13 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
           </a>
           <div class="collapse {{( ( Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') || Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ) ? ' show' : '' ) }}" id="koperasi">
             <ul class="nav flex-column sub-menu">
-
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/list-koperasi/*') || Request::is('admin/list-koperasi') ? 'active' : '' }}" href="{{url('admin/list-koperasi')}}">List Barang<span class="d-none">List Barang</span></a></li>
-
-        {{-- @if(Auth::user()->role_id = 6 && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_koperasi","N")->get()->isEmpty() &&  Auth::user()->role_id == 4) --}}
-            @if(Auth::user()->role_id = 5 || Auth::user()->role_id == 1)
+            @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_koperasi","Y")->get()->isNotEmpty())
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/transaksi-koperasi/*') || Request::is('admin/transaksi-koperasi') ? 'active' : '' }}" href="{{url('admin/transaksi-koperasi')}}">Transaksi Koperasi<span class="d-none">Transaksi Koperasi</span></a></li>
               @endif
             </ul>
           </div>
         </li>
-        @endif
         @endif
 
 
