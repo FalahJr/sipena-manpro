@@ -92,7 +92,8 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 1,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
               {
                  targets: 2,
@@ -108,7 +109,8 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 5,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
             ],
         "columns": [
@@ -134,18 +136,18 @@ var table = $('#table-data').DataTable({
       contentType: false,
       cache: false,
       success:function(data){
-        console.log(data);
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: data.message,
           });
           reloadall();
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data failed to save!, Check your data and connection!',
+              message: data.message,
           });
+          reloadall();
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
@@ -193,7 +195,6 @@ var table = $('#table-data').DataTable({
     // end aksi ajax jika tombol edit di klik
 
     function showcreate() {
-      $('.table_modal :input').val("");
       $('.image-holder').empty();
       $('.role').val('').change();
       $('.gender').val('').change();
@@ -203,8 +204,6 @@ var table = $('#table-data').DataTable({
     }
 
     function reloadall() {
-      $('.table_modal :input').val("");
-      $('.image-holder').empty();
       $('#tambah').modal('hide');
       $('.role').val('').change();
       $('.gender').val('').change();

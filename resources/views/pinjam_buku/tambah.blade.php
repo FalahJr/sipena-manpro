@@ -14,6 +14,7 @@
             <div class="alert alert-warning" role="alert">
               1. Maksimal peminjaman 3 buku
             </div>
+            @if (Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty())
             <tr>
               <td>Peminjam<span style="color:red;">*</span></td>
               <td>
@@ -28,6 +29,7 @@
                   </select>
               </td>
             </tr>
+            @endif
           <tr>
             <td>Pinjaman Buku<span style="color:red;">*</span></td>
             <td>
@@ -48,7 +50,7 @@
               <input type="date" class="form-control form-control-sm inputDate inputtext tanggal_peminjaman" name="tanggal_peminjaman">
             </td>
           </tr>
-
+          @if (Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty())
           <tr>
             <td>Dikonfirmasi Pegawai <span style="color:red;">*</span></td>
             <td>
@@ -62,6 +64,7 @@
                 </select>
             </td>
           </tr>
+          @endif
 
           </table>
         </div>

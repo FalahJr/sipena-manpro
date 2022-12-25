@@ -37,8 +37,15 @@ class SumbangBukuController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('perpus_sumbang')
+
+    $full = DB::table('perpus_sumbang')
       ->get();
+
+    $byId = DB::table('perpus_sumbang')
+      ->where("user_id",Auth::user()->id)
+      ->get();
+
+    $data = Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? $full : $byId;
 
     // return $data;
     // $xyzab = collect($data);
@@ -70,8 +77,12 @@ class SumbangBukuController extends Controller
         $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
         return $employee;
       }else{
-        return '<span class="badge badge-warning">'.
-        'PROSES</span>';
+        $pegawai = DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y")->first();
+      if($pegawai){
+        return '<a href="' . url('admin/sumbang-buku/acc?pegawai_id='.$pegawai->id.'&id='.$data->id). '" class="badge badge-warning p-2 badge-lg">ACC Sekarang</a>';
+      }else{
+        return '<span class="badge badge-warning p-2 badge-lg">PROSES</span>';
+      }
         }
       })
       ->rawColumns(['aksi', 'foto','user','kategori','pegawai'])
@@ -96,6 +107,10 @@ class SumbangBukuController extends Controller
           $imgPath = $childPath . $name;
         } else {
             return 'already exist';
+        }
+        if($req->user_id == null && $req->pegawai_id == null){
+          $req->user_id = Auth::user()->id;
+          $req->pegawai_id = null;
         }
 
         if($req->pegawai_id){
@@ -178,7 +193,7 @@ class SumbangBukuController extends Controller
   }
 
 
-  public function accSumbang(Request $req){
+  public function APIaccSumbang(Request $req){
     try{
       if($req->id == null && $req->pegawai_id == null){
         return response()->json(["status" => 2, "message" => "required peprus_sumbang.id and pegawai_id"]);
@@ -211,7 +226,34 @@ class SumbangBukuController extends Controller
         }catch(\Exception $e){
           return response()->json(["status" => 2, "message" => $e->getMessage()]);
         }
+  }
 
+  public function accSumbang(Request $req){
+    try{
+        $data = DB::table('perpus_sumbang')
+        ->whereNull("perpus_sumbang.pegawai_id")
+        ->join("perpus_kategori", "perpus_kategori.id", '=', 'perpus_sumbang.perpus_kategori_id')
+        ->select("perpus_sumbang.*")
+        ->when($req->id, function($q, $id) {
+          return $q->where('perpus_sumbang.id',$id);
+        })
+        ->first();
+        DB::table('perpus_sumbang')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id]);
+        DB::table("perpus_katalog")
+          ->insert([
+            "pegawai_id" => $req->pegawai_id,
+            "perpus_kategori_id" => $data->perpus_kategori_id,
+            "foto" => $data->foto,
+            "judul" => $data->judul,
+            "author" => $data->author,
+            "bahasa" => $data->bahasa,
+            "total_halaman" => $data->total_halaman,
+          ]);
+          Notifikasi::push_notifikasi($data->user_id,"Sumbang Buku","Sumbangan buku anda berhasil di konfirmasi pegawai, buku anda sekarang ada pada katalog perpus");
+          return back()->with(['success' => 'berhasil di acc']);
+        }catch(\Exception $e){
+          return response()->json(["status" => 2, "message" => $e->getMessage()]);
+        }
   }
 
   public function getData(Request $req){

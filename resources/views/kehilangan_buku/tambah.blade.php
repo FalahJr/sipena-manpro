@@ -11,6 +11,7 @@
       <div class="modal-body">
         <div class="row">
           <table class="table table_modal">
+            @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty())
             <tr>
               <td>User<span style="color:red;">*</span></td>
               <td>
@@ -26,6 +27,7 @@
               </td>
             </tr>
           <tr>
+            @endif
             <td>Kehilangan Buku<span style="color:red;">*</span></td>
             <td>
               <select class="form-control multiselect-ui form-control-sm inputtext"  name="perpus_katalog_id">
@@ -39,18 +41,28 @@
                 </select>
             </td>
           </tr>
+          @if(Auth::user()->role_id != 1 && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isEmpty()) 
           <tr>
-            <td>Nominal <span style="color:red;">*</span></td>
+            <td>Saldo anda</td>
             <td>
-              <input type="text" class="form-control form-control-sm inputtext" name="nominal">
+              <input type="text" class="form-control form-control-sm inputtext" readonly value="{{FormatRupiahFront(Auth::user()->saldo)}}">
             </td>
-          </tr>    
+          </tr>  
+          @endif
+          <tr>
+            <td>Nominal</td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext" readonly value="{{FormatRupiahFront("50000")}}">
+            </td>
+          </tr>   
+          @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty()) 
           <tr>
             <td>Tanggal Pembayaran <span style="color:red;">*</span></td>
             <td>
               <input type="date" class="form-control form-control-sm inputtext tanggal_pembayaran" name="tanggal_pembayaran">
             </td>
           </tr> 
+          @endif
           </table>
         </div>
         <div class="modal-footer">

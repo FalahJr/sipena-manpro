@@ -34,7 +34,11 @@ background-color: white !important;
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
+                        @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty())
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button>
+                        @else
+                        <a href="javascript:void(0)" type="button" class="btn btn-info" id="kembalikanBuku"><i class="fa fa-plus"></i>&nbsp;&nbsp;Kembalikan Buku</a>
+                        @endif
                       </div>
                       {{-- @endif --}}
                     </div>
@@ -95,7 +99,8 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 1,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
               {
                  targets: 2,
@@ -119,11 +124,12 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 7,
-                 className: 'center'
+                 className: 'center',
               },
               {
                  targets: 8,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
             ],
         "columns": [
@@ -156,7 +162,7 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: 'Berhasil mengembalikan buku!',
           });
           reloadall();
         }else if(data.status == 2){
@@ -219,6 +225,50 @@ var table = $('#table-data').DataTable({
 
       $('#tambah').modal('show');
     }
+
+   
+    $('#kembalikanBuku').click(function(){
+
+// formdata.append('image', $('.uploadGambar')[0].files[0]);
+var totalDenda = {!!json_encode(DB::table("perpus_peminjaman")->where("user_id",Auth::user()->id)->whereNull("tanggal_dikembalikan")->whereNotNull("pegawai_id")->first())!!}
+
+if(totalDenda == null){
+  totalDenda = null;
+}else{
+  totalDenda = totalDenda.total_denda;
+}
+var userId = {{Auth::user()->id}};
+
+$.ajax({
+  type: "post",
+  url: '/admin/kembalikanBuku?_token='+"{{csrf_token()}}&user_id="+userId+"&total_denda="+totalDenda,
+  processData: false, //important
+  contentType: false,
+  method: "POST",
+  cache: false,
+  success:function(data){
+    if (data.status == 1) {
+      iziToast.success({
+          icon: 'fa fa-save',
+          message: data.message,
+      });
+      reloadall();
+    }else if(data.status == 2){
+      iziToast.warning({
+          icon: 'fa fa-info',
+          message: data.message,
+      });
+    } else if (data.status == 7) {
+      iziToast.warning({
+          icon: 'fa fa-info',
+          message: data.message,
+      });
+    }
+
+  }
+});
+})
+
 
     function reloadall() {
       $('.table_modal :input').val("");
