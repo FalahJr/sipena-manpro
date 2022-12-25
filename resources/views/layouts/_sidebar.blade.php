@@ -322,19 +322,20 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
 
         <li class="nav-item {{( ( Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis')) ? ' show' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#osis" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">OSIS</span>
+            <span class="menu-title">Kelola OSIS</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-library menu-icon"></i>
           </a>
           <div class="collapse {{( ( Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis')) ? ' show' : '' ) }}" id="osis">
             <ul class="nav flex-column sub-menu">
-        @if(Auth::user()->role_id == 4 || Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || DB::table("ekstrakulikuler")->where("guru_id",DB::table("guru")->where("user_id",Auth::user()->id)->first()->id)->where("nama","osis")->get()->isNotEmpty())
+        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') ? 'active' : '' }}" href="{{url('admin/anggota-osis')}}">Anggota OSIS<span class="d-none">Anggota OSIS</span></a></li>
 
               @endif
 
-        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 4 ||  DB::table("siswa")->where("user_id",Auth::user()->id)->where("is_osis","Y")->get()->isNotEmpty())
+        @if( Auth::user()->role_id == 1)
+
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis') ? 'active' : '' }}" href="{{url('admin/kegiatan-osis')}}">Kegiatan Osis<span class="d-none">Kegiatan Osis</span></a></li>
               @endif
             </ul>
@@ -374,7 +375,9 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
         </li>
         @endif
 
-        @if(Auth::user()->role_id == 1 || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_mapel","Y")->get()->isNotEmpty() || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_walikelas","Y")->get()->isNotEmpty())
+        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 7 || Auth::user()->role_id == 3 || Auth::user()->role_id == 4 )
+        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty())
+
         <li class="nav-item {{Request::is('admin/nilai-pembelajaran') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/nilai-pembelajaran')}}">
             <span class="menu-title">Pembelajaran Siswa</span>
@@ -382,6 +385,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
             <i class="mdi mdi-library-books menu-icon"></i>
           </a>
         </li>
+        @endif
         @endif
 
         @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4)
@@ -395,7 +399,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
           </a>
           <div class="collapse {{( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ||  Request::is('admin/withdraw/*') || Request::is('admin/withdraw') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' show' : '' ) }}" id="kantin">
             <ul class="nav flex-column sub-menu">
-              @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1) 
+              @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1)
               @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","N")->get()->isEmpty())
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/withdraw/*') || Request::is('admin/withdraw') ? 'active' : '' }}" href="{{url('admin/withdraw')}}">Penarikan Dana<span class="d-none">Penarikan Dana</span></a></li>
               @endif
@@ -469,7 +473,8 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
           <div class="collapse {{( ( Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') || Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ) ? ' show' : '' ) }}" id="keuangan">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') ? 'active' : '' }}" href="{{url('admin/data-keuangan')}}">Data Keuangan<span class="d-none">Data Keuangan</span></a></li>
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isNotEmpty() || Auth::user()->role_id == 1 )
+
+        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isEmpty() || Auth::user()->role_id == 1)
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ? 'active' : '' }}" href="{{url('admin/kategori-keuangan')}}">Kategori Keuangan<span class="d-none">Kategori Keuangan</span></a></li>
               @endif
