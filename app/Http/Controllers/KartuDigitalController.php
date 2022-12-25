@@ -22,12 +22,38 @@ use Yajra\Datatables\Datatables;
 
 class KartuDigitalController extends Controller
 {
-    public static function getKartuDigital()
+    public static function getKartuDigital($iduser = null)
     {
+      if($iduser == null) {
+
         $data = DB::table("siswa")
             ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
             ->select("siswa.*", "kelas.*", "siswa.id as id", "kelas.id as kelasid", "siswa.tanggal_daftar as linkGenerate")
             ->get()->toArray();
+          } else {
+
+          if(Auth::user()->role_id == 2) {
+
+            $data = DB::table("siswa")
+            ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+            ->join("user", "user.id", '=', 'siswa.user_id')
+            ->select("siswa.*", "kelas.*", "siswa.id as id", "kelas.id as kelasid", "siswa.tanggal_daftar as linkGenerate")
+            ->where("user_id", $iduser)
+            ->get()->toArray();
+          }else if(Auth::user()->role_id == 3){
+            $walimurid = DB::table("wali_murid")->where('user_id', $iduser)->first();
+
+          // $cekdata2 = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->first();
+            $data = DB::table("siswa")
+            ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+            ->join("user", "user.id", '=', 'siswa.user_id')
+            ->select("siswa.*", "kelas.*", "siswa.id as id", "kelas.id as kelasid", "siswa.tanggal_daftar as linkGenerate")
+            ->where("wali_murid_id", $walimurid->id)
+            ->get()->toArray();
+          }
+
+
+          }
 
         foreach ($data as $key => $value) {
           $value->linkGenerate = url('/generatekartudigital?id=') . $value->id;
@@ -46,8 +72,11 @@ class KartuDigitalController extends Controller
       return view('kartu_digital.index');
     }
 
-    public function datatable() {
-      $data = KartuDigitalController::getKartuDigital();
+    public function indexsaya() {
+      return view('kartu_digitalsaya.index');
+    }
+    public function datatable(Request $req) {
+      $data = KartuDigitalController::getKartuDigital($req->id);
 
         return Datatables::of($data)
           ->addColumn('aksi', function ($data) {

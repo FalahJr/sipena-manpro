@@ -21,7 +21,10 @@
                   <div class="card-body">
                     <h4 class="card-title">Mutasi Siswa</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 15px;text-align:right">
-                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                    @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 1)
+
+                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button>
+                      @endif
                     </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
@@ -82,7 +85,9 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 3,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || Auth::user()->role_id == 3 ? true : false)}}
+
               },
             ],
         "columns": [

@@ -183,18 +183,18 @@ $.ajax({
     }else if(data.status == 2){
       iziToast.warning({
           icon: 'fa fa-info',
-          message: 'Data failed to save!, Check your data and connection!',
+          message: 'Data gagal disimpan , silahkan cek koneksi internet anda!',
       });
     }else if (data.status == 3){
       iziToast.success({
           icon: 'fa fa-save',
-          message: 'Data Modified Successfully!',
+          message: 'Data Sukses di perbarui!',
       });
       reloadall();
     }else if (data.status == 4){
       iziToast.warning({
           icon: 'fa fa-info',
-          message: 'Data Failed to Change!',
+          message: 'Data gagal di perbarui!!',
       });
     } else if (data.status == 7) {
       iziToast.warning({

@@ -151,13 +151,13 @@ var table = $('#table-data').DataTable({
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Modified Successfully!',
+              message: 'Data Sukses di perbarui!',
           });
           reloadall();
         }else if (data.status == 4){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Failed to Change!',
+              message: 'Data gagal di perbarui!!',
           });
         } else if (data.status == 7) {
           iziToast.warning({
