@@ -163,6 +163,9 @@ Route::middleware('api')->group(function () {
     //List siswa by id
     Route::get('/listsiswabykelas', 'SiswaController@getSiswaByKelas');
 
+    //List siswa by walimurid
+    Route::get('/listsiswabywalimurid', 'SiswaController@getSiswaByWalimurid');
+
     //getpembinaosis
     Route::get('/pembina-osis', 'EkstrakulikulerController@getPembina');
 

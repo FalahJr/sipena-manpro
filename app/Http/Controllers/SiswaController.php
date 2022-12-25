@@ -39,11 +39,18 @@ class SiswaController extends Controller
     return response()->json($siswa);
   }
 
+  public function getSiswaByWalimurid(Request $req)
+  {
+    $siswa = DB::table('siswa')->where("wali_murid_id", $req->walimurid_id)->get();
+
+    return response()->json($siswa);
+  }
+
   public function osisindex()
   {
     // $classes = DB::table('kelas')->get();
-    // $studentGuardians = DB::table('wali_murid')->get(); 
-    $students = DB::table('siswa')->join("user","user.id","=","siswa.user_id")->select("siswa.*","user.is_active")->where("user.is_active","Y")->whereNull("tanggal_daftar_osis")->get(); 
+    // $studentGuardians = DB::table('wali_murid')->get();
+    $students = DB::table('siswa')->join("user","user.id","=","siswa.user_id")->select("siswa.*","user.is_active")->where("user.is_active","Y")->whereNull("tanggal_daftar_osis")->get();
     return view('anggota-osis.index',compact('students'));
   }
 
