@@ -50,7 +50,7 @@
             </td>
           </tr>
           <tr>
-            <td>Image</td>
+            <td>Foto</td>
             <br>
             <img src="{{asset($data->foto)}}" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive">
             <td>

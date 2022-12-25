@@ -57,7 +57,7 @@ class BeritaSekolahController extends Controller
         '<label class="fa fa-trash"></label></a>' .
         '<a href="javascript:void(0)" data-id="'.$data->id.'" class="showDetail btn btn-secondary btn-lg" title="detail berita"><label class="fa fa-eye"></label></a>'.
         '</div>';
-        return Auth::user()->role_id == 1 ? $full : $showBerita;
+        return Auth::user()->role_id == 1 || DB::table('siswa')->where("user_id",Auth::user()->id)->where("is_osis","Y")->get()->isNotEmpty() ? $full : $showBerita;
 
       })->addColumn('foto', function ($data) {
         $url= asset($data->foto);
