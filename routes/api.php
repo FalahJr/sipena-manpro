@@ -178,4 +178,10 @@ Route::middleware('api')->group(function () {
     //List Siswa
     Route::get('/listsiswa', 'SiswaController@getSiswa');
 
+    //List Guru
+    Route::get('/listguru', 'SiswaController@getGuru');
+
+    //List Pegawai
+    Route::get('/listpegawai', 'SiswaController@getPegawai');
+
 });

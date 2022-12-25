@@ -29,6 +29,13 @@ class GuruController extends Controller
     return view('guru.index');
   }
 
+  public function getGuru() {
+    $data = DB::table('guru')
+        ->get();
+
+    return response()->json($data);
+  }
+
   public function datatable()
   {
     $data = DB::table('guru')
@@ -72,7 +79,7 @@ class GuruController extends Controller
 //       DB::transaction(function()
 // {
     // DB::table('users')->update(['votes' => 1]);
- 
+
     // DB::table('posts')->delete();
       try {
 
@@ -135,7 +142,7 @@ class GuruController extends Controller
         }
           DB::commit();
 
-        
+
 
         // }
         return response()->json(["status" => 1]);
@@ -147,7 +154,7 @@ class GuruController extends Controller
 
 
     }
-     else 
+     else
      {
       if (!$this->cekemail($req->username, $req->id)) {
         return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
@@ -240,9 +247,9 @@ class GuruController extends Controller
         }
 
         // $tes = DB::commit();
-        
+
           DB::commit();
-        
+
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
         DB::rollback();
@@ -273,7 +280,7 @@ class GuruController extends Controller
     $data = DB::table("guru")->where("id", $id)->first();
     // dd($data);
     return view("guru.edit", compact('data'));
-    
+
   }
 
   public function update(Request $request)
@@ -315,7 +322,7 @@ class GuruController extends Controller
         return 'already exist';
       }
       $newData += ["profil_picture"=>$imgPath];
-      // DB::table("siswa")->where('id',$req->id)->update($newData); 
+      // DB::table("siswa")->where('id',$req->id)->update($newData);
     $data = DB::table("guru")->where('id',$request->id)->update($newData);
 
     }else{
@@ -328,7 +335,7 @@ class GuruController extends Controller
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-    
+
   }
 
   public static function cekemail($username, $id = null)
