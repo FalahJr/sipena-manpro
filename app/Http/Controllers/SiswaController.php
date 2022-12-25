@@ -319,6 +319,18 @@ public function osisdatatable()
       return response()->json(["status" => 2,"message"=>"masukkan id siswa"]);
     }
   }
+
+  public function daftarOsis(Request $req){
+    if($req->id){
+      $siswa = DB::table("siswa")->where("id",$req->id)->update(["tanggal_daftar_osis"=>date("Y-m-d")]);
+      
+    return back()->with(['success' => 'berhasil mendaftar osis, tunggu acc']);
+    }else{
+      
+    return back()->with(['success' => 'Gagal']);
+    }
+  }
+
   public function simpan(Request $req)
   {
       if (!$this->cekemail($req->username)) {

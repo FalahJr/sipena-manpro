@@ -36,6 +36,7 @@
                 <input type="date" class="form-control form-control-sm inputtext tanggal" name="tanggal">
               </td>
             </tr>
+            @if(!DB::table("siswa")->where("user_id",Auth::user()->id)->where("is_osis","Y")->get()->isNotEmpty())
             <tr>
               <td>Pelaksana<span style="color:red;">*</span></td>
               <td>
@@ -50,6 +51,7 @@
                   </select>
               </td>
             </tr>
+            @endif
           </table>
         </div>
         <div class="modal-footer">

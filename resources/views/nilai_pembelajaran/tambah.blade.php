@@ -39,6 +39,14 @@
                   </select>
               </td>
             </tr>
+            @if (DB::table("guru")->where("user_id",Auth::user()->id)->where("is_mapel","Y")->get()->isNotEmpty())
+            <tr>
+              <td>Mata Pelajaran</td>
+              <td>
+              <input type="text" class="form-control form-control-sm inputtext mapel_id" name="mapel_id" readonly value="{{ DB::table("mapel")->where("guru_id",DB::table("guru")->where("user_id",Auth::user()->id)->first()->id)->first()->nama }}">
+            </td>
+           </tr>
+            @else
             <tr>
               <td>Mata Pelajaran <span style="color:red;">*</span></td>
               <td>
@@ -53,6 +61,7 @@
                   </select>
               </td>
             </tr>
+            @endif
             <tr>
               <td>Semester <span style="color:red;">*</span></td>
               <td>

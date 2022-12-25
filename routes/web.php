@@ -71,6 +71,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/calon-osis', 'SiswaController@calonosisindex');
         Route::get('/calon-osis/table', 'SiswaController@calonosisdatatable');
         Route::get('/calon-osis/acc/{id}', 'SiswaController@accPermintaan');
+        Route::get('/calon-osis/daftar', 'SiswaController@daftarOsis');
+
         //Pegawai
         Route::get('/pegawai', 'PegawaiController@index');
         Route::post('/pegawai/simpan', 'PegawaiController@simpan');
@@ -289,6 +291,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/nilai-pembelajaran/hapus/{id}', 'NilaiPembelajaranController@hapus');
         Route::get('/nilai-pembelajaran/edit/{id}', 'NilaiPembelajaranController@edit');
         Route::get('/nilai-pembelajaran/{tipe}', 'NilaiPembelajaranController@accOrUnacc');
+        Route::get('/nilai-pembelajaran/cetak/raport', 'NilaiPembelajaranController@accNilai');
 
         //Kartu Figital
         Route::get('/kartudigital', 'KartuDigitalController@index');

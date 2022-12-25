@@ -77,6 +77,9 @@ class KegiatanOsisController extends Controller
   public function simpan(Request $req)
   {
       try {
+        if(!$req->pelaksana){
+          $req->pelaksana=DB::table("siswa")->where("user_id",Auth::user()->id)->first()->nama_lengkap;
+        }
         DB::table("kegiatan_osis")
         ->insert([
           "kegiatan" => $req->kegiatan,

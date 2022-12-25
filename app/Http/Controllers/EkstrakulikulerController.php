@@ -151,7 +151,7 @@ class EkstrakulikulerController extends Controller
 
   public function getPembina(Request $req){
     try{
-      $data = DB::table("ekstrakulikuler")->where("guru_id",2)->where("nama","osis")->get();
+      $data = DB::table("ekstrakulikuler")->where("guru_id",$req->guru_id)->where("nama","osis")->get();
       if($data->isNotEmpty()){
         return response()->json(['status' => 1, 'data'=>true]);
       }else{
