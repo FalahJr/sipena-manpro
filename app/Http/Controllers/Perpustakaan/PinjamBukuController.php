@@ -34,10 +34,14 @@ class PinjamBukuController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('perpus_peminjaman')->where("is_kembali","N")
+    $byId = DB::table('perpus_peminjaman')->where("is_kembali","N")
+      ->where("user_id",Auth::user()->id)
       ->get();
 
+    $full = DB::table('perpus_peminjaman')->where("is_kembali","N")
+      ->get();
 
+    $data = Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? $full : $byId;
     // return $data;
     // $xyzab = collect($data);
     // return $xyzab;
@@ -64,15 +68,19 @@ class PinjamBukuController extends Controller
         return $urlBook;
 
       })
-      ->addColumn('pegawai_id', function ($data) {
-        if($data->pegawai_id){
-        $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
-        return $employee;
+    ->addColumn('pegawai_id', function ($data) {
+    if($data->pegawai_id){
+      $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
+      return $employee;
+    }else{
+      $pegawai = DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y")->first();
+      if($pegawai){
+        return '<a href="' . url('admin/pinjam-buku/acc?pegawai_id='.$pegawai->id.'&id='.$data->id). '" class="badge badge-warning p-2 badge-lg">ACC Sekarang</a>';
       }else{
-        return '<span class="badge badge-warning">'.
-        'PROSES</span>';
-        }
-      })
+        return '<span class="badge badge-warning p-2 badge-lg">PROSES</span>';
+      }
+    }
+    })
       ->addColumn('user', function ($data) {
         $pegawai = DB::table("user")->where("id", $data->user_id)->first();
         return $pegawai->username;
@@ -90,6 +98,10 @@ class PinjamBukuController extends Controller
   public function simpan(Request $req)
   {
       try {   
+        if($req->user_id == null && $req->pegawai_id == null){
+          $req->user_id = Auth::user()->id;
+          $req->pegawai_id = null;
+        }
         $this->validate($req,[
           'perpus_katalog_id' => 'required|max:3',
         ]);
@@ -270,7 +282,7 @@ class PinjamBukuController extends Controller
     }
   }
 
-  public function accPinjam(Request $req){
+  public function APIaccPinjam(Request $req){
     try{
       if($req->id == null && $req->pegawai_id == null){
         return response()->json(["status" => 2, "message" => "required peprus_sumbang.id and pegawai_id"]);
@@ -287,7 +299,20 @@ class PinjamBukuController extends Controller
         }catch(\Exception $e){
           return response()->json(["status" => 2, "message" => $e->getMessage()]);
         }
+  }
 
+  public function accPinjam(Request $req){
+    try{
+        $data = DB::table('perpus_peminjaman')
+        ->where("id",$req->id)->first();
+        if($data){
+          DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"N","is_acc"=>"Y"]);
+          Notifikasi::push_notifikasi($data->user_id,"Pinjam Buku","Peminjaman buku berhasil di konfirmasi kamu bisa pergi ke perpus untuk pinjam buku");
+          return back()->with(['success' => 'berhasil di acc']);
+        }
+        }catch(\Exception $e){
+          return response()->json(["status" => 2, "message" => $e->getMessage()]);
+        }
   }
 
   public function delete($id){

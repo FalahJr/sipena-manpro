@@ -92,7 +92,8 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 1,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
               {
                  targets: 2,
@@ -112,7 +113,7 @@ var table = $('#table-data').DataTable({
               },{
                  targets: 6,
                  className: 'center',
-                //  visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
             ],
         "columns": [
@@ -143,7 +144,7 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: 'Berhasil memminjam buku!',
           });
           reloadall();
         }else if(data.status == 2){

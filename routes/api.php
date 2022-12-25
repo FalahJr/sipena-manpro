@@ -107,14 +107,14 @@ Route::middleware('api')->group(function () {
     Route::get('/pinjam-buku', 'Perpustakaan\PinjamBukuController@getData');
     Route::get('/kembali-buku', 'Perpustakaan\KembaliBukuController@getData');
     Route::post('/kembali-buku', 'Perpustakaan\KembaliBukuController@insertData');
-    Route::get('/kembali-buku/acc', 'Perpustakaan\KembaliBukuController@accKembali');
-    Route::get('/pinjam-buku/acc', 'Perpustakaan\PinjamBukuController@accPinjam');
+    Route::get('/kembali-buku/acc', 'Perpustakaan\KembaliBukuController@APIaccKembali');
+    Route::get('/pinjam-buku/acc', 'Perpustakaan\PinjamBukuController@APIaccPinjam');
     Route::delete('/pinjam-buku/{id}', 'Perpustakaan\PinjamBukuController@delete');
     Route::post('/sumbang-buku', 'Perpustakaan\SumbangBukuController@simpan');
     Route::post('/katalog-buku', 'Perpustakaan\KatalogBukuController@insertOrUpdate');
     Route::delete('/sumbang-buku/{id}', 'Perpustakaan\SumbangBukuController@delete');
     Route::delete('/katalog-buku/{id}', 'Perpustakaan\KatalogBukuController@delete');
-    Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@accSumbang');
+    Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@APIaccSumbang');
     Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@getData');
     Route::post('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@APIinsertData');
 
@@ -168,5 +168,8 @@ Route::middleware('api')->group(function () {
 
     //set Nilai Rata
     Route::get('/nilai-pembelajaran/set-rata', 'NilaiPembelajaranController@setRata');
+
+    //koperasi
+    Route::get('/saldo-koperasi', 'Koperasi\ListController@countSaldo');
 
 });

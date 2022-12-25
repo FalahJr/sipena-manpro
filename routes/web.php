@@ -186,6 +186,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/katalog-buku/hapus/{id}', 'Perpustakaan\KatalogBukuController@hapus');
         Route::post('/katalog-buku/update', 'Perpustakaan\KatalogBukuController@update');
         Route::get('/katalog-buku/edit/{id}', 'Perpustakaan\KatalogBukuController@edit');
+        Route::get('/kembali-buku/acc', 'Perpustakaan\KembaliBukuController@accKembali');
+        Route::get('/pinjam-buku/acc', 'Perpustakaan\PinjamBukuController@accPinjam');
 
         Route::get('/kategori-buku', 'Perpustakaan\KategoriBukuController@index');
         Route::get('/kategori-buku/table', 'Perpustakaan\KategoriBukuController@datatable');
@@ -209,6 +211,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/kembali-buku/simpan', 'Perpustakaan\KembaliBukuController@simpan');
         Route::get('/kembali-buku/hapus/{id}', 'Perpustakaan\KembaliBukuController@hapus');
         Route::get('/kembali-buku/edit/{id}', 'Perpustakaan\KembaliBukuController@edit');
+        Route::post('/kembalikanBuku', 'Perpustakaan\KembaliBukuController@insertData');
 
         Route::get('/sumbang-buku', 'Perpustakaan\SumbangBukuController@index');
         Route::get('/sumbang-buku/table', 'Perpustakaan\SumbangBukuController@datatable');
@@ -217,6 +220,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/sumbang-buku/simpan', 'Perpustakaan\SumbangBukuController@simpan');
         Route::get('/sumbang-buku/hapus/{id}', 'Perpustakaan\SumbangBukuController@hapus');
         Route::get('/sumbang-buku/edit/{id}', 'Perpustakaan\SumbangBukuController@edit');
+        Route::get('/sumbang-buku/acc', 'Perpustakaan\SumbangBukuController@accSumbang');
 
         Route::get('/kehilangan-buku', 'Perpustakaan\KehilanganBukuController@index');
         Route::get('/kehilangan-buku/table', 'Perpustakaan\KehilanganBukuController@datatable');

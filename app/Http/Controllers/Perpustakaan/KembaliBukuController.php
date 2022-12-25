@@ -35,21 +35,22 @@ class KembaliBukuController extends Controller
     ->get();
     $employees = DB::table("pegawai")->where("is_perpus","Y")->get();
     return view('kembali_buku.index', compact('users','employees'));
+
   }
 
   public function datatable()
   {
-    $data = DB::table('perpus_peminjaman')->where("is_kembali","Y")
+    $full = DB::table('perpus_peminjaman')->whereNotNull("tanggal_dikembalikan")
       ->get();
-
+    $byId = DB::table('perpus_peminjaman')->where("user_id",Auth::user()->id)
+      ->whereNotNull("tanggal_dikembalikan")
+      ->get();
+    $data = Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? $full : $byId;
     // return $data;
     // $xyzab = collect($data);
     // return $xyzab;
     // return $xyzab->i_price;
-    return Datatables::of($data)
-    //   ->addColumn("image", function ($data) {
-    //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
-    //   })
+      return Datatables::of($data)
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
           '<a href="kembali-buku/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
@@ -68,20 +69,26 @@ class KembaliBukuController extends Controller
         return $urlBook;
 
       })->addColumn('pegawai_id', function ($data) {
-        if($data->pegawai_id){
+        if($data->is_kembali == "Y"){
         $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
         return $employee;
       }else{
-        return '<span class="badge badge-warning">'.
-        'PROSES</span>';
+        $pegawai = DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y")->first();
+        if($pegawai){
+          return '<a href="' . url('admin/kembali-buku/acc?pegawai_id='.$pegawai->id.'&id='.$data->id). '" class="badge badge-warning p-2 badge-lg">ACC Sekarang</a>';
+        }else{
+          return '<span class="badge badge-warning p-2 badge-lg">PROSES</span>';
         }
-      })->addColumn('user', function ($data) {
+      }
+      })
+      ->addColumn('user', function ($data) {
         $user = DB::table("user")->where("id", $data->user_id)->first();
         return $user->username;
       })
       ->rawColumns(['aksi', 'buku','pegawai_id','user'])
       ->addIndexColumn()
       ->make(true);
+ 
   }
 
   public function show($id){
@@ -247,7 +254,20 @@ class KembaliBukuController extends Controller
 
   public function insertData(Request $req){
     try{
+      if($req->total_denda == 'null'){
+        return response()->json(["status" => 2, "message" => "tidak ada peminjaman buku"]);
+      }
       if($req->total_denda>0){
+        $peminjaman = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->whereNull('tanggal_dikembalikan')->first();
+
+        $perpus_katalog = DB::table("perpus_peminjaman_katalog")
+        ->where('perpus_peminjaman_id',$peminjaman->id)
+        ->get();
+    
+        foreach($perpus_katalog as $katalog){
+          DB::table("perpus_katalog")->where('id',$katalog->perpus_katalog_id)->increment('stok_buku',1);
+        }
+
         $user = DB::table("user")->where("id",$req->user_id);
         $sisaSaldo = $user->first()->saldo - $req->total_denda;
         if($sisaSaldo<=0){
@@ -265,6 +285,16 @@ class KembaliBukuController extends Controller
         ->update(["total_denda"=>$req->total_denda,"is_lunas"=>"Y","tanggal_dikembalikan"=>date("Y-m-d")]);
         }
       }else{
+        $peminjaman = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->whereNull('tanggal_dikembalikan')->first();
+
+        $perpus_katalog = DB::table("perpus_peminjaman_katalog")
+        ->where('perpus_peminjaman_id',$peminjaman->id)
+        ->get();
+    
+        foreach($perpus_katalog as $katalog){
+          DB::table("perpus_katalog")->where('id',$katalog->perpus_katalog_id)->increment('stok_buku',1);
+        }
+
         $user = DB::table("user")->where("id",$req->user_id);
         $sisaSaldo = $user->first()->saldo - $req->total_denda;
         if($sisaSaldo<=0){
@@ -294,7 +324,7 @@ class KembaliBukuController extends Controller
     }
   }
 
-  public function accKembali(Request $req){
+  public function APIaccKembali(Request $req){
     try{
       if($req->id == null && $req->pegawai_id == null){
         return response()->json(["status" => 2, "message" => "required peprus_sumbang.id and pegawai_id"]);
@@ -311,7 +341,20 @@ class KembaliBukuController extends Controller
         }catch(\Exception $e){
           return response()->json(["status" => 2, "message" => $e->getMessage()]);
         }
+  }
 
+  public function accKembali(Request $req){
+    try{
+        $data = DB::table('perpus_peminjaman')
+        ->where("id",$req->id)->first();
+        if($data){
+          DB::table('perpus_peminjaman')->where("id",$req->id)->update(["pegawai_id"=>$req->pegawai_id,"is_kembali"=>"Y","is_acc"=>"Y"]);
+          
+          return back()->with(['success' => 'berhasil di acc']);
+        }
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
   }
 
   public function hapus($id)

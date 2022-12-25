@@ -126,6 +126,16 @@ class ListController extends Controller
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }
   }
+  
+  public function countSaldo(){
+    $data = DB::table("koperasi")->first();
+    if($data){
+      return response()->json(["status" => 1, "data" => $data->saldo]);
+    }else{
+      return response()->json(["status" => 2, "message" => "koperasi tidak ditemukan"]);
+    }
+  }
+
   public function delete($id){
     try{
       $data = DB::table("koperasi_list")

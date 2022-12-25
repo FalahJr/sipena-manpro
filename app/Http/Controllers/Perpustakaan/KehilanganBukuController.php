@@ -58,6 +58,9 @@ class KehilanganBukuController extends Controller
         $urlBook = '<a href="javascript:void(0)" data-id="'.$katalog->id.'" class="showBook" title="show">' . $katalog->judul .'</a><br>';
         return  $urlBook;
       })
+      ->addColumn('nominal', function ($data) {
+        return FormatRupiahFront($data->nominal);
+      })
       ->addColumn('user', function ($data) {
         $user = DB::table("user")->where("id", $data->user_id)->first();
         return $user->username;
@@ -66,7 +69,7 @@ class KehilanganBukuController extends Controller
         // $user =+ DB::table("siswa")->where("id", $data->user_id)->first()->nama_lengkap;
 
       })
-      ->rawColumns(['aksi', 'buku','user'])
+      ->rawColumns(['aksi', 'buku','user','nominal'])
       ->addIndexColumn()
       ->make(true);
   }
@@ -77,8 +80,26 @@ class KehilanganBukuController extends Controller
   }
 
   public function simpan(Request $req)
-  {
+  {        
+    $this->validate($req,[
+          'perpus_katalog_id' => 'required|max:3',
+    ]);
       try {
+        
+        if($req->user_id == null){
+          $req->user_id = Auth::user()->id;
+          $req->tanggal_pembayaran = date("Y-m-d");
+        }
+        $req->nominal = 50000;
+        $user = DB::table("user")->where("id",$req->user_id);
+        $sisaSaldo = $user->first()->saldo - $req->nominal;
+        if($sisaSaldo<=0){
+          return response()->json(["status" => 2, "message" => "saldo anda kurang"]);
+        }else{
+          $user->update(["saldo"=>$sisaSaldo]);
+          $perpus = DB::table("perpustakaan");
+          $saldoPerpus = $perpus->first()->saldo + $req->nominal;
+          $perpus->update(['saldo'=>$saldoPerpus]);
         DB::table("perpus_kehilangan")
           ->insert([
             "user_id" => $req->user_id,
@@ -89,7 +110,9 @@ class KehilanganBukuController extends Controller
           DB::table('perpus_katalog')->where('id',$req->perpus_katalog_id)->decrement("stok_buku",1);
           DB::commit();
 
-        return response()->json(["status" => 1]);
+
+          return response()->json(["status" => 1, "message" => "berhasil membayar kehilangan buku"]);
+        }
       } catch (\Exception $e) {
         DB::rollback();
         return response()->json(["status" => 7, "message" => "error ".$e]);

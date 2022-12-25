@@ -95,7 +95,8 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 2,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               },
               {
                  targets: 3,
@@ -114,7 +115,16 @@ var table = $('#table-data').DataTable({
                  className: 'center'
               },{
                  targets: 7,
+                 className: 'center',
+              },
+              {
+                 targets: 8,
                  className: 'center'
+              },
+              {
+                 targets: 9,
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? true : false )}}
               }
             ],
         "columns": [
@@ -148,7 +158,7 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: 'Berhasil menyumbang buku!',
           });
           reloadall();
         }else if(data.status == 2){
