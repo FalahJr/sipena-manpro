@@ -41,8 +41,8 @@
           </table>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" id="simpanforgot" type="button">Process</button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" id="simpanforgot" type="button">Simpan</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
         </div>
       </div>
       </div>

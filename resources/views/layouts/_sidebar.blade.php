@@ -269,13 +269,13 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
         @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5)
         @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty())
 
-        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') || Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah') ? ' active' : '' || Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya') ? ' active' : '' || Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? ' active' : '' )) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') || Request::is('admin/absensiguru/*') || Request::is('admin/absensiguru') || Request::is('admin/absensipegawai/*') || Request::is('admin/absensipegawai') || Request::is('admin/absensikepalasekolah/*') || Request::is('admin/absensikepalasekolah')  || Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya')  || Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? ' active' : '' )) }}">
           <a class="nav-link" data-toggle="collapse" href="#absensi" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Absensi</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
-          <div class="collapse {{((Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ? ' show' : '' || Request::is('admin/absensigurusaya/*') || Request::is('admin/absensigurusaya') ? ' show' : '' || Request::is('admin/absensikepalasekolahsaya/*') || Request::is('admin/absensikepalasekolahsaya') ? ' show' : '' ))}}" id="absensi">
+          <div class="collapse {{((Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital')  || Request::is('admin/absensigurusaya/*') || Request::is('admin/absensigurusaya')  || Request::is('admin/absensikepalasekolahsaya/*') || Request::is('admin/absensikepalasekolahsaya') ? ' show' : '' ))}}" id="absensi">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? 'active' : '' }}" href="{{url('admin/absensisiswasaya')}}">Absensi Siswa Saya<span class="d-none">Absensi Siswa Saya</span></a></li>
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
@@ -478,7 +478,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
           <div class="collapse {{( ( Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') || Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ) ? ' show' : '' ) }}" id="keuangan">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/data-keuangan/*') || Request::is('admin/data-keuangan') ? 'active' : '' }}" href="{{url('admin/data-keuangan')}}">Data Keuangan<span class="d-none">Data Keuangan</span></a></li>
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","N")->get()->isEmpty() && Auth::user()->role_id != 7 && Auth::user()->role_id != 3 && Auth::user()->role_id != 6)
+        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isNotEmpty() || Auth::user()->role_id == 1 )
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kategori-keuangan/*') || Request::is('admin/kategori-keuangan') ? 'active' : '' }}" href="{{url('admin/kategori-keuangan')}}">Kategori Keuangan<span class="d-none">Kategori Keuangan</span></a></li>
               @endif
