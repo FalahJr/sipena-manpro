@@ -34,21 +34,36 @@ class SiswaController extends Controller
 
   public function getSiswaByKelas(Request $req)
   {
-    $siswa = DB::table('siswa')->where("kelas_id", $req->kelas_id)->get();
+    $siswa = DB::table('siswa')
+    ->join('kelas','kelas.id','=','siswa.kelas_id')
+    ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
+    ->join('user','user.id','=','siswa.user_id')
+    ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid","user.is_active")
+    ->where("kelas_id", $req->kelas_id)->get();
 
     return response()->json($siswa);
   }
 
   public function getSiswaByWalimurid(Request $req)
   {
-    $siswa = DB::table('siswa')->where("wali_murid_id", $req->walimurid_id)->get();
+    $siswa = DB::table('siswa')
+    ->join('kelas','kelas.id','=','siswa.kelas_id')
+    ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
+    ->join('user','user.id','=','siswa.user_id')
+    ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid","user.is_active")
+    ->where("wali_murid_id", $req->walimurid_id)->get();
 
     return response()->json($siswa);
   }
 
   public function getSiswa()
   {
-    $siswa = DB::table('siswa')->get();
+    $siswa = DB::table('siswa')
+    ->join('kelas','kelas.id','=','siswa.kelas_id')
+    ->join('wali_murid','wali_murid.id','=','siswa.wali_murid_id')
+    ->join('user','user.id','=','siswa.user_id')
+    ->select("siswa.*","kelas.nama as kelas","wali_murid.nama_lengkap as wali_murid","user.is_active")
+    ->get();
 
     return response()->json($siswa);
   }
@@ -323,10 +338,10 @@ public function osisdatatable()
   public function daftarOsis(Request $req){
     if($req->id){
       $siswa = DB::table("siswa")->where("id",$req->id)->update(["tanggal_daftar_osis"=>date("Y-m-d")]);
-      
+
     return back()->with(['success' => 'berhasil mendaftar osis, tunggu acc']);
     }else{
-      
+
     return back()->with(['success' => 'Gagal']);
     }
   }
