@@ -29,9 +29,15 @@
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
-                        
+                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 4)
                         <a href="{{url('admin/calon-osis')}}" class="btn btn-success">Permintaan Daftar OSIS</a>
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Angota Osis</button>
+                        @endif
+
+                        @if(DB::table("siswa")->where("user_id",Auth::user()->id)->where("is_osis","N")->get()->isNotEmpty())
+                        <a href="{{url('admin/calon-osis/daftar?id='.DB::table("siswa")->where("user_id",Auth::user()->id)->where("is_osis","N")->first()->id)}}" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;&nbsp;Daftar Osis</a>
+                        @endif
+                        
                       </div>
                       {{-- @endif --}}
                     </div>
@@ -109,7 +115,8 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 6,
-                 className: 'center'
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || Auth::user()->role_id == 4 ? true : false )}}
               }
             ],
         "columns": [

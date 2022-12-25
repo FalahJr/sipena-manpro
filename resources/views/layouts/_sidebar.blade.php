@@ -320,20 +320,19 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
 
         <li class="nav-item {{( ( Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis')) ? ' show' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#osis" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">Kelola OSIS</span>
+            <span class="menu-title">OSIS</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-library menu-icon"></i>
           </a>
           <div class="collapse {{( ( Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis')) ? ' show' : '' ) }}" id="osis">
             <ul class="nav flex-column sub-menu">
-        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
+        @if(Auth::user()->role_id == 4 || Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || DB::table("ekstrakulikuler")->where("guru_id",DB::table("guru")->where("user_id",Auth::user()->id)->first()->id)->where("nama","osis")->get()->isNotEmpty())
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') ? 'active' : '' }}" href="{{url('admin/anggota-osis')}}">Anggota OSIS<span class="d-none">Anggota OSIS</span></a></li>
 
               @endif
 
-        @if( Auth::user()->role_id == 1)
-
+        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 4 ||  DB::table("siswa")->where("user_id",Auth::user()->id)->where("is_osis","Y")->get()->isNotEmpty())
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis') ? 'active' : '' }}" href="{{url('admin/kegiatan-osis')}}">Kegiatan Osis<span class="d-none">Kegiatan Osis</span></a></li>
               @endif
             </ul>

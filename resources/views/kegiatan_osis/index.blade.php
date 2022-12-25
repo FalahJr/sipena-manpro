@@ -136,7 +136,7 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: 'Berhasil menambahkan kegiatan!',
           });
           reloadall();
         }else if(data.status == 2){
