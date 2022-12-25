@@ -295,7 +295,7 @@ public function osisdatatable()
 
   public function APIAccPermintaan(Request $req){
     if($req->id){
-    $siswa= DB::table("siswa")->where("id",$req->id)->update(["is p_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
+    $siswa= DB::table("siswa")->where("id",$req->id)->update(["is_osis"=>"Y","tanggal_daftar_osis"=>date("Y-m-d")]);
     if($siswa){
       $siswa= DB::table("siswa")->where("id",$req->id)->first();
       Notifikasi::push_notifikasi($siswa->user_id,"Berhasil Daftar OSIS","Selamat anda telah menjadi OSIS, sekarang anda dapat melakukan kegiatan osis dan menambahkan kegiatan osis");
