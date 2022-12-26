@@ -41,7 +41,7 @@ class BayarKantinController extends Controller
     $data = DB::table('kantin')->get();
     $pegawai = DB::table('pegawai')->where("user_id", Auth::user()->id)->first();
 
-
+    
     // return $data;
     // $xyzab = collect($data);
     // return $xyzab;
@@ -180,7 +180,7 @@ class BayarKantinController extends Controller
 
     $tgl = Carbon::now('Asia/Jakarta');
           if($user->role_id == 5){// jika role pegawai kantin maka pembayaran secara cash
-            $pegawai = DB::table("pegawai")->where('user_id', $user->user_id)->first();
+            $pegawai = DB::table("pegawai")->where('user_id', $user->id)->first();
             if($pegawai->is_kantin == "Y"){
               DB::table("kantin_penjualan")
               ->insert([

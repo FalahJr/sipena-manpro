@@ -35,7 +35,15 @@ class TransaksiKantinController extends Controller
 
   public function withdrawdatatable()
   {
-    $data = DB::table('kantin_penjualan')->get();
+    $pegawaiKantin = DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->first();
+    if($pegawaiKantin->isNotEmpty()){
+      $kantin_id = DB::table("kantin")->where("pegawai_id",$pegawaiKantin->id)->first();
+      $data = DB::table('kantin_penjualan')->where("kantin_id",$kantin_id)->get();
+    }else if(Auth::user()->role_id == 1){
+      $data = DB::table('kantin_penjualan')->get();
+    }else{
+      $data = DB::table('kantin_penjualan')->where("user_id",Auth::user()->id)->get();
+    }
 
 
     // return $data;
