@@ -78,8 +78,6 @@ class AbsensiSiswaController extends Controller
                     $inIDSiswa[$key] = $value->id;
                 }
 
-                dd($inIDSiswa);
-
                 $data = DB::table("siswa_absensi")
                     ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
                     ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
