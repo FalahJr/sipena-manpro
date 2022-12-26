@@ -35,10 +35,12 @@ class PinjamBukuController extends Controller
   public function datatable()
   {
     $byId = DB::table('perpus_peminjaman')->where("is_kembali","N")
+    ->whereNull("tanggal_dikembalikan")
       ->where("user_id",Auth::user()->id)
       ->get();
 
     $full = DB::table('perpus_peminjaman')->where("is_kembali","N")
+    ->whereNull("tanggal_dikembalikan")
       ->get();
 
     $data = Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? $full : $byId;

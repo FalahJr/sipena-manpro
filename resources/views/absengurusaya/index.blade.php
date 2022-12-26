@@ -20,7 +20,7 @@
                   <div class="card-body">
                     <h4 class="card-title">Absensi Guru Saya</h4>
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 15px;text-align:right"> -->
-                      <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button> -->
+                      <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button> -->
                     <!-- </div> -->
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">

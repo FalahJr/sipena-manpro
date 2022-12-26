@@ -55,7 +55,6 @@ class HomeController extends Controller
 
 
       //  $alltoko = DB::table("user")->where("is_login", 'Y')->count();
-
        return view("home");
      }
 

@@ -298,6 +298,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/kartudigital', 'KartuDigitalController@index');
         Route::get('/kartudigitaltable', 'KartuDigitalController@datatable');
 
+        Route::get('/kartudigitalsaya', 'KartuDigitalController@indexsaya');
+
         // Kategori Keuangan
         Route::get('/kategori-keuangan', 'KategoriKeuanganController@index');
         Route::get('/kategori-keuangan-table', 'KategoriKeuanganController@datatable');
