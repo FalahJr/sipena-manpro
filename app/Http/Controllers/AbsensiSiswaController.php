@@ -72,11 +72,13 @@ class AbsensiSiswaController extends Controller
             $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->get();
 
               if(count($cekdata) != 0) {
-                $inIDWali = [];
+                $inIDSiswa = [];
 
                 foreach ($cekdata as $key => $value) {
-                    $inIDWali[$key] = $value->id;
+                    $inIDSiswa[$key] = $value->id;
                 }
+
+                dd($inIDSiswa);
 
                 $data = DB::table("siswa_absensi")
                     ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
@@ -84,7 +86,7 @@ class AbsensiSiswaController extends Controller
                     ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
                     ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
                     ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->whereIn('siswa.id', $inIDWali)
+                    ->whereIn('siswa.id', $inIDSiswa)
                     ->get()->toArray();
               }
           }
