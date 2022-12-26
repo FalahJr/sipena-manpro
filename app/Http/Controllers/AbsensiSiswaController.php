@@ -72,7 +72,7 @@ class AbsensiSiswaController extends Controller
             $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->get();
 
               if(count($cekdata) != 0) {
-                $inIDWali = []
+                $inIDWali = [];
 
                 foreach ($cekdata as $key => $value) {
                     $inIDWali[$key] = $value->id;
