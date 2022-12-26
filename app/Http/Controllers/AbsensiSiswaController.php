@@ -69,17 +69,22 @@ class AbsensiSiswaController extends Controller
             }
           }else if($user->roleid == 3){
             $walimurid = DB::table("wali_murid")->where('user_id', $userid)->first();
+            $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->get();
 
-            dd($walimurid->id);
-            $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->first();
-              if($cekdata != null) {
+              if(count($cekdata) != 0) {
+                $inIDWali = []
+
+                foreach ($cekdata as $key => $value) {
+                    $inIDWali[$key] = $value->id;
+                }
+
                 $data = DB::table("siswa_absensi")
                     ->join("siswa", "siswa.id", '=', 'siswa_absensi.siswa_id')
                     ->join("jadwal_pembelajaran", "jadwal_pembelajaran.id", '=', 'siswa_absensi.jadwal_pembelajaran_id')
                     ->join("mapel", "mapel.id", '=', 'jadwal_pembelajaran.mapel_id')
                     ->join("kelas", "kelas.id", '=', 'jadwal_pembelajaran.kelas_id')
                     ->select("siswa.*", "siswa_absensi.*", "jadwal_pembelajaran.*", "mapel.*", "kelas.*", "siswa_absensi.id as id", "siswa.id as siswaid",  "mapel.id as mapelid", "mapel.nama as mapelnama", "kelas.id as kelasid", "kelas.nama as kelasnama", "siswa_absensi.created_at")
-                    ->where('siswa.id', $cekdata->id)
+                    ->whereIn('siswa.id', $inIDWali)
                     ->get()->toArray();
               }
           }
