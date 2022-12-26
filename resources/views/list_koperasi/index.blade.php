@@ -26,7 +26,7 @@
                   <div class="card-body">
                     <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
                       <div class="col-12 col-md-3">
-                        <h4 class="card-title">Data Koperasi Sekolah</h4>
+                        <h4 class="card-title">Data List Barang</h4>
                       </div>
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                       <div class="col-12 col-md-5 p-0 text-right">
@@ -129,24 +129,24 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: 'Data Berhasil disimpan',
           });
           reloadall();
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data failed to save!, Check your data and connection!',
+              message: 'Data gagal disimpan , silahkan cek koneksi internet anda!',
           });
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Modified Successfully!',
+              message: 'Data Sukses di perbarui!',
           });
           reloadall();
         }else if (data.status == 4){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Failed to Change!',
+              message: 'Data gagal di perbarui!!',
           });
         } else if (data.status == 7) {
           iziToast.warning({

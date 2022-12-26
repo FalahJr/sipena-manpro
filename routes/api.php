@@ -175,4 +175,13 @@ Route::middleware('api')->group(function () {
     //koperasi
     Route::get('/saldo-koperasi', 'Koperasi\ListController@countSaldo');
 
+    //List Siswa
+    Route::get('/listsiswa', 'SiswaController@getSiswa');
+
+    //List Guru
+    Route::get('/listguru', 'GuruController@getGuru');
+
+    //List Pegawai
+    Route::get('/listpegawai', 'PegawaiController@getPegawai');
+
 });

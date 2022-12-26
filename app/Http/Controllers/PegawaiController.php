@@ -29,6 +29,13 @@ class PegawaiController extends Controller
     return view('pegawai.index');
   }
 
+  public function getPegawai() {
+    $data = DB::table('pegawai')
+        ->get();
+
+    return response()->json($data);
+  }
+
   public function datatable()
   {
   $data = DB::table('pegawai')
@@ -73,11 +80,11 @@ class PegawaiController extends Controller
 //       DB::transaction(function()
 // {
     // DB::table('users')->update(['votes' => 1]);
- 
+
     // DB::table('posts')->delete();
       try {
 
-        
+
 
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
@@ -152,7 +159,7 @@ class PegawaiController extends Controller
         }
           DB::commit();
 
-        
+
 
         // }
         return response()->json(["status" => 1]);
@@ -164,7 +171,7 @@ class PegawaiController extends Controller
 
 
     }
-     else 
+     else
      {
       if (!$this->cekemail($req->username, $req->id)) {
         return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
@@ -259,9 +266,9 @@ class PegawaiController extends Controller
         }
 
         // $tes = DB::commit();
-        
+
           DB::commit();
-        
+
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
         DB::rollback();
@@ -292,7 +299,7 @@ class PegawaiController extends Controller
     $data = DB::table("pegawai")->where("id", $id)->first();
     // dd($data);
     return view("pegawai.edit", compact('data'));
-    
+
   }
 
   public function update(Request $request)
@@ -333,7 +340,7 @@ class PegawaiController extends Controller
         return 'already exist';
       }
       $newData += ["profil_picture"=>$imgPath];
-      // DB::table("siswa")->where('id',$req->id)->update($newData); 
+      // DB::table("siswa")->where('id',$req->id)->update($newData);
     $data = DB::table("pegawai")->where('id',$request->id)->update($newData);
 
 
@@ -348,7 +355,7 @@ class PegawaiController extends Controller
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
 
-    
+
   }
 
   public static function cekemail($username, $id = null)

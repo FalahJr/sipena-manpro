@@ -12,16 +12,19 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/home')}}">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Kategori Keuangan</li>
+          <li class="breadcrumb-item active" aria-current="page">Data Keuangan</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Kategori Keuangan</h4>
+                    <h4 class="card-title">Data Keuangan</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 15px;text-align:right">
-                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                    @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("is_tata_usaha","Y")->where("user_id",Auth::user()->id)->get()->isNotEmpty())
+
+                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button>
+                      @endif
                     </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
@@ -79,6 +82,20 @@ var table = $('#table-data').DataTable({
               {
                  targets: 2,
                  className: 'center'
+              },
+              {
+                 targets: 3,
+                 className: 'center'
+              },
+              {
+                 targets: 4,
+                 className: 'center'
+              },
+              {
+                 targets: 5,
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("is_tata_usaha","Y")->where("user_id",Auth::user()->id)->get()->isNotEmpty() ? true : false)}}
+
               },
             ],
         "columns": [

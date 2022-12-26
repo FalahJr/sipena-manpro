@@ -35,7 +35,7 @@
                       <div class="col-12 col-md-3 pl-0">
                         <h4 class="card-title">Data List Kantin</h4>
                       </div>
-                      @if($pegawai->is_kantin == "Y") 
+                      @if(Auth::user()->role_id == 1) 
                       <div class="col-12 col-md-5 p-0 text-right">
                         <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Kantin</button>
                       </div>
@@ -162,24 +162,24 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: 'Data Berhasil Disimpan!',
           });
           reloadall();
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data failed to save!, Check your data and connection!',
+              message: 'Data Gagal Disimpan, Silahkan cek koneksi internet anda',
           });
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Modified Successfully!',
+              message: 'Data Berhasil di Perbarui ! !',
           });
           reloadall();
         }else if (data.status == 4){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Failed to Change!',
+              message: 'Data Gagal di Perbarui !!',
           });
         } else if (data.status == 7) {
           iziToast.warning({

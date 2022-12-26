@@ -22,7 +22,11 @@
                     <h4 class="card-title">Pegawai</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                      @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("is_tata_usaha","Y")->where("user_id",Auth::user()->id)->get()->isNotEmpty())
+                      
+                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data</button>
+                      @endif 
+                      
                       {{-- @endif --}}
                     </div>
                     <div class="table-responsive">
@@ -98,10 +102,12 @@ var table = $('#table-data').DataTable({
                  targets: 5,
                  className: 'center'
               },
-              // {
-              //    targets: 6,
-              //    className: 'center'
-              // },
+              {
+                 targets: 6,
+                 className: 'center',
+                 visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("is_tata_usaha","Y")->where("user_id",Auth::user()->id)->get()->isNotEmpty() ? true : false)}}
+
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -132,24 +138,24 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Saved Successfully!',
+              message: 'Data Berhasil Disimpan!',
           });
           reloadall();
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data failed to save!, Check your data and connection!',
+              message: 'Data Gagal Disimpan, Silahkan cek koneksi internet anda',
           });
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Modified Successfully!',
+              message: 'Data Berhasil di Perbarui ! !',
           });
           reloadall();
         }else if (data.status == 4){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Failed to Change!',
+              message: 'Data Gagal di Perbarui !!',
           });
         } else if (data.status == 7) {
           iziToast.warning({
