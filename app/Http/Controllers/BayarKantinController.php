@@ -51,16 +51,27 @@ class BayarKantinController extends Controller
     //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
     //   })
       ->addColumn('aksi', function ($data) {
-        return  '<div class="btn-group">' .
-        // @if($pegawai->is_kantin == "Y") .
 
-          '<a href="bayar-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
+          $full = '<div class="btn-group"><a href="bayar-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
           '<a href="bayar-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
-        // @endif .
           '<label class="fa fa-trash"></label></a>' .
           '<a href="bayar-kantin/'.$data->id.'" class="btn btn-success btn-lg" title="toBayar">Bayar Kantin</a>' .
           '</div>';
+          $bayar = '<div class="btn-group"><a href="bayar-kantin/'.$data->id.'" class="btn btn-success btn-lg" title="toBayar">Bayar Kantin</a>' .
+          '</div>';
+          if(Auth::user()->role_id == 1 ){
+            return $full;
+          }else if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isNotEmpty()){
+            if($data->pegawai_id == DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->first()->id){
+              return $full;
+            }else{
+              return $bayar;
+            }
+          }else{
+            return $bayar;
+          }
+
       })->addColumn('foto', function ($data) {
         $url= asset($data->foto);
         return '<img src="' . $url . '" style="height: 80px; width:80px; border-radius: 0px;" class="img-responsive"> </img>';
