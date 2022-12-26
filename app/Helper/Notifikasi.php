@@ -17,13 +17,13 @@ class Notifikasi {
 
 
     public static function get_notifikasi($user_id) {
-        DB::table('notifikasi')->where('userid', $user_id)->update('is_seen', "Y");
-        $data = DB::table('notifikasi')->where('userid', $user_id)->get();
+        DB::table('notifikasi')->where('user_id', $user_id)->update('is_seen', "Y");
+        $data = DB::table('notifikasi')->where('user_id', $user_id)->get();
         return response()->json(["status"=>1,"data"=>$data]);
     }
 
     public static function count_notifikasi($user_id) {
-        $totalNotifikasi = DB::table('notifikasi')->where('userid', $user_id)->where('is_seen', "N")->count();
+        $totalNotifikasi = DB::table('notifikasi')->where('user_id', $user_id)->where('is_seen', "N")->count();
         return response()->json(["status"=>1,"data"=>$totalNotifikasi]);
     }
 }

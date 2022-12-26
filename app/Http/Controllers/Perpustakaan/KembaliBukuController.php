@@ -69,7 +69,7 @@ class KembaliBukuController extends Controller
         return $urlBook;
 
       })->addColumn('pegawai_id', function ($data) {
-        if($data->is_kembali == "Y"){
+        if($data->is_acc == "Y"){
         $employee = DB::table("pegawai")->where("id",$data->pegawai_id)->first()->nama_lengkap;
         return $employee;
       }else{
@@ -270,7 +270,7 @@ class KembaliBukuController extends Controller
 
         $user = DB::table("user")->where("id",$req->user_id);
         $sisaSaldo = $user->first()->saldo - $req->total_denda;
-        if($sisaSaldo<=0){
+        if($sisaSaldo<0){
           return response()->json(["status" => 2, "message" => "saldo anda kurang"]);
         }else{
           $user->update(["saldo"=>$sisaSaldo]);
@@ -297,7 +297,7 @@ class KembaliBukuController extends Controller
 
         $user = DB::table("user")->where("id",$req->user_id);
         $sisaSaldo = $user->first()->saldo - $req->total_denda;
-        if($sisaSaldo<=0){
+        if($sisaSaldo<0){
           return response()->json(["status" => 2, "message" => "saldo anda kurang"]);
         }else{
           $user->update(["saldo"=>$sisaSaldo]);
@@ -406,7 +406,7 @@ class KembaliBukuController extends Controller
     }
 
     DB::table("perpus_peminjaman")->where("id",$req->id)->update(['tanggal_peminjaman'=>$req->tanggal_peminjaman,'tanggal_pengembalian'=>$req->tanggal_pengembalian,
-    'pegawai_id'=>$req->pegawai_id,'tanggal_dikembalikan'=>$req->tanggal_dikembalikan]);
+    'pegawai_id'=>$req->pegawai_id,'is_kembali'=>'Y','is_acc'=>'Y','tanggal_dikembalikan'=>$req->tanggal_dikembalikan]);
 
     
     return back()->with(['success' => 'Data berhasil diupdate']);

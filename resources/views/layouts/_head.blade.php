@@ -77,6 +77,11 @@
   margin: 0 4px;
   border-radius: 4px !important;
 }
+.notifikasiStyle{
+  width: 400px !important;
+  overflow:scroll;
+  height:300px;
+}
 .card-body table tbody td .btn-group .btn label{
   margin: 4px;
 }

@@ -70,22 +70,17 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
       </li>
 
 
-      <!-- @if(Auth::user()->role_id != 'admin') -->
-      {{-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown"
+      <li class="nav-item dropdown">
+        <a class="nav-link nav-profile mdi mdi-bell"" id="profileDropdown" href="#" data-toggle="dropdown"
           aria-expanded="false">
-          <span class="d-lg-inline">{{Auth::user()->fullname}}</span>
         </a>
-        <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-
-          <a class="dropdown-item" href="{{ url('logout') }}">
-            <i class="mdi mdi-logout mr-2 text-primary"></i>
-            Home
-          </a>
-
+        <div class="dropdown-menu navbar-dropdown w-100 p-3 notifikasiStyle" aria-labelledby="profileDropdown">
+         @foreach ($notifications as $notification)
+          <h5>{{$notification->judul}}</h5>
+          <p>{{$notification->deskripsi}}</p>
+          @endforeach
         </div>
-      </li> --}}
-      <!-- @endif -->
+      </li>
       <!-- @if(Auth::user()->role == 'admin') -->
       <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
         <a class="nav-link" href="{{ url('logout') }}">
@@ -374,7 +369,7 @@ $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first(
         </li>
         @endif
 
-        @if(Auth::user()->role_id == 1 || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_mapel","Y")->get()->isNotEmpty() || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_walikelas","Y")->get()->isNotEmpty())
+        @if(Auth::user()->role_id == 1 || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_mapel","Y")->get()->isNotEmpty() || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_walikelas","Y")->get()->isNotEmpty() || DB::table("siswa")->where("user_id",Auth::user()->id)->get()->isNotEmpty())
         <li class="nav-item {{Request::is('admin/nilai-pembelajaran') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('admin/nilai-pembelajaran')}}">
             <span class="menu-title">Pembelajaran Siswa</span>

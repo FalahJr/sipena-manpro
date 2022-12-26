@@ -55,8 +55,8 @@ class HomeController extends Controller
 
 
       //  $alltoko = DB::table("user")->where("is_login", 'Y')->count();
-
-       return view("home");
+      $notifications = DB::table('notifikasi')->where('user_id', Auth::user()->id)->get();
+       return view("home",compact('notifications'));
      }
 
     //  public function main() {
