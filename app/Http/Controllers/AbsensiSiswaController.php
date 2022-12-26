@@ -70,7 +70,7 @@ class AbsensiSiswaController extends Controller
           }else if($user->roleid == 3){
             $walimurid = DB::table("wali_murid")->where('user_id', $userid)->first();
 
-            dd($walimurid->id)
+            dd($walimurid->id);
             $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->first();
               if($cekdata != null) {
                 $data = DB::table("siswa_absensi")
