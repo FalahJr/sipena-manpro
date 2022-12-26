@@ -18,6 +18,10 @@ $pegawai = DB::table('pegawai')->where("user_id", Auth::user()->id)->first();
 $guru = DB::table('guru')->where("user_id", Auth::user()->id)->first();
 $walimurid = DB::table('wali_murid')->where("user_id", Auth::user()->id)->first();
 
+$notifications = DB::table('notifikasi')->where('user_id', Auth::user()->id)->get();
+if(!$notifications){
+  $notifications = [];
+}
 ?>
 <!-- partial:partials/_navbar.html -->
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
