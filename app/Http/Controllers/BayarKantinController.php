@@ -60,8 +60,17 @@ class BayarKantinController extends Controller
           '</div>';
           $bayar = '<div class="btn-group"><a href="bayar-kantin/'.$data->id.'" class="btn btn-success btn-lg" title="toBayar">Bayar Kantin</a>' .
           '</div>';
-
-          return Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isNotEmpty() ? $full : $bayar;
+          if(Auth::user()->role_id == 1 ){
+            return $full;
+          }else if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isNotEmpty()){
+            if($data->pegawai_id == DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->first()->id){
+              return $full;
+            }else{
+              return $bayar;
+            }
+          }else{
+            return $bayar;
+          }
 
       })->addColumn('foto', function ($data) {
         $url= asset($data->foto);
