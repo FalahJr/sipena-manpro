@@ -30,7 +30,7 @@ class EkstrakulikulerController extends Controller
 {
   public function index()
   {
-    $teachers = DB::table("guru")->where("is_ekstrakulikuler","Y")->get();
+    $teachers = DB::table("guru")->where("is_ekstrakulikuler","N")->get();
     return view('ekstrakulikuler.index',compact('teachers'));
   }
 
