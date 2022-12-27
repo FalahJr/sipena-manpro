@@ -86,6 +86,18 @@ class NilaiPembelajaranController extends Controller
       }else{
         $data = [];
       }
+    }else if(DB::table("wali_murid")->where("user_id",Auth::user()->id)->get()->isNotEmpty()){
+      $wali_id = DB::table("wali_murid")->where("user_id",Auth::user()->id)->first()->id;
+      $students = DB::table("siswa")->where("wali_murid_id",$wali_id)->get();
+      foreach($students as $student){
+        $data = DB::table("nilai_pembelajaran")
+        ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
+        ->join("mapel", "mapel.id", '=', 'nilai_pembelajaran.mapel_id')
+        ->join("kelas", "kelas.id", '=', 'nilai_pembelajaran.kelas_id')
+        ->select("nilai_pembelajaran.*", "siswa.nama_lengkap as nama_siswa","mapel.nama as nama_mapel","kelas.nama as nama_kelas")
+        ->where("siswa.wali_murid_id",$student->wali_murid_id)
+        ->get();
+      }
     }else{
       $data = DB::table("nilai_pembelajaran")
       ->join("siswa", "siswa.id", '=', 'nilai_pembelajaran.siswa_id')
@@ -211,7 +223,7 @@ class NilaiPembelajaranController extends Controller
       ->where("id",$req->id)->first();
       $nilai_rata = ($nilai_pembelajaran->ulangan_harian+$nilai_pembelajaran->nilai_tugas+$nilai_pembelajaran->nilai_uts+$nilai_pembelajaran->nilai_uas)/4;
       DB::table("nilai_pembelajaran")
-      ->where("id",$req->id)->update(["nilai_rata"=>$nilai_rata]);;
+      ->where("id",$req->id)->update(["is_show"=>"Y","nilai_rata"=>$nilai_rata]);;
       return response()->json(["status" => 1, "message" => "berasil diubah"]);
     } catch (\Exception $e) {
         DB::rollback();
