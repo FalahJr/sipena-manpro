@@ -108,14 +108,7 @@ class NilaiPembelajaranController extends Controller
       ->get();
     }
 
-    // return $data;
-    // $xyzab = collect($data);
-    // return $xyzab;
-    // return $xyzab->i_price;
     return Datatables::of($data)
-    //   ->addColumn("image", function ($data) {
-    //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
-    //   })
       ->addColumn('aksi', function ($data) {
         return  '<div class="btn-group">' .
           '<a href="nilai-pembelajaran/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
