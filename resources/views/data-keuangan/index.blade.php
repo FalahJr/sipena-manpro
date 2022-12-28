@@ -117,9 +117,9 @@ var table = $('#table-data').DataTable({
       dataType:'json',
       success:function(data){
         $('.id').val(data.id);
-        $(".keuangan_kategori_id").val(data.keuangan_kategori_id).change();
-        $(".siswa_id").val(data.siswa_id).change();
-        $("#nominal").val("Rp. " + accounting.formatMoney(data.nominal,"",0,'.',',')).change();
+        $("#keuangan_kategori_id").val(data.keuangan_kategori_id).change();
+        $("#siswa_id").val(data.siswa_id).change();
+        $("#nominal").val(data.nominal).change();
         $("#keterangan").val(data.keterangan).change();
 
         var image_holder = $(".image-holder");
@@ -163,12 +163,14 @@ var table = $('#table-data').DataTable({
               icon: 'fa fa-save',
               message: 'Data Berhasil Disimpan!',
           });
-          reloadall();
+          reloadall(); 
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
               message: 'Data Gagal disimpan!',
           });
+          reloadall(); 
+
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
@@ -222,18 +224,24 @@ var table = $('#table-data').DataTable({
   	});
   }
 
-  $('#tambah').on( function (e) {
+  $('#tambah').on(function (e) {
     reloadall()
   })
+
+  
+  
+
+  
 
   function reloadall() {
     $('.table_modal :input').val("");
     $('.image-holder').empty();
-    $(".keuangan_kategori_id").val("").change();
-    $(".siswa_id").val("").change();
+    $("#keuangan_kategori_id").val("").change();
+    $("#siswa_id").val("").change();
+    $("#nominal").val("").change();
+    $("#keterangan").val("").change();
     $('#tambah').modal('hide');
 
-    $("#nama_kategori").val("").change();
 
     table.ajax.reload();
   }
