@@ -75,8 +75,27 @@ class MutasiSiswaController extends Controller
     }
 
     public function index() {
-      $data2 = DB::table("siswa")
-                ->get();
+      $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", Auth::user()->id)->join("role", "role.id", '=', "user.role_id")->first();
+
+      if($user->roleid == 3){
+        $walimurid = DB::table("wali_murid")->where('user_id', $userid)->first();
+        $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->get();
+
+          if(count($cekdata) != 0) {
+            $inIDSiswa = [];
+
+            foreach ($cekdata as $key => $value) {
+                $inIDSiswa[$key] = $value->id;
+            }
+
+            $data2 = DB::table("siswa")
+            ->whereIn('siswa.id', $inIDSiswa)
+            ->get();
+          }
+      } else {
+        $data2 = DB::table("siswa")
+                  ->get();
+      }
 
       return view('mutasisiswa.index', compact('data2'));
     }
