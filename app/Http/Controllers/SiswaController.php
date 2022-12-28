@@ -85,8 +85,8 @@ class SiswaController extends Controller
 
   public function ppdbindex()
   {
-
-    return view('siswa.ppdb');
+    $ppdb = DB::table("ppdb")->first();
+    return view('siswa.ppdb',compact('ppdb'));
   }
   public function datatable()
   {
@@ -285,6 +285,21 @@ public function osisdatatable()
     }
   }
 
+  public function setPpdb(Request $req){
+    $data = DB::table("ppdb")->first();
+    if($data){
+      if($req->is_active == "Y"){
+        $data = DB::table("ppdb")->update(["is_active"=>"Y"]);
+        return back()->with(['success' => 'ppdb berhasil diaktifkan']);
+      }else{
+        $data = DB::table("ppdb")->update(["is_active"=>"N"]);
+        return back()->with(['success' => 'ppdb berhasil dinonaktifkan']);
+      }
+    }else{
+      return response()->json(['success' =>"data ppdb tidak ada"]);
+    }
+  }
+
   public function getPpdb(Request $req){
     try{
       if($req->id){
@@ -359,7 +374,7 @@ public function osisdatatable()
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
         $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $dir = 'image/uploads/User/' . $max;
+        $dir = 'image/uploads/Murid/' . $max;
         $childPath = $dir . '/';
         $path = $childPath;
 

@@ -22,8 +22,50 @@ use Yajra\Datatables\Datatables;
 
 class KeuanganController extends Controller
 {
-    public static function getKeuangan($siswa_id = null)
+    public static function getKeuangan($siswa_id = null, $userid = null)
     {
+
+      if($userid != null) {
+        $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $userid)->join("role", "role.id", '=', "user.role_id")->first();
+
+        if($user->roleid == 3){
+          $walimurid = DB::table("wali_murid")->where('user_id', $userid)->first();
+          $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->get();
+
+            if(count($cekdata) != 0) {
+              $inIDSiswa = [];
+
+              foreach ($cekdata as $key => $value) {
+                  $inIDSiswa[$key] = $value->id;
+              }
+
+             
+
+                  $data = DB::table("keuangan")
+        ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
+        ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+        ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+        ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
+        ->where("siswa.id", $inIDSiswa)
+        ->get()->toArray();
+            }
+        } else if($user->roleid == 2){
+          $cekdata = DB::table("siswa")->where('user_id', $userid)->first();
+
+                  $data = DB::table("keuangan")
+        ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
+        ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+        ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+        ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
+        ->where("siswa.id", $cekdata->id)
+        ->get()->toArray();
+        } else {
+          $data = DB::table("siswa_mutasi")
+              ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
+              ->select("siswa.*", "siswa_mutasi.*", "siswa_mutasi.id as id", "siswa.id as siswaid")
+              ->get()->toArray();
+        }
+      } else{
 
       if($siswa_id == null) {
         $data = DB::table("keuangan")
@@ -41,6 +83,7 @@ class KeuanganController extends Controller
         ->where("siswa.id", $siswa_id)
         ->get()->toArray();
       }
+    }
 
 
         return $data;
@@ -62,8 +105,8 @@ class KeuanganController extends Controller
       return view('data-keuangan.index', compact('data2', 'kategori', 'siswa'));
     }
 
-    public function datatable() {
-      $data = KeuanganController::getKeuangan();
+    public function datatable(Request $req) {
+      $data = KeuanganController::getKeuangan(null,$req->id);
 
         return Datatables::of($data)
         ->addColumn("siswa_id", function ($data) {
