@@ -146,7 +146,7 @@ class KelasController extends Controller
   public function edit($id)
   {
     $data = DB::table("kelas")->where("id", $id)->first();
-    $guru = DB::table("guru")->get()->where('is_walikelas', "N");
+    $guru = DB::table("guru")->where('is_walikelas', "N")->get();
 
     // dd($data);
     return view("kelas.edit", compact('data', 'guru'));
