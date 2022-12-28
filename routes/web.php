@@ -364,6 +364,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Withdraw kantin
         Route::get('/withdraw', 'WithdrawController@index');
+        Route::post('/withdraw', 'WithdrawController@insertData');
         Route::get('/withdraw/table', 'WithdrawController@datatable');
         Route::get('/approve-withdraw', 'WithdrawController@action');
     });

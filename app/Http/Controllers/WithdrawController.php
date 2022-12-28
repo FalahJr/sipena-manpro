@@ -84,8 +84,25 @@ class WithdrawController extends Controller
         return $datas;
     }
 
+    public function APIinsertData(Request $req){
+      try{
+        DB::table("withdraw")->insert([
+          "user_id" => $req->user_id,
+          "saldo" => $req->saldo,
+          "keterangan" => $req->keterangan,
+          "nominal" => $req->nominal,
+        ]);
+        return response()->json(["status"=>1,"message"=>"Berhasil diajukan tunggu notifikasi approve penarikan saldo dan cek rekening kamu"]);
+      }catch(\Exception $e){
+        return response()->json(["status"=>2,"message"=>$e->getMessage()]);
+
+      }
+    }
+
     public function insertData(Request $req){
       try{
+        $req->saldo = DB::table("kantin")->where("pegawai_id",DB::table("pegawai")->where("user_id",Auth::user()->id)->first()->id)->first()->saldo;
+        $req->user_id = Auth::user()->id;
         DB::table("withdraw")->insert([
           "user_id" => $req->user_id,
           "saldo" => $req->saldo,
@@ -145,7 +162,6 @@ class WithdrawController extends Controller
 
           if($req->status == "approve") {
             $data = DB::table("withdraw")->where("id", $req->id)->first();
-            $user = DB::table("user")->where("id", $data->user_id)->first();
             Notifikasi::push_notifikasi($data->user_id,"Berhasil Withdraw","Admin sudah transfer silahkan cek rekening anda");
             
             DB::table("withdraw")
@@ -153,12 +169,14 @@ class WithdrawController extends Controller
                 ->update([
                     "is_approve" => "Y"
                   ]);
+                
+            $pegawai_id = DB::table("pegawai")->where("user_id",$data->user_id)->first()->id;
+            $saldo_kantin = DB::table("kantin")
+                ->where("pegawai_id",$pegawai_id)->first()->saldo;
 
-            DB::table("user")
-                ->where("id", $data->user_id)
-                ->update([
-                  "saldo" => $data->nominal + $user->saldo
-                ]);
+            DB::table("kantin")
+                ->where("pegawai_id",$pegawai_id)
+                ->update(["saldo"=>$saldo_kantin - $data->nominal]);
           } else {
             $data = DB::table("withdraw")->where("id", $req->id)->first();
             Notifikasi::push_notifikasi($data->user_id,"Gagal Withdraw","Penarikan uang tidak di konfirmasi oleh admin, harap teliti pastikan data telah sesuai");

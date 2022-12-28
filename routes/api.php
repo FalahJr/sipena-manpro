@@ -153,8 +153,8 @@ Route::middleware('api')->group(function () {
     Route::get('/total-notifikasi', 'NotifikasiController@count_notifikasi');
     Route::get('/get-notifikasi', 'NotifikasiController@get_notifikasi');
 
-    //withdrawe
-    Route::post('/withdraw', 'WithdrawController@insertData');
+    //withdraw
+    Route::post('/withdraw', 'WithdrawController@APIinsertData');
     Route::get('/getDataWithdraw', 'WithdrawController@getWithdrawJson');
 
     //update username or password user
