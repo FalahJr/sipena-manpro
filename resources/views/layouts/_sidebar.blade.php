@@ -316,12 +316,12 @@ if(!$notifications){
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensigurusaya/*') || Request::is('admin/absensigurusaya') ? 'active' : '' }}" href="{{url('admin/absensigurusaya')}}">Absensi Saya (Guru)<span class="d-none">Absensi Saya (Guru)</span></a></li>
         @endif
 
-        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 )
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isNotEmpty())
+        @if( Auth::user()->role_id == 1 ||  Auth::user()->role_id == 4 || Auth::user()->role_id == 5 )
+        <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
+              @elseif(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isNotEmpty())
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
               @elseif(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isNotEmpty())
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswa/*') || Request::is('admin/absensisiswa') ? 'active' : '' }}" href="{{url('admin/absensisiswa')}}">Absensi Siswa<span class="d-none">Absensi Siswa</span></a></li>
-              @endif
               @endif
 
 
@@ -537,7 +537,7 @@ if(!$notifications){
         @endif
         @endif
 
-        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 7 || Auth::user()->role_id == 6 ||  Auth::user()->role_id == 2 )
+        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 7 || Auth::user()->role_id == 6 ||  Auth::user()->role_id == 2 ||  Auth::user()->role_id == 3 )
         @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty()&& DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_koperasi","Y")->get()->isEmpty()&& DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y")->get()->isEmpty())
 
         <li class="nav-item {{ ( ( Request::is('admin/keuangan/*') || Request::is('admin/keuangan') || Request::is('admin/keuangan/*') || Request::is('admin/keuangan') ) ? ' active' : '' ) }}">

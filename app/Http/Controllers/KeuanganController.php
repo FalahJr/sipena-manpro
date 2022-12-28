@@ -46,7 +46,7 @@ class KeuanganController extends Controller
         ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
         ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
         ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
-        ->where("siswa.id", $inIDSiswa)
+        ->whereIn("siswa.id", $inIDSiswa)
         ->get()->toArray();
             }
         } else if($user->roleid == 2){
@@ -59,31 +59,26 @@ class KeuanganController extends Controller
         ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
         ->where("siswa.id", $cekdata->id)
         ->get()->toArray();
-        } else {
-          $data = DB::table("siswa_mutasi")
-              ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
-              ->select("siswa.*", "siswa_mutasi.*", "siswa_mutasi.id as id", "siswa.id as siswaid")
-              ->get()->toArray();
-        }
-      } else{
+        }  else{
 
-      if($siswa_id == null) {
-        $data = DB::table("keuangan")
-        ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
-        ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
-        ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
-        ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
-        ->get()->toArray();
-      } else {
-        $data = DB::table("keuangan")
-        ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
-        ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
-        ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
-        ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
-        ->where("siswa.id", $siswa_id)
-        ->get()->toArray();
+          if($siswa_id == null) {
+            $data = DB::table("keuangan")
+            ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
+            ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+            ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+            ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
+            ->get()->toArray();
+          } else {
+            $data = DB::table("keuangan")
+            ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
+            ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+            ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+            ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
+            ->where("siswa.id", $siswa_id)
+            ->get()->toArray();
+          }
+        }
       }
-    }
 
 
         return $data;
@@ -140,7 +135,7 @@ class KeuanganController extends Controller
         DB::beginTransaction();
         try {
 
-          $cek = DB::table("keuangan")->where("keterangan", $req->keterangan)->first();
+          $cek = DB::table("keuangan")->where("keterangan", $req->keterangan)->where("siswa_id", $req->siswa_id)->first();
 
           if ($cek != null) {
             return response()->json(["status" => 7, "message" => "Keuangan dengan keterangan " . $cek->keterangan . " sudah terdaftar!"]);
@@ -274,6 +269,8 @@ class KeuanganController extends Controller
               ->first();
 
       return response()->json($data);
+    // return view("data-keuangan.edit", compact('data','));
+
     }
 
     public function deleteDir($dirPath)

@@ -6,7 +6,7 @@
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
         <h4 class="modal-title">Form Data Keuangan</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" id="batal" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <center>
@@ -22,7 +22,7 @@
           <input type="hidden" class="form-control form-control-sm id" name="id">
 
               <td>
-                <select class="form-control form-control-sm inputtext keuangan_kategori_id" name="keuangan_kategori_id">
+                <select class="form-control form-control-sm inputtext keuangan_kategori_id" name="keuangan_kategori_id" id="keuangan_kategori_id">
                 <option disabled selected value>Pilih Kategori</option>
                   <?php foreach($kategori as $kategori){ ?>
 
@@ -37,7 +37,7 @@
           <tr>
             <td>Siswa</td>
             <td>
-              <select class="form-control form-control-sm inputtext siswa_id" name="siswa_id">
+              <select class="form-control form-control-sm inputtext siswa_id" name="siswa_id" id="siswa_id">
               <option disabled selected value>Pilih Siswa</option>
                 <?php foreach($siswa as $siswa){ ?>
 
@@ -51,7 +51,7 @@
           <tr>
             <td>Nominal</td>
             <td>
-              <input type="text" class="form-control form-control-sm rp" name="nominal" id="nominal" >
+              <input type="text" class="form-control form-control-sm" name="nominal" id="nominal" >
             </td>
           </tr>
           <tr>
@@ -85,7 +85,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary" id="simpan" type="button">Simpan</button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" id="batal">Batal</button>
         </div>
       </div>
       </div>
