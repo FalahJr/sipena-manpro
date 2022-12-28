@@ -324,6 +324,75 @@ class KembaliBukuController extends Controller
     }
   }
 
+  public function APIinsertData(Request $req){
+    try{
+      if($req->total_denda>0){
+        $peminjaman = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->whereNull('tanggal_dikembalikan')->first();
+
+        $perpus_katalog = DB::table("perpus_peminjaman_katalog")
+        ->where('perpus_peminjaman_id',$peminjaman->id)
+        ->get();
+    
+        foreach($perpus_katalog as $katalog){
+          DB::table("perpus_katalog")->where('id',$katalog->perpus_katalog_id)->increment('stok_buku',1);
+        }
+
+        $user = DB::table("user")->where("id",$req->user_id);
+        $sisaSaldo = $user->first()->saldo - $req->total_denda;
+        if($sisaSaldo<0){
+          return response()->json(["status" => 2, "message" => "saldo anda kurang"]);
+        }else{
+          $user->update(["saldo"=>$sisaSaldo]);
+          //kurangin saldo perpustakaan
+          DB::table('perpus_peminjaman')
+        ->join("user", "user.id", '=', 'perpus_peminjaman.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
+        ->when($req->user_id,function($q,$user_id){
+          return $q->where("perpus_peminjaman.user_id",$user_id);
+        })
+        ->update(["total_denda"=>$req->total_denda,"is_lunas"=>"Y","tanggal_dikembalikan"=>date("Y-m-d")]);
+        }
+      }else{
+        $peminjaman = DB::table("perpus_peminjaman")->where("user_id",$req->user_id)->whereNull('tanggal_dikembalikan')->first();
+
+        $perpus_katalog = DB::table("perpus_peminjaman_katalog")
+        ->where('perpus_peminjaman_id',$peminjaman->id)
+        ->get();
+    
+        foreach($perpus_katalog as $katalog){
+          DB::table("perpus_katalog")->where('id',$katalog->perpus_katalog_id)->increment('stok_buku',1);
+        }
+
+        $user = DB::table("user")->where("id",$req->user_id);
+        $sisaSaldo = $user->first()->saldo - $req->total_denda;
+        if($sisaSaldo<0){
+          return response()->json(["status" => 2, "message" => "saldo anda kurang"]);
+        }else{
+          $user->update(["saldo"=>$sisaSaldo]);
+
+          $perpus = DB::table("perpustakaan");
+          $saldoPerpus = $perpus->first()->saldo + $req->total_denda;
+          $perpus->update(['saldo'=>$saldoPerpus]);
+          
+          //kurangin saldo perpustakaan
+          DB::table('perpus_peminjaman')
+        ->join("user", "user.id", '=', 'perpus_peminjaman.user_id')
+        ->join("role", "user.role_id", '=', 'role.id')
+        ->select("perpus_peminjaman.id","perpus_peminjaman.user_id","perpus_peminjaman.pegawai_id","perpus_peminjaman.tanggal_peminjaman","perpus_peminjaman.tanggal_pengembalian","role.nama as nama_role","user.role_id")
+        ->when($req->user_id,function($q,$user_id){
+          return $q->where("perpus_peminjaman.user_id",$user_id);
+        })
+        ->update(["total_denda"=>0,"is_lunas"=>"Y","tanggal_dikembalikan"=>date("Y-m-d")]);
+        }
+      }
+
+        return response()->json(["status" => 1, "message" => "berhasil dikembalikan, menunggu acc pegawai"]);
+      }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+
   public function APIaccKembali(Request $req){
     try{
       if($req->id == null && $req->pegawai_id == null){

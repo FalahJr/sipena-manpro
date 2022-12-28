@@ -106,7 +106,7 @@ Route::middleware('api')->group(function () {
     Route::post('/pinjam-buku', 'Perpustakaan\PinjamBukuController@insertData');
     Route::get('/pinjam-buku', 'Perpustakaan\PinjamBukuController@getData');
     Route::get('/kembali-buku', 'Perpustakaan\KembaliBukuController@getData');
-    Route::post('/kembali-buku', 'Perpustakaan\KembaliBukuController@insertData');
+    Route::post('/kembali-buku', 'Perpustakaan\KembaliBukuController@APIinsertData');
     Route::get('/kembali-buku/acc', 'Perpustakaan\KembaliBukuController@APIaccKembali');
     Route::get('/pinjam-buku/acc', 'Perpustakaan\PinjamBukuController@APIaccPinjam');
     Route::delete('/pinjam-buku/{id}', 'Perpustakaan\PinjamBukuController@delete');
