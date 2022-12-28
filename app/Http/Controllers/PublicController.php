@@ -49,8 +49,9 @@ class PublicController extends Controller
     $siswa = DB::table('siswa')->count();
     $guru = DB::table('guru')->count();
     $pegawai = DB::table('pegawai')->count();
+    $info_ppdb = DB::table('ppdb')->where("id", 1)->first();
 
-       return view("homepage/index",  compact('siswa','guru', 'pegawai'));
+       return view("homepage/index",  compact('siswa','guru', 'pegawai', 'info_ppdb'));
      }
 
      public function registerWalimurid() {
