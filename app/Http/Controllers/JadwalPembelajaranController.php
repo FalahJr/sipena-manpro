@@ -36,10 +36,17 @@ class JadwalPembelajaranController extends Controller
   }
 
   public function datatable()
-  {
-    $data = DB::table('jadwal_pembelajaran')
-      ->get();
-      
+  { 
+      if(DB::table("siswa")->where("user_id",Auth::user()->id)->get()->isNotEmpty()){
+        $kelas_id = DB::table("siswa")->where("user_id",Auth::user()->id)->first()->kelas_id;
+        $data = DB::table('jadwal_pembelajaran')
+        ->where("kelas_id",$kelas_id)
+        ->get();
+      }else{
+        $data = DB::table('jadwal_pembelajaran')
+        ->get();
+      }
+
 
     // return $data;
     // $xyzab = collect($data);
