@@ -52,7 +52,7 @@
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0" id="home">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
+                <a href="{{ url('/') }}" class="navbar-brand p-0">
                     <!-- <h1 class="m-0">soFFer</h1> -->
                     <img src="{{asset('assets/sipenahorz.png')}}" alt="Logo">
                 </a>
@@ -67,8 +67,9 @@
                         <a href="#overview" class="nav-item nav-link">Overview</a>
                         <!-- <a href="#contact" class="nav-item nav-link">Contact</a> -->
                     </div>
+                    @if($info_ppdb->is_active == 'Y' )
                     <a href="{{ route('registerWalimurid') }}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Info PPDB</a>
-
+                    @endif
                     <a href="{{ route('logindashboard') }}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Login Dashboard</a>
                 </div>
             </nav>

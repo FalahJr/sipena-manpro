@@ -164,6 +164,10 @@ class SiswaController extends Controller
   {
 
     $data = DB::table("user")->where('id', $id)->update(['is_active' => "Y"]);
+    $siswa = DB::table("siswa")->where("user_id",$id)->first();
+    $user_id = DB::table("wali_murid")->where("id",$siswa->wali_murid_id)->first();
+
+    Notifikasi::push_notifikasi($user_id->user_id,"Selamat, Anak Anda diterima","Admin telah menerima Siswa Anda di Sekolah Kami");
 
     return back()->with(['success' => 'Siswa Berhasil Diterima']);
 
@@ -173,14 +177,20 @@ class SiswaController extends Controller
   public function tolakPpdb($id)
   {
 
-    DB::table("siswa")
+    
+
+      $siswa = DB::table("siswa")->where("user_id",$id)->first();
+      $user_id = DB::table("wali_murid")->where("id",$siswa->wali_murid_id)->first();
+  
+      Notifikasi::push_notifikasi($user_id->user_id,"Maaf, Anak Anda Belum Diterima","Admin tidak menerima Siswa Anda di Sekolah Kami");
+
+      DB::table("siswa")
       ->where('user_id', $id)
       ->delete();
 
     DB::table("user")
       ->where('id', $id)
       ->delete();
-
 
     return back()->with(['success' => 'Siswa Berhasil Ditolak']);
 

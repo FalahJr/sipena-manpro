@@ -156,6 +156,7 @@ class BeritaKelasController extends Controller
           $data = DB::table('berita')
           ->join("kelas","kelas.id","=","berita.kelas_id")
           ->select("berita.*","kelas.nama as kelas_nama")
+          ->whereNotNull('kelas_id')
           ->where('kelas_id',$req->kelas_id)
           ->get();
         }
