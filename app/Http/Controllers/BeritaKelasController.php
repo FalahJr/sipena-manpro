@@ -152,6 +152,13 @@ class BeritaKelasController extends Controller
         ->select("berita.*","kelas.nama as kelas_nama")
         ->whereNotNull('kelas_id')
         ->get();
+        if($req->kelas_id){
+          $data = DB::table('berita')
+          ->join("kelas","kelas.id","=","berita.kelas_id")
+          ->select("berita.*","kelas.nama as kelas_nama")
+          ->where('kelas_id',$req->kelas_id)
+          ->get();
+        }
       }else if($req->kategori == "sekolah"){
         $data = DB::table('berita')->whereNull('kelas_id')
         ->get();

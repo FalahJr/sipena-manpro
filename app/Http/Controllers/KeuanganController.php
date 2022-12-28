@@ -39,9 +39,7 @@ class KeuanganController extends Controller
                   $inIDSiswa[$key] = $value->id;
               }
 
-             
-
-                  $data = DB::table("keuangan")
+        $data = DB::table("keuangan")
         ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
         ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
         ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
