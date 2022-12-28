@@ -33,19 +33,19 @@ class TransaksiKantinController extends Controller
     return view('transaksi_kantin.index');
   }
 
-  public function withdrawdatatable()
+  public function datatable()
   {
-    $pegawaiKantin = DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->first();
-    if($pegawaiKantin->isNotEmpty()){
-      $kantin_id = DB::table("kantin")->where("pegawai_id",$pegawaiKantin->id)->first();
-      $data = DB::table('kantin_penjualan')->where("kantin_id",$kantin_id)->get();
+
+    $pegawaiKantin = DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isNotEmpty();
+    if($pegawaiKantin){
+      $kantin_id = DB::table("kantin")->where("pegawai_id",DB::table("pegawai")->where("user_id",Auth::user()->id)->first()->id)->first();
+      $data = DB::table('kantin_penjualan')->where("kantin_id",$kantin_id->id)->get();
     }else if(Auth::user()->role_id == 1){
       $data = DB::table('kantin_penjualan')->get();
     }else{
       $data = DB::table('kantin_penjualan')->where("user_id",Auth::user()->id)->get();
     }
 
-
     // return $data;
     // $xyzab = collect($data);
     // return $xyzab;
@@ -69,56 +69,9 @@ class TransaksiKantinController extends Controller
         return $kantin->nama;
       })
       ->addColumn('pembayaran', function ($data) {
-        $data = DB::table('user')->where('id',$data->user_id)->first();
-        if($data){
-          if($data->role_id == 5){
-            $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
-            if($cekdata->is_kantin == "Y"){
-              return "Cash";
-            }else{
-              return "Non-Cash";
-            }
-          }else{
-            return "Cash";
-          }
-        }
-      })
-      ->rawColumns(['aksi','kantin',"tanggal_pembelian","pembayaran"])
-      ->addIndexColumn()
-      ->make(true);
-  }
-
-  public function datatable()
-  {
-    $data = DB::table('kantin_penjualan')->get();
-
-
-    // return $data;
-    // $xyzab = collect($data);
-    // return $xyzab;
-    // return $xyzab->i_price;
-    return Datatables::of($data)
-    //   ->addColumn("image", function ($data) {
-    //     return '<div> <img src="' . url('/') . '/' . $data->profile_picture . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
-    //   })
-      ->addColumn('aksi', function ($data) {
-        return  '<div class="btn-group">' .
-          '<a href="transaksi-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
-          '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/transaksi-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
-          '<label class="fa fa-trash"></label></a>';
-      })
-      ->addColumn('tanggal_pembelian', function ($data) {
-        return Carbon::CreateFromFormat('Y-m-d',$data->tanggal_pembelian)->format('d M Y');
-      })
-      ->addColumn('kantin', function ($data) {
-        $kantin = DB::table('kantin')->where('id',$data->kantin_id)->first();
-        return $kantin->nama;
-      })
-      ->addColumn('pembayaran', function ($data) {
-        $data = DB::table('user')->where('id',$data->user_id)->first();
-        if($data){
-          if($data->role_id == 5){
+        $user = DB::table('user')->where('id',$data->user_id)->first();
+        if($user){
+          if($user->role_id == 5){
             $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
             if($cekdata->is_kantin == "Y"){
               return "Cash";
