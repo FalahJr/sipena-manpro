@@ -163,12 +163,12 @@ class PublicController extends Controller
       $imgPath = null;
       $tgl = Carbon::now('Asia/Jakarta');
       $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-      $dir = 'image/uploads/Walimurid/' . $max;
+      $dir = 'image/uploads/Murid/' . $max;
       $childPath = $dir . '/';
       $path = $childPath;
 
       $file = $req->file('image');
-      $name = null;
+    $name = null;
       if ($file != null) {
         // $this->deleteDir($dir);
         $name = $folder . '.' . $file->getClientOriginalExtension();
@@ -192,7 +192,7 @@ class PublicController extends Controller
         ->insert([
           "id" => $max,
           "username" => $req->username,
-          "password" => "123",
+          "password" => $req->username."123",
           "role_id" => 2,
           "is_active" => 'N',
           "saldo" => 0,

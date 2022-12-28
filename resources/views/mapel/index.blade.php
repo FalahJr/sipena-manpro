@@ -22,7 +22,10 @@
           <h4 class="card-title">Mata Pelajaran</h4>
           <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
             {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
+            @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("is_tata_usaha","Y")->where("user_id",Auth::user()->id)->get()->isNotEmpty())
+
             <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah Data </button>
+            @endif
             {{-- @endif --}}
           </div>
           <div class="table-responsive">
@@ -85,7 +88,9 @@
     },
     {
        targets: 3,
-       className: 'center'
+       className: 'center',
+      visible : {{json_encode(Auth::user()->role_id == 1 || DB::table("pegawai")->where("is_tata_usaha","Y")->where("user_id",Auth::user()->id)->get()->isNotEmpty() ? true : false)}}
+
     },
   ],
     "columns": [

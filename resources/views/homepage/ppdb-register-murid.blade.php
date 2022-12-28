@@ -151,7 +151,7 @@
                                
                                 <div class="col-12">
                                     <div class="">
-                                    <select class="form-control jk" id="jk" name="jk">
+                                    <select class="form-control jk bg-white" id="jk" name="jk">
                 <option value="" selected>- Pilih Jenis Kelamin-</option>
                 <option value="L"> Laki-Laki </option>
                 <option value="P"> Perempuan </option>

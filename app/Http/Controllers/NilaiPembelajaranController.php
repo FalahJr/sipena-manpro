@@ -113,16 +113,16 @@ class NilaiPembelajaranController extends Controller
         return  '<div class="btn-group">' .
           '<a href="nilai-pembelajaran/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/nilai-pembelajaran/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="nilai-pembelajaran/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })->addColumn('is_show', function ($data) {
         if($data->is_show == "Y")
         return '<div class="btn-group">' .
-        '<a href="/admin/nilai-pembelajaran/unacc?id='.$data->id.'&ulangan_harian='.$data->ulangan_harian.'&nilai_tugas='.$data->nilai_tugas.'&nilai_uts='.$data->nilai_uts.'&nilai_uas='.$data->nilai_uas.'" class="btn btn-warning btn-lg" title="hapus">' .
+        '<a href="nilai-pembelajaran/unacc?id='.$data->id.'&ulangan_harian='.$data->ulangan_harian.'&nilai_tugas='.$data->nilai_tugas.'&nilai_uts='.$data->nilai_uts.'&nilai_uas='.$data->nilai_uas.'" class="btn btn-warning btn-lg" title="hapus">' .
         'Batalkan</a></div>';
         else
         return '<div class="btn-group">' .
-        '<a href="/admin/nilai-pembelajaran/acc?id='.$data->id.'&ulangan_harian='.$data->ulangan_harian.'&nilai_tugas='.$data->nilai_tugas.'&nilai_uts='.$data->nilai_uts.'&nilai_uas='.$data->nilai_uas.'"class="btn btn-success btn-lg" title="hapus">' .
+        '<a href="nilai-pembelajaran/acc?id='.$data->id.'&ulangan_harian='.$data->ulangan_harian.'&nilai_tugas='.$data->nilai_tugas.'&nilai_uts='.$data->nilai_uts.'&nilai_uas='.$data->nilai_uas.'"class="btn btn-success btn-lg" title="hapus">' .
         'ACC Sekarang</a></div>';
       })
       ->rawColumns(['aksi',"is_show"])

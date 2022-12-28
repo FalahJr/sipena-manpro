@@ -67,7 +67,7 @@ var table = $('#table-data').DataTable({
             'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('/admin/data-keuangan-table') }}',
+            url:'{{ url('/admin/data-keuangan-table') }}?id={{Auth::user()->id}}',
         },
         columnDefs: [
 
@@ -222,7 +222,7 @@ var table = $('#table-data').DataTable({
   	});
   }
 
-  $('#tambah').on('hidden.bs.modal', function (e) {
+  $('#tambah').on( function (e) {
     reloadall()
   })
 

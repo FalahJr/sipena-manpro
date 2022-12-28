@@ -180,7 +180,7 @@ if(!$notifications){
           </li>
         @endif
 
-        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4)
+        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4 ||  Auth::user()->role_id == 2 )
         @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty() && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_koperasi","Y")->get()->isEmpty() && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y")->get()->isEmpty() && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isEmpty())
 
         <li
@@ -198,13 +198,11 @@ if(!$notifications){
             class="collapse {{(( Request::is('admin/kelas/*') || Request::is('admin/kelas') || Request::is('admin/mata-pelajaran/*') || Request::is('admin/mata-pelajaran') )  ? 'show' : '') }}"
             id="kelas">
             <ul class="nav flex-column sub-menu">
-        @if( Auth::user()->role_id != 4)
 
               <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/kelas') || Request::is('admin/kelas/*') ? 'active' : '' }}"
                   href="{{url('admin/kelas')}}">Data Kelas<span class="d-none">Setting</span></a>
                 </li>
-                @endif
                 <li class="nav-item"> <a
                   class="nav-link {{Request::is('admin/mata-pelajaran') || Request::is('admin/mata-pelajaran/*') ? 'active' : '' }}"
                   href="{{url('admin/mata-pelajaran')}}">Data Mata Pelajaran<span class="d-none">Setting</span></a>
@@ -344,7 +342,7 @@ if(!$notifications){
         @endif
 
 
-        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 4 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7 || DB::table('pegawai')->where("user_id",Auth::user()->id)->where("is_perpus","Y")->get()->isNotEmpty() || DB::table('pegawai')->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isNotEmpty() || DB::table('guru')->where("user_id",Auth::user()->id)->get()->isNotEmpty())
+        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 4 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7 || DB::table('pegawai')->where("user_id",Auth::user()->id)->where("is_perpus","Y")->get()->isNotEmpty() || DB::table('pegawai')->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isNotEmpty() || DB::table('pegawai')->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isNotEmpty() || DB::table('guru')->where("user_id",Auth::user()->id)->get()->isNotEmpty())
         <li class="nav-item {{ ( ( Request::is('admin/katalog-buku/*') || Request::is('admin/katalog-buku') || Request::is('admin/kategori-buku/*') || Request::is('admin/kategori-buku') || Request::is('admin/pinjam-buku/*') || Request::is('admin/pinjam-buku') || Request::is('admin/kembali-buku/*') || Request::is('admin/kembali-buku') || Request::is('admin/sumbang-buku/*') || Request::is('admin/sumbang-buku') || Request::is('admin/kehilangan-buku/*') || Request::is('admin/kehilangan-buku')) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#perpustakaan" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Perpustakaan</span>
@@ -388,8 +386,7 @@ if(!$notifications){
         </li>
         @endif
 
-        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 4)
-        @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isEmpty() || DB::table("guru")->where("user_id",Auth::user()->id)->where("is_ekstrakulikuler","Y")->get()->isEmpty())
+        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 4 && DB::table("guru")->where("user_id",Auth::user()->id)->where("is_ekstrakulikuler","Y")->get()->isNotEmpty())
 
         <li class="nav-item {{( ( Request::is('admin/anggota-osis/*') || Request::is('admin/anggota-osis') || Request::is('admin/kegiatan-osis/*') || Request::is('admin/kegiatan-osis')) ? ' show' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#osis" aria-expanded="false" aria-controls="ui-basic">
@@ -420,7 +417,6 @@ if(!$notifications){
             </ul>
           </div>
         </li>
-        @endif
         @endif
 
         @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 7 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4)
@@ -541,7 +537,7 @@ if(!$notifications){
         @endif
         @endif
 
-        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 7 || Auth::user()->role_id == 6)
+        @if( Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 7 || Auth::user()->role_id == 6 ||  Auth::user()->role_id == 2 )
         @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isEmpty()&& DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_koperasi","Y")->get()->isEmpty()&& DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y")->get()->isEmpty())
 
         <li class="nav-item {{ ( ( Request::is('admin/keuangan/*') || Request::is('admin/keuangan') || Request::is('admin/keuangan/*') || Request::is('admin/keuangan') ) ? ' active' : '' ) }}">

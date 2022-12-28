@@ -374,7 +374,7 @@ public function osisdatatable()
         $imgPath = null;
         $tgl = Carbon::now('Asia/Jakarta');
         $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-        $dir = 'image/uploads/User/' . $max;
+        $dir = 'image/uploads/Murid/' . $max;
         $childPath = $dir . '/';
         $path = $childPath;
 
