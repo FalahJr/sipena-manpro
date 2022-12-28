@@ -18,8 +18,21 @@
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Siswa</h4>
-                    
+                    <div class="col-md-12 col-sm-12 col-xs-12 m-0 p-0 row justify-content-between">
+                      <div class="col-12 col-md-3">
+                        <h4 class="card-title">Informasi PPDB</h4>
+                      </div>
+                      {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
+                      <div class="col-12 col-md-5 p-0 text-right">
+                        @if(Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y")->get()->isNotEmpty())
+                        @if($ppdb->is_active == "N")
+                        <a href="{{url("/admin/setPpdb?is_active=Y")}}" class="btn btn-success"></i>Aktifkan PPDB</a>
+                        @else
+                        <a href="{{url("/admin/setPpdb?is_active=N")}}" class="btn btn-info"></i>Non-Aktifkan PPDB</a>
+                        @endif
+                        @endif
+                      </div>
+                      </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">

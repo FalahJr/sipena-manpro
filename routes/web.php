@@ -26,7 +26,6 @@ Route::post('/ppdb-register-murid-simpan', 'PublicController@registerMuridSimpan
 Route::get('/ppdb-login', 'PublicController@loginWalimurid')->name('loginWalimurid');
 Route::get('/ppdb-login-walimurid', 'PublicController@authenticate')->name('ppdbloginWalimurid');
 
-
 Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
 Route::get('logout', 'HomeController@logout')->name('logoutadmin');
 
@@ -39,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('admin')->group(function () {
 
         Route::get('/home', 'HomeController@index')->name('homeadmin');
+        Route::get('/setPpdb', 'SiswaController@setPpdb');
 
         //User
         Route::get('/user', 'UserController@index');
