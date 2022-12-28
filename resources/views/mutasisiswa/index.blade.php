@@ -67,7 +67,7 @@ var table = $('#table-data').DataTable({
             'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('/admin/mutasisiswatable') }}',
+            url:'{{ url('/admin/mutasisiswatable') }}?id={{Auth::user()->id}}',
         },
         columnDefs: [
 

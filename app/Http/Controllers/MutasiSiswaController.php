@@ -22,8 +22,35 @@ use Yajra\Datatables\Datatables;
 
 class MutasiSiswaController extends Controller
 {
-    public static function getMutasiSiswa($siswaid = null)
+    public static function getMutasiSiswa($siswaid = null, $userid = null)
     {
+      if($userid != null) {
+        $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", $userid)->join("role", "role.id", '=', "user.role_id")->first();
+
+        if($user->roleid == 3){
+          $walimurid = DB::table("wali_murid")->where('user_id', $userid)->first();
+          $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->get();
+
+            if(count($cekdata) != 0) {
+              $inIDSiswa = [];
+
+              foreach ($cekdata as $key => $value) {
+                  $inIDSiswa[$key] = $value->id;
+              }
+
+              $data = DB::table("siswa_mutasi")
+                  ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
+                  ->select("siswa.*", "siswa_mutasi.*", "siswa_mutasi.id as id", "siswa.id as siswaid")
+                  ->whereIn('siswa.id', $inIDSiswa)
+                  ->get()->toArray();
+            }
+        } else {
+          $data = DB::table("siswa_mutasi")
+              ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
+              ->select("siswa.*", "siswa_mutasi.*", "siswa_mutasi.id as id", "siswa.id as siswaid")
+              ->get()->toArray();
+        }
+      } else {
         if($siswaid == null) {
           $data = DB::table("siswa_mutasi")
               ->join("siswa", "siswa.id", '=', 'siswa_mutasi.siswa_id')
@@ -36,25 +63,45 @@ class MutasiSiswaController extends Controller
               ->where("siswa.id", $siswaid)
               ->get()->toArray();
         }
+      }
 
         return $data;
     }
 
     public static function getMutasiSiswaJson(Request $req) {
-      $data = MutasiSiswaController::getMutasiSiswa($req->siswa_id);
+      $data = MutasiSiswaController::getMutasiSiswa($req->siswa_id, null);
 
       return response()->json($data);
     }
 
     public function index() {
-      $data2 = DB::table("siswa")
-                ->get();
+      $user = DB::table("user")->select("user.*", "role.*", "user.id as id", "role.id as roleid", "role.nama as rolenama", "user.created_at as data", "user.created_at as role")->where("user.id", Auth::user()->id)->join("role", "role.id", '=', "user.role_id")->first();
+
+      if($user->roleid == 3){
+        $walimurid = DB::table("wali_murid")->where('user_id', Auth::user()->id)->first();
+        $cekdata = DB::table("siswa")->where('wali_murid_id', $walimurid->id)->get();
+
+          if(count($cekdata) != 0) {
+            $inIDSiswa = [];
+
+            foreach ($cekdata as $key => $value) {
+                $inIDSiswa[$key] = $value->id;
+            }
+
+            $data2 = DB::table("siswa")
+            ->whereIn('siswa.id', $inIDSiswa)
+            ->get();
+          }
+      } else {
+        $data2 = DB::table("siswa")
+                  ->get();
+      }
 
       return view('mutasisiswa.index', compact('data2'));
     }
 
-    public function datatable() {
-      $data = MutasiSiswaController::getMutasiSiswa();
+    public function datatable(Request $req) {
+      $data = MutasiSiswaController::getMutasiSiswa(null, $req->id);
 
         return Datatables::of($data)
           ->addColumn('aksi', function ($data) {
