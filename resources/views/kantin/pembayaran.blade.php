@@ -32,28 +32,44 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/bayar-kantin/bayar')}}" method="POST" enctype="multipart/form-data">
+          <form action="{{url('admin/transaksi-kantin')}}" class="col-5" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <tr>
-              <td>Nama Kantin<span style="color:red;">*</span></td>
+              <td>Nama Kantin</td>
               <td>
                 <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="kantin_id">
                 <input type="text" class="form-control form-control-sm inputtext nama" value="{{$data->nama}}" disabled>
               <input type="hidden" class="form-control form-control-sm id" value="{{Auth::user()->id}}" name="user_id">
               </td>
             </tr>
-          <tr>
-            <td>Keterangan <span style="color:red;">*</span></td>
+          <tr class="row d-flex">
+            <td>Pembelian <span style="color:red;">*</span></td>
             <td>
-              <textarea class="form-control form-control-sm deskripsi" name="keterangan" rows="8" cols="80"></textarea>
+              <div class="row d-flex mt-1">
+              <div class="col-6 pl-3">
+                <select class="form-control form-control-sm inputtext w-100 select2" name="kantin_list_id[]">
+                  <option disabled selected value>Pilih Menu</option>
+                  @foreach($menus as $menu)
+                    <option value="<?= $menu->id ?>">
+                      <?= $menu->nama ?> || <?= $menu->harga ?>
+                    </option>
+                    @endforeach
+                  </select>
+              </div>
+              <div class="col-3">
+                <input type="number" min="1" value="1" class="form-control form-control-sm" name="jumlah_pembelian[]">
+              </div>
+              <div class="col-2"><button type="button" name="add" id="add" class="btn btn-info"> <i class="mdi mdi-plus menu-icon"></i></button></div> 
+              <div id="dynamic_field"></div>
+            </div>
             </td>
           <tr>
-            <tr>
+            {{-- <tr>
               <td>Total Harga<span style="color:red;">*</span></td>
               <td>
                 <input type="text" class="form-control form-control-sm inputtext totalHarga" name="harga_total">
               </td>
-            </tr>
+            </tr> --}}
           <button class="btn btn-success mt-3" id="simpan" type="submit">Bayar Sekarang</button>
         </form>
         </div>
@@ -74,6 +90,23 @@
 
 @section('extra_script')
 <script>
+   var i=1;  
+$('#add').click(function(){  
+    i++; 
+    var str = '<tr class="row my-3 d-flex ml-0" id="row'+i+'"><td class="col-6 pr-4"><select class="form-control form-control-sm inputtext select2" name="kantin_list_id[]"><option disabled selected value>Pilih Menu</option>';
+    var menus = {!! $menus->toJson() !!};
+    menus.forEach(function(menu) {
+      str += '<option value="'+menu.id+'">'+menu.nama+' || '+menu.harga+'</option>';
+    });
+    $('#dynamic_field').append(str+'</select></td><td class="col-3 pl-2 pr-4"><input type="number" min="1" value="1" class="form-control form-control-sm" name="jumlah_pembelian[]"></td><td class="col-2 pl-2 pr-0"><button type="button" name="remove" id="'+i+'" class="btn btn-danger w-100 btn_remove"><i class="mdi mdi-close menu-icon"></i></button></td></tr>'); 
+    $('.select2').select2();
+}); 
+
+$(document).on('click', '.btn_remove', function(){    
+     var button_id = $(this).attr("id");     
+     $('#row'+button_id+'').remove();    
+});    
+
   if("{{Session::has('success')}}"){
     iziToast.success({
   icon: 'fa fa-save',

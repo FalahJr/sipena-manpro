@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
-          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/transaksi-kantin')}}">Transaksi Kantin</a></li>
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('admin/menu-kantin')}}">Menu Kantin</a></li>
           <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
         </ol>
       </nav>
@@ -14,10 +14,11 @@
         <div class="card">
           <div class="card-body">
             
-           <h4 class="card-title">Edit Transaksi Kantin</h4>
+           <h4 class="card-title">Edit Menu</h4>
            
                     <!-- Modal -->
     <!-- Modal content-->
+
     <div class="row">
       @if ($errors->any())
       <div class="alert alert-danger">
@@ -31,24 +32,22 @@
     </div>
         <div class="row">
           
-          <form action="{{url('admin/transaksi-kantin/update')}}" method="POST" enctype="multipart/form-data">
+          <form action="{{url('admin/menu-kantin/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
           <tr>
-            <td>Tanggal Pembelian</td>
+            <td>Nama <span style="color:red;">*</span></td>
             <td>
-              <input type="date" class="form-control form-control-sm inputtext namaPembeli" value="{{$data->tanggal_pembelian}}" name="tanggal_pembelian">
-              <input type="hidden" class="form-control form-control-sm inputtext namaPembeli" value="{{$data->id}}" name="id">
+              <input type="text" class="form-control form-control-sm inputtext nama @if($errors->has('nama')) is-invalid @endif" value="{{$data->nama}}" name="nama">
+              <input type="hidden" class="form-control form-control-sm inputtext nama @if($errors->has('id')) is-invalid @endif" value="{{$data->id}}" name="id">
             </td>
           </tr>
-            <tr>
-              <td>Metode Pembayaran</td>
-              <td>
-                <select name="is_cash">
-                  <option value="Y" @if($data->is_cash == "Y") selected @endif>Cash</option>
-                  <option value="N" @if($data->is_cash == "N") selected @endif>Non-Cash</option>
-                </select>
-              </td>
-            </tr>
+          <tr>
+            <td>Harga <span style="color:red;">*</span></td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext nama @if($errors->has('harga')) is-invalid @endif" value="{{$data->harga}}" name="harga">
+            </td>
+          </tr>
+        
           <button class="btn btn-success mt-3" id="simpan" type="submit">Simpan Data</button>
         </form>
         </div>

@@ -474,19 +474,25 @@ if(!$notifications){
         @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4)
         @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isEmpty())
 
-        <li class="nav-item {{ ( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*')  ||  Request::is('admin/withdraw/*') || Request::is('admin/withdraw') || Request::is('admin/transaksi-kantin') ) ? ' active' : '' ) }}">
+        <li class="nav-item {{ ( ( Request::is('admin/menu-kantin/*') || Request::is('admin/menu-kantin') || Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') || Request::is('admin/transaksi-kantin/*')  ||  Request::is('admin/withdraw/*') || Request::is('admin/withdraw') || Request::is('admin/transaksi-kantin') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#kantin" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-title">Kantin</span>
             <i class="menu-arrow"></i>
             <i class="mdi mdi-database menu-icon"></i>
           </a>
-          <div class="collapse {{( ( Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ||  Request::is('admin/withdraw/*') || Request::is('admin/withdraw') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' show' : '' ) }}" id="kantin">
+          <div class="collapse {{( ( Request::is('admin/menu-kantin/*') || Request::is('admin/menu-kantin') || Request::is('admin/bayar-kantin/*') || Request::is('admin/bayar-kantin') ||  Request::is('admin/withdraw/*') || Request::is('admin/withdraw') || Request::is('admin/transaksi-kantin/*') || Request::is('admin/transaksi-kantin') ) ? ' show' : '' ) }}" id="kantin">
             <ul class="nav flex-column sub-menu">
               @if( Auth::user()->role_id == 1)
               @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","N")->get()->isEmpty())
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/withdraw/*') || Request::is('admin/withdraw') ? 'active' : '' }}" href="{{url('admin/withdraw')}}">Penarikan Dana<span class="d-none">Penarikan Dana</span></a></li>
               @endif
               @endif
+
+              @if(DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_kantin","Y")->get()->isNotEmpty())
+
+              <li class="nav-item"> <a class="nav-link {{Request::is('admin/menu-kantin/*') || Request::is('admin/menu-kantin') ? 'active' : '' }}" href="{{url('admin/menu-kantin')}}">List Menu<span class="d-none">List Menu</span></a></li>
+              @endif
+
 
         @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4 )
 

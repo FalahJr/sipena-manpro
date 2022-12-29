@@ -145,7 +145,6 @@ class TransaksiController extends Controller
             "jumlah_pembelian" => $jumlahPembelian,
             "koperasi_transaksi_id" => $transaksiId,
             "koperasi_list_id" => $koperasi_list_id,
-            "jumlah_pembelian" => $jumlahPembelian,
             "total_harga" => $totalHarga,
           ]);
           array_push($penjualanId, $max);

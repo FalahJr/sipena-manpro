@@ -90,7 +90,9 @@ class BayarKantinController extends Controller
 
   public function toBayar($id){
     $data = DB::table('kantin')->where("id",$id)->first();
-    return view('kantin.pembayaran',compact("data"));
+    $menus = DB::table('kantin_list')->where("kantin_id",$id)->get();
+    
+    return view('kantin.pembayaran',compact("data","menus"));
   }
 
   public function getData(Request $req){
