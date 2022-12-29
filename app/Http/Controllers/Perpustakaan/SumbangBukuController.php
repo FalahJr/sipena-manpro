@@ -273,27 +273,50 @@ class SumbangBukuController extends Controller
             $data->user_nama = "admin";
           } else if($data->role_id == 2) {
               $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
-    
-              $data->user_nama = $cekdata->nama_lengkap;
+              if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
           } else if($data->role_id == 3) {
               $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
     
-              $data->user_nama = $cekdata->nama_lengkap;
+                       if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
           } else if($data->role_id == 4) {
               $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
     
-              $data->user_nama = $cekdata->nama_lengkap;
+                       if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
           } else if($data->role_id == 5) {
               $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
     
-              $data->user_nama = $cekdata->nama_lengkap;
+                       if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
           } else if($data->role_id == 6) {
               $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
     
-              $data->user_nama = $cekdata->nama_lengkap;
+                       if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
           } else if($data->role_id == 7) {
               $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
-              $data->user_nama = $cekdata->nama_lengkap;
+                       if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
           }
         }
         return response()->json(["status" => 1, "data" => $data]);
@@ -311,26 +334,50 @@ class SumbangBukuController extends Controller
       } else if($data->role_id == 2) {
           $cekdata = DB::table("siswa")->where('user_id', $data->user_id)->first();
 
-          $data->user_nama = $cekdata->nama_lengkap;
+                   if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
       } else if($data->role_id == 3) {
           $cekdata = DB::table("wali_murid")->where('user_id', $data->user_id)->first();
 
-          $data->user_nama = $cekdata->nama_lengkap;
+                   if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
       } else if($data->role_id == 4) {
           $cekdata = DB::table("guru")->where('user_id', $data->user_id)->first();
 
-          $data->user_nama = $cekdata->nama_lengkap;
+                   if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
       } else if($data->role_id == 5) {
           $cekdata = DB::table("pegawai")->where('user_id', $data->user_id)->first();
 
-          $data->user_nama = $cekdata->nama_lengkap;
+                   if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
       } else if($data->role_id == 6) {
           $cekdata = DB::table("kepala_sekolah")->where('user_id', $data->user_id)->first();
 
-          $data->user_nama = $cekdata->nama_lengkap;
+                   if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
       } else if($data->role_id == 7) {
           $cekdata = DB::table("dinas_pendidikan")->where('user_id', $data->user_id)->first();
-          $data->user_nama = $cekdata->nama_lengkap;
+                   if($cekdata == null) {
+                $data->user_nama = "-";
+              } else {
+                $data->user_nama = $cekdata->nama_lengkap;
+              }
       }
     }
         return response()->json(["status" => 1, "data" => $datas]);

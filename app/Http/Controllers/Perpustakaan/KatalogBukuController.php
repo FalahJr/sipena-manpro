@@ -170,9 +170,23 @@ class KatalogBukuController extends Controller
       'stok_buku' => 'required|max:100',
     ]);
 
-    $data = DB::table("perpus_katalog")->where('id',$req->id);
+    $imgPath = null;
+    $tgl = Carbon::now('Asia/Jakarta');
+    $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+    $childPath ='image/uploads/perpus/';
+    $path = $childPath;
 
+    $file = $req->file('image');
+    $name = null;
+    $data = DB::table("perpus_katalog")->where('id',$req->id);
+    if ($file != null) {
+      $name = $folder . '.' . $file->getClientOriginalExtension();
+      $file->move($path, $name);
+      $imgPath = $childPath . $name;
+      $data->update(['stok_buku'=>$req->stok_buku,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id,'foto'=>$imgPath]);
+    } else {
       $data->update(['stok_buku'=>$req->stok_buku,'judul'=>$req->judul,'author'=>$req->author,'bahasa'=>$req->bahasa,'total_halaman'=>$req->total_halaman,'perpus_kategori_id'=>$req->perpus_kategori_id]);
+    }
 
     // dd($data);
     return back()->with(['success' => 'Data berhasil diupdate']);
