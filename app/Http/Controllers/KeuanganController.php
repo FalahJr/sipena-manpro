@@ -76,6 +76,24 @@ class KeuanganController extends Controller
             ->get()->toArray();
           }
         }
+      }else{
+        if($siswa_id == null) {
+          $data = DB::table("keuangan")
+          ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
+          ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+          ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+          ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
+          ->get()->toArray();
+        } else {
+          $data = DB::table("keuangan")
+          ->join("keuangan_kategori", "keuangan_kategori.id", '=', 'keuangan.keuangan_kategori_id')
+          ->join("siswa", "siswa.id", '=', 'keuangan.siswa_id')
+          ->join("kelas", "kelas.id", '=', 'siswa.kelas_id')
+          ->select("siswa.*", "keuangan.*", "keuangan_kategori.*", "keuangan_kategori.nama as ketegorinama", "kelas.nama as kelasnama")
+          ->where("siswa.id", $siswa_id)
+          ->get()->toArray();
+        }
+      }
       }
 
 
@@ -83,7 +101,7 @@ class KeuanganController extends Controller
     }
 
     public static function getKeuanganJson(Request $req) {
-      $data = KeuanganController::getKeuangan($req->siswa_id);
+      $data = KeuanganController::getKeuangan($req->siswa_id, $req->wali_murid_id);
 
       return response()->json($data);
     }
