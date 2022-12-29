@@ -154,6 +154,10 @@ class TransaksiKantinController extends Controller
   public function hapus($id)
   {
     DB::table("kantin_penjualan")
+    ->where('kantin_transaksi_id',$id)
+    ->delete();
+
+    DB::table("kantin_transaksi")
         ->where('id',$id)
         ->delete();
 
@@ -212,7 +216,13 @@ class TransaksiKantinController extends Controller
   public function delete($id){
     try{
       if($id){
-      DB::table("kantin_penjualan")->where("id",$id)->delete();
+      DB::table("kantin_penjualan")
+      ->where('kantin_transaksi_id',$id)
+      ->delete();
+  
+      DB::table("kantin_transaksi")
+          ->where('id',$id)
+          ->delete();
       return response()->json(["status"=>1,"message"=>"berhasil dihapus"]);
       }else{
         return response()->json(["status"=>1,"message"=>"parameter id tidak ditemukan"]);
