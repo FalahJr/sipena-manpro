@@ -132,8 +132,8 @@ class loginController extends Controller
                 if($ceksiswa != null) {
                   $user->siswa = $ceksiswa;
 
-                  for ($i = 0; $i <= count($ceksiswa); $i++) {
-                      $cekkelas = DB::table("kelas")->whereIn("id", $ceksiswa[$i]->kelas_id)->get();
+                  foreach ($ceksiswa as $key => $value) {
+                      $cekkelas = DB::table("kelas")->whereIn("id", $value->kelas_id)->first();
 
                       if($cekkelas != null) {
                         $user->siswa->kelas = $cekkelas;
@@ -141,6 +141,7 @@ class loginController extends Controller
                         $user->siswa->kelas = $oVal;
                       }
                   }
+
                 } else {
                   $user->siswa = $oVal;
                 }
