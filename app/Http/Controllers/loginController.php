@@ -133,6 +133,7 @@ class loginController extends Controller
                   $inIDSiswa = [];
 
                   foreach ($cekdata as $key => $value) {
+                    dd($value);
                       $inIDSiswa[$key] = $value[$key]->kelas_id;
                   }
 
