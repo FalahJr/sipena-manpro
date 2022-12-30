@@ -124,7 +124,7 @@ class loginController extends Controller
                 $user->data = $cekdata;
             } else if($user->roleid == 3) {
                 $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
-                $ceksiswa = DB::table("siswa")->select("siswa.*", "kelas.* as kelas")->join("kelas", "kelas.id", '=', 'siswa.kelas_id')->where("wali_murid_id", $cekdata->id)->get();
+                $ceksiswa = DB::table("siswa")->select("siswa.*", "kelas.*")->join("kelas", "kelas.id", '=', 'siswa.kelas_id')->where("wali_murid_id", $cekdata->id)->get();
 
                 if($ceksiswa != null) {
                   $user->siswa = $ceksiswa;
