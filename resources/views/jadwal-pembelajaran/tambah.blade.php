@@ -43,7 +43,23 @@
             <tr>
               <td>Jadwal Hari <span style="color:red;">*</span></td>
               <td>
-                <input type="text" class="form-control form-control-sm inputtext jadwal_hari" name="jadwal_hari">
+                <!-- <input type="text" class="form-control form-control-sm inputtext jadwal_hari" name="jadwal_hari"> -->
+                <select class="form-control form-control-sm inputtext jadwal_hari" name="jadwal_hari">
+                <option disabled selected value>Pilih Hari</option>
+
+                  <option value="Senin">
+                   Senin
+                  </option>
+                  <option value="Selasa">
+                   Selasa
+                  </option> <option value="Rabu">
+                   Rabu
+                  </option> <option value="Kamis">
+                   Kamis
+                  </option> <option value="Jumat">
+                   Jumat
+                  </option>
+                </select>
               </td>
             </tr>
             <tr>

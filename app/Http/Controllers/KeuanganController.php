@@ -94,7 +94,6 @@ class KeuanganController extends Controller
           ->get()->toArray();
         }
       }
-      }
 
 
         return $data;

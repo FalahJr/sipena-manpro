@@ -57,7 +57,46 @@
           <tr>
             <td>Keterangan</td>
             <td>
-              <input type="text" class="form-control form-control-sm" name="keterangan" id="keterangan" >
+              <!-- <input type="text" class="form-control form-control-sm" name="keterangan" id="keterangan" > -->
+
+              <select class="form-control form-control-sm inputtext keterangan" name="keterangan">
+                <option disabled selected value>Pilih Bulan</option>
+
+                  <option value="Januari">
+                   Januari
+                  </option>
+                  <option value="Februari">
+                   Februari
+                  </option> <option value="Maret">
+                   Maret
+                  </option> <option value="April">
+                   April
+                  </option> <option value="Mei">
+                   Mei
+                  </option>
+                  </option> <option value="Juni">
+                   Juni
+                  </option>
+                  </option> <option value="Juli">
+                   Juli
+                  </option>
+                  </option> <option value="Agustus">
+                   Agustus
+                  </option>
+                  </option> <option value="September">
+                   September
+                  </option>
+                  </option> <option value="Oktober">
+                   Oktober
+                  </option>
+                  </option> <option value="November">
+                   November
+                  </option>
+                  </option> <option value="Desember">
+                   Desember
+                  </option>
+
+                </select>
             </td>
           </tr>
           <tr>

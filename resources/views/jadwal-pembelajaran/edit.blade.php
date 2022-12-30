@@ -66,7 +66,26 @@
           <tr>
               <td>Jadwal Hari <span style="color:red;">*</span></td>
               <td>
-                <input type="text" class="form-control form-control-sm inputtext jadwal_hari @if($errors->has('jadwal_hari')) is-invalid @endif" value="{{$detail->jadwal_hari}}" name="jadwal_hari">
+
+                <select class="form-control @if($errors->has('jadwal_hari')) is-invalid @endif" name="jadwal_hari" >
+                <option disabled selected value>Pilih Hari</option>
+
+                  <option value="Senin" @if($detail->jadwal_hari == "Senin") selected @endif>
+                   Senin
+                  </option>
+                  <option value="Selasa" @if($detail->jadwal_hari == "Selasa") selected @endif>
+                   Selasa
+                  </option><option value="Rabu" @if($detail->jadwal_hari == "Rabu") selected @endif>
+                   Rabu
+                  </option>
+                  </option><option value="Kamis" @if($detail->jadwal_hari == "Kamis") selected @endif>
+                   Kamis
+                  </option>
+                  </option><option value="Jumat" @if($detail->jadwal_hari == "Jumat") selected @endif>
+                   Jumat
+                  </option>
+                </select>
+             
               </td>
             </tr>
             <tr>

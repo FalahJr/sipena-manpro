@@ -102,7 +102,7 @@ class PinjamFasilitasController extends Controller
             "jam_selesai" => $req->jam_selesai,
             "pegawai_id" => $req->pegawai_id,
             "user_id" => $req->user_id,
-            "tanggal" => Carbon::now('Asia/Jakarta'),
+            "tanggal" => $req->tanggal,
           ]);
         }else{
           $req->user_id = Auth::user()->id; 
@@ -112,7 +112,7 @@ class PinjamFasilitasController extends Controller
             "jam_mulai" => $req->jam_mulai,
             "jam_selesai" => $req->jam_selesai,
             "user_id" => $req->user_id,
-            "tanggal" => Carbon::now('Asia/Jakarta'),
+            "tanggal" => $req->tanggal,
           ]);
         }
 
