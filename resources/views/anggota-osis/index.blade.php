@@ -169,7 +169,7 @@ console.log("apin");
 
 $.ajax({
   type: "post",
-  url: '/admin/anggota-osis/tambah?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
+  url: 'anggota-osis/tambah?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
   processData: false, //important
   contentType: false,
   cache: false,

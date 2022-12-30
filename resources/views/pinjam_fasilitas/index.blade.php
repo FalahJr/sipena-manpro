@@ -129,7 +129,14 @@ var table = $('#table-data').DataTable({
 
     var formdata = new FormData();
     // formdata.append('image', $('.uploadGambar')[0].files[0]);
-
+    var pinjam = new Date($('.tanggal').val()+' '+$('.jam_mulai').val());
+    var saatini = new Date();
+    if(pinjam < saatini){
+      iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Tidak boleh kurang dari waktu saat ini',
+          });
+    }else{
     $.ajax({
       type: "post",
       url: baseUrlChange + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
@@ -170,6 +177,7 @@ var table = $('#table-data').DataTable({
 
       }
     });
+  }
   })
 
   //show pop up jika data berhasil di hapus
@@ -181,7 +189,6 @@ var table = $('#table-data').DataTable({
   }
 
     function showcreate() {
-      $('.table_modal :input').val("");
       $('.image-holder').empty();
       $('.role').val('').change();
       $('.gender').val('').change();
@@ -191,7 +198,12 @@ var table = $('#table-data').DataTable({
     }
 
     function reloadall() {
-      $('.table_modal :input').val("");
+      $('.pegawai_id').val('').change();
+      $('.user_id').val('').change();
+      $('.peminjaman_fasilitas_id').val('').change();
+      $('.jam_selesai').val('');
+      // var d = new Date();
+      // $('.jam_mulai').val(("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2));
       $('.image-holder').empty();
       $('#tambah').modal('hide');
       $('.role').val('').change();
