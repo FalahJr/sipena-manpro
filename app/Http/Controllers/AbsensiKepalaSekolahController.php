@@ -68,8 +68,8 @@ class AbsensiKepalaSekolahController extends Controller
         return response()->json($data);
     }
 
-    public static function getAbsensiKepalaSekolahJson() {
-      $data = AbsensiKepalaSekolahController::getAbsensiKepalaSekolah();
+    public static function getAbsensiKepalaSekolahJson(Request $req) {
+      $data = AbsensiKepalaSekolahController::getAbsensiKepalaSekolah($req->userid);
 
       return response()->json($data);
     }
