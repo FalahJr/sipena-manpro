@@ -16,7 +16,7 @@
             <tr>
               <td>Dipinjam Oleh <span style="color:red;">*</span></td>
               <td>
-                <select class="form-control form-control-sm inputtext" name="user_id">
+                <select class="form-control form-control-sm inputtext user_id" name="user_id">
                   <option disabled selected value>Pilih</option>
                   @foreach($users as $user)
                     <option value="<?= $user->id ?>">
@@ -31,7 +31,7 @@
             <tr>
               <td>Fasilitas <span style="color:red;">*</span></td>
               <td>
-                <select class="form-control form-control-sm inputtext" name="peminjaman_fasilitas_id">
+                <select class="form-control form-control-sm inputtext peminjaman_fasilitas_id" name="peminjaman_fasilitas_id">
                   <option disabled selected value>Pilih</option>
                   @foreach($facilities as $facility)
                     <option value="<?= $facility->id ?>">
@@ -45,7 +45,7 @@
             <tr>
               <td>Jam Mulai <span style="color:red;">*</span></td>
               <td>
-                <input type="time" class="form-control form-control-sm inputtext jam_mulai" name="jam_mulai">
+                <input type="time" value="{{date('H:i')}}" class="form-control form-control-sm inputtext jam_mulai" name="jam_mulai">
               </td>
             </tr>
             <tr>
@@ -54,17 +54,25 @@
                 <input type="time" class="form-control form-control-sm inputtext jam_selesai" name="jam_selesai">
               </td>
             </tr>
+            <?php 
+
+$month = date('m');
+$day = date('d');
+$year = date('Y');
+
+$today = $year . '-' . $month . '-' . $day;
+?>
             <tr>
               <td>Tanggal <span style="color:red;">*</span></td>
               <td>
-                <input type="date" class="form-control form-control-sm inputtext tanggal" name="tanggal">
+                <input type="date" value="<?php echo $today; ?>" min="<?php echo $today; ?>" class="form-control form-control-sm inputtext tanggal" name="tanggal">
               </td>
             </tr>
             @if(Auth::user()->role_id==1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_tata_usaha","Y" )->get()->isNotEmpty())
             <tr>
               <td>Dikonfirmasi Oleh<span style="color:red;">*</span></td>
               <td>
-                <select class="form-control form-control-sm inputtext" name="pegawai_id">
+                <select class="form-control form-control-sm inputtext pegawai_id" name="pegawai_id">
                   <option disabled selected value>Pilih</option>
                   @foreach($employees as $employee)
                     <option value="<?= $employee->id ?>">
