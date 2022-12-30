@@ -33,8 +33,12 @@ class KatalogBukuController extends Controller
 
   public function datatable()
   {
-    $data = DB::table('perpus_katalog')
+    $byId = DB::table('perpus_katalog')->where("stok_buku",">","0")
       ->get();
+
+    $full = DB::table('perpus_katalog')->get();
+
+    $data = Auth::user()->role_id == 1 || DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_perpus","Y" )->get()->isNotEmpty() ? $full : $byId;
 
     // return $data;
     // $xyzab = collect($data);
