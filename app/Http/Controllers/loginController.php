@@ -46,7 +46,13 @@ class loginController extends Controller
               $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as kelas")->where("wali_murid_id", $cekdata->id)->get();
 
               if($ceksiswa != null) {
-                $cekkelas = DB::table("kelas")->where("id", $ceksiswa->kelas_id)->first();
+                $inIDSiswa = [];
+
+                foreach ($cekdata as $key => $value) {
+                    $inIDSiswa[$key] = $value->kelas_id;
+                }
+
+                $cekkelas = DB::table("kelas")->whereIn("id", $inIDSiswa)->get();
 
                 $user->siswa = $ceksiswa;
 
@@ -124,7 +130,13 @@ class loginController extends Controller
                 $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as kelas")->where("wali_murid_id", $cekdata->id)->get();
 
                 if($ceksiswa != null) {
-                  $cekkelas = DB::table("kelas")->where("id", $ceksiswa->kelas_id)->first();
+                  $inIDSiswa = [];
+
+                  foreach ($cekdata as $key => $value) {
+                      $inIDSiswa[$key] = $value->kelas_id;
+                  }
+
+                  $cekkelas = DB::table("kelas")->whereIn("id", $inIDSiswa)->get();
 
                   $user->siswa = $ceksiswa;
 
