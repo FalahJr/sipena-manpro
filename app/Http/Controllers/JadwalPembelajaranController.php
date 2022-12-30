@@ -35,13 +35,23 @@ class JadwalPembelajaranController extends Controller
     // return view('kelas.index');
   }
 
-  public function datatable()
+  public function datatable(Request $req)
   { 
-      if(DB::table("siswa")->where("user_id",Auth::user()->id)->get()->isNotEmpty()){
+      // if(DB::table("siswa")->where("user_id",Auth::user()->id)->get()->isNotEmpty()){
+        if(Auth::user()->role_id == 2) {
+
         $kelas_id = DB::table("siswa")->where("user_id",Auth::user()->id)->first()->kelas_id;
         $data = DB::table('jadwal_pembelajaran')
         ->where("kelas_id",$kelas_id)
         ->get();
+        }else if(Auth::user()->role_id == 4){
+
+            $guru = DB::table("guru")->where("user_id",Auth::user()->id)->first();
+            $mapel = DB::table("mapel")->where("guru_id",$guru->id)->first();
+            $data = DB::table('jadwal_pembelajaran')
+            ->where("mapel_id",$mapel->id)
+            ->get();
+        // }
       }else{
         $data = DB::table('jadwal_pembelajaran')
         ->get();

@@ -117,7 +117,7 @@ var formdata = new FormData();
 // var data = 
 $.ajax({
   type: "post",
-  url: '/admin/withdraw?_token=' + "{{csrf_token()}}&" + $('.table_modal .inputtext' ).serialize(),
+  url: 'withdraw?_token=' + "{{csrf_token()}}&" + $('.table_modal .inputtext' ).serialize(),
   data: formdata,
   processData: false, //important
   contentType: false,

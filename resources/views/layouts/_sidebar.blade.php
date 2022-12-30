@@ -231,7 +231,7 @@ if(!$notifications){
         @endif
         @endif
 
-        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5)
+        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1 || Auth::user()->role_id == 6 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isEmpty())
 
         <li class="nav-item {{ ( ( Request::is('admin/dompetdigital/*') || Request::is('admin/dompetdigital') || Request::is('admin/approvedompetdigital/*') || Request::is('admin/approvedompetdigital') ) ? ' active' : '' ) }}">
           <a class="nav-link" data-toggle="collapse" href="#dompet-digital" aria-expanded="false" aria-controls="ui-basic">
@@ -301,7 +301,7 @@ if(!$notifications){
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensisiswasaya/*') || Request::is('admin/absensisiswasaya') ? 'active' : '' }}" href="{{url('admin/absensisiswasaya')}}">Absensi Saya (Siswa)<span class="d-none">Absensi Saya (Siswa)</span></a></li>
               @endif
 
-        @if(Auth::user()->role_id == 5  )
+        @if(Auth::user()->role_id == 5 && DB::table("pegawai")->where("user_id",Auth::user()->id)->where("is_pengawas_sekolah","Y")->get()->isEmpty() )
 
               <li class="nav-item"> <a class="nav-link {{Request::is('admin/absensipegawaisaya/*') || Request::is('admin/absensipegawaisaya') ? 'active' : '' }}" href="{{url('admin/absensipegawaisaya')}}">Absensi Saya (Pegawai)<span class="d-none">Absensi Saya (Pegawai)</span></a></li>
               @endif

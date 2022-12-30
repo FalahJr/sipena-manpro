@@ -125,7 +125,7 @@ class AbsensiSiswaController extends Controller
     }
 
     public static function getAbsensiSiswaJson(Request $req) {
-      $data = AbsensiSiswaController::getAbsensiSiswa($req->kelasid, $req->tanggal);
+      $data = AbsensiSiswaController::getAbsensiSiswa($req->kelasid, $req->tanggal, $req->userid);
 
       return response()->json($data);
     }
