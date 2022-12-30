@@ -25,7 +25,7 @@
                                 {{-- <th>Foto</th> --}}
                                 <th>Nama Kantin</th>
                                 <th>Nama Pembeli</th>
-                                <th>Pembelian</th>
+                                <th>Keterangan</th>
                                 <th>Total Harga</th>
                                 <th>Tanggal Pembelian</th>
                                 <th>Metode Pembayaran</th>
@@ -105,11 +105,11 @@ var table = $('#table-data').DataTable({
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           // {data: 'image', name: 'image'},
           {data: 'kantin', name: 'kantin'},
-          {data: 'user_id', name: 'user_id'},
-          {data: 'pembelian', name: 'pembelian'},
-          {data: 'total_pembayaran', name: 'total_pembayaran'},
+          {data: 'nama_pembeli', name: 'nama_pembeli'},
+          {data: 'keterangan', name: 'keterangan'},
+          {data: 'harga_total', name: 'harga_total'},
           {data: 'tanggal_pembelian', name: 'tanggal_pembelian'},
-          {data: 'is_cash', name: 'is_cash'},
+          {data: 'pembayaran', name: 'pembayaran'},
           {data: 'aksi', name: 'aksi'},
         ]
   });
