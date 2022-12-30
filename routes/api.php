@@ -120,13 +120,15 @@ Route::middleware('api')->group(function () {
 
     //Kantin
     Route::post('/bayar-koperasi', 'Koperasi\TransaksiController@APIbayar');
-    Route::post('/bayar-kantin', 'BayarKantinController@APIbayar');
+    // Route::post('/bayar-kantin', 'BayarKantinController@APIbayar');
+    Route::post('/bayar-kantin', 'TransaksiKantinController@APIsimpan');
     Route::post('/tambah-transaksi', 'BayarKantinController@APIbayar');
     Route::post('/kantin', 'BayarKantinController@getData');
     Route::get('/transaksi-kantin', 'TransaksiKantinController@getData');
     Route::get('/transaksi-koperasi', 'Koperasi\TransaksiController@getData');
     Route::post('/transaksi-kantin', 'TransaksiKantinController@APIupdate');
     Route::delete('/transaksi-kantin/{id}', 'TransaksiKantinController@delete');
+    Route::get('/list-menu', 'TransaksiKantinController@getMenu');
 
     // list koperasi
     Route::post('/list-koperasi', 'Koperasi\ListController@insertOrUpdate');
