@@ -43,18 +43,21 @@ class loginController extends Controller
               $user->data = $cekdata;
             } else if($user->roleid == 3) {
               $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
-              $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as kelas")->where("wali_murid_id", $cekdata->id)->first();
+              $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as kelas")->where("wali_murid_id", $cekdata->id)->get()->toArray();
 
               if($ceksiswa != null) {
-                $cekkelas = DB::table("kelas")->where("id", $ceksiswa->kelas_id)->first();
+                foreach ($ceksiswa as $key => $value) {
+                    $cekkelas = DB::table("kelas")->where("id", $value->kelas_id)->first();
+
+                    if($cekkelas != null) {
+                      $ceksiswa[$key]->kelas = $cekkelas;
+                    } else {
+                      $ceksiswa[$key]->kelas = $oVal;
+                    }
+                }
 
                 $user->siswa = $ceksiswa;
 
-                if($cekkelas != null) {
-                  $user->siswa->kelas = $cekkelas;
-                } else {
-                  $user->siswa->kelas = $oVal;
-                }
               } else {
                 $user->siswa = $oVal;
               }
@@ -121,18 +124,20 @@ class loginController extends Controller
                 $user->data = $cekdata;
             } else if($user->roleid == 3) {
                 $cekdata = DB::table("wali_murid")->where('user_id', $user->id)->first();
-                $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as kelas")->where("wali_murid_id", $cekdata->id)->first();
+                $ceksiswa = DB::table("siswa")->select("siswa.*", "siswa.id as kelas")->where("wali_murid_id", $cekdata->id)->get()->toArray();
 
                 if($ceksiswa != null) {
-                  $cekkelas = DB::table("kelas")->where("id", $ceksiswa->kelas_id)->first();
+                  foreach ($ceksiswa as $key => $value) {
+                      $cekkelas = DB::table("kelas")->where("id", $value->kelas_id)->first();
+
+                      if($cekkelas != null) {
+                        $ceksiswa[$key]->kelas = $cekkelas;
+                      } else {
+                        $ceksiswa[$key]->kelas = $oVal;
+                      }
+                  }
 
                   $user->siswa = $ceksiswa;
-
-                  if($cekkelas != null) {
-                    $user->siswa->kelas = $cekkelas;
-                  } else {
-                    $user->siswa->kelas = $oVal;
-                  }
                 } else {
                   $user->siswa = $oVal;
                 }

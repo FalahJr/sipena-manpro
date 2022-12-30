@@ -53,7 +53,7 @@ class TransaksiController extends Controller
         return  '<div class="btn-group">' .
           '<a href="transaksi-koperasi/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/transaksi-koperasi/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="transaksi-koperasi/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })->addColumn('penjualan', function ($data) {
         $items = DB::table("koperasi_penjualan")->where('koperasi_transaksi_id',$data->id)

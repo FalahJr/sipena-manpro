@@ -50,7 +50,7 @@ class KegiatanOsisController extends Controller
         return  '<div class="btn-group">' .
           '<a href="kegiatan-osis/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/kegiatan-osis/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="kegiatan-osis/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })
       // ->addColumn('status', function ($data) {
@@ -58,7 +58,7 @@ class KegiatanOsisController extends Controller
       //     return '<p class="btn btn-success btn-lg" title="acc">' .
       //     '<label class="fa fa-check">ACC</label></p>';
       //   }else{
-      //     return '<a href="/admin/kegiatan-osis/set-acc/'.$data->id.'" class="btn btn-warning btn-lg" title="acc">' .
+      //     return '<a href="kegiatan-osis/set-acc/'.$data->id.'" class="btn btn-warning btn-lg" title="acc">' .
       //     '<label class="fa">ACC Sekarang</label></a>';
       //   }
       // })
