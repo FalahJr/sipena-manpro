@@ -141,7 +141,6 @@ class loginController extends Controller
                         $user->siswa->kelas = $oVal;
                       }
                   }
-
                 } else {
                   $user->siswa = $oVal;
                 }
