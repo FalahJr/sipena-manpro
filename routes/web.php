@@ -166,6 +166,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/bayar-kantin', 'BayarKantinController@index');
         Route::get('/bayar-kantin/table', 'BayarKantinController@datatable');
         Route::get('/bayar-kantin/{id}', 'BayarKantinController@toBayar');
+        Route::post('/bayar-kantin/bayar', 'BayarKantinController@bayar');
         Route::post('/bayar-kantin/simpan', 'BayarKantinController@simpan');
         Route::get('/bayar-kantin/hapus/{id}', 'BayarKantinController@hapus');
         Route::post('/bayar-kantin/update', 'BayarKantinController@update');
@@ -179,16 +180,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/transaksi-kantin/table', 'TransaksiKantinController@datatable');
         Route::post('/transaksi-kantin/update', 'TransaksiKantinController@update');
         Route::get('/transaksi-kantin/edit/{id}', 'TransaksiKantinController@edit');
-        Route::post('/transaksi-kantin', 'TransaksiKantinController@simpan');
-
-
-        //list menu kantin
-        Route::get('/menu-kantin', 'MenuKantinController@index');
-        Route::post('/menu-kantin/simpan', 'MenuKantinController@simpan');
-        Route::get('/menu-kantin/hapus/{id}', 'MenuKantinController@hapus');
-        Route::get('/menu-kantin/table', 'MenuKantinController@datatable');
-        Route::post('/menu-kantin/update', 'MenuKantinController@update');
-        Route::get('/menu-kantin/edit/{id}', 'MenuKantinController@edit');
 
         //Perpustakaan
         Route::get('/katalog-buku', 'Perpustakaan\KatalogBukuController@index');
