@@ -49,7 +49,7 @@ class loginController extends Controller
                 $inIDSiswa = [];
 
                 foreach ($cekdata as $key => $value) {
-                    $inIDSiswa[$key] = $value->kelas_id;
+                    $inIDSiswa[$key] = $value[$key]->kelas_id;
                 }
 
                 $cekkelas = DB::table("kelas")->whereIn("id", $inIDSiswa)->get();
@@ -133,7 +133,7 @@ class loginController extends Controller
                   $inIDSiswa = [];
 
                   foreach ($cekdata as $key => $value) {
-                      $inIDSiswa[$key] = $value->kelas_id;
+                      $inIDSiswa[$key] = $value[$key]->kelas_id;
                   }
 
                   $cekkelas = DB::table("kelas")->whereIn("id", $inIDSiswa)->get();
