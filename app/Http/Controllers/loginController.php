@@ -132,9 +132,8 @@ class loginController extends Controller
                 if($ceksiswa != null) {
                   $inIDSiswa = [];
 
-                  foreach ($cekdata as $key => $value) {
-                    dd($value);
-                      $inIDSiswa[$key] = $value[$key]->kelas_id;
+                  foreach ($ceksiswa as $key => $value) {
+                      $inIDSiswa[$key] = $value->kelas_id;
                   }
 
                   $cekkelas = DB::table("kelas")->whereIn("id", $inIDSiswa)->get();
