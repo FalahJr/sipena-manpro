@@ -33,20 +33,36 @@
           
           <form action="{{url('admin/transaksi-kantin/update')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <tr>
+              <td>Nama Kantin<span style="color:red;">*</span></td>
+              <td>
+                <input type="hidden" class="form-control form-control-sm id" value="{{$data->id}}" name="id">
+                <select class="form-control form-control-sm inputtext walikelas" name="kantin_id" disabled>
+                  <option disabled selected value>Pilih</option>
+                    <?php foreach($items as $item){ ?>
+                    <option value="<?= $item->id ?>" @if($item->id == $kantin_id->id) selected @endif>
+                      <?= $item->nama ?>
+                    </option>
+                    <?php }?>
+                  </select>
+              </td>
+            </tr>
           <tr>
-            <td>Tanggal Pembelian</td>
+            <td>Nama Pembeli</td>
             <td>
-              <input type="date" class="form-control form-control-sm inputtext namaPembeli" value="{{$data->tanggal_pembelian}}" name="tanggal_pembelian">
-              <input type="hidden" class="form-control form-control-sm inputtext namaPembeli" value="{{$data->id}}" name="id">
+              <input type="text" class="form-control form-control-sm inputtext namaPembeli" value="{{$data->nama_pembeli}}" name="nama_pembeli" disabled>
             </td>
           </tr>
+          <tr>
+            <td>Keterangan <span style="color:red;">*</span></td>
+            <td>
+              <textarea class="form-control form-control-sm deskripsi @if($errors->has('keterangan')) is-invalid @endif" value="{{$data->keterangan}}" name="keterangan" rows="8" cols="80">{!! htmlspecialchars($data->keterangan) !!}</textarea>
+            </td>
+          <tr>
             <tr>
-              <td>Metode Pembayaran</td>
+              <td>Total Harga</td>
               <td>
-                <select name="is_cash">
-                  <option value="Y" @if($data->is_cash == "Y") selected @endif>Cash</option>
-                  <option value="N" @if($data->is_cash == "N") selected @endif>Non-Cash</option>
-                </select>
+                <input type="text" class="form-control form-control-sm inputtext totalHarga" value="{{$data->harga_total}}" name="total_harga" disabled>
               </td>
             </tr>
           <button class="btn btn-success mt-3" id="simpan" type="submit">Simpan Data</button>
