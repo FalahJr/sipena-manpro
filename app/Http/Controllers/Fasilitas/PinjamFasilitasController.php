@@ -57,7 +57,7 @@ class PinjamFasilitasController extends Controller
         return  '<div class="btn-group">' .
           '<a href="pinjam-fasilitas/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/pinjam-fasilitas/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="pinjam-fasilitas/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })
       ->addColumn('user', function ($data) {

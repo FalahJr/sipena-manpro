@@ -59,7 +59,7 @@ class SumbangBukuController extends Controller
         return  '<div class="btn-group">' .
           '<a href="sumbang-buku/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/sumbang-buku/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="sumbang-buku/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })->addColumn('foto', function ($data) {

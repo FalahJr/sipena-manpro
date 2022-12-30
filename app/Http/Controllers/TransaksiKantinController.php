@@ -58,7 +58,7 @@ class TransaksiKantinController extends Controller
         return  '<div class="btn-group">' .
           '<a href="transaksi-kantin/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/transaksi-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="transaksi-kantin/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>';
       })
       ->addColumn('tanggal_pembelian', function ($data) {

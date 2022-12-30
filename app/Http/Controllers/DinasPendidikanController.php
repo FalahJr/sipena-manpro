@@ -47,7 +47,7 @@ class DinasPendidikanController extends Controller
         return  '<div class="btn-group">' .
           '<a href="dinas-pendidikan/edit/' . $data->id . '" class="btn btn-info btn-lg">'.
           '<label class="fa fa-pencil-alt"></label></a>' .
-          '<a href="/admin/dinas-pendidikan/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
+          '<a href="dinas-pendidikan/hapus/'.$data->id.'" class="btn btn-danger btn-lg" title="hapus">' .
           '<label class="fa fa-trash"></label></a>' .
           '</div>';
       })->addColumn('foto_profil', function ($data) {
